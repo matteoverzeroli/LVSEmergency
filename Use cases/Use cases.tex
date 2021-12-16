@@ -4,12 +4,23 @@
 		headings=twolinechapter,
 		numbers=autoenddot,
 ]{article}
+
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
+\usepackage{import}
+\usepackage{todonotes}
+\usepackage{color}
+
+
 \title{Use cases}
 \author{Lorenzo Leoni, Davide Salvetti, Matteo Verzeroli}
 \begin{document}
 	\maketitle
-	\section{Test}
-	Inizio test
+	\section{Iterazione 0}
+	\subsection{Casi d'uso: Volontario}
+	\import{./TextFiles}{Volontario.tex}
+	\subsection{Casi d'uso: Caposquadra}
+	\import{./TextFiles}{Caposquadra.tex}
+	\subsection{Casi d'uso: Coordinatore}
+	\import{./TextFiles}{Coordinatore.tex}
 \end{document}
