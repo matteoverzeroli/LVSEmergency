@@ -10,6 +10,7 @@
 \usepackage{import}
 \usepackage{todonotes}
 \usepackage{color}
+\usepackage[normalem]{ulem}
 
 
 \title{Use cases}
@@ -18,10 +19,11 @@
 	\maketitle
 	\section{Iterazione 0}
 	\import{./TextFiles}{Iterazione0.tex}
-	
-	\clearpage
-	\section{Iterazione 1}
-	\import{./TextFiles}{Iterazione1.tex}
-	
-	
+	\subsection{Use Cases diagram}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\linewidth]{OtherFiles/Use cases diagram}
+		\caption{Use cases diagram.}
+		\label{fig:UseCaseDiagram}
+	\end{figure}
 \end{document}
