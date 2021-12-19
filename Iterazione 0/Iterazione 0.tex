@@ -10,20 +10,22 @@
 \usepackage{import}
 \usepackage{todonotes}
 \usepackage{color}
-\usepackage[normalem]{ulem}
-
+\usepackage{rotating}
 
 \title{Use cases}
 \author{Lorenzo Leoni, Davide Salvetti, Matteo Verzeroli}
 \begin{document}
 	\maketitle
 	\section{Iterazione 0}
-	\import{./TextFiles}{Iterazione0.tex}
+	\import{./TextFiles}{Use cases.tex}
+	
+	\clearpage
 	\subsection{Use Cases diagram}
-	\begin{figure}[h]
+	
+	\begin{sidewaysfigure}[h!]
 		\centering
 		\includegraphics[width=0.9\linewidth]{OtherFiles/Use cases diagram}
 		\caption{Use cases diagram.}
 		\label{fig:UseCaseDiagram}
-	\end{figure}
+	\end{sidewaysfigure}
 \end{document}
