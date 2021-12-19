@@ -1,0 +1,38 @@
+\subsection{Requisiti}
+
+Si vuole realizzare una applicazione che permetta la gestione delle squadre della Protezione Civile.  
+Gli attori in gioco sono i seguenti: 
+\begin{itemize}
+	\item \textbf{volontari}: coloro che operano durante gli interventi; 
+	\item \textbf{caposquadra}: responsabile di un gruppo di volontari durante gli interventi; 
+	\item \textbf{coordinatore}: amministratore del sistema, si occupa dell'inserimento di nuovi volontari e della creazione e modifica delle squadre.
+\end{itemize}
+
+I volontari sono organizzati in squadre ed ogni squadra ha un caposquadra che coordina le attività. Ogni squadra si occupa degli interventi all’interno di una specifica zona.
+
+Per ogni attore devono essere memorizzate le informazioni anagrafiche di base (nome, cognome, CF, residenza). In particolare, per i volontari dovrà essere memorizzato anche il loro stato operativo: un volontario può dichiararsi operativo solo quando sta partecipando ad un intervento. Quando un volontario è operativo, il suo caposquadra potrà tracciare in tempo reale la posizione del volontario. 
+
+Gli interventi possono essere di due tipi: programmati oppure emergenze. È compito del caposquadra creare un nuovo intervento. Per ogni intervento bisogna memorizzare alcune informazioni (tipo di intervento, descrizione dell'intervento, materiali utilizzati durante l’intervento, partecipanti, ora, luogo) e poi, al termine, generare un report (in formato PDF) con un riassunto dei dati ed eventuali foto scattate. Il caposquadra potrà poi visualizzare la lista degli interventi e i rispettivi report.  
+
+I volontari dovranno inserire delle ore di reperibilità. Nel momento in cui viene creato un intervento programmato o un intervento di emergenza, l’applicazione, sulla base delle reperibilità e della difficoltà dell’intervento, creerà una squadra temporanea formata da un certo numero di volontari e gli invierà una notifica. A questo punto i volontari parteciperanno all’intervento e potranno documentare tutto ciò che è stato fatto, caricare foto ed inserire i materiali utilizzati.
+
+Il coordinatore ha il compito di inserire nuovi volontari tesserati nel sistema ed assegnarli ad una squadra esistente, oppure di creare nuove squadre. Nel momento in cui il coordinatore crea una nuova squadra, dovrà inserire anche la zona a cui la squadra verrà assegnata.
+
+L’applicazione fornirà anche la possibilità agli operatori di essere notificati con avvisi riguardanti bollettini meteo, terremoti, allerte della protezione civile nazionali ed eventi particolari provenienti da stazioni installate sul territorio. Le informazioni per generare gli avvisi vengono recuperate tramite le seguenti API: 
+\begin{itemize}
+	\item APRS.FI: sito utilizzato dai radioamatori per la condivisione di dati open. Il sito fornisce alcune API REST da cui è possibile richiedere informazioni su stazioni meteorologiche pubbliche;
+	\item OpenWeatherMap: il sito permette di scaricare informazioni meteorologiche, previsioni e dati sulla qualità dell’aria in tutta Italia tramite delle API REST;
+	\item INGV Earthquake event: permette di ricevere informazioni sui terremoti che si sono verificati in una particolare area geografica.
+	\item Protezione Civile POP: web app che fornisce delle API tramite cui è possibile scaricare i bollettini giornalieri della protezione civile (recuperati dalla repository Github della protezione civile) riguardo al rischio idraulico ed idrogeologico e temporali;
+	\item Recupero di dati da stazioni personalizzate posizionate da una squadra. La stazione fornirà una API dalla quale poter recuperare dati di interesse (per esempio dati meteorologici o livello di torrenti). 
+\end{itemize}
+
+Le stazioni personalizzate installate dalla squadra saranno realizzate tramite prototipi Arduino/Rasperry e sensori (reali o simulati) ed esporranno un API REST alla quale richiedere le informazioni mediante un protocollo da noi definito. Ad esempio, si potrà realizzare un sistema di monitoraggio del livello dell’acqua di valli, per essere avvisati in caso di straripamento, oppure dati metereologici (per esempio temperatura, umidità, vento) per avere informazioni dettagliate su un’area di particolare interesse (per esempio aree protette o risorse naturali). 
+
+Il caposquadra potrà decidere a quali servizi di notifica, riguardanti la zona della sua squadra, vuole sottoscriversi. Sarà possibile, infatti, richiedere di essere informati sulle condizioni meteo ed altre allerte derivanti da un’analisi dei dati (che sarà effettuata dalla nostra applicazione) di una/più stazione/i accessibili su APRS.FI, specificando il codice della centralina desiderata. Oppure, potrà scegliere di ricevere i bollettini meteo basati sulle previsioni di OpenWeatherMap (che fornisce previsioni più precise ma riguardanti una zona più generica rispetto all’area operativa della squadra). Oppure, in base alla località assegnata alla squadra potrà richiedere di essere avvisato in caso di terremoti in quella zona. Infine, si può richiedere di essere avvisati sui bollettini giornalieri emessi dalla protezione civile nazionale. Indicando poi le API di riferimento delle stazioni personalizzate e la tipologia del dato richiesto (temperatura, livello acqua, etc.) sarà possibile essere avvisati su particolari eventi derivanti da un’analisi dei dati ricevuti. 
+
+L'applicazione analizzerà i dati meteorologici provenienti dalle stazioni meteorologiche (su APRS.FI o personali) per generare previsioni a breve termine e avvisare le squadre in caso di particolari fenomeni (vento forte = attenzione alla possibilità di incidenti dovuti alla caduta di piante, temperatura sotto lo zero = possibile ghiaccio, livelli di pioggia elevati = allagamenti, livello acqua fiume elevato = possibilità esondazioni). 
+
+All’interno dell’applicazione verranno anche utilizzate delle mappe (fornite da OpenStreetMap) per visualizzare il luogo degli interventi o la posizione dei volontari operativi. Inoltre, in fase di registrazione verranno utilizzate delle API (fornite dal sito https://comuni-ita.herokuapp.com/) che permettono di ricevere alcune informazioni (posizione, cap, codice istat, etc.) sui comuni italiani.
+
+L’applicazione potrà essere utilizzata su dispositivi mobili o computer, dopo che l'utente ha effettuato l'autenticazione. 
