@@ -8,35 +8,38 @@ Di seguito vengono riportati i casi d'uso raggruppati in base all'attore. Gli at
 
 \subsubsection{Casi d'uso: Volontario}
 \begin{itemize}
-	\item \textbf{UC1 - Gestione account}:
-	come volontario, voglio poter visualizzare e modificare le informazioni relative al mio account.
+	\item \textbf{UC1 - Login}:
+	come coordinatore, voglio poter accedere al mio profilo personale.
 	
-	\item \textbf{UC2 - Login}:
-	come volontario, voglio poter accedere al mio profilo personale.
+	\item \textbf{UC2 - Logout}:
+	come coordinatore, voglio poter disconnettere il mio profilo personale dall'applicazione.
 	
-	\item \textbf{UC3 - Logout}:
-	come volontario, voglio poter disconnettere il mio profilo personale dall'applicazione.
+	\item \textbf{UC3 - Visualizzazione informazioni account}:
+	come utilizzare dell'applicazione, voglio poter accedere alle informazioni relative al mio account.
 	
-	\item \textbf{UC4 - Gestione reperibilità}:
+	\item \textbf{UC4 - Visualizzazione informazioni squadra}:
+	come volontario, voglio poter accedere alle informazioni relative alla mia squadra.
+	
+	\item \textbf{UC5 - Gestione reperibilità}:
 	come volontario, voglio poter indicare e modificare le mie ore di reperibilità.
 	
-	\item \textbf{UC5 - Visualizzazione informazioni squadra}:
-	come volontario, voglio poter visualizzare le informazioni relative alla mia squadra.
+	\item \textbf{UC6 - Segnalazione operatività}:
+	come volontario, voglio poter segnalare quando sono operativo e mi trovo sul luogo dell'intervento.
 	
-	\item \textbf{UC6 - Visualizza intervento programmato}:
+	\item \textbf{UC7 - Visualizzazione intervento di emergenza}:
+	come volontario, voglio poter visualizzare le informazioni relative ad un intervento di emergenza a cui sono stato assegnato.
+	
+	\item \textbf{UC8 - Visualizzazione intervento programmato}:
 	come volontario, voglio poter visualizzare le informazioni relative ad un intervento programmato a cui sono stato assegnato.
 	
-	\item \textbf{UC7 - Visualizza emergenza}:
-	come volontario, voglio poter visualizzare le informazioni relative ad un intervento d'emergenza a cui sono stato assegnato.
+	\item \textbf{UC9 - Inserimento informazioni intervento}:
+	come volontario, voglio poter arricchire la documentazione relativa all'intervento, programmato oppure di emergenza, a cui sono stato assegnato tramite foto e osservazioni.
 	
-	\item \textbf{UC8 - Visualizza informazioni zona}:
+	\item \textbf{UC10 - Visualizzazione posizione real-time}:
+	come volontario, voglio poter visualizzare su una mappa la posizione in tempo reale dei colleghi operativi appartenenti alla mia squadra durante un intervento.
+	
+	\item \textbf{UC18 - Visualizzazione informazioni zona}:
 	come volontario, voglio poter consultare le informazioni riguardanti il meteo, terremoti, qualità dell'aria, stazioni personalizzate relative alla zona assegnata alla mia squadra.
-	
-	\item \textbf{UC9 - Inserimento informazioni report}:
-	come volontario, voglio poter arricchire la documentazione relativa ad un intervento, aggiungendo osservazioni e foto.
-	
-	\item \textbf{UC10 - Segnalazione operatività}:
-	come volontario, voglio poter segnalare quando sono operativo e mi trovo sul luogo dell'intervento.
 \end{itemize}
 
 
@@ -45,52 +48,48 @@ Di seguito vengono riportati i casi d'uso raggruppati in base all'attore. Gli at
 \subsubsection{Casi d'uso: Caposquadra}
 Il caposquadra include tutti i casi d'uso del volontario più i seguenti:
 \begin{itemize}
-	\item \textbf{UC11 - Gestione report intervento programmato}:
-	come caposquadra, voglio poter visualizzare e modificare i report riguardanti gli interventi programmati creati da me.
+	\item \textbf{UC11 - Gestione intervento di emergenza}:
+	come caposquadra, voglio poter creare, modificare o eliminare un intervento di emergenza.
 	
-	\item \textbf{UC12 - Gestione report emergenza}:
-	come caposquadra, voglio poter visualizzare e modificare i report riguardanti le emergenze create da me.
-	
-	\item \textbf{UC13 - Gestione intervento programmato}:
+	\item \textbf{UC12 - Gestione intervento programmato}:
 	come caposquadra, voglio poter creare, modificare o eliminare un intervento programmato.
 	
-	\item \textbf{UC14 - Gestione intervento emergenza}:
-	come caposquadra, voglio poter creare, modificare o eliminare un intervento d'emergenza.
+	\item \textbf{UC13 - Gestione report intervento di emergenza}:
+	come caposquadra, voglio poter visualizzare e modificare i report riguardanti gli interventi di emergenza creati da me.
 	
-	\item \textbf{UC15 - Visualizzazione posizione real-time}:
-	come caposquadra, voglio poter visualizzare su una mappa la posizione in tempo reale dei volontari operativi appartenenti alla mia squadra durante un intervento.
-	
-	\item \textbf{UC16 - Amministrazione squadra}:
-	come caposquadra, voglio poter visualizzare e modificare le giacenze del magazzino e compilare il bilancio relativo alla mia squadra.
-	
-	\item \textbf{UC17 - Notifiche allarmi zona}:
+	\item \textbf{UC14 - Gestione report intervento programmato}:
+	come caposquadra, voglio poter visualizzare e modificare i report riguardanti gli interventi programmati creati da me.
+		
+	\item \textbf{UC19 - Notifiche allarmi zona}:
 	come caposquadra, voglio poter decidere su quali eventuali allarmi, relativi alla mia zona, essere notificato.
 	
-	\item \textbf{UC18 - Gestione informazioni relative alla zona}:
-	come caposquadra, voglio poter definire quali informazioni (meteorologiche, terremoti, stazioni personalizzate, bollettini protezione civile) ricevere.
+	\item \textbf{UC20 - Gestione informazioni relative alla zona}:
+	come caposquadra, voglio poter definire quali informazioni (meteorologiche, terremoti, stazioni personalizzate, bollettini protezione civile) ricevere. Inoltre, voglio poter fornire ai membri della mia squadra le indicazioni per accedere ai dati delle stazione meteorologiche d'interesse per uno specifico intervento.
 \end{itemize}
-
-
-
 
 \subsubsection{Casi d'uso: Coordinatore}
 \begin{itemize}
-	\item \textbf{UC1 - Gestione account}:
-	c coordinatore, voglio poter visualizzare e modificare le informazioni relative al mio account.
-	
-	\item \textbf{UC2 - Login}:
+	\item \textbf{UC1 - Login}:
 	come coordinatore, voglio poter accedere al mio profilo personale.
 	
-	\item \textbf{UC3 - Logout}:
+	\item \textbf{UC2 - Logout}:
 	come coordinatore, voglio poter disconnettere il mio profilo personale dall'applicazione.
 	
-	\item \textbf{UC19 - Inserimento volontari}:
-	come coordinatore, voglio poter inserire nuovi volontari.
+	\item \textbf{UC3 - Visualizzazione informazioni account}:
+	come utilizzare dell'applicazione, voglio poter accedere alle informazioni relative al mio account.
 	
-	\item \textbf{UC20 - Gestione squadre}:
-	come coordinatore, voglio poter creare, modificare ed eliminare le squadre.
+	\item \textbf{UC4 - Visualizzazione informazioni squadra}:
+	come coordinatore, voglio poter accedere alle informazioni relative alle squadre da me create.
+	
+	\item \textbf{UC15 - Inserimento volontario}:
+	come coordinatore, voglio poter inserire un nuovo volontario.
+	
+	\item \textbf{UC16 - Cancellazione volontario}:
+	come coordinatore, voglio poter cancellare un volontario.
+	
+	\item \textbf{UC17 - Gestione squadre}:
+	come coordinatore, voglio poter creare, modificare, eliminare le squadre e assegnare a ognuna di esse un caposquadra.
 \end{itemize}
-
 
 \clearpage
 \subsection{Diagramma dei casi d'uso}
