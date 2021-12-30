@@ -1,0 +1,50 @@
+\documentclass[
+a4paper,
+cleardoublepage=empty,
+headings=twolinechapter,
+numbers=autoenddot,
+]{scrbook}
+
+\usepackage[legalpaper, portrait, margin=1in]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{import}
+\usepackage{todonotes}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage{hyperref}
+
+\title{Progetto PAC - Protezione Civile}
+\author{Lorenzo Leoni, Davide Salvetti, Matteo Verzeroli}
+\begin{document}
+	\maketitle
+	\tableofcontents
+	
+	\mainmatter
+	\chapter{Iterazione 0}
+
+	\import{./Iterazione 0/TextFiles}{Requisiti.tex}
+	\import{./Iterazione 0/TextFiles}{Use cases.tex}
+	\import{./Iterazione 0/TextFiles}{Architettura.tex}
+	\clearpage
+	
+	\chapter{Iterazione 1}
+	\import{./Iterazione 1/TextFiles}{System View.tex}
+	
+	\clearpage
+	
+	\import{./Iterazione 1/TextFiles}{Component View.tex}
+	
+	\clearpage
+	
+	\import{./Iterazione 1/TextFiles}{Data Class View.tex}
+	
+	\clearpage
+	
+	\import{./Iterazione 1/TextFiles}{Interface Diagram.tex}
+	
+	\clearpage
+	
+	\import{./Iterazione 0/TextFiles}{Toolchain.tex}
+\end{document}
