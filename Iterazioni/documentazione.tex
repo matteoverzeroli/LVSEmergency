@@ -1,9 +1,4 @@
-\documentclass[
-a4paper,
-cleardoublepage=empty,
-headings=twolinechapter,
-numbers=autoenddot,
-]{scrbook}
+\documentclass{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
@@ -13,13 +8,17 @@ numbers=autoenddot,
 \usepackage{rotating}
 \usepackage{hyperref}
 
+\usepackage{pdflscape}
+
+\usepackage{geometry}
+\geometry{portrait, margin=3cm}
+
 \title{Progetto PAC - Protezione Civile}
 \author{Lorenzo Leoni, Davide Salvetti, Matteo Verzeroli}
 \begin{document}
 	\maketitle
 	\tableofcontents
 	
-	\mainmatter
 	\chapter{Iterazione 0}
 
 	\import{./Iterazione 0/TextFiles}{Requisiti.tex}
@@ -36,7 +35,7 @@ numbers=autoenddot,
 	
 	\clearpage
 	
-	\import{./Iterazione 1/TextFiles}{Data Class View.tex}
+	\import{./Iterazione 1/TextFiles}{Data Class View.tex}	
 	
 	\clearpage
 	
