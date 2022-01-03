@@ -1,0 +1,146 @@
+\section{Implementazione}
+Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla alla luce del fatto che nella prima iterazione abbiamo già inserito tutti i diagrammi e qui dovremmo specificare i casi d'uso e tutti i diagrammi credo.} sono stati implementati i seguenti casi d'uso:
+\begin{itemize}
+	\item UC1 - Login;
+	\item UC2 - Logout;
+	\item UC15 - Inserimento volontario;
+	\item UC16 - Cancellazione volontario;
+	\item UC17 - Gestione squadre [Astratto]:
+	\begin{itemize}
+		\item UC17.1 - Creazione squadra;
+		\item UC17.2 - Modifica squadra;
+		\item UC17.3 - Elimina squadra;
+		\item UC17.4 - Visualizza squadra.
+	\end{itemize}
+\end{itemize}
+
+\subsection{UC1 - Login}
+\textit{Breve descrizione:} L'utente compila il form per eseguire il login: in caso di credenziali corrette il sistema consente l'accesso ai servizi, altrimenti notifica l'utente della non correttezza delle credenziali. 
+\\
+\\
+\textit{Attori coinvolti:} Volontario, caposquadra, coordinatore, sistema.
+\\
+\\
+\textit{Trigger:}
+\\
+\\
+\textit{Precondizione:} L'utente è registrato nel sistema.
+\\
+\\
+\textit{Postcondizione:} L'utente accede alla \textit{login page} (in caso le credenziali siano corrette) oppure viene notificato dell'incorrettezza delle credenziali.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item il sistema richiede all'utente le informazioni di accesso (email e password).
+	\item l'utente inserisce le informazioni di accesso.
+	\item il sistema controlla le informazioni fornite.
+	\item le informazioni sono corrette. [E1: le informazioni sono sbagliate].
+	\item l'utente viene loggato nel sistema.
+\end{enumerate}
+
+
+\textit{Eccezioni:}
+\begin{enumerate}
+	\item E1:
+	\begin{enumerate}
+		\item le informazioni sono sbagliate.
+		\item il sistema comunica all'utente che le informazioni inserite non sono corrette.
+		\item ritorno al passo 1 del "Procedimento".
+	\end{enumerate}
+\end{enumerate}
+
+
+
+\subsection{UC2 - Logout}
+\textit{Breve descrizione:} il sistema esegue il logout dell'utente.
+\\
+\\
+\textit{Attori coinvolti:} volontario, caposquadra, coordinatore, sistema.
+\\
+\\
+\textit{Trigger:}
+\\
+\\
+\textit{Precondizione:} l'utente è loggato nel sistema.
+\\
+\\
+\textit{Postcondizione:} L'utente viene rimandato alla \textit{login page} e non è più loggato nel sistema.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item l'utente richiede al sistema di eseguire il logout.
+	\item il sistema effettua il logout dell'utente.
+\end{enumerate}
+
+
+\subsection{UC15 - Inserimento volontario}
+\textit{Breve descrizione:} Il coordinatore compila il form per inserire un nuovo volontario di cui ha ricevuto una richiesta di iscrizione. 
+\\
+\\
+\textit{Attori coinvolti:} coordinatore, sistema.
+\\
+\\
+\textit{Trigger:}
+\\
+\\
+\textit{Precondizione:} il coordinatore è loggato nel sistema.
+\\
+\\
+\textit{Postcondizione:} il volontario viene inserito nel database e può accedere ai servizi.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item il coordinatore preme il pulsante per aggiungere un nuovo volontario.
+	\item il coordinatore fornisce le seguenti informazioni nel form per la registrazione di un nuovo volontario:
+	\begin{itemize}
+		\item Nome;
+		\item Cognome;
+		\item Codice Fiscale;
+		\item Numero Carta d'identità;
+		\item Email;
+		\item Numero di telefono;
+		\item Password;\todo{è una stupidaggine che inserisca il coordinatore la password, in questo momento è solo ed esclusivamente per semplificare. è ovvio che poi questo sistema non va assolutamente bene. Aggiungere altri campi se necessari, questi sono i primi che mi son venuti in mente ma non sono gli unici}
+	\end{itemize}
+	\item il sistema verifica che email e codice fiscale non siano già associati ad altri utenti.
+	\item il sistema aggiunge il volontario con i rispettivi dati nel database [E1: i dati sono già stati associati ad un altro volontario presente nel database].
+\end{enumerate}
+
+
+\textit{Eccezioni:}
+\begin{enumerate}
+	\item E1:
+	\begin{enumerate}
+		\item i dati sono già associati ad un altro volontario presente nel database.
+		\item il sistema comunica al coordinatore che i dati sono già associati ad un altro volontario.
+		\item ritorno al passo 2 del "Procedimento".
+	\end{enumerate}
+\end{enumerate}
+
+\subsection{UC16 - Cancellazione volontario}
+\textit{Breve descrizione:} Il coordinatore cancella un volontario dal sistema. 
+\\
+\\
+\textit{Attori coinvolti:} coordinatore, sistema.
+\\
+\\
+\textit{Trigger:}
+\\
+\\
+\textit{Precondizione:} il coordinatore è loggato nel sistema.
+Il volontario che deve essere cancellato è inserito nel sistema.
+\\
+\\
+\textit{Postcondizione:} il volontario viene cancellato dal sistema.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item il coordinatore preme il pulsante per cancellate un volontario.
+	\item il volontario viene cancellato.
+\end{enumerate}
+\todo{Non ci sono eccezioni perchè il fatto che il volontario sia presente nel sistema è una precondizione. Per come lo faremo noi, il coordinatore scorre tra una lista di volontari e preme il pulsante elimina per eliminarli. Non è possibile quindi eliminare un volontario che non è presente nel sistema.}
+
+
