@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+    </qresource>
+    <qresource prefix="/views">
+        <file alias="LoginForm.qml">views/LoginForm.qml</file>
+    </qresource>
+</RCC>
