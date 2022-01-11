@@ -8,27 +8,47 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.websparrow.entity.Role;
+import org.websparrow.entity.State;
 import org.websparrow.entity.User;
 
 public class UserDetailsImpl implements UserDetails {
 
-	private static final long serialVersionUID = 1L;
-
-	private String userName;
+	private Integer idUser;
+	private String username;
+	private String name;
+	private String surname;
+	private String CF;	
 	private String password;
-	private boolean isActive;
+	private String address;
+	private Integer cellNumber;
+	private Character sex;
+	private String email;
+	private Integer team;
+	private String role;
+	private String state;
 	private List<GrantedAuthority> authorities;
 
 	public UserDetailsImpl(User user) {
-		this.userName = user.getUserName();
+		this.username = user.getUsername();
 		this.password = user.getPassword();
-		this.isActive = user.isActive();
-		this.authorities = Arrays.stream(user.getRoles().split(","))
+		this.name = user.getName();
+		this.surname = user.getSurname();
+		this.CF = user.getCF();
+		this.password = user.getPassword();
+		this.address = user.getAddress();
+		this.cellNumber = user.getCellNumber();
+		this.sex = user.getSex();
+		this.email = user.getEmail();
+		this.team = user.getTeam();
+		this.role = user.getRole();
+		this.state = user.getState();
+		
+		
+		this.authorities = Arrays.stream(user.getRole().toString().split(","))
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
 	}
-
-	public UserDetailsImpl() {}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -42,8 +62,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getUsername() {
-
-		return userName;
+		return username;
 	}
 
 	@Override
@@ -63,7 +82,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return isActive;
+		return true;
 	}
 
 }

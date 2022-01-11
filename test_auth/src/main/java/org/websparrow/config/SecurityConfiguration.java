@@ -10,12 +10,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.websparrow.entity.Role;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-	private static final String ADMIN = "ADMIN";
-	private static final String USER = "USER";
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -28,10 +26,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		  http.authorizeRequests()
-		  .antMatchers("/admin").hasRole(ADMIN)
+		  .antMatchers("/admin").hasRole(Role.ADMINISTARTOR.toString())
           .antMatchers("/all").permitAll()
-          .antMatchers("/user").hasAnyRole(ADMIN, USER)
-          .anyRequest().authenticated()
+          .antMatchers("/user").hasRole(Role.VOLUNTEER.toString())
+          .anyRequest().authenticated()                                                                
           .and()
           .httpBasic();
 	}

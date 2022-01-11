@@ -7,35 +7,64 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
-	private String userName;
+	private Integer idUser;
+	private String username;
+	private String name;
+	private String surname;
+	private String CF;	
 	private String password;
-	private boolean isActive;
-	private String roles;
-
-	// Generate Getters and Setters...
-
-	public Integer getId() {
-		return id;
+	private String address;
+	private Integer cellNumber;
+	private Character sex;
+	private String email;
+	private Integer team;
+	private String role;
+	private String state;
+	
+	public Integer getIdUser() {
+		return idUser;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer idUser) {
+		this.idUser = idUser;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getSurname() {
+		return surname;
+	}
+	
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+	
+	public String getCF() {
+		return CF;
+	}
+	public void setCF(String cF) {
+		CF = cF;
+	}
+		
 	public String getPassword() {
 		return password;
 	}
@@ -44,20 +73,59 @@ public class User {
 		this.password = password;
 	}
 
-	public boolean isActive() {
-		return isActive;
+	public String getAddress() {
+		return address;
 	}
-
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
+	
+	public void setAddress(String address) {
+		this.address = address;
 	}
-
-	public String getRoles() {
-		return roles;
+	
+	public Integer getCellNumber() {
+		return cellNumber;
 	}
-
-	public void setRoles(String roles) {
-		this.roles = roles;
+	
+	public void setCellNumber(Integer cellNumber) {
+		this.cellNumber = cellNumber;
 	}
-
+	
+	public Character getSex() {
+		return sex;
+	}
+	
+	public void setSex(Character sex) {
+		this.sex = sex;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+	
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	public Integer getTeam() {
+		return team;
+	}
+	
+	public void setTeam(Integer team) {
+		this.team = team;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+	
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	public String getState() {
+		return state;
+	}
+	
+	public void setState(String state) {
+		this.state = state;
+	}
 }
