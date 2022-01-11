@@ -1,4 +1,4 @@
-QT += quick quickcontrols2
+QT += core quick quickcontrols2
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -6,11 +6,13 @@ QT += quick quickcontrols2
 
 SOURCES += \
         accountManagementIF/authenticationcontroller.cpp \
+        helpers/utils.cpp \
         main.cpp \
         mastercontroller.cpp
 
 HEADERS += \
     accountManagementIF/authenticationcontroller.h \
+    helpers/utils.h \
     navigationcontroller.h \
     mastercontroller.h
 

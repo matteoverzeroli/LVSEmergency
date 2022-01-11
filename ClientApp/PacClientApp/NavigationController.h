@@ -3,15 +3,22 @@
 
 #include <QObject>
 
+/*!
+ * \brief Classe per la navigazione nelle schermate.
+ */
+
 class NavigationController : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit NavigationController(QObject* parent = nullptr) : QObject(parent){}
+    explicit NavigationController(QObject* parent = nullptr) : QObject(parent){
+
+    }
+
 
 signals:
-
+    void goDashboardView();
 
 };
 

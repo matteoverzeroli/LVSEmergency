@@ -29,22 +29,43 @@ Item {
 
 
                 TextField {
+                    id: userNameField
                     placeholderText: qsTr("Username")
                 }
             }
 
             Row {
-                spacing: 16
 
-                Label {
-                    id: password
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: qsTr("Password:")
-                }
 
-                TextField {
-                    placeholderText: qsTr("Password")
+                Column {
+                    spacing: 8
+                    Row {
+                        spacing: 16
+                        Label {
+                            id: password
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: qsTr("Password:")
+                        }
+
+                        TextField {
+                            id: passwordField
+                            placeholderText: qsTr("Password")
+                            echoMode: checkShowPassword.checked ? TextField.Normal : TextField.Password
+                        }
+                    }
+
+                    CheckBox {
+                        id: checkShowPassword
+                        text: qsTr("Mostra password")
+                        checked: false
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
                 }
+            }
+
+            Rectangle {
+                id: spacer
+                height: 16
             }
 
             Button {
@@ -55,7 +76,7 @@ Item {
                 Material.accent: Material.Green
 
                 onClicked: {
-                    masterController.ui_authenticationController.login("Pippo", "Pluto")
+                    masterController.ui_authenticationController.login(userNameField.text, passwordField.text)
                     console.log("Login clicked!")
                 }
             }

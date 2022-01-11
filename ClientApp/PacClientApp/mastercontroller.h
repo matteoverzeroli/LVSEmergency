@@ -14,6 +14,7 @@
 class MasterController : public QObject
 {
     Q_OBJECT
+
     // rendo accessibili le classi al lato QML
     Q_PROPERTY(NavigationController *ui_navigationController READ getNavigationController CONSTANT)
     Q_PROPERTY(accountmanagementIF::AuthenticationController *ui_authenticationController READ getAuthenticationController CONSTANT)

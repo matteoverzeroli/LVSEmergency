@@ -17,6 +17,10 @@ ApplicationWindow {
     Connections {
         target: masterController.ui_navigationController
 
+        function onGoDashboardView() {
+            console.log("Trying to go dashboard view")
+        }
+
     }
 
 
