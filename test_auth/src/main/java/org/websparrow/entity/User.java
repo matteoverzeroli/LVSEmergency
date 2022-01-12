@@ -1,5 +1,6 @@
 package org.websparrow.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,26 +13,26 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer idUser;
+	private Integer iduser;
 	private String username;
 	private String name;
 	private String surname;
 	private String CF;	
 	private String password;
 	private String address;
-	private Integer cellNumber;
+	private Integer cellnumber;
 	private Character sex;
 	private String email;
 	private Integer team;
 	private String role;
 	private String state;
 	
-	public Integer getIdUser() {
-		return idUser;
+	public Integer getiduser() {
+		return iduser;
 	}
 
-	public void setId(Integer idUser) {
-		this.idUser = idUser;
+	public void setId(Integer iduser) {
+		this.iduser = iduser;
 	}
 
 	public String getUsername() {
@@ -82,11 +83,11 @@ public class User {
 	}
 	
 	public Integer getCellNumber() {
-		return cellNumber;
+		return cellnumber;
 	}
 	
 	public void setCellNumber(Integer cellNumber) {
-		this.cellNumber = cellNumber;
+		this.cellnumber = cellNumber;
 	}
 	
 	public Character getSex() {
