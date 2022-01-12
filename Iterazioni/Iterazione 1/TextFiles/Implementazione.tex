@@ -15,19 +15,19 @@ Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla al
 \end{itemize}
 
 \subsection{UC1 - Login}
-\textit{Breve descrizione:} L'utente compila il form per eseguire il login: in caso di credenziali corrette il sistema consente l'accesso ai servizi, altrimenti notifica l'utente della non correttezza delle credenziali. 
+\textit{Breve descrizione:} l'utente compila il form per eseguire il login: in caso di credenziali corrette il sistema consente l'accesso ai servizi, altrimenti notifica l'utente della non correttezza delle credenziali. 
 \\
 \\
-\textit{Attori coinvolti:} Volontario, caposquadra, coordinatore, sistema.
+\textit{Attori coinvolti:} volontario, caposquadra, coordinatore, sistema.
 \\
 \\
 \textit{Trigger:}
 \\
 \\
-\textit{Precondizione:} L'utente è registrato nel sistema.
+\textit{Precondizione:} l'utente è registrato nel sistema.
 \\
 \\
-\textit{Postcondizione:} L'utente accede alla \textit{login page} (in caso le credenziali siano corrette) oppure viene notificato dell'incorrettezza delle credenziali.
+\textit{Postcondizione:} l'utente accede alla \textit{login page} (in caso le credenziali siano corrette) oppure viene notificato dell'incorrettezza delle credenziali.
 \\
 \\
 \textit{Procedimento:}
@@ -41,14 +41,14 @@ Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla al
 
 
 \textit{Eccezioni:}
-\begin{enumerate}
+\begin{itemize}
 	\item E1:
 	\begin{enumerate}
 		\item le informazioni sono sbagliate.
 		\item il sistema comunica all'utente che le informazioni inserite non sono corrette.
 		\item ritorno al passo 1 del "Procedimento".
 	\end{enumerate}
-\end{enumerate}
+\end{itemize}
 
 
 
@@ -65,7 +65,7 @@ Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla al
 \textit{Precondizione:} l'utente è loggato nel sistema.
 \\
 \\
-\textit{Postcondizione:} L'utente viene rimandato alla \textit{login page} e non è più loggato nel sistema.
+\textit{Postcondizione:} l'utente viene rimandato alla \textit{login page} e non è più loggato nel sistema.
 \\
 \\
 \textit{Procedimento:}
@@ -76,7 +76,7 @@ Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla al
 
 
 \subsection{UC15 - Inserimento volontario}
-\textit{Breve descrizione:} Il coordinatore compila il form per inserire un nuovo volontario di cui ha ricevuto una richiesta di iscrizione. 
+\textit{Breve descrizione:} il coordinatore compila il form per inserire un nuovo volontario di cui ha ricevuto una richiesta di iscrizione. 
 \\
 \\
 \textit{Attori coinvolti:} coordinatore, sistema.
@@ -110,17 +110,17 @@ Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla al
 
 
 \textit{Eccezioni:}
-\begin{enumerate}
+\begin{itemize}
 	\item E1:
 	\begin{enumerate}
 		\item i dati sono già associati ad un altro volontario presente nel database.
 		\item il sistema comunica al coordinatore che i dati sono già associati ad un altro volontario.
 		\item ritorno al passo 2 del "Procedimento".
 	\end{enumerate}
-\end{enumerate}
+\end{itemize}
 
 \subsection{UC16 - Cancellazione volontario}
-\textit{Breve descrizione:} Il coordinatore cancella un volontario dal sistema. 
+\textit{Breve descrizione:} il coordinatore cancella un volontario dal sistema. 
 \\
 \\
 \textit{Attori coinvolti:} coordinatore, sistema.
@@ -142,5 +142,46 @@ Il volontario che deve essere cancellato è inserito nel sistema.
 	\item il volontario viene cancellato.
 \end{enumerate}
 \todo{Non ci sono eccezioni perchè il fatto che il volontario sia presente nel sistema è una precondizione. Per come lo faremo noi, il coordinatore scorre tra una lista di volontari e preme il pulsante elimina per eliminarli. Non è possibile quindi eliminare un volontario che non è presente nel sistema.}
+
+\subsection{UC17.1 - Creazione squadra}
+\textit{Breve descrizione:} il coordinatore crea una nuova squadra. 
+\\
+\\
+\textit{Attori coinvolti:} coordinatore, sistema.
+\\
+\\
+\textit{Trigger:}
+\\
+\\
+\textit{Precondizione:} il coordinatore è loggato nel sistema.
+C'è almeno un caposquadra libero a cui può essere assegnata la squadra.
+\\
+\\
+\textit{Postcondizione:} la nuova squadra è inserita nel database.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item il coordinatore preme il pulsante per creare una nuova squadra.
+	\item il coordinatore inserisce le informazioni richieste per la creazione di una squadra, come:
+	\begin{itemize}
+		\item il nome della squadra.
+		\item il caposquadra (da scegliere tra quelli che non hanno già una squadra).
+		\item l'area di competenza della squadra.
+	\end{itemize}
+	\item il sistema verifica che il nome della squadra non sia già stato assegnato ad altre squadre [E1: il nome della squadra è già stato assegnato ad un'altra squadra].
+	\item il sistema inserisce la nuova squadra nel database. 
+\end{enumerate}
+
+\textit{Eccezioni:}
+\begin{itemize}
+	\item E1:
+	\begin{enumerate}
+		\item il nome della squadra è già stato assegnato.
+		\item il sistema comunica al coordinatore che il nome della squadra è già in uso.
+		\item ritorno al passo 2 del "Procedimento".
+	\end{enumerate}
+\end{itemize}
+
 
 
