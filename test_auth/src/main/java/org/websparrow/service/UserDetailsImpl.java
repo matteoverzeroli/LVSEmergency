@@ -14,14 +14,14 @@ import org.websparrow.entity.User;
 
 public class UserDetailsImpl implements UserDetails {
 
-	private Integer idUser;
+	private Integer iduser;
 	private String username;
 	private String name;
 	private String surname;
 	private String CF;	
 	private String password;
 	private String address;
-	private Integer cellNumber;
+	private Integer cellnumber;
 	private Character sex;
 	private String email;
 	private Integer team;
@@ -30,6 +30,7 @@ public class UserDetailsImpl implements UserDetails {
 	private List<GrantedAuthority> authorities;
 
 	public UserDetailsImpl(User user) {
+		this.iduser = user.getiduser();
 		this.username = user.getUsername();
 		this.password = user.getPassword();
 		this.name = user.getName();
@@ -37,7 +38,7 @@ public class UserDetailsImpl implements UserDetails {
 		this.CF = user.getCF();
 		this.password = user.getPassword();
 		this.address = user.getAddress();
-		this.cellNumber = user.getCellNumber();
+		this.cellnumber = user.getCellNumber();
 		this.sex = user.getSex();
 		this.email = user.getEmail();
 		this.team = user.getTeam();
@@ -83,6 +84,14 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+	
+	public Integer getiduser() {
+		return iduser;
+	}
+	
+	public String getRole() {
+		return role;
 	}
 
 }
