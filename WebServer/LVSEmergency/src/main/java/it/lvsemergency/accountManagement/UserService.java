@@ -1,9 +1,11 @@
 package it.lvsemergency.accountManagement;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -52,6 +54,29 @@ public class UserService implements UserDetailsService {
 		return userRepository.save(userToModify);
 	}
 	
+	public List<User> getUsers() {
+		return userRepository.findAll(Sort.by(Sort.Direction.ASC, "idUser"));
+	}
+	
+	public User getUser(Integer idUser) {
+		Optional<User> user = userRepository.findById(idUser);
+
+		if (!user.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist");
+
+		return user.get();
+	}
+	
+	public void deleteUser(Integer idUser) {
+		Optional<User> userToDelete = userRepository.findById(idUser);
+
+		if (!userToDelete.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user to delete");
+
+		userRepository.delete(userToDelete.get());
+	}
+
+
 	
 
 }
