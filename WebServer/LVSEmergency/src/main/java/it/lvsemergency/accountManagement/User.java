@@ -38,7 +38,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
 	
-	private String state;
+	@Enumerated(EnumType.STRING)
+	private OperativityRole state;
 	
 	User() {
 	}
@@ -46,7 +47,8 @@ public class User {
 	public User(Integer iduser, String username, String name, 
 			String surname, String CF, String password, 
 			String address, Integer cellnumber, Character sex, 
-			String email, Integer team, UserRole role, String state) {
+			String email, Integer team, UserRole role, 
+			OperativityRole state) {
 		super();
 		
 		this.idUser = iduser;
@@ -160,11 +162,11 @@ public class User {
 		this.role = role;
 	}
 	
-	public String getState() {
+	public OperativityRole getState() {
 		return state;
 	}
 	
-	public void setState(String state) {
+	public void setState(OperativityRole state) {
 		this.state = state;
 	}
 }

@@ -3,14 +3,21 @@ package it.lvsemergency.accountManagement;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserDTO {
 	
+	@NotNull 
 	private Integer idUser;
+	@NotEmpty 
 	private String username;
+	
 	private String name;
 	private String surname;
 	private String CF;	
@@ -22,10 +29,13 @@ public class UserDTO {
 	private Character sex;
 	private String email;
 	private Integer team;
-	
-	
+		
 	private UserRole role;
-	private String state;
+	private OperativityRole state;
+
+	public UserDTO() {
+		
+	}
 	
 	public UserDTO(User user) {
 		this.idUser = user.getIdUser();
@@ -139,11 +149,11 @@ public class UserDTO {
 		this.role = role;
 	}
 	
-	public String getState() {
+	public OperativityRole getState() {
 		return state;
 	}
 	
-	public void setState(String state) {
+	public void setState(OperativityRole state) {
 		this.state = state;
 	}
 }

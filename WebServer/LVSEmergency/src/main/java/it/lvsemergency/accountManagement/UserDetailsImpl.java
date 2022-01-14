@@ -11,36 +11,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserDetailsImpl implements UserDetails {
 
-	private Integer iduser;
-	private String username;
-	private String name;
-	private String surname;
-	private String CF;	
+	private String username;	
 	private String password;
-	private String address;
-	private Integer cellnumber;
-	private Character sex;
-	private String email;
-	private Integer team;
-	private UserRole role;
-	private String state;
 	private List<GrantedAuthority> authorities;
 
 	public UserDetailsImpl(User user) {
-		this.iduser = user.getIdUser();
 		this.username = user.getUsername();
 		this.password = user.getPassword();
-		this.name = user.getName();
-		this.surname = user.getSurname();
-		this.CF = user.getCF();
-		this.password = user.getPassword();
-		this.address = user.getAddress();
-		this.cellnumber = user.getCellNumber();
-		this.sex = user.getSex();
-		this.email = user.getEmail();
-		this.team = user.getTeam();
-		this.role = user.getRole();
-		this.state = user.getState();	
 		
 		this.authorities = Arrays.stream(user.getRole().toString().split(","))
 				.map(SimpleGrantedAuthority::new)
@@ -81,13 +58,4 @@ public class UserDetailsImpl implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-	
-	public Integer getiduser() {
-		return iduser;
-	}
-	
-	public UserRole getRole() {
-		return role;
-	}
-
 }

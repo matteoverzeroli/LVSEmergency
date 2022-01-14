@@ -1,8 +1,9 @@
 \section{Implementazione}
-Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla alla luce del fatto che nella prima iterazione abbiamo già inserito tutti i diagrammi e qui dovremmo specificare i casi d'uso e tutti i diagrammi credo.} sono stati implementati i seguenti casi d'uso:
+Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \begin{itemize}
 	\item UC1 - Login;
 	\item UC2 - Logout;
+	\item UC6 - Segnalazione operatività;
 	\item UC15 - Inserimento volontario;
 	\item UC16 - Cancellazione volontario;
 	\item UC17 - Gestione squadre [Astratto]:
@@ -15,13 +16,11 @@ Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla al
 \end{itemize}
 
 \subsection{UC1 - Login}
+\todo{Forse bisognerebbe specificare il metodo basic auth che abbiamo implementato. Alla fine ci siamo sbattuti mega per farlo funzionare, perchè non farlo sapere?}
 \textit{Breve descrizione:} l'utente compila il form per eseguire il login: in caso di credenziali corrette il sistema consente l'accesso ai servizi, altrimenti notifica l'utente della non correttezza delle credenziali. 
 \\
 \\
 \textit{Attori coinvolti:} volontario, caposquadra, coordinatore, sistema.
-\\
-\\
-\textit{Trigger:}
 \\
 \\
 \textit{Precondizione:} l'utente è registrato nel sistema.
@@ -59,9 +58,6 @@ Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla al
 \textit{Attori coinvolti:} volontario, caposquadra, coordinatore, sistema.
 \\
 \\
-\textit{Trigger:}
-\\
-\\
 \textit{Precondizione:} l'utente è loggato nel sistema.
 \\
 \\
@@ -74,15 +70,33 @@ Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla al
 	\item il sistema effettua il logout dell'utente.
 \end{enumerate}
 
+\subsection{UC6 - Segnalazione operatività}
+\textit{Breve descrizione:} l'utente segnala lo stato di operatività. 
+\\
+\\
+\textit{Attori coinvolti:} volontario, caposquadra, sistema.
+\\
+\\
+\textit{Precondizione:} l'utente è loggato nel sistema.
+\\
+\\
+\textit{Postcondizione:} il sistema salva lo stato di operatività dell'utente.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item l'utente seleziona lo stato di operatività (operativo, non operativo).
+	\item l'utente invia lo stato di operatività selezionato al sistema.
+	\item il sistema salva lo stato di operatività inviato dall'utente.
+\end{enumerate}
+
+
 
 \subsection{UC15 - Inserimento volontario}
 \textit{Breve descrizione:} il coordinatore compila il form per inserire un nuovo volontario di cui ha ricevuto una richiesta di iscrizione. 
 \\
 \\
 \textit{Attori coinvolti:} coordinatore, sistema.
-\\
-\\
-\textit{Trigger:}
 \\
 \\
 \textit{Precondizione:} il coordinatore è loggato nel sistema.
@@ -126,9 +140,6 @@ Nella prima iterazione \todo{o forse seconda, bisogna decidere dove inserirla al
 \textit{Attori coinvolti:} coordinatore, sistema.
 \\
 \\
-\textit{Trigger:}
-\\
-\\
 \textit{Precondizione:} il coordinatore è loggato nel sistema.
 Il volontario che deve essere cancellato è inserito nel sistema.
 \\
@@ -148,9 +159,6 @@ Il volontario che deve essere cancellato è inserito nel sistema.
 \\
 \\
 \textit{Attori coinvolti:} coordinatore, sistema.
-\\
-\\
-\textit{Trigger:}
 \\
 \\
 \textit{Precondizione:} il coordinatore è loggato nel sistema.
