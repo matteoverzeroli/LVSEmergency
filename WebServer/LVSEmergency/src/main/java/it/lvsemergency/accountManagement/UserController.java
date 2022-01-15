@@ -37,12 +37,12 @@ public class UserController {
 	}
 	
 	@GetMapping(path = "/users")
-	public List<User>  getUsers() {
+	public List<UserDTO>  getUsers() {
 		return userService.getUsers();
 	}
 	
 	@GetMapping(path = "/users/{idUser}")
-	public User getUser(@PathVariable Integer idUser) {
+	public UserDTO getUser(@PathVariable Integer idUser) {
 		return userService.getUser(idUser);
 	}
 	

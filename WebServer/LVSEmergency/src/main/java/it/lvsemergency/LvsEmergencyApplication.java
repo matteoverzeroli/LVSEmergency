@@ -1,5 +1,6 @@
 package it.lvsemergency;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,11 @@ public class LvsEmergencyApplication {
 	GrantedAuthorityDefaults grantedAuthorityDefaults() {
 	    return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
 	}
+	
+	@Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LvsEmergencyApplication.class, args);

@@ -2,7 +2,10 @@ package it.lvsemergency.accountManagement;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.Sort;
@@ -17,6 +20,9 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -54,17 +60,20 @@ public class UserService implements UserDetailsService {
 		return userRepository.save(userToModify);
 	}
 	
-	public List<User> getUsers() {
-		return userRepository.findAll(Sort.by(Sort.Direction.ASC, "idUser"));
+	public List<UserDTO> getUsers() {
+		return userRepository.findAll(Sort.by(Sort.Direction.ASC, "idUser"))
+				.stream()
+				.map(user -> modelMapper.map(user, UserDTO.class))
+				.collect(Collectors.toList());
 	}
 	
-	public User getUser(Integer idUser) {
+	public UserDTO getUser(Integer idUser) {
 		Optional<User> user = userRepository.findById(idUser);
 
 		if (!user.isPresent())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist");
 
-		return user.get();
+		return modelMapper.map(user.get(), UserDTO.class);
 	}
 	
 	public void deleteUser(Integer idUser) {
