@@ -22,10 +22,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Table(name = "User")
 @Entity
 public class User {
-
-	@Id
-	@Column(name = "idUser")
-	Integer idUser;
+	
+	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer idUser;
+	
 	private String username;
 	private String name;
 	private String surname;
@@ -34,7 +33,7 @@ public class User {
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	private String address;
-	private Integer cellnumber;
+	private String cellnumber;
 	private Character sex;
 	private String email;
 	private Integer team;
@@ -50,7 +49,7 @@ public class User {
 
 	public User(Integer iduser, String username, String name, 
 			String surname, String CF, String password, 
-			String address, Integer cellnumber, Character sex, 
+			String address, String cellnumber, Character sex, 
 			String email, Integer team, UserRole role, 
 			OperativityRole state) {
 		super();
@@ -126,11 +125,11 @@ public class User {
 		this.address = address;
 	}
 	
-	public Integer getCellNumber() {
+	public String getCellNumber() {
 		return cellnumber;
 	}
 	
-	public void setCellNumber(Integer cellNumber) {
+	public void setCellNumber(String cellNumber) {
 		this.cellnumber = cellNumber;
 	}
 	

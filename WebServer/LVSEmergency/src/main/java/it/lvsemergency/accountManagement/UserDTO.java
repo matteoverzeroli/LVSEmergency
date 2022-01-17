@@ -13,24 +13,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserDTO {
 	
-	@NotNull 
 	private Integer idUser;
+	
 	@NotEmpty 
 	private String username;
 	
+	@NotEmpty 
 	private String name;
+	
+	@NotEmpty 
 	private String surname;
+	
+	@NotEmpty 
 	private String CF;	
 	
+	@NotEmpty 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
+	
+	@NotEmpty 
 	private String address;
-	private Integer cellnumber;
+	
+	@NotEmpty
+	private String cellnumber;
+	
+	@NotNull 
 	private Character sex;
+	
+	@NotEmpty 
 	private String email;
+	
+	@NotNull 
 	private Integer team;
 		
+	@NotNull
 	private UserRole role;
+	
+	@NotNull
 	private OperativityRole state;
 
 	public UserDTO() {
@@ -109,11 +128,11 @@ public class UserDTO {
 		this.address = address;
 	}
 	
-	public Integer getCellNumber() {
+	public String getCellNumber() {
 		return cellnumber;
 	}
 	
-	public void setCellNumber(Integer cellNumber) {
+	public void setCellNumber(String cellNumber) {
 		this.cellnumber = cellNumber;
 	}
 	

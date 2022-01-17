@@ -42,24 +42,6 @@ public class UserService implements UserDetailsService {
 		return user.map(UserDTO::new).get();
 	}
 	
-	public User modify(UserDTO userDto) {
-		
-		Optional<User> user = userRepository.findByUsername(userDto.getUsername());
-		
-		if (user.get() == null)
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
-		
-		User userToModify = user.get();
-		
-		if (!userDto.getName().isEmpty()) userToModify.setName(userDto.getName());;
-		
-		// Bisogna continuare così per tutti gli altri.
-		// L'alternativa è che nel DTO tutti i campi sono richiesti, ma questo farebbe perdere il significato del DTO
-		// Cercare di capire come è meglio farlo.
-		
-		return userRepository.save(userToModify);
-	}
-	
 	public List<UserDTO> getUsers() {
 		return userRepository.findAll(Sort.by(Sort.Direction.ASC, "idUser"))
 				.stream()
@@ -74,6 +56,42 @@ public class UserService implements UserDetailsService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User doesn't exist");
 
 		return modelMapper.map(user.get(), UserDTO.class);
+	}
+	
+	public List<UserDTO> getUsersInTeam(Integer team) {
+		List<User> userInTeam = userRepository.findByTeam(team);
+		
+		if (userInTeam.isEmpty())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user in team");
+		
+		return userRepository.findByTeam(team)
+				.stream()
+				.map(user -> modelMapper.map(user,  UserDTO.class))
+				.collect(Collectors.toList());
+	}
+	
+	public UserDTO addUser(UserDTO userDto) {
+		Optional<User> user = userRepository.findByUsername(userDto.getUsername());
+
+		if (!user.isEmpty())
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists");
+
+		User newUser = modelMapper.map(userDto, User.class);
+		
+		return modelMapper.map(userRepository.save(newUser), UserDTO.class);
+	}
+	
+	public UserDTO modifyUser(UserDTO userDto) {
+		Optional<User> userToModify = userRepository.findByUsername(userDto.getUsername());
+		
+		if (!userToModify.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user to delete");
+		
+		User user = userToModify.get();
+		
+		modelMapper.map(userDto, user);
+		
+		return modelMapper.map(userRepository.save(user), UserDTO.class);
 	}
 	
 	public void deleteUser(Integer idUser) {
