@@ -1,17 +1,17 @@
-#ifndef AUTHENTICATIONCONTROLLER_H
-#define AUTHENTICATIONCONTROLLER_H
+#ifndef USERCONTROLLER_H
+#define USERCONTROLLER_H
 
 #include <QObject>
 #include <QNetworkAccessManager>
-#include <QnetworkReply>
+#include <QNetworkReply>
 
 namespace accountmanagementIF {
 
-class AuthenticationController : public QObject
+class UserController : public QObject
 {
     Q_OBJECT
 public:
-    explicit AuthenticationController(QNetworkAccessManager *networkManager, QObject *parent = nullptr);
+    explicit UserController(QNetworkAccessManager *networkManager, QObject *parent = nullptr);
 
     Q_INVOKABLE void login(QString username, QString password);
 
@@ -28,4 +28,4 @@ private:
 
 }
 
-#endif // AUTHENTICATIONCONTROLLER_H
+#endif // USERCONTROLLER_H

@@ -5,12 +5,14 @@ QT += quick quickcontrols2
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        accountManagementIF/authenticationcontroller.cpp \
+        accountManagementIF/user.cpp \
+        accountManagementIF/userController.cpp \
         main.cpp \
         mastercontroller.cpp
 
 HEADERS += \
-    accountManagementIF/authenticationcontroller.h \
+    accountManagementIF/user.h \
+    accountManagementIF/userController.h \
     navigationcontroller.h \
     mastercontroller.h
 

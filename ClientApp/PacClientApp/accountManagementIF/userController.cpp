@@ -1,10 +1,10 @@
-#include "authenticationcontroller.h"
+#include "userController.h"
 
 #include <QDebug>
 
 
 namespace accountmanagementIF {
-AuthenticationController::AuthenticationController(QNetworkAccessManager *networkManager, QObject *parent)
+UserController::UserController(QNetworkAccessManager *networkManager, QObject *parent)
     : QObject{parent},
       networkManager(networkManager)
 {
@@ -14,7 +14,7 @@ AuthenticationController::AuthenticationController(QNetworkAccessManager *networ
 /*!
  * \brief Funzione per invocare l'API che esegue il login.
  */
-void AuthenticationController::login(QString username, QString password)
+void UserController::login(QString username, QString password)
 {
     qDebug() << "Calling the slot correclty";
     QNetworkRequest request;
@@ -22,12 +22,12 @@ void AuthenticationController::login(QString username, QString password)
 //    request.setRawHeader("User-Agent", "MyOwnBrowser 1.0");
 
     QNetworkReply *reply = networkManager->get(request);
-    connect(reply, &QNetworkReply::finished, this, &AuthenticationController::responseReceived);
-    connect(reply, &QNetworkReply::errorOccurred, this, &AuthenticationController::errorReceived);
-    connect(reply, &QNetworkReply::sslErrors, this, &AuthenticationController::sslErrors);
+    connect(reply, &QNetworkReply::finished, this, &UserController::responseReceived);
+    connect(reply, &QNetworkReply::errorOccurred, this, &UserController::errorReceived);
+    connect(reply, &QNetworkReply::sslErrors, this, &UserController::sslErrors);
 }
 
-void AuthenticationController::responseReceived()
+void UserController::responseReceived()
 {
     QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
     QByteArray response = reply->readAll();
@@ -37,12 +37,12 @@ void AuthenticationController::responseReceived()
     reply->deleteLater();
 }
 
-void AuthenticationController::errorReceived(QNetworkReply::NetworkError code)
+void UserController::errorReceived(QNetworkReply::NetworkError code)
 {
     qDebug() << "Some error occoured:" << code;
 }
 
-void AuthenticationController::sslErrors(const QList<QSslError> &errors)
+void UserController::sslErrors(const QList<QSslError> &errors)
 {
     qDebug() << "Some sslErrors occoured!";
 }

@@ -4,7 +4,7 @@ MasterController::MasterController(QObject *parent)
     : QObject{parent}
 {
     navigationController = new NavigationController(this);
-    authenticationController = new accountmanagementIF::AuthenticationController(&newtworkManager, this);
+    authenticationController = new accountmanagementIF::UserController(&newtworkManager, this);
 }
 
 NavigationController *MasterController::getNavigationController()
@@ -12,7 +12,7 @@ NavigationController *MasterController::getNavigationController()
     return navigationController;
 }
 
-accountmanagementIF::AuthenticationController *MasterController::getAuthenticationController()
+accountmanagementIF::UserController *MasterController::getAuthenticationController()
 {
     return authenticationController;
 }

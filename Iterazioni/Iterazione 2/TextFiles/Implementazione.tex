@@ -4,8 +4,8 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 	\item UC1 - Login;
 	\item UC2 - Logout;
 	\item UC6 - Segnalazione operatività;
-	\item UC15 - Inserimento volontario;
-	\item UC16 - Cancellazione volontario;
+	\item UC15 - Inserimento utente;
+	\item UC16 - Cancellazione utente;
 	\item UC17 - Gestione squadre [Astratto]:
 	\begin{itemize}
 		\item UC17.1 - Creazione squadra;
@@ -92,7 +92,7 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 
 
 
-\subsection{UC15 - Inserimento volontario}
+\subsection{UC15 - Inserimento utente}
 \textit{Breve descrizione:} il coordinatore compila il form per inserire un nuovo volontario di cui ha ricevuto una richiesta di iscrizione. 
 \\
 \\
@@ -119,7 +119,7 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 		\item Password;\todo{è una stupidaggine che inserisca il coordinatore la password, in questo momento è solo ed esclusivamente per semplificare. è ovvio che poi questo sistema non va assolutamente bene. Aggiungere altri campi se necessari, questi sono i primi che mi son venuti in mente ma non sono gli unici}
 	\end{itemize}
 	\item il sistema verifica che email e codice fiscale non siano già associati ad altri utenti.
-	\item il sistema aggiunge il volontario con i rispettivi dati nel database [E1: i dati sono già stati associati ad un altro volontario presente nel database].
+	\item il sistema aggiunge l'utente con i rispettivi dati nel database [E1: i dati sono già stati associati ad un altro utente presente nel database].
 \end{enumerate}
 
 
@@ -127,32 +127,32 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \begin{itemize}
 	\item E1:
 	\begin{enumerate}
-		\item i dati sono già associati ad un altro volontario presente nel database.
-		\item il sistema comunica al coordinatore che i dati sono già associati ad un altro volontario.
+		\item i dati sono già associati ad un altro utente presente nel database.
+		\item il sistema comunica al coordinatore che i dati sono già associati ad un altro utente.
 		\item ritorno al passo 2 del "Procedimento".
 	\end{enumerate}
 \end{itemize}
 
-\subsection{UC16 - Cancellazione volontario}
-\textit{Breve descrizione:} il coordinatore cancella un volontario dal sistema. 
+\subsection{UC16 - Cancellazione utente}
+\textit{Breve descrizione:} il coordinatore cancella un utente dal sistema. 
 \\
 \\
 \textit{Attori coinvolti:} coordinatore, sistema.
 \\
 \\
 \textit{Precondizione:} il coordinatore è loggato nel sistema.
-Il volontario che deve essere cancellato è inserito nel sistema.
+L'utente che deve essere cancellato è inserito nel sistema.
 \\
 \\
-\textit{Postcondizione:} il volontario viene cancellato dal sistema.
+\textit{Postcondizione:} l'utente viene cancellato dal sistema.
 \\
 \\
 \textit{Procedimento:}
 \begin{enumerate}
-	\item il coordinatore preme il pulsante per cancellate un volontario.
-	\item il volontario viene cancellato.
+	\item il coordinatore preme il pulsante per cancellare un utente.
+	\item l'utente viene cancellato.
 \end{enumerate}
-\todo{Non ci sono eccezioni perchè il fatto che il volontario sia presente nel sistema è una precondizione. Per come lo faremo noi, il coordinatore scorre tra una lista di volontari e preme il pulsante elimina per eliminarli. Non è possibile quindi eliminare un volontario che non è presente nel sistema.}
+\todo{Non ci sono eccezioni perchè il fatto che l'utente sia presente nel sistema è una precondizione. Per come lo faremo noi, il coordinatore scorre tra una lista di volontari e preme il pulsante elimina per eliminarli. Non è possibile quindi eliminare un volontario che non è presente nel sistema.}
 
 \subsection{UC17.1 - Creazione squadra}
 \textit{Breve descrizione:} il coordinatore crea una nuova squadra. 

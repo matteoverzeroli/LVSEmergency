@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     // faccio conoscere al QML le classi che può utilizzare registrando il loro tipo
     qmlRegisterUncreatableType<MasterController>("PacApp", 1, 0, "MasterController", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<NavigationController>("PacApp", 1, 0, "NavigationController", "This class cannot be created by QML.");
-    qmlRegisterUncreatableType<accountmanagementIF::AuthenticationController>("PacApp", 1, 0, "AuthenticationController", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<accountmanagementIF::UserController>("PacApp", 1, 0, "AuthenticationController", "This class cannot be created by QML.");
 
 
     MasterController masterController;
