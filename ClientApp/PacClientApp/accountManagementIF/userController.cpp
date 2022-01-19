@@ -51,6 +51,8 @@ void UserController::responseReceived()
 
         currentUser = new User(QString(response), this);
 
+        emit currentUserChanged(currentUser);
+
         navigationController->needDashboardView();
     } else {
 

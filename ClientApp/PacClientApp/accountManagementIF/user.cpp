@@ -51,6 +51,17 @@ void User::fromJsonDocument(QJsonDocument jsonDocument)
     state = userObject.value("state").toString();
 }
 
+QString User::getUsername()
+{
+    return username;
+}
+
+int User::getState()
+{
+    if (state == "INACTIVE") return 0;
+    else return 1;
+}
+
 
 
 }
