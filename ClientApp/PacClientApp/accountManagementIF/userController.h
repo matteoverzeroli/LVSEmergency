@@ -14,7 +14,7 @@ class UserController : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool authError READ getAuthError NOTIFY authErrorChanged)
-    Q_PROPERTY(User *currentUser READ getCurrentUset NOTIFY currentUserChanged)
+    Q_PROPERTY(User *currentUser READ getCurrentUser NOTIFY currentUserChanged)
 public:
     explicit UserController(QNetworkAccessManager *networkManager,
                             NavigationController *navigationController, QObject *parent = nullptr);
