@@ -27,14 +27,6 @@ public class UserController {
 		this.userService = userService;
 	}
 	
-	private User dtoToEntity(UserDTO userDto) {
-		var user = new User();
-		user.setIdUser(userDto.getIdUser());
-		user.setUsername(userDto.getUsername());
-		user.setPassword(userDto.getPassword());
-		return user;
-	}
-	
 	@GetMapping(path = "/login")
 	public UserDTO login() {
 		return userService.userInformationResponse((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -48,11 +40,6 @@ public class UserController {
 	@GetMapping(path = "/users/{idUser}")
 	public UserDTO getUser(@PathVariable Integer idUser) {
 		return userService.getUser(idUser);
-	}
-	
-	@GetMapping(path = "/users/team/{team}")
-	public List<UserDTO> getUsersInTeam(@PathVariable Integer team) {
-		return userService.getUsersInTeam(team);
 	}
 	
 	@DeleteMapping(path = "/users/{idUser}")

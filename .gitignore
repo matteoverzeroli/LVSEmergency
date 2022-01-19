@@ -269,22 +269,4 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/.qmake.stash
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/Makefile
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/Makefile.Debug
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/Makefile.Release
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/authenticationcontroller.o
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/main.o
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/mastercontroller.o
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/moc_authenticationcontroller.cpp
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/moc_authenticationcontroller.o
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/moc_mastercontroller.cpp
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/moc_mastercontroller.o
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/moc_navigationcontroller.cpp
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/moc_navigationcontroller.o
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/moc_predefs.h
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/PacClientApp.exe
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/qrc_qml.cpp
-ClientApp/build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug/debug/qrc_qml.o
-ClientApp/PacClientApp/PacClientApp.pro.user.36cb531
-ClientApp/PacClientApp/PacClientApp.pro.user
+

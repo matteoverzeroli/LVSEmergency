@@ -58,18 +58,6 @@ public class UserService implements UserDetailsService {
 		return modelMapper.map(user.get(), UserDTO.class);
 	}
 	
-	public List<UserDTO> getUsersInTeam(Integer team) {
-		List<User> userInTeam = userRepository.findByTeam(team);
-		
-		if (userInTeam.isEmpty())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user in team");
-		
-		return userRepository.findByTeam(team)
-				.stream()
-				.map(user -> modelMapper.map(user,  UserDTO.class))
-				.collect(Collectors.toList());
-	}
-	
 	public UserDTO addUser(UserDTO userDto) {
 		Optional<User> user = userRepository.findByUsername(userDto.getUsername());
 

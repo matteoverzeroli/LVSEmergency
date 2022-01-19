@@ -31,6 +31,11 @@ public class TeamController {
 	public List<Team> getTeams() {
 		return teamService.getTeams();
 	}
+	
+	@GetMapping(path = "/teams/{idTeam}")
+	public Team getTeam(@PathVariable Integer idTeam) {
+		return teamService.getTeam(idTeam);
+	}
 
 	@PostMapping(path = "/teams")
 	@ResponseStatus(HttpStatus.CREATED)

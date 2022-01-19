@@ -28,6 +28,15 @@ public class TeamService {
 		return teamRepository.save(team);
 	}
 	
+	public Team getTeam(Integer idTeam) {
+		Optional<Team> team = teamRepository.findById(idTeam);
+		
+		if (!team.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No team found!");
+		
+		return team.get();
+	}
+	
 	public void deleteTeam(Integer idTeam) {
 		Optional<Team> teamToDelete = teamRepository.findById(idTeam);
 
