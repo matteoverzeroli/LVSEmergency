@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
 #include <QQmlContext>
+#include <QIcon>
 
 #include "mastercontroller.h"
 
@@ -10,9 +11,15 @@ int main(int argc, char *argv[])
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
+
+    QCoreApplication::setOrganizationName("LVSEmergency");
+    QCoreApplication::setApplicationName("LVSEmergency");
+
     QGuiApplication app(argc, argv);
 
     QQuickStyle::setStyle("Material");
+    QIcon::setThemeName("gallery");
+
 
     QQmlApplicationEngine engine;
 
@@ -20,6 +27,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<MasterController>("PacApp", 1, 0, "MasterController", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<NavigationController>("PacApp", 1, 0, "NavigationController", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<accountmanagementIF::UserController>("PacApp", 1, 0, "AuthenticationController", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<accountmanagementIF::User>("PacApp", 1, 0, "User", "This class cannot be created by QML.");
 
 
     MasterController masterController;
