@@ -7,16 +7,45 @@ QT += quick quickcontrols2
 SOURCES += \
         accountManagementIF/user.cpp \
         accountManagementIF/userController.cpp \
+        helpers/utils.cpp \
         main.cpp \
         mastercontroller.cpp
 
 HEADERS += \
     accountManagementIF/user.h \
     accountManagementIF/userController.h \
+    helpers/utils.h \
     navigationcontroller.h \
     mastercontroller.h
 
-RESOURCES += qml.qrc
+RESOURCES += \
+        qml.qrc \
+        qtquickcontrols2.conf \
+        icons/gallery/index.theme \
+        icons/gallery/20x20/back.png \
+        icons/gallery/20x20/drawer.png \
+        icons/gallery/20x20/menu.png \
+        icons/gallery/20x20@2/back.png \
+        icons/gallery/20x20@2/drawer.png \
+        icons/gallery/20x20@2/menu.png \
+        icons/gallery/20x20@3/back.png \
+        icons/gallery/20x20@3/drawer.png \
+        icons/gallery/20x20@3/menu.png \
+        icons/gallery/20x20@4/back.png \
+        icons/gallery/20x20@4/drawer.png \
+        icons/gallery/20x20@4/menu.png \
+        images/arrow.png \
+        images/arrow@2x.png \
+        images/arrow@3x.png \
+        images/arrow@4x.png \
+        images/arrows.png \
+        images/arrows@2x.png \
+        images/arrows@3x.png \
+        images/arrows@4x.png \
+        images/qt-logo.png \
+        images/qt-logo@2x.png \
+        images/qt-logo@3x.png \
+        images/qt-logo@4x.png
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

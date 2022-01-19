@@ -55,7 +55,7 @@ public class UserController {
 		return userService.getUsersInTeam(team);
 	}
 	
-	@DeleteMapping("/users/{idUser}")
+	@DeleteMapping(path = "/users/{idUser}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public void deleteEmployee(@PathVariable Integer idUser) {
 		userService.deleteUser(idUser);

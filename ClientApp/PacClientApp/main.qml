@@ -9,14 +9,21 @@ ApplicationWindow {
     visible: true
     title: qsTr("PacApp")
 
-    Material.theme: Material.Light
-    Material.accent: Material.Green
+//    Material.theme: Material.Light
+//    Material.accent: Material.Green
 
     Component.onCompleted: contentFrame.replace("qrc:/views/LoginForm.qml");
 
     Connections {
         target: masterController.ui_navigationController
 
+        function onGoDashboardView() {
+            contentFrame.replace("qrc:/views/dashboard.qml")
+        }
+
+        function onGoLoginForm() {
+            contentFrame.replace("qrc:/views/LoginForm.qml")
+        }
     }
 
 

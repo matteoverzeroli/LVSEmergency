@@ -43,7 +43,6 @@ public class UserDTO {
 	@NotEmpty 
 	private String email;
 	
-	@NotNull 
 	private Integer team;
 		
 	@NotNull
