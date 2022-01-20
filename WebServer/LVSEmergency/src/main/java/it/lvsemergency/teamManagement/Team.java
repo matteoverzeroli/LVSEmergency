@@ -21,19 +21,21 @@ public class Team {
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer idTeam;
 
 	private String teamName;
-	private int idForeman;
+	private Integer idForeman;
+	private Integer idArea;
 	
-	@OneToMany(targetEntity=User.class, mappedBy="team", fetch = FetchType.LAZY)    
+	@OneToMany(targetEntity=User.class, mappedBy="idTeam", fetch = FetchType.LAZY)    
 	private List<User> users = new LinkedList<User>();
 
 	Team () {
 		
 	}
 	
-	public Team(Integer idTeam, String teamName, int idForeman) {
+	public Team(Integer idTeam, String teamName, Integer idForeman, Integer idArea) {
 		this.idTeam = idTeam;
 		this.teamName = teamName;
 		this.idForeman = idForeman;
+		this.idArea = idArea;
 		this.users = new LinkedList<User>();
 	}
 	
@@ -53,12 +55,20 @@ public class Team {
 		this.teamName = teamName;
 	}
 
-	public int getIdForeman() {
+	public Integer getIdForeman() {
 		return idForeman;
 	}
 
-	public void setIdForeman(int idForeman) {
+	public void setIdForeman(Integer idForeman) {
 		this.idForeman = idForeman;
+	}
+	
+	public Integer getIdArea() {
+		return idArea;
+	}
+	
+	public void setIdArea(Integer idArea) {
+		this.idArea = idArea;
 	}
 	
 	public List<User> getUsers() {

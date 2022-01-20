@@ -35,7 +35,7 @@ public class UserDTO {
 	private String address;
 	
 	@NotEmpty
-	private String cellnumber;
+	private String cellNumber;
 	
 	@NotNull 
 	private Character sex;
@@ -43,7 +43,7 @@ public class UserDTO {
 	@NotEmpty 
 	private String email;
 	
-	private Integer team;
+	private Integer idTeam;
 		
 	@NotNull
 	private UserRole role;
@@ -64,10 +64,10 @@ public class UserDTO {
 		this.CF = user.getCF();
 		this.password = user.getPassword();
 		this.address = user.getAddress();
-		this.cellnumber = user.getCellNumber();
+		this.cellNumber = user.getCellNumber();
 		this.sex = user.getSex();
 		this.email = user.getEmail();
-		this.team = user.getTeam();
+		this.idTeam = user.getIdTeam();
 		this.role = user.getRole();
 		this.state = user.getState();
 	}
@@ -128,11 +128,11 @@ public class UserDTO {
 	}
 	
 	public String getCellNumber() {
-		return cellnumber;
+		return cellNumber;
 	}
 	
 	public void setCellNumber(String cellNumber) {
-		this.cellnumber = cellNumber;
+		this.cellNumber = cellNumber;
 	}
 	
 	public Character getSex() {
@@ -151,12 +151,12 @@ public class UserDTO {
 		this.email = email;
 	}
 	
-	public Integer getTeam() {
-		return team;
+	public Integer getIdTeam() {
+		return idTeam;
 	}
 	
-	public void setTeam(Integer team) {
-		this.team = team;
+	public void setTeam(Integer idTeam) {
+		this.idTeam = idTeam;
 	}
 	
 	public UserRole getRole() {

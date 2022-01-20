@@ -33,10 +33,10 @@ public class User {
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	private String address;
-	private String cellnumber;
+	private String cellNumber;
 	private Character sex;
 	private String email;
-	private Integer team;
+	private Integer idTeam;
 	
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
@@ -49,8 +49,8 @@ public class User {
 
 	public User(Integer iduser, String username, String name, 
 			String surname, String CF, String password, 
-			String address, String cellnumber, Character sex, 
-			String email, Integer team, UserRole role, 
+			String address, String cellNumber, Character sex, 
+			String email, Integer idTeam, UserRole role, 
 			OperativityRole state) {
 		super();
 		
@@ -61,10 +61,10 @@ public class User {
 		this.CF = CF;
 		this.password = password;
 		this.address = address;
-		this.cellnumber = cellnumber;
+		this.cellNumber = cellNumber;
 		this.sex = sex;
 		this.email = email;
-		this.team = team;
+		this.idTeam = idTeam;
 		this.role = role;
 		this.state = state;
 	}
@@ -126,11 +126,11 @@ public class User {
 	}
 	
 	public String getCellNumber() {
-		return cellnumber;
+		return cellNumber;
 	}
 	
 	public void setCellNumber(String cellNumber) {
-		this.cellnumber = cellNumber;
+		this.cellNumber = cellNumber;
 	}
 	
 	public Character getSex() {
@@ -149,12 +149,12 @@ public class User {
 		this.email = email;
 	}
 	
-	public Integer getTeam() {
-		return team;
+	public Integer getIdTeam() {
+		return idTeam;
 	}
 	
-	public void setTeam(Integer team) {
-		this.team = team;
+	public void setTeam(Integer IdTeam) {
+		this.idTeam = idTeam;
 	}
 	
 	public UserRole getRole() {
