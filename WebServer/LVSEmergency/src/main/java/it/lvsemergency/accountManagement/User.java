@@ -1,13 +1,5 @@
 package it.lvsemergency.accountManagement;
 
-import javax.persistence.Column;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -153,7 +145,7 @@ public class User {
 		return idTeam;
 	}
 	
-	public void setTeam(Integer IdTeam) {
+	public void setIdTeam(Integer idTeam) {
 		this.idTeam = idTeam;
 	}
 	
