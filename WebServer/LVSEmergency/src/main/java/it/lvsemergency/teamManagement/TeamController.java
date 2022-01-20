@@ -16,19 +16,19 @@ import org.springframework.http.HttpStatus;
 
 @RestController
 public class TeamController {
-	
+
 	private TeamService teamService;
-	
+
 	@Autowired
 	public TeamController(TeamService userService) {
 		this.teamService = userService;
 	}
-	
+
 	@GetMapping(path = "/teams")
 	public List<Team> getTeams() {
 		return teamService.getTeams();
 	}
-	
+
 	@GetMapping(path = "/teams/{idTeam}")
 	public Team getTeam(@PathVariable Integer idTeam) {
 		return teamService.getTeam(idTeam);
@@ -39,12 +39,11 @@ public class TeamController {
 	public Team addTeam(@Valid @RequestBody Team team) {
 		return teamService.addTeam(team);
 	}
-	
+
 	@DeleteMapping(path = "/teams/{idTeam}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public void deleteTeam(@PathVariable Integer idTeam) {
 		teamService.deleteTeam(idTeam);
 	}
-	
-	
+
 }

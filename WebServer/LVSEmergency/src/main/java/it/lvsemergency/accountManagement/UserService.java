@@ -19,7 +19,7 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -27,27 +27,25 @@ public class UserService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		Optional<User> user = userRepository.findByUsername(username);
-		
+
 		user.orElseThrow(() -> new UsernameNotFoundException(username + " not found."));
 
-		return user.map(UserDetailsImpl::new).get();        
+		return user.map(UserDetailsImpl::new).get();
 	}
-	
+
 	public UserDTO userInformationResponse(UserDetailsImpl userInfo) {
 		Optional<User> user = userRepository.findByUsername(userInfo.getUsername());
-		
+
 		user.orElseThrow(() -> new UsernameNotFoundException(userInfo.getUsername() + " not found."));
 
 		return user.map(UserDTO::new).get();
 	}
-	
+
 	public List<UserDTO> getUsers() {
-		return userRepository.findAll(Sort.by(Sort.Direction.ASC, "idUser"))
-				.stream()
-				.map(user -> modelMapper.map(user, UserDTO.class))
-				.collect(Collectors.toList());
+		return userRepository.findAll(Sort.by(Sort.Direction.ASC, "idUser")).stream()
+				.map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
 	}
-	
+
 	public UserDTO getUser(Integer idUser) {
 		Optional<User> user = userRepository.findById(idUser);
 
@@ -56,7 +54,7 @@ public class UserService implements UserDetailsService {
 
 		return modelMapper.map(user.get(), UserDTO.class);
 	}
-	
+
 	public UserDTO addUser(UserDTO userDto) {
 		Optional<User> user = userRepository.findByUsername(userDto.getUsername());
 
@@ -64,23 +62,23 @@ public class UserService implements UserDetailsService {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists");
 
 		User newUser = modelMapper.map(userDto, User.class);
-		
+
 		return modelMapper.map(userRepository.save(newUser), UserDTO.class);
 	}
-	
+
 	public UserDTO modifyUser(UserDTO userDto) {
 		Optional<User> userToModify = userRepository.findByUsername(userDto.getUsername());
-		
+
 		if (!userToModify.isPresent())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user to delete");
-		
+
 		User user = userToModify.get();
-		
+
 		modelMapper.map(userDto, user);
-		
+
 		return modelMapper.map(userRepository.save(user), UserDTO.class);
 	}
-	
+
 	public void deleteUser(Integer idUser) {
 		Optional<User> userToDelete = userRepository.findById(idUser);
 
@@ -89,8 +87,5 @@ public class UserService implements UserDetailsService {
 
 		userRepository.delete(userToDelete.get());
 	}
-
-
-	
 
 }

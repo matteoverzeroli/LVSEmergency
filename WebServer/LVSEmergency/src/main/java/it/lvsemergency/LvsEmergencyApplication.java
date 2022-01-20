@@ -12,25 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LvsEmergencyApplication {
 
-	
 	@Bean
 	GrantedAuthorityDefaults grantedAuthorityDefaults() {
-	    return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
+		return new GrantedAuthorityDefaults(""); // Remove the ROLE_ prefix
 	}
-	
+
 	@Bean
-    public ModelMapper modelMapper() {
+	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();
-		modelMapper.getConfiguration()
-				   .setSkipNullEnabled(true);
-		
-        return modelMapper;
-    }
-	
+		modelMapper.getConfiguration().setSkipNullEnabled(true);
+
+		return modelMapper;
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(LvsEmergencyApplication.class, args);
 	}
-	
+
 	@GetMapping
 	public String helloworld() {
 		return "Hello";

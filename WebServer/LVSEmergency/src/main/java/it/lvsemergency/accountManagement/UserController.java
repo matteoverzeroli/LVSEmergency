@@ -19,42 +19,43 @@ import org.springframework.http.HttpStatus;
 public class UserController {
 
 	private UserService userService;
-	
+
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
 	}
-	
+
 	@GetMapping(path = "/login")
 	public UserDTO login() {
-		return userService.userInformationResponse((UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+		return userService.userInformationResponse(
+				(UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 	}
-	
+
 	@GetMapping(path = "/users")
-	public List<UserDTO>  getUsers() {
+	public List<UserDTO> getUsers() {
 		return userService.getUsers();
 	}
-	
+
 	@GetMapping(path = "/users/{idUser}")
 	public UserDTO getUser(@PathVariable Integer idUser) {
 		return userService.getUser(idUser);
 	}
-	
+
 	@DeleteMapping(path = "/users/{idUser}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public void deleteEmployee(@PathVariable Integer idUser) {
 		userService.deleteUser(idUser);
 	}
-	
+
 	@PutMapping(path = "/users")
 	public UserDTO modifyUser(@Valid @RequestBody UserDTO userDto) {
 		return userService.modifyUser(userDto);
 	}
-	
+
 	@PostMapping(path = "/users")
 	@ResponseStatus(HttpStatus.CREATED)
 	public UserDTO addUser(@Valid @RequestBody UserDTO userDto) {
 		return userService.addUser(userDto);
 	}
-	
+
 }

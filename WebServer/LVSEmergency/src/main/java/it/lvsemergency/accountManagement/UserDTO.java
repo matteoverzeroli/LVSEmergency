@@ -6,49 +6,49 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserDTO {
-	
+
 	private Integer idUser;
-	
-	@NotEmpty 
+
+	@NotEmpty
 	private String username;
-	
-	@NotEmpty 
+
+	@NotEmpty
 	private String name;
-	
-	@NotEmpty 
+
+	@NotEmpty
 	private String surname;
-	
-	@NotEmpty 
-	private String CF;	
-	
-	@NotEmpty 
+
+	@NotEmpty
+	private String CF;
+
+	@NotEmpty
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
-	
-	@NotEmpty 
+
+	@NotEmpty
 	private String address;
-	
+
 	@NotEmpty
 	private String cellNumber;
-	
-	@NotNull 
+
+	@NotNull
 	private Character sex;
-	
-	@NotEmpty 
+
+	@NotEmpty
 	private String email;
-	
+
 	private Integer idTeam;
-		
+
 	@NotNull
 	private UserRole role;
-	
+
 	@NotNull
 	private OperativityRole state;
 
 	public UserDTO() {
-		
+
 	}
-	
+
 	public UserDTO(User user) {
 		this.idUser = user.getIdUser();
 		this.username = user.getUsername();
@@ -65,7 +65,7 @@ public class UserDTO {
 		this.role = user.getRole();
 		this.state = user.getState();
 	}
-	
+
 	public Integer getIdUser() {
 		return idUser;
 	}
@@ -81,7 +81,7 @@ public class UserDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -89,22 +89,23 @@ public class UserDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getSurname() {
 		return surname;
 	}
-	
+
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	
+
 	public String getCF() {
 		return CF;
 	}
+
 	public void setCF(String cF) {
 		CF = cF;
 	}
-		
+
 	public String getPassword() {
 		return password;
 	}
@@ -116,55 +117,55 @@ public class UserDTO {
 	public String getAddress() {
 		return address;
 	}
-	
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getCellNumber() {
 		return cellNumber;
 	}
-	
+
 	public void setCellNumber(String cellNumber) {
 		this.cellNumber = cellNumber;
 	}
-	
+
 	public Character getSex() {
 		return sex;
 	}
-	
+
 	public void setSex(Character sex) {
 		this.sex = sex;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public Integer getIdTeam() {
 		return idTeam;
 	}
-	
+
 	public void setTeam(Integer idTeam) {
 		this.idTeam = idTeam;
 	}
-	
+
 	public UserRole getRole() {
 		return role;
 	}
-	
+
 	public void setRole(UserRole role) {
 		this.role = role;
 	}
-	
+
 	public OperativityRole getState() {
 		return state;
 	}
-	
+
 	public void setState(OperativityRole state) {
 		this.state = state;
 	}

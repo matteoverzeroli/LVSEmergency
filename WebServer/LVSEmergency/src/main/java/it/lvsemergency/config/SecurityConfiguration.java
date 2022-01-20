@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import it.lvsemergency.accountManagement.UserService;
 
-
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -27,7 +26,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		  http.authorizeRequests()
+		http.authorizeRequests()
 //          .antMatchers(HttpMethod.GET, "/login").hasRole(UserRole.ADMINISTRATOR.toString(), 
 //        		  										 UserRole.FOREMAN.toString(),
 //        		  										 UserRole.VOLUNTEER.toString())
@@ -35,11 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //          .antMatchers(HttpMethod.POST, "/users").hasRole(UserRole.ADMINISTRATOR.toString())
 //          .antMatchers(HttpMethod.DELETE, "/users").hasRole(UserRole.ADMINISTRATOR.toString())
 //		  .antMatchers(HttpMethod.PUT, "/users").hasAnyRole()
-          .anyRequest().authenticated()
-          .and()
-          .csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-          .and()
-          .httpBasic();
+				.anyRequest().authenticated().and().csrf().disable().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().httpBasic();
 	}
 
 	@Bean

@@ -1,17 +1,20 @@
 package it.lvsemergency.teamManagement;
 
-import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import it.lvsemergency.accountManagement.User;
+import it.lvsemergency.areainformationmanagement.Area;
 
 @Table(name = "Team")
 @Entity
@@ -20,23 +23,26 @@ public class Team {
 
 	private String teamName;
 	private Integer idForeman;
-	private Integer idArea;
-	
-	@OneToMany(targetEntity=User.class, mappedBy="idTeam", fetch = FetchType.LAZY)    
-	private List<User> users = new LinkedList<User>();
 
-	Team () {
-		
-	}
+	@OneToMany(targetEntity = User.class, mappedBy = "idTeam", fetch = FetchType.LAZY)
+	private List<User> users;
 	
-	public Team(Integer idTeam, String teamName, Integer idForeman, Integer idArea) {
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idArea", referencedColumnName = "idArea")
+	private Area area;
+
+	Team() {
+
+	}
+
+	public Team(Integer idTeam, String teamName, Integer idForeman, Area area) {
+		super();
 		this.idTeam = idTeam;
 		this.teamName = teamName;
 		this.idForeman = idForeman;
-		this.idArea = idArea;
-		this.users = new LinkedList<User>();
+		this.area = area;
 	}
-	
+
 	public Integer getIdTeam() {
 		return idTeam;
 	}
@@ -60,15 +66,7 @@ public class Team {
 	public void setIdForeman(Integer idForeman) {
 		this.idForeman = idForeman;
 	}
-	
-	public Integer getIdArea() {
-		return idArea;
-	}
-	
-	public void setIdArea(Integer idArea) {
-		this.idArea = idArea;
-	}
-	
+
 	public List<User> getUsers() {
 		return users;
 	}
@@ -77,4 +75,11 @@ public class Team {
 		this.users = users;
 	}
 	
+	public Area getArea() {
+		return area;
+	}
+	
+	public void setArea(Area area) {
+		this.area = area;
+	}
 }
