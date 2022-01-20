@@ -158,9 +158,13 @@ Page {
                         text: masterController.ui_userController.currentUser.state == 0 ?
                                   qsTr("Stato: inattivo") : qsTr("Stato: attivo")
 
+                        Material.accent: masterController.ui_userController.currentUser.state == 0 ?
+                                             Material.Grey : Material.Green
+
                         anchors.horizontalCenter: parent.horizontalCenter
 
                         onClicked: {
+                            masterController.ui_userController.currentUser.setState(!masterController.ui_userController.currentUser.state)
 
                         }
                     }

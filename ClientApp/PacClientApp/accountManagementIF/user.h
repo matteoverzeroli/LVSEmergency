@@ -22,7 +22,7 @@ public:
     void setUsername(QString newUsername);
 
     int getState();
-    void setState(QString newState);
+    Q_INVOKABLE void setState(QString newState);
 
     const QString getName() const;
     void setName(const QString newName);

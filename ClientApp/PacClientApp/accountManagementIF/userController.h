@@ -20,6 +20,7 @@ public:
                             NavigationController *navigationController, QObject *parent = nullptr);
 
     Q_INVOKABLE void login(QString username, QString password);
+    Q_INVOKABLE void modifyUser();
 
     bool getAuthError();
     User *getCurrentUser();
@@ -33,6 +34,7 @@ private slots:
     void errorReceived(QNetworkReply::NetworkError code);
     void sslErrors(const QList<QSslError> &errors);
 
+    void userModified();
 private:
     QNetworkAccessManager *networkManager {nullptr};
     NavigationController *navigationController {nullptr};
