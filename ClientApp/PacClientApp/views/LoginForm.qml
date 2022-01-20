@@ -70,7 +70,7 @@ Item {
                         anchors.fill: spacer
                         anchors.horizontalCenter: spacer.horizontalCenter
 
-                        visible: masterController.ui_authenticationController.authError
+                        visible: masterController.ui_userController.authError
                     }
                 }
             }
@@ -83,7 +83,7 @@ Item {
                 highlighted: true
 
                 onClicked: {
-                    masterController.ui_authenticationController.login(userNameField.text, passwordField.text)
+                    masterController.ui_userController.login(userNameField.text, passwordField.text)
                     console.log("Login clicked!")
                 }
             }

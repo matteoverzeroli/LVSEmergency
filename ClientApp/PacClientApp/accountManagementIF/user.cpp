@@ -56,10 +56,110 @@ QString User::getUsername()
     return username;
 }
 
+void User::setUsername(QString newUsername)
+{
+    username = newUsername;
+}
+
 int User::getState()
 {
     if (state == "INACTIVE") return 0;
     else return 1;
+}
+
+void User::setState(QString newState)
+{
+    state = newState;
+}
+
+const QString User::getName() const
+{
+    return name;
+}
+
+void User::setName(const QString newName)
+{
+    name = newName;
+}
+
+const QString User::getSurname() const
+{
+    return surname;
+}
+
+void User::setSurname(const QString newSurname)
+{
+    surname = newSurname;
+}
+
+const QString User::getCf() const
+{
+    return cf;
+}
+
+void User::setCf(const QString newCf)
+{
+    cf = newCf;
+}
+
+const QString User::getAddress() const
+{
+    return address;
+}
+
+void User::setAddress(const QString newAddress)
+{
+    address = newAddress;
+}
+
+const QString User::getCellnumber() const
+{
+    return cellnumber;
+}
+
+void User::setCellnumber(const QString newCellnumber)
+{
+    cellnumber = newCellnumber;
+}
+
+const QString User::getSex() const
+{
+    return sex;
+}
+
+void User::setSex(const QString newSex)
+{
+    sex = newSex;
+}
+
+const QString User::getEmail() const
+{
+    return email;
+}
+
+void User::setEmail(const QString newEmail)
+{
+    email = newEmail;
+}
+
+int User::getTeam() const
+{
+    return team;
+}
+
+void User::setTeam(int newTeam)
+{
+    team = newTeam;
+}
+
+const QString User::getRole() const
+{
+    return role;
+}
+
+void User::setRole(const QString newRole)
+{
+    role = newRole;
 }
 
 

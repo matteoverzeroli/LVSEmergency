@@ -147,7 +147,7 @@ Page {
                         wrapMode: Label.Wrap
                         horizontalAlignment: Qt.AlignHCenter
                         text: "Bentornato " +
-                              masterController.ui_authenticationController.currentUser.username
+                              masterController.ui_userController.currentUser.username
                             + "!"
 
                         font.pointSize: 12
@@ -155,7 +155,7 @@ Page {
                     }
 
                     Button {
-                        text: masterController.ui_authenticationController.currentUser.username == 0 ?
+                        text: masterController.ui_userController.currentUser.state == 0 ?
                                   qsTr("Stato: inattivo") : qsTr("Stato: attivo")
 
                         anchors.horizontalCenter: parent.horizontalCenter

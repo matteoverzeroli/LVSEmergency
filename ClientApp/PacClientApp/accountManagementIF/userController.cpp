@@ -75,6 +75,7 @@ void UserController::errorReceived(QNetworkReply::NetworkError code)
 
 void UserController::sslErrors(const QList<QSslError> &errors)
 {
+    Q_UNUSED(errors)
     qDebug() << "Some sslErrors occoured!";
 }
 

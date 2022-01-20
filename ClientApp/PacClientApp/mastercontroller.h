@@ -16,17 +16,17 @@ class MasterController : public QObject
     Q_OBJECT
     // rendo accessibili le classi al lato QML
     Q_PROPERTY(NavigationController *ui_navigationController READ getNavigationController CONSTANT)
-    Q_PROPERTY(accountmanagementIF::UserController *ui_authenticationController READ getAuthenticationController CONSTANT)
+    Q_PROPERTY(accountmanagementIF::UserController *ui_userController READ getUserController CONSTANT)
 public:
     explicit MasterController(QObject *parent = nullptr);
 
     NavigationController *getNavigationController();
-    accountmanagementIF::UserController *getAuthenticationController();
+    accountmanagementIF::UserController *getUserController();
 signals:
 
 private:
     NavigationController *navigationController {nullptr};
-    accountmanagementIF::UserController *authenticationController {nullptr};
+    accountmanagementIF::UserController *userController {nullptr};
 
     QNetworkAccessManager newtworkManager;
 
