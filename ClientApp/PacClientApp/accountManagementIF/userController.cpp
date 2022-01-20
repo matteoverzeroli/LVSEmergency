@@ -28,8 +28,6 @@ void UserController::login(QString username, QString password)
     settings.setValue("password", password);
     settings.endGroup();
 
-    qDebug() << helpers::Utils::getAuthString();
-
     QNetworkRequest request;
     request.setUrl(QUrl("http://localhost:8080/login"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
@@ -63,6 +61,38 @@ void UserController::responseReceived()
         });
 
         emit authErrorChanged(authenticationError);
+    }
+
+    reply->deleteLater();
+}
+
+void UserController::modifyUser()
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl("http://localhost:8080/users"));
+    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+
+    QNetworkReply *reply = networkManager->put(request, currentUser->toJsonDocument().toJson());
+    connect(reply, &QNetworkReply::finished, this, &UserController::userModified);
+    connect(reply, &QNetworkReply::errorOccurred, this, &UserController::errorReceived);
+    connect(reply, &QNetworkReply::sslErrors, this, &UserController::sslErrors);
+}
+
+void UserController::userModified()
+{
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+    QByteArray response = reply->readAll();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        if (currentUser != nullptr)
+            delete currentUser;
+
+        currentUser = new User(QString(response), this);
+
+        emit currentUserChanged(currentUser);
+
+    } else {
+        qDebug() << "Error!";
     }
 
     reply->deleteLater();
