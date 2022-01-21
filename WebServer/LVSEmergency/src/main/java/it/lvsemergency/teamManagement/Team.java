@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import it.lvsemergency.accountManagement.User;
-import it.lvsemergency.areainformationmanagement.Area;
+import it.lvsemergency.areaInformationManagement.Area;
 
 @Table(name = "Team")
 @Entity
@@ -30,7 +30,7 @@ public class Team {
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idArea", referencedColumnName = "idArea")
 	private Area area;
-
+	
 	Team() {
 
 	}

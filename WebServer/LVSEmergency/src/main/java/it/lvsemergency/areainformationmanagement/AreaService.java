@@ -1,4 +1,4 @@
-package it.lvsemergency.areainformationmanagement;
+package it.lvsemergency.areaInformationManagement;
 
 import java.util.List;
 import java.util.Optional;

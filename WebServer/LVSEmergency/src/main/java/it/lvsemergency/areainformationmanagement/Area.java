@@ -1,4 +1,4 @@
-package it.lvsemergency.areainformationmanagement;
+package it.lvsemergency.areaInformationManagement;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,13 +14,13 @@ public class Area {
 	private String areaName;
 	private Double lat;
 	private Double lng;
-	private Integer istatCode;
+	private String istatCode;
 
 	public Area() {
 
 	}
 
-	public Area(Integer idArea, Double lat, Double lng, Integer istatCode) {
+	public Area(Integer idArea, Double lat, Double lng, String istatCode) {
 		super();
 		this.idArea = idArea;
 		this.lat = lat;
@@ -60,11 +60,11 @@ public class Area {
 		this.lng = lng;
 	}
 
-	public Integer getIstatCode() {
+	public String getIstatCode() {
 		return istatCode;
 	}
 
-	public void setIstatCode(Integer istatCode) {
+	public void setIstatCode(String istatCode) {
 		this.istatCode = istatCode;
 	}
 }
