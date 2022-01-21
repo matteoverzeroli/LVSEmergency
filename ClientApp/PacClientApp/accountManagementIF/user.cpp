@@ -24,10 +24,10 @@ QJsonDocument User::toJsonDocument()
     userObject.insert("surname", surname);
     userObject.insert("cf", cf);
     userObject.insert("address", address);
-    userObject.insert("cellnumber", cellnumber);
+    userObject.insert("cellNumber", cellnumber);
     userObject.insert("sex", sex);
     userObject.insert("email", email);
-    userObject.insert("team", team);
+    userObject.insert("idTeam", team);
     userObject.insert("role", role);
     userObject.insert("state", state);
     userObject.insert("password", password);
@@ -43,10 +43,10 @@ void User::fromJsonDocument(QJsonDocument jsonDocument)
     surname = userObject.value("surname").toString();
     cf = userObject.value("cf").toString();
     address = userObject.value("address").toString();
-    cellnumber = userObject.value("cellnumber").toString();
+    cellnumber = userObject.value("cellNumber").toString();
     sex = userObject.value("sex").toString();
     email = userObject.value("email").toString();
-    team = userObject.value("team").toInt();
+    team = userObject.value("idTeam").toInt();
     role = userObject.value("role").toString();
     state = userObject.value("state").toString();
 }
