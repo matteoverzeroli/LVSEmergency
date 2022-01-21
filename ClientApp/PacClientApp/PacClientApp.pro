@@ -9,14 +9,18 @@ SOURCES += \
         accountManagementIF/userController.cpp \
         helpers/utils.cpp \
         main.cpp \
-        mastercontroller.cpp
+        mastercontroller.cpp \
+        teamManagementIF/team.cpp \
+        teamManagementIF/teamcontroller.cpp
 
 HEADERS += \
     accountManagementIF/user.h \
     accountManagementIF/userController.h \
     helpers/utils.h \
     navigationcontroller.h \
-    mastercontroller.h
+    mastercontroller.h \
+    teamManagementIF/team.h \
+    teamManagementIF/teamcontroller.h
 
 RESOURCES += \
         qml.qrc \

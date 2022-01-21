@@ -38,6 +38,9 @@ void UserController::login(QString username, QString password)
     connect(reply, &QNetworkReply::sslErrors, this, &UserController::sslErrors);
 }
 
+/*!
+ * \brief Slot che riceve la risposta dell'API per il login.
+ */
 void UserController::responseReceived()
 {
     QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());

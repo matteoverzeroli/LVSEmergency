@@ -16,6 +16,7 @@ class User : public QObject
     Q_PROPERTY(QString surname READ getSurname CONSTANT)
     Q_PROPERTY(QString cf READ getCf CONSTANT)
     Q_PROPERTY(QString address READ getAddress CONSTANT)
+    Q_PROPERTY(int role READ getRole CONSTANT)
 public:
     explicit User(QString jsonString, QObject *parent = nullptr);
 
@@ -52,7 +53,7 @@ public:
     int getTeam() const;
     void setTeam(int newTeam);
 
-    const QString getRole() const;
+    int getRole() const;
     void setRole(const QString newRole);
 
 signals:

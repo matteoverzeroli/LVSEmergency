@@ -152,9 +152,11 @@ void User::setTeam(int newTeam)
     team = newTeam;
 }
 
-const QString User::getRole() const
+int User::getRole() const
 {
-    return role;
+    if (role == "ADMINISTRATOR") return 0;
+    else if (role == "FOREMAN") return 1;
+    return 2;
 }
 
 void User::setRole(const QString newRole)

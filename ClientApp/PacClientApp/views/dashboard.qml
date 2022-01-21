@@ -13,7 +13,7 @@ Page {
         onTriggered: {
             if (stackView.depth > 1) {
                 stackView.pop()
-                //                listView.currentIndex = -1
+                listView.currentIndex = -1
             } else {
                 drawer.open()
             }
@@ -82,42 +82,25 @@ Page {
             delegate: ItemDelegate {
                 width: listView.width
                 text: model.title
+                visible: model.user >= masterController.ui_userController.currentUser.role
+                height: visible == true ? implicitHeight : 0
                 highlighted: ListView.isCurrentItem
                 onClicked: {
                     listView.currentIndex = index
                     stackView.push(model.source)
                     drawer.close()
+
+                    if (model.source === "qrc:/views/InserisciUtente.qml") {
+                        masterController.ui_teamController.getTeams()
+                    }
                 }
             }
 
-            //            model: ListModel {
-            //                ListElement { title: "BusyIndicator"; source: "qrc:/pages/BusyIndicatorPage.qml" }
-            //                ListElement { title: "Button"; source: "qrc:/pages/ButtonPage.qml" }
-            //                ListElement { title: "CheckBox"; source: "qrc:/pages/CheckBoxPage.qml" }
-            //                ListElement { title: "ComboBox"; source: "qrc:/pages/ComboBoxPage.qml" }
-            //                ListElement { title: "DelayButton"; source: "qrc:/pages/DelayButtonPage.qml" }
-            //                ListElement { title: "Dial"; source: "qrc:/pages/DialPage.qml" }
-            //                ListElement { title: "Dialog"; source: "qrc:/pages/DialogPage.qml" }
-            //                ListElement { title: "Delegates"; source: "qrc:/pages/DelegatePage.qml" }
-            //                ListElement { title: "Frame"; source: "qrc:/pages/FramePage.qml" }
-            //                ListElement { title: "GroupBox"; source: "qrc:/pages/GroupBoxPage.qml" }
-            //                ListElement { title: "PageIndicator"; source: "qrc:/pages/PageIndicatorPage.qml" }
-            //                ListElement { title: "ProgressBar"; source: "qrc:/pages/ProgressBarPage.qml" }
-            //                ListElement { title: "RadioButton"; source: "qrc:/pages/RadioButtonPage.qml" }
-            //                ListElement { title: "RangeSlider"; source: "qrc:/pages/RangeSliderPage.qml" }
-            //                ListElement { title: "ScrollBar"; source: "qrc:/pages/ScrollBarPage.qml" }
-            //                ListElement { title: "ScrollIndicator"; source: "qrc:/pages/ScrollIndicatorPage.qml" }
-            //                ListElement { title: "Slider"; source: "qrc:/pages/SliderPage.qml" }
-            //                ListElement { title: "SpinBox"; source: "qrc:/pages/SpinBoxPage.qml" }
-            //                ListElement { title: "StackView"; source: "qrc:/pages/StackViewPage.qml" }
-            //                ListElement { title: "SwipeView"; source: "qrc:/pages/SwipeViewPage.qml" }
-            //                ListElement { title: "Switch"; source: "qrc:/pages/SwitchPage.qml" }
-            //                ListElement { title: "TabBar"; source: "qrc:/pages/TabBarPage.qml" }
-            //                ListElement { title: "TextArea"; source: "qrc:/pages/TextAreaPage.qml" }
-            //                ListElement { title: "TextField"; source: "qrc:/pages/TextFieldPage.qml" }
-            //                ListElement { title: "ToolTip"; source: "qrc:/pages/ToolTipPage.qml" }
-            //                ListElement { title: "Tumbler"; source: "qrc:/pages/TumblerPage.qml" }
-            //            }
+            model: ListModel {
+                ListElement { title: "Inserisci Utente"; user: 0 ; source: "qrc:/views/InserisciUtente.qml" }
+                ListElement { title: "Crea Squadra"; user: 0 ; source: "qrc:/views/CreaSquadra.qml" }
+                ListElement { title: "Impostazioni"; user: 2; source: "qrc:/views/Impostazioni.qml" }
+            }
 
             ScrollIndicator.vertical: ScrollIndicator { }
         }
@@ -135,11 +118,10 @@ Page {
             Pane {
                 id: pane
                 width: flickable.width
-                height: flickable.height
 
                 Column {
                     id: column
-                    spacing: 40
+                    spacing: 24
                     width: parent.width
 
                     Label {
@@ -150,8 +132,18 @@ Page {
                         text: "Bentornato " +
                               masterController.ui_userController.currentUser.username
                               + "!"
-
+                        font.bold: true
                         font.pointSize: 16
+                    }
+
+                    Label {
+                        id: info
+                        width: parent.width
+                        wrapMode: Label.Wrap
+                        horizontalAlignment: Qt.AlignHCenter
+                        text: "Ecco alcune informazioni su di te:"
+
+                        font.pointSize: 12
                     }
 
                     RoundPane {
@@ -173,6 +165,22 @@ Page {
                                 id: surname
                                 text: qsTr("Cognome: ") + masterController.ui_userController.currentUser.username
                             }
+
+                            Label {
+                                id: cf
+                                text: qsTr("Codice Fiscale: ") + masterController.ui_userController.currentUser.cf
+                            }
+
+                            Label {
+                                id: ruolo
+                                text: qsTr("Ruolo: ") + getRole(masterController.ui_userController.currentUser.role)
+
+                                function getRole(role) {
+                                    if (role == 0) return "Amministratore"
+                                    if (role == 1) return "Caposquadra"
+                                    if (role == 2) return "Volontario"
+                                }
+                            }
                         }
                     }
 
@@ -190,7 +198,7 @@ Page {
                         width: parent.width
                         wrapMode: Label.Wrap
                         horizontalAlignment: Qt.AlignHCenter
-                        text: qsTr("Clicca il pulsante per modificare lo stato.")
+                        text: qsTr("Clicca il pulsante per modificare lo stato di operatività.")
                     }
 
                     Button {

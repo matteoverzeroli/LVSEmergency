@@ -27,7 +27,7 @@ public:
 
 signals:
     void authErrorChanged(bool );
-    void currentUserChanged(User *);
+    void currentUserChanged(accountmanagementIF::User *);
 
 private slots:
     void responseReceived();

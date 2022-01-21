@@ -5,9 +5,11 @@
     <qresource prefix="/views">
         <file alias="dashboard.qml">views/dashboard.qml</file>
         <file alias="LoginForm.qml">views/LoginForm.qml</file>
+        <file alias="Impostazioni.qml">views/Impostazioni.qml</file>
+        <file alias="InserisciUtente.qml">views/InserisciUtente.qml</file>
+        <file alias="CreaSquadra.qml">views/CreaSquadra.qml</file>
     </qresource>
     <qresource prefix="/assets">
         <file alias="RoundPane.qml">assets/RoundPane.qml</file>
-        <file alias="qmldir">assets/qmldir</file>
     </qresource>
 </RCC>
