@@ -66,11 +66,15 @@ void UserController::responseReceived()
     reply->deleteLater();
 }
 
+/*!
+ * \brief Funzione per invocare l'API di modifica dello User.
+ */
 void UserController::modifyUser()
 {
     QNetworkRequest request;
     request.setUrl(QUrl("http://localhost:8080/users"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
 
     QNetworkReply *reply = networkManager->put(request, currentUser->toJsonDocument().toJson());
     connect(reply, &QNetworkReply::finished, this, &UserController::userModified);
@@ -78,6 +82,9 @@ void UserController::modifyUser()
     connect(reply, &QNetworkReply::sslErrors, this, &UserController::sslErrors);
 }
 
+/*!
+ * \brief Slot che riceve la risposta dell'API per la modifica.
+ */
 void UserController::userModified()
 {
     QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());

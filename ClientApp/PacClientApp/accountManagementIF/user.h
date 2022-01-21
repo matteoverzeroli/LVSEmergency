@@ -12,6 +12,10 @@ class User : public QObject
     Q_OBJECT
     Q_PROPERTY(QString username READ getUsername CONSTANT)
     Q_PROPERTY(int state READ getState CONSTANT)
+    Q_PROPERTY(QString name READ getName CONSTANT)
+    Q_PROPERTY(QString surname READ getSurname CONSTANT)
+    Q_PROPERTY(QString cf READ getCf CONSTANT)
+    Q_PROPERTY(QString address READ getAddress CONSTANT)
 public:
     explicit User(QString jsonString, QObject *parent = nullptr);
 

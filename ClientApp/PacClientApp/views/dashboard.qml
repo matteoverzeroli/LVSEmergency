@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
+import "../assets"
 
 Page {
     id: window
@@ -38,7 +39,7 @@ Page {
 
             Label {
                 id: titleLabel
-                text: listView.currentItem ? listView.currentItem.text : "Dashboard"
+                text: listView.currentItem ? listView.currentItem.text : "LVSEmergency"
                 font.pixelSize: 20
                 elide: Label.ElideRight
                 horizontalAlignment: Qt.AlignHCenter
@@ -142,30 +143,68 @@ Page {
                     width: parent.width
 
                     Label {
-                        id: surname
+                        id: username
                         width: parent.width
                         wrapMode: Label.Wrap
                         horizontalAlignment: Qt.AlignHCenter
                         text: "Bentornato " +
                               masterController.ui_userController.currentUser.username
-                            + "!"
+                              + "!"
 
-                        font.pointSize: 12
+                        font.pointSize: 16
+                    }
 
+                    RoundPane {
+                        Material.elevation: 6
+                        radius: 6
+                        Material.background: "#F2CB05"
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        Column {
+                            id: columnInfo
+                            spacing: 8
+
+                            Label {
+                                id: name
+                                text: qsTr("Nome: ") + masterController.ui_userController.currentUser.name
+                            }
+
+                            Label {
+                                id: surname
+                                text: qsTr("Cognome: ") + masterController.ui_userController.currentUser.username
+                            }
+                        }
+                    }
+
+                    Rectangle {
+                        height: 2
+                        width: parent.width * 5 / 6
+                        radius: 5
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        color: "#999999"
+                    }
+
+                    Label {
+                        id: modifyStatus
+                        width: parent.width
+                        wrapMode: Label.Wrap
+                        horizontalAlignment: Qt.AlignHCenter
+                        text: qsTr("Clicca il pulsante per modificare lo stato.")
                     }
 
                     Button {
                         text: masterController.ui_userController.currentUser.state == 0 ?
                                   qsTr("Stato: inattivo") : qsTr("Stato: attivo")
 
-                        Material.accent: masterController.ui_userController.currentUser.state == 0 ?
-                                             Material.Grey : Material.Green
+                        highlighted: masterController.ui_userController.currentUser.state == 1
 
                         anchors.horizontalCenter: parent.horizontalCenter
 
                         onClicked: {
-                            masterController.ui_userController.currentUser.setState(!masterController.ui_userController.currentUser.state)
-
+                            var stateString = masterController.ui_userController.currentUser.state == 0 ? "ACTIVE" : "INACTIVE"
+                            masterController.ui_userController.currentUser.setState(stateString)
+                            masterController.ui_userController.modifyUser()
                         }
                     }
                 }
