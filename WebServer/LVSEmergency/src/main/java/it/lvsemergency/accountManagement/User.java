@@ -161,4 +161,32 @@ public class User {
 	public void setState(OperativityRole state) {
 		this.state = state;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	    // self check
+	    if (this == obj)
+	        return true;
+	    // null check
+	    if (obj == null)
+	        return false;
+	    // type check and cast
+	    if (getClass() != obj.getClass())
+	        return false;
+	    User otherUser = (User) obj;
+	    // field comparison
+	    return  username.equals(otherUser.username) &&	
+	    		username.equals(otherUser.username) && 
+	    		name.equals(otherUser.name) &&
+	    		surname.equals(otherUser.surname) &&
+	    		CF.equals(otherUser.CF) &&
+	    		password.equals(otherUser.password) &&
+	    		address.equals(otherUser.address) &&
+	    		cellNumber.equals(otherUser.cellNumber) &&
+	    		sex.equals(otherUser.sex) &&
+	    		email.equals(otherUser.email) &&
+	    		idTeam.equals(otherUser.idTeam) &&
+	    		role.equals(otherUser.role) &&
+	    		state.equals(otherUser.state);
+	}
 }
