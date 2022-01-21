@@ -1,6 +1,5 @@
 package it.lvsemergency.teamManagement;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class TeamDTO {
@@ -10,7 +9,6 @@ public class TeamDTO {
 	@NotNull
 	private String teamName;
 	
-	@NotNull
 	private Integer idForeman;
 	
 	@NotNull
