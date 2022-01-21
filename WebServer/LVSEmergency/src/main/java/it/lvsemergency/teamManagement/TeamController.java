@@ -36,8 +36,9 @@ public class TeamController {
 
 	@PostMapping(path = "/teams")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Team addTeam(@Valid @RequestBody Team team) {
-		return teamService.addTeam(team);
+	public String addTeam(@Valid @RequestBody TeamDTO teamDto) {
+		teamService.addTeam(teamDto);
+		return "Team created successfully!";
 	}
 
 	@DeleteMapping(path = "/teams/{idTeam}")

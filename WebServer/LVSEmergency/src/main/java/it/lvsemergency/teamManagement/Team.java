@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import it.lvsemergency.accountManagement.User;
 import it.lvsemergency.areaInformationManagement.Area;
 
-@Table(name = "Team")
+@Table(name = "team")
 @Entity
 public class Team {
 	private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Integer idTeam;
@@ -27,7 +27,7 @@ public class Team {
 	@OneToMany(targetEntity = User.class, mappedBy = "idTeam", fetch = FetchType.LAZY)
 	private List<User> users;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
     @JoinColumn(name = "idArea", referencedColumnName = "idArea")
 	private Area area;
 	
