@@ -1,0 +1,287 @@
+{
+	"info": {
+		"_postman_id": "7028d67e-9f63-46a6-bc12-a882201cf43e",
+		"name": "Test Iteratione 2 : TeamController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get one team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200; Team ricevuto\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"const expected = {\r",
+							"    \"idTeam\": 1,\r",
+							"    \"teamName\": \"BGTeam\",\r",
+							"    \"idForeman\": 4,\r",
+							"    \"users\": [\r",
+							"        {\r",
+							"            \"idUser\": 1,\r",
+							"            \"username\": \"admin\",\r",
+							"            \"name\": \"Mario\",\r",
+							"            \"surname\": \"Rossi\",\r",
+							"            \"address\": \"Via Nazionale 7\",\r",
+							"            \"cellNumber\": \"3485556255\",\r",
+							"            \"sex\": \"M\",\r",
+							"            \"email\": \"mario@rossi.it\",\r",
+							"            \"idTeam\": 1,\r",
+							"            \"role\": \"ADMINISTRATOR\",\r",
+							"            \"state\": \"ACTIVE\",\r",
+							"            \"cf\": \"MRARSS80A01C800V\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"idUser\": 2,\r",
+							"            \"username\": \"admin1\",\r",
+							"            \"name\": \"Daniela\",\r",
+							"            \"surname\": \"Rossi\",\r",
+							"            \"address\": \"Via Nazionale 8\",\r",
+							"            \"cellNumber\": \"325186255\",\r",
+							"            \"sex\": \"F\",\r",
+							"            \"email\": \"daniela@rossi.it\",\r",
+							"            \"idTeam\": 1,\r",
+							"            \"role\": \"ADMINISTRATOR\",\r",
+							"            \"state\": \"ACTIVE\",\r",
+							"            \"cf\": \"DNARSS80A01C800V\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"idUser\": 4,\r",
+							"            \"username\": \"foreman1\",\r",
+							"            \"name\": \"Giancarlo\",\r",
+							"            \"surname\": \"Bianchi\",\r",
+							"            \"address\": \"Via Verdi 1\",\r",
+							"            \"cellNumber\": \"3215186255\",\r",
+							"            \"sex\": \"M\",\r",
+							"            \"email\": \"giancarlo@rossi.it\",\r",
+							"            \"idTeam\": 1,\r",
+							"            \"role\": \"FOREMAN\",\r",
+							"            \"state\": \"ACTIVE\",\r",
+							"            \"cf\": \"BNARSS80A01C800V\"\r",
+							"        }\r",
+							"    ],\r",
+							"    \"area\": {\r",
+							"        \"idArea\": 1,\r",
+							"        \"areaName\": \"Bergamo\",\r",
+							"        \"lat\": 45.69499969482422,\r",
+							"        \"lng\": 9.670000076293945,\r",
+							"        \"istatCode\": \"016024\"\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Team ricevuto corretto\", () => {\r",
+							"    pm.expect(expected).to.eql(response);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/teams/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all teams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200; Squadre ricevute\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.json()).not.to.eql(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/teams",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 201; Squadra creata\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.expect(\"Team created successfully!\").to.eql(pm.response.text());\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"teamName\" : \"LVSTeam\",\r\n    \"idArea\" : \"4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teams",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 202; Team eliminato\", () => {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"teamName\" : \"CDMTeam\",\r\n    \"idArea\" : \"3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teams/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign foreman to a team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 202; Caposquadra assegnato\", () => {\r",
+							"    pm.response.to.have.status(202);\r",
+							"    pm.expect(\"Foreman 6 assigned to 4 correctly !\").to.eql(pm.response.text());\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/teams/foreman/4/6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"foreman",
+						"4",
+						"6"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

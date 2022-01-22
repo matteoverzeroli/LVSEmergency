@@ -54,3 +54,11 @@ disable or activate foreign key check
 SET FOREIGN_KEY_CHECKS = 0;
 SET FOREIGN_KEY_CHECKS = 1;
 */
+
+/*
+DROP TABLE
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE `test`.`area`, `test`.`team`, `test`.`user`;
+SET FOREIGN_KEY_CHECKS = 1;
+*/

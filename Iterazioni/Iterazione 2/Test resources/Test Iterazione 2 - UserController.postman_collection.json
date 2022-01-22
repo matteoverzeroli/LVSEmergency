@@ -1,0 +1,384 @@
+{
+	"info": {
+		"_postman_id": "a5059593-b6b0-4b7a-b1f6-3468a06070d4",
+		"name": "Test Iterazione 2 : UserController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login corretto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 202; Utente autorizzato\", () => {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"const expected = {\r",
+							"    \"idUser\": 1,\r",
+							"    \"username\": \"admin\",\r",
+							"    \"name\": \"Mario\",\r",
+							"    \"surname\": \"Rossi\",\r",
+							"    \"address\": \"Via Nazionale 7\",\r",
+							"    \"cellNumber\": \"3485556255\",\r",
+							"    \"sex\": \"M\",\r",
+							"    \"email\": \"mario@rossi.it\",\r",
+							"    \"idTeam\": 1,\r",
+							"    \"role\": \"ADMINISTRATOR\",\r",
+							"    \"state\": \"ACTIVE\",\r",
+							"    \"cf\": \"MRARSS80A01C800V\"\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Utente ricevuto corretto\", () => {\r",
+							"    pm.expect(expected).to.eql(response);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login errato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 401; Utente non autorizzato\", () => {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "abc",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "abc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Codice di stato: 200; Utenti ricevuti\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.json()).not.to.eql(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get one user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"const expected = {\r",
+							"    \"idUser\": 1,\r",
+							"    \"username\": \"admin\",\r",
+							"    \"name\": \"Mario\",\r",
+							"    \"surname\": \"Rossi\",\r",
+							"    \"address\": \"Via Nazionale 7\",\r",
+							"    \"cellNumber\": \"3485556255\",\r",
+							"    \"sex\": \"M\",\r",
+							"    \"email\": \"mario@rossi.it\",\r",
+							"    \"idTeam\": 1,\r",
+							"    \"role\": \"ADMINISTRATOR\",\r",
+							"    \"state\": \"ACTIVE\",\r",
+							"    \"cf\": \"MRARSS80A01C800V\"\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Utente ricevuto corretto\", () => {\r",
+							"    pm.expect(expected).to.eql(response);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete one user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 202; Utente eliminato\", () => {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 201; Utente creato\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"response = pm.response.json();\r",
+							"response[\"idUser\"] = \"\";\r",
+							"\r",
+							"expected = {\r",
+							"    \"idUser\" : \"\",\r",
+							"    \"username\": \"admin1\",\r",
+							"    \"name\": \"Daniela\",\r",
+							"    \"surname\": \"Rossi\",\r",
+							"    \"address\": \"Via Nazionale 8\",\r",
+							"    \"cellNumber\": \"325186255\",\r",
+							"    \"sex\": \"F\",\r",
+							"    \"email\": \"daniela@rossi.it\",\r",
+							"    \"idTeam\": 1,\r",
+							"    \"role\": \"ADMINISTRATOR\",\r",
+							"    \"state\": \"ACTIVE\",\r",
+							"    \"cf\": \"DNARSS80A01C800V\"\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Utente creato correttamente\", () =>{\r",
+							"    pm.expect(expected).to.eql(response);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\" : \"admin1\",\r\n    \"name\": \"Daniela\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 8\",\r\n    \"cellNumber\": \"325186255\",\r\n    \"sex\": \"F\",\r\n    \"email\": \"daniela@rossi.it\",\r\n    \"idTeam\": 1,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"DNARSS80A01C800V\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modify a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200; Utente modificato\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"response = pm.response.json();\r",
+							"\r",
+							"expected = {\r",
+							"    \"idUser\": 3,\r",
+							"    \"username\": \"admin2\",\r",
+							"    \"name\": \"Luca\",\r",
+							"    \"surname\": \"Rossi\",\r",
+							"    \"address\": \"Via Nazionale 9\",\r",
+							"    \"cellNumber\": \"3252186255\",\r",
+							"    \"sex\": \"M\",\r",
+							"    \"email\": \"luca@rossi.it\",\r",
+							"    \"idTeam\": 1,\r",
+							"    \"role\": \"ADMINISTRATOR\",\r",
+							"    \"state\": \"ACTIVE\",\r",
+							"    \"cf\": \"ABCSS80A01C800V\"\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Utente modificato correttamente\", () =>{\r",
+							"    pm.expect(expected).to.eql(response);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idUser\": 3,\r\n    \"username\": \"admin2\",\r\n    \"password\": \"admin2\",\r\n    \"name\": \"Luca\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 9\",\r\n    \"cellNumber\": \"3252186255\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"luca@rossi.it\",\r\n    \"idTeam\": 1,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"ABCSS80A01C800V\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

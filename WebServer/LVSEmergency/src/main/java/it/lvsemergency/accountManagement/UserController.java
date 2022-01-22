@@ -26,6 +26,7 @@ public class UserController {
 	}
 
 	@GetMapping(path = "/login")
+	@ResponseStatus(HttpStatus.ACCEPTED)
 	public UserDTO login() {
 		return userService.userInformationResponse(
 				(UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
