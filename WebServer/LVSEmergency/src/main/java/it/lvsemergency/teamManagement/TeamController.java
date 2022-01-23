@@ -46,21 +46,5 @@ public class TeamController {
 	public void deleteTeam(@PathVariable Integer idTeam) {
 		teamService.deleteTeam(idTeam);
 	}
-	
-	/**
-	 * Set foreman of a team.
-	 * 
-	 * @param idTeam id of the team to be modified
-	 * @param idForeman id of the user 
-	 * 
-	 * @return confirmation message
-	 */
-	
-	@GetMapping(path = "/teams/foreman/{idTeam}/{idForeman}")
-	@ResponseStatus(HttpStatus.ACCEPTED)
-	public String setForemanTeam(@PathVariable Integer idTeam, @PathVariable Integer idForeman) {
-		teamService.setForemanTeam(idTeam, idForeman);
-		return "Foreman " + idForeman + " assigned to " + idTeam + " correctly !";
-	}
 
 }

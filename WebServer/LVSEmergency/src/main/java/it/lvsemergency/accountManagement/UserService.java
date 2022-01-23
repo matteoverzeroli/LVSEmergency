@@ -14,11 +14,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import it.lvsemergency.teamManagement.Team;
+import it.lvsemergency.teamManagement.TeamRepository;
+
 @Service
 public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private TeamRepository teamRepository;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -60,10 +66,24 @@ public class UserService implements UserDetailsService {
 
 		if (!user.isEmpty())
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists");
-
+		
 		User newUser = modelMapper.map(userDto, User.class);
+		newUser = userRepository.save(newUser);
+		
+		// setto l'idForeman del team a cui è stato assegnato il caposquadra
+		if (newUser.getRole().equals(UserRole.FOREMAN)) {
+			int idTeam = newUser.getIdTeam();
+			
+			Optional<Team> team = teamRepository.findById(idTeam);
+			
+			if (team.isEmpty())
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No team found");
+			
+			team.get().setIdForeman(newUser.getIdUser());
+			teamRepository.save(team.get());
+		}
 
-		return modelMapper.map(userRepository.save(newUser), UserDTO.class);
+		return modelMapper.map(newUser, UserDTO.class);
 	}
 
 	public UserDTO modifyUser(UserDTO userDto) {

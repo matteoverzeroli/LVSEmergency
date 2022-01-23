@@ -8,6 +8,7 @@ MasterController::MasterController(QObject *parent)
                                                                 navigationController,
                                                                 this);
     teamController = new teamManagementIF::TeamController(&newtworkManager, this);
+    areaController = new areaInformationManagementIF::AreaController(&newtworkManager, this);
 }
 
 NavigationController *MasterController::getNavigationController()
@@ -23,4 +24,9 @@ accountmanagementIF::UserController *MasterController::getUserController()
 teamManagementIF::TeamController *MasterController::getTeamController()
 {
     return teamController;
+}
+
+areaInformationManagementIF::AreaController *MasterController::getAreaController()
+{
+    return areaController;
 }

@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QSettings>
 #include <QTimer>
+#include <QJsonArray>
 
 #include "./helpers/utils.h"
 
@@ -108,6 +109,121 @@ void UserController::userModified()
     reply->deleteLater();
 }
 
+/*!
+ * \brief Funzione per invocare l'API di aggiunta User.
+ */
+void UserController::addUser(QString userName, QString name, QString surname,
+                             QString password, QString cf, QString address,
+                             QString cellNumber, QString email, int role, int idTeam, QString sex)
+{
+    QScopedPointer<User> newUser(new User());
+    newUser->setUsername(userName);
+    newUser->setName(name);
+    newUser->setSurname(surname);
+    newUser->setPassword(password);
+    newUser->setCf(cf);
+    newUser->setAddress(address);
+    newUser->setCellnumber(cellNumber);
+    newUser->setEmail(email);
+    newUser->setRole(role == 2 ? "VOLUNTEER" : "FOREMAN");
+    newUser->setTeam(idTeam);
+    newUser->setSex(sex);
+    newUser->setState("INACTIVE");
+
+    QNetworkRequest request;
+    request.setUrl(QUrl("http://localhost:8080/users"));
+    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+
+    QNetworkReply *reply = networkManager->post(request, newUser->toJsonDocument().toJson());
+    connect(reply, &QNetworkReply::finished, this, &UserController::userAdded);
+}
+
+/*!
+ * \brief Slot che riceve la risposta dell'API per l'aggiunta.
+ */
+void UserController::userAdded()
+{
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+
+    if (reply->error() == QNetworkReply::NoError) {
+        emit userAddedWithSuccess();
+    } else {
+        emit errorOnAddingNewUser();
+    }
+
+    reply->deleteLater();
+}
+
+/*!
+ * \brief Funzione per invocare l'API che richiede tutti gli utenti inseriti.
+ */
+void UserController::getUsers()
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl("http://localhost:8080/users"));
+    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+
+    QNetworkReply *reply = networkManager->get(request);
+    connect(reply, &QNetworkReply::finished, this, &UserController::allUsersReceived);
+}
+
+/*!
+ * \brief Slot che riceve la risposta dell'API di ricezione utenti.
+ */
+void UserController::allUsersReceived()
+{
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+    QByteArray response = reply->readAll();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        allUsers.clear();
+
+        QJsonArray usersArray = QJsonDocument::fromJson(response).array();
+        foreach (const QJsonValue &userValue, usersArray) {
+            User *newUser = new User(userValue.toObject(), this);
+            allUsers.append(newUser);
+        }
+
+        emit usersChanged(getAllUsers());
+    } else {
+
+    }
+
+    reply->deleteLater();
+}
+
+/*!
+ * \brief Funzione per invocare l'API che cancella un utente.
+ */
+void UserController::deleteUser(int idUser)
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl("http://localhost:8080/users/" + QString::number(idUser)));
+    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+
+    QNetworkReply *reply = networkManager->deleteResource(request);
+    connect(reply, &QNetworkReply::finished, this, &UserController::userDeleted);
+}
+
+/*!
+ * \brief Slot che riceve la risposta dell'API di ricezione utenti.
+ */
+void UserController::userDeleted()
+{
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+
+    if (reply->error() == QNetworkReply::NoError) {
+        emit userDeletedWithSuccess();
+    } else {
+        emit errorWhileDeletingUser();
+    }
+
+    this->getUsers();
+
+    reply->deleteLater();
+}
+
 void UserController::errorReceived(QNetworkReply::NetworkError code)
 {
     qDebug() << "Some error occoured:" << code;
@@ -127,6 +243,11 @@ bool UserController::getAuthError()
 User *UserController::getCurrentUser()
 {
     return currentUser;
+}
+
+QQmlListProperty<User> UserController::getAllUsers()
+{
+    return QQmlListProperty<accountmanagementIF::User>(this, &allUsers);
 }
 
 }

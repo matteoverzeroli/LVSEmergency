@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<accountmanagementIF::User>("PacApp", 1, 0, "User", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<teamManagementIF::TeamController>("PacApp", 1, 0, "TeamController", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<teamManagementIF::Team>("PacApp", 1, 0, "Team", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<areaInformationManagementIF::Area>("PacApp", 1, 0, "Area", "This class cannot be created by QML.");
 
 
     MasterController masterController;

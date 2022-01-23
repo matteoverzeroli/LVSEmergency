@@ -7,88 +7,186 @@ import "../assets"
 Flickable {
     id: flickable
 
-    contentHeight: pane.height
+    contentHeight: column.height
 
-    Pane {
-        id: pane
-        width: flickable.width
-        height: flickable.height
+    Connections {
+        target: masterController.ui_teamController
+
+        function onTeamAddedWithSuccess() {
+            busyIndicator.running = false
+
+            teamAddedDialog.open()
+        }
+
+        function onErrorWhileAddingTeam() {
+            busyIndicator.running = false
+
+            userErrorDialog.open()
+        }
+    }
+
+    Dialog {
+        id: teamAddedDialog
+
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
+        parent: Overlay.overlay
+
+        modal: true
+        title: "Squadra creata!"
+        standardButtons: Dialog.Ok
 
         Column {
-            id: column
-            spacing: 24
+            spacing: 20
+            anchors.fill: parent
+            Label {
+                text: "La squadra è stata inserita con successo!"
+                wrapMode: Label.Wrap
+            }
+        }
+    }
+
+    Dialog {
+        id: userErrorDialog
+
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
+        parent: Overlay.overlay
+
+        modal: true
+        title: "Attenzione!"
+        standardButtons: Dialog.Ok
+
+        Column {
+            spacing: 20
+            anchors.fill: parent
+            Label {
+                text: "Una squadra con questo nome è già stata creata!"
+                wrapMode: Label.Wrap
+            }
+        }
+    }
+
+
+    Column {
+        id: column
+        width: parent.width - 40
+        x: 20
+        spacing: 16
+
+
+        Rectangle {
             width: parent.width
+            color: "transparent"
+            height: 40
 
-            Label {
-                id: username
-                width: parent.width
-                wrapMode: Label.Wrap
-                horizontalAlignment: Qt.AlignHCenter
-                text: "Bentornato " +
-                      masterController.ui_userController.currentUser.username
-                      + "!"
-                font.bold: true
-                font.pointSize: 16
+            Row {
+                anchors.fill: parent
+                Label {
+                    height: parent.height
+                    width: parent.width / 2
+                    text: qsTr("Nome del team:")
+
+                    verticalAlignment: Qt.AlignVCenter
+                    horizontalAlignment: Qt.AlignHCenter
+                }
+
+                TextField {
+                    id: teamNameField
+                    height: parent.height
+                    width: parent.width / 2
+                    placeholderText: qsTr("Nome del team")
+                    horizontalAlignment: Qt.AlignHCenter
+                }
             }
+        }
 
-            Label {
-                id: info
-                width: parent.width
-                wrapMode: Label.Wrap
-                horizontalAlignment: Qt.AlignHCenter
-                text: "Ecco alcune informazioni su di te:"
+        Rectangle {
+            width: parent.width
+            color: "transparent"
+            height: 40
 
-                font.pointSize: 12
+            Row {
+                anchors.fill: parent
+                Label {
+                    height: parent.height
+                    width: parent.width / 2
+                    text: qsTr("Area:")
+
+                    verticalAlignment: Qt.AlignVCenter
+                    horizontalAlignment: Qt.AlignHCenter
+                }
+
+                ComboBox {
+                    id: comboArea
+                    model: masterController.ui_areaController.areasAvailableList
+                    height: parent.height
+                    width: parent.width / 2
+                }
             }
+        }
 
-            RoundPane {
-                Material.elevation: 6
-                radius: 6
-                Material.background: "#F2CB05"
-                anchors.horizontalCenter: parent.horizontalCenter
 
-                Column {
-                    id: columnInfo
-                    spacing: 8
+        RowLayout {
+            anchors.horizontalCenter: parent.horizontalCenter
 
-                    Label {
-                        id: name
-                        text: qsTr("Nome: ") + masterController.ui_userController.currentUser.name
+            Button {
+                text: qsTr("Crea Squadra")
+
+                highlighted: true
+
+                onClicked: {
+                    console.log("Inserendo la squadra!")
+
+                    if (verifyFields()) {
+                        busyIndicator.running = true
+                        var idArea = masterController.ui_areaController.getIdAreaByName(comboArea.currentText)
+
+                        masterController.ui_teamController.addTeam(teamNameField.text, idArea)
+                    } else {
+                        fieldErrorDialog.open()
                     }
 
-                    Label {
-                        id: surname
-                        text: qsTr("Cognome: ") + masterController.ui_userController.currentUser.username
-                    }
+                }
 
-                    Label {
-                        id: cf
-                        text: qsTr("Codice Fiscale: ") + masterController.ui_userController.currentUser.cf
-                    }
+                Dialog {
+                    id: fieldErrorDialog
 
-                    Label {
-                        id: ruolo
-                        text: qsTr("Ruolo: ") + getRole(masterController.ui_userController.currentUser.role)
+                    x: (parent.width - width) / 2
+                    y: (parent.height - height) / 2
+                    parent: Overlay.overlay
 
-                        function getRole(role) {
-                            if (role == 0) return "Amministratore"
-                            if (role == 1) return "Caposquadra"
-                            if (role == 2) return "Volontario"
+                    modal: true
+                    title: "Attenzione!"
+                    standardButtons: Dialog.Ok
+
+                    Column {
+                        spacing: 20
+                        anchors.fill: parent
+                        Label {
+                            text: "Verificare di aver inserito correttamente tutti i campi e riprovare."
+                            wrapMode: Label.Wrap
                         }
                     }
                 }
+
+                function verifyFields () {
+                    if (teamNameField.acceptableInput && teamNameField.text != ""
+                            && comboArea.currentText != "")
+                        return true
+
+                    return false
+                }
             }
 
-            Rectangle {
-                height: 2
-                width: parent.width * 5 / 6
-                radius: 5
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                color: "#999999"
+            BusyIndicator {
+                id: busyIndicator
+                running: false
             }
-
         }
+
+
+
     }
 
     ScrollBar.vertical: ScrollBar { }

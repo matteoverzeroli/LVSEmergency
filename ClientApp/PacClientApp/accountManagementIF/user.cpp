@@ -4,19 +4,32 @@
 
 namespace accountmanagementIF {
 
+User::User(QObject *parent)
+    : QObject{parent}
+{
+
+}
+
 User::User(QString jsonString, QObject *parent)
     : QObject{parent}
 {
     fromJsonDocument(QJsonDocument::fromJson(jsonString.toUtf8()));
 }
 
+User::User(QJsonObject jsonObject, QObject *parent)
+    : QObject{parent}
+{
+    fromJsonObject(jsonObject);
+}
+
 QJsonDocument User::toJsonDocument()
 {
-    QString password = "";
-    QSettings settings;
-    settings.beginGroup("Credentials");
-    password = settings.value("password").toString();
-    settings.endGroup();
+    if (this->password == "") {
+        QSettings settings;
+        settings.beginGroup("Credentials");
+        this->password = settings.value("password").toString();
+        settings.endGroup();
+    }
 
     QJsonObject userObject;
     userObject.insert("username", username);
@@ -35,9 +48,26 @@ QJsonDocument User::toJsonDocument()
     return QJsonDocument(userObject);
 }
 
-void User::fromJsonDocument(QJsonDocument jsonDocument)
+void User::fromJsonDocument(QJsonDocument userDocument)
 {
-    QJsonObject userObject = jsonDocument.object();
+    QJsonObject userObject = userDocument.object();
+    idUser = userObject.value("idUser").toInt();
+    username = userObject.value("username").toString();
+    name = userObject.value("name").toString();
+    surname = userObject.value("surname").toString();
+    cf = userObject.value("cf").toString();
+    address = userObject.value("address").toString();
+    cellnumber = userObject.value("cellNumber").toString();
+    sex = userObject.value("sex").toString();
+    email = userObject.value("email").toString();
+    team = userObject.value("idTeam").toInt();
+    role = userObject.value("role").toString();
+    state = userObject.value("state").toString();
+}
+
+void User::fromJsonObject(QJsonObject userObject)
+{
+    idUser = userObject.value("idUser").toInt();
     username = userObject.value("username").toString();
     name = userObject.value("name").toString();
     surname = userObject.value("surname").toString();
@@ -162,6 +192,26 @@ int User::getRole() const
 void User::setRole(const QString newRole)
 {
     role = newRole;
+}
+
+QString User::getPassword()
+{
+    return password;
+}
+
+void User::setPassword(const QString &newPassword)
+{
+    password = newPassword;
+}
+
+int User::getIdUser() const
+{
+    return idUser;
+}
+
+void User::setIdUser(int newIdUser)
+{
+    idUser = newIdUser;
 }
 
 

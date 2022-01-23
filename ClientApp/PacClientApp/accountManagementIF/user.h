@@ -16,11 +16,18 @@ class User : public QObject
     Q_PROPERTY(QString surname READ getSurname CONSTANT)
     Q_PROPERTY(QString cf READ getCf CONSTANT)
     Q_PROPERTY(QString address READ getAddress CONSTANT)
+    Q_PROPERTY(QString cellNumber READ getCellnumber CONSTANT)
+    Q_PROPERTY(QString email READ getEmail CONSTANT)
     Q_PROPERTY(int role READ getRole CONSTANT)
+    Q_PROPERTY(int idTeam READ getTeam CONSTANT)
+    Q_PROPERTY(int idUser READ getIdUser CONSTANT)
 public:
+    explicit User(QObject *parent = nullptr);
     explicit User(QString jsonString, QObject *parent = nullptr);
+    explicit User(QJsonObject jsonObject, QObject *parent = nullptr);
 
     QJsonDocument toJsonDocument();
+    void fromJsonObject(QJsonObject jsonObject);
     void fromJsonDocument(QJsonDocument jsonDocument);
 
     QString getUsername();
@@ -56,12 +63,20 @@ public:
     int getRole() const;
     void setRole(const QString newRole);
 
+    QString getPassword();
+    void setPassword(const QString &newPassword);
+
+    int getIdUser() const;
+    void setIdUser(int newIdUser);
+
 signals:
 
 private:
+    int idUser;
     QString username;
     QString name;
     QString surname;
+    QString password;
     QString cf;
     QString address;
     QString cellnumber;

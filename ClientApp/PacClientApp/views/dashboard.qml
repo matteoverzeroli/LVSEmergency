@@ -92,12 +92,20 @@ Page {
 
                     if (model.source === "qrc:/views/InserisciUtente.qml") {
                         masterController.ui_teamController.getTeams()
+                    } else if (model.source === "qrc:/views/CreaSquadra.qml") {
+                        masterController.ui_areaController.getAreas()
+                    } else if (model.source === "qrc:/views/Impostazioni.qml") {
+                        masterController.ui_teamController.getTeam(
+                                    masterController.ui_userController.currentUser.idTeam)
+                    } else if (model.source === "qrc:/views/CancellaUtente.qml") {
+                        masterController.ui_userController.getUsers()
                     }
                 }
             }
 
             model: ListModel {
                 ListElement { title: "Inserisci Utente"; user: 0 ; source: "qrc:/views/InserisciUtente.qml" }
+                ListElement { title: "Cancella Utente"; user: 0 ; source: "qrc:/views/CancellaUtente.qml" }
                 ListElement { title: "Crea Squadra"; user: 0 ; source: "qrc:/views/CreaSquadra.qml" }
                 ListElement { title: "Impostazioni"; user: 2; source: "qrc:/views/Impostazioni.qml" }
             }

@@ -7,6 +7,8 @@ QT += quick quickcontrols2
 SOURCES += \
         accountManagementIF/user.cpp \
         accountManagementIF/userController.cpp \
+        areaInformationManagementIF/area.cpp \
+        areaInformationManagementIF/areacontroller.cpp \
         helpers/utils.cpp \
         main.cpp \
         mastercontroller.cpp \
@@ -16,6 +18,9 @@ SOURCES += \
 HEADERS += \
     accountManagementIF/user.h \
     accountManagementIF/userController.h \
+    areaInformationManagementIF/area.h \
+    areaInformationManagementIF/areacontroller.h \
+    helpers/entityif.h \
     helpers/utils.h \
     navigationcontroller.h \
     mastercontroller.h \

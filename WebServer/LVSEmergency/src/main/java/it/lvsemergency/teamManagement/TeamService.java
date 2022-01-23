@@ -50,16 +50,4 @@ public class TeamService {
 
 		teamRepository.delete(teamToDelete.get());
 	}
-
-	public void setForemanTeam(Integer idTeam, Integer idForeman) {
-		Optional<Team> team = teamRepository.findById(idTeam);
-		
-		if (!team.isPresent())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No team found!");
-		
-		Team newTeam = team.get();
-		newTeam.setIdForeman(idForeman);
-		
-		teamRepository.save(newTeam);
-	}
 }
