@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QJsonObject>
 
-#include "./helpers/entityif.h"
+#include "../helpers/entityif.h"
 
 namespace areaInformationManagementIF {
 class Area : public helpers::EntityIF
