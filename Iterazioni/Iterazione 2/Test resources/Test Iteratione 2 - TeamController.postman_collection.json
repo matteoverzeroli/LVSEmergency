@@ -58,7 +58,7 @@
 							"            \"address\": \"Via Verdi 1\",\r",
 							"            \"cellNumber\": \"3215186255\",\r",
 							"            \"sex\": \"M\",\r",
-							"            \"email\": \"giancarlo@rossi.it\",\r",
+							"            \"email\": \"giancarlo@bianchi.it\",\r",
 							"            \"idTeam\": 1,\r",
 							"            \"role\": \"FOREMAN\",\r",
 							"            \"state\": \"ACTIVE\",\r",
@@ -132,6 +132,38 @@
 			"response": []
 		},
 		{
+			"name": "Delete a team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 202; Team eliminato\", () => {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/teams/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Create a team",
 			"event": [
 				{
@@ -152,7 +184,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"teamName\" : \"LVSTeam\",\r\n    \"idArea\" : \"4\"\r\n}",
+					"raw": "{\r\n    \"teamName\" : \"LVSTeam\",\r\n    \"idArea\" : \"4\",\r\n    \"idForeman\" : \"3\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -167,82 +199,6 @@
 					"port": "8080",
 					"path": [
 						"teams"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete a team",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Codice di stato: 202; Team eliminato\", () => {\r",
-							"    pm.response.to.have.status(202);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"teamName\" : \"CDMTeam\",\r\n    \"idArea\" : \"3\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/teams/3",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"teams",
-						"3"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Assign foreman to a team",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Codice di stato: 202; Caposquadra assegnato\", () => {\r",
-							"    pm.response.to.have.status(202);\r",
-							"    pm.expect(\"Foreman 6 assigned to 4 correctly !\").to.eql(pm.response.text());\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/teams/foreman/4/6",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"teams",
-						"foreman",
-						"4",
-						"6"
 					]
 				}
 			},

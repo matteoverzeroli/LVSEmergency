@@ -109,8 +109,6 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"const response = pm.response.json();\r",
-							"\r",
 							"pm.test(\"Codice di stato: 200; Utenti ricevuti\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(pm.response.json()).not.to.eql(\"\");\r",
@@ -143,7 +141,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Codice di stato: 200\", () => {\r",
+							"pm.test(\"Codice di stato: 200, Utente ricevuto\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
@@ -305,7 +303,7 @@
 							"    \"cellNumber\": \"3252186255\",\r",
 							"    \"sex\": \"M\",\r",
 							"    \"email\": \"luca@rossi.it\",\r",
-							"    \"idTeam\": 1,\r",
+							"    \"idTeam\": 2,\r",
 							"    \"role\": \"ADMINISTRATOR\",\r",
 							"    \"state\": \"ACTIVE\",\r",
 							"    \"cf\": \"ABCSS80A01C800V\"\r",
@@ -325,7 +323,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idUser\": 3,\r\n    \"username\": \"admin2\",\r\n    \"password\": \"admin2\",\r\n    \"name\": \"Luca\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 9\",\r\n    \"cellNumber\": \"3252186255\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"luca@rossi.it\",\r\n    \"idTeam\": 1,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"ABCSS80A01C800V\"\r\n}",
+					"raw": "{\r\n    \"idUser\": 3,\r\n    \"username\": \"admin2\",\r\n    \"password\": \"admin2\",\r\n    \"name\": \"Luca\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 9\",\r\n    \"cellNumber\": \"3252186255\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"luca@rossi.it\",\r\n    \"idTeam\": 2,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"ABCSS80A01C800V\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

@@ -14,7 +14,9 @@
 						"exec": [
 							"pm.test(\"Codice di stato: 200; Zone ricevute\", () => {\r",
 							"    pm.response.to.have.status(200);\r",
-							"    pm.expect(pm.response.json()).not.to.eql(\"\");\r",
+							"    expected = pm.response.json();\r",
+							"    response = expected.filter(x => x['idArea'] != null)\r",
+							"    pm.expect(response).not.to.eql([]);\r",
 							"});"
 						],
 						"type": "text/javascript"

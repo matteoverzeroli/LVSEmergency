@@ -32,13 +32,13 @@ insert into user (idUser, username,name,surname,CF,password,address,cellNumber,s
 values(3,"admin2", "Luca", "Rossi","LCARSS80A01C800V","admin2","Via Nazionale 9","3252186255",'M',"luca@rossi.it",2, "ADMINISTRATOR", "ACTIVE");
 
 insert into user (idUser, username,name,surname,CF,password,address,cellNumber,sex,email,idTeam,role,state)
-values(4,"foreman1", "Giancarlo", "Bianchi","BNARSS80A01C800V","foreman1","Via Verdi 1","3215186255",'M',"giancarlo@rossi.it",1, "FOREMAN", "ACTIVE");
+values(4,"foreman1", "Giancarlo", "Bianchi","BNARSS80A01C800V","foreman1","Via Verdi 1","3215186255",'M',"giancarlo@bianchi.it",1, "FOREMAN", "ACTIVE");
 
 insert into user (idUser, username,name,surname,CF,password,address,cellNumber,sex,email,idTeam,role,state)
-values(5,"foreman2", "Loredana", "Bianchi","LDARSS80A01C800V","foreman2","Via Verdi 2","3355844512",'F',"loredana@rossi.it",2, "FOREMAN", "ACTIVE");
+values(5,"foreman2", "Loredana", "Bianchi","LDARSS80A01C800V","foreman2","Via Verdi 2","3355844512",'F',"loredana@bianchi.it",2, "FOREMAN", "ACTIVE");
 
 insert into user (idUser, username,name,surname,CF,password,address,cellNumber,sex,email,idTeam,role,state)
-values(6,"foreman3", "Lorenzo", "Verdi","LVARSS80A01C800V","foreman3","Via Bianchi 1","3655844512",'M',"lorenzo@rossi.it",3, "FOREMAN", "ACTIVE");
+values(6,"foreman3", "Lorenzo", "Verdi","LVARSS80A01C800V","foreman3","Via Bianchi 1","3655844512",'M',"lorenzo@verdi.it",3, "FOREMAN", "ACTIVE");
 
 update team
 set idForeman = 4
