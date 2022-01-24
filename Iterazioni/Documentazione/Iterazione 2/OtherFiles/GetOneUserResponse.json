@@ -1,0 +1,14 @@
+{
+  "idUser": 4,
+  "username": "foreman1",
+  "name": "Giancarlo",
+  "surname": "Bianchi",
+  "address": "Via Verdi 1",
+  "cellNumber": "3215186255",
+  "sex": "M",
+  "email": "giancarlo@bianchi.it",
+  "idTeam": 1,
+  "role": "FOREMAN",
+  "state": "ACTIVE",
+  "cf": "BNARSS80A01C800V"
+}

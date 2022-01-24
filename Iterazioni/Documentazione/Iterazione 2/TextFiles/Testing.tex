@@ -59,6 +59,68 @@ Il risultato del test con JUnit ha confermato il corretto funzionamento della fu
 
 \subsection{Documentazione API}
 
-\lstinputlisting[language=json]{./Iterazione 2/OtherFiles/getAllAreasResponse.json}
+In questa sezione vengono mostrate la documentazione relativa ad alcune API implementate nell'iterazione 2. \`E possibile visualizzare una collezione (creata con Postman) di tutte le API realizzate e testate sulla repository GitHub. In particolare, si riportano di seguito le più significative:
+\begin{itemize}
+	\item API per il login (nel header della richiesta sono state inserite correttamente le informazioni secondo il protocollo della Basic Authentication);
+	\item API per la visualizzazione di un utente specifico, il cui id è inserito nel path della chiamata;
+	\item API per la modifica di un utente, inserendo nel body della richiesta l'utente modificato;
+	\item API per visualizzare un team, il cui id viene specificato nel path della richiesta;
+	\item API per la creazione di un team, inserendo nel body della richiesta le informazioni del team;
+	\item API per la visualizzazione di tutte le area inserite nel sistema;
+\end{itemize}
 
-\todo{inserire documentazione API}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/LoginCorrettoRequest}
+	\lstinputlisting[language=json]{./Iterazione 2/OtherFiles/LoginCorrettoResponse.json}
+	\caption{Documentazione API Login.}
+	\label{fig:LoginAPI}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/GetOneUser}
+	\lstinputlisting[language=json]{./Iterazione 2/OtherFiles/GetOneUserResponse.json}
+	\caption{Documentazione API Get one user.}
+	\label{fig:GetOneUserAPI}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/ModifyAUser}
+	Body:
+	\lstinputlisting[language=json]{./Iterazione 2/OtherFiles/ModifyAUserResponse.json}
+	Response: 
+	\lstinputlisting[language=json]{./Iterazione 2/OtherFiles/ModifyAUserResponse.json}
+	\caption{Documentazione API Modify a user.}
+	\label{fig:ModifyAUserAPI}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/GetOneTeam}
+	\lstinputlisting[language=json]{./Iterazione 2/OtherFiles/GetOneTeamResponse.json}
+	\caption{Documentazione API Get one team.}
+	\label{fig:GetOneTeamAPI}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/CreateATeam}
+	Body:
+	\lstinputlisting[language=json]{./Iterazione 2/OtherFiles/CreateATeamResponse.json}
+	Response: 
+	
+	Team created successfully!
+	\caption{Documentazione API Create a team.}
+	\label{fig:CreateATeamAPI}
+\end{figure}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/GetAllAreas}
+	\lstinputlisting[language=json]{./Iterazione 2/OtherFiles/GetAllAreasResponse.json}
+	\caption{Documentazione API Get all areas.}
+	\label{fig:GetAllAreasAPI}
+\end{figure}

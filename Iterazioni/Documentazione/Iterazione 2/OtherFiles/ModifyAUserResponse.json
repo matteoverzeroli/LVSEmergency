@@ -1,0 +1,15 @@
+{
+  "idUser": 3,
+  "username": "admin2",
+  "password": "admin2",
+  "name": "Luca",
+  "surname": "Rossi",
+  "address": "Via Nazionale 9",
+  "cellNumber": "3252186255",
+  "sex": "M",
+  "email": "luca@rossi.it",
+  "idTeam": 2,
+  "role": "ADMINISTRATOR",
+  "state": "ACTIVE",
+  "cf": "ABCSS80A01C800V"
+}

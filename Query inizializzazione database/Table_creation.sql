@@ -23,8 +23,51 @@ create table if not exists area (idArea integer primary key auto_increment,
 								areaName varchar(50) unique not null,
 								lat double not null,
                                 lng double not null,
-                                istatCode char(6) not null);
-
+                                istatCode char(6) unique not null);
+                                
+create table aprsstation (name varchar(10) primary key,
+						 time datetime not null,
+                         pressure float default null,
+                         humidity  smallint default null,
+                         windDirection float default null,
+                         windSpeed float default null,
+                         windGust float default null,
+                         rainOneHour float default null,
+                         rainDay float default null,
+                         rainMidNight float default null,
+                         luminosity float default null,
+                         idArea integer not null,
+                         foreign key (idArea) references area(IdArea));
+                         
+create table earthquake (eventId varchar(15) primary key,
+						time timestamp not null,
+                        lat double not null,
+                        lng double not null,
+                        depth float not null,
+                        author varchar(50) not null,
+                        magType char(2) not null,
+                        eventLocationName varchar(60) not null,
+                        eventType varchar(20) not null,
+                        idArea integer not null,
+						foreign key (idArea) references area(IdArea));
+create table pcreport (reportId integer primary key auto_increment,
+					  date datetime not null,
+                      risk varchar(15) not null,
+                      info varchar(50) not null,
+                      alert varchar(10) not null,
+                      cityName varchar(20) not null,
+                      provinceName varchar(20) not null,
+					  provinceCode char(2) not null,
+                      region varchar(20) not null,
+                      lat double not null,
+                      lng double not null,
+                      istatCode char(6) not null,
+                      foreign key (istatCode) references area(istatCode),
+                      civilProtectionZoneId varchar(20) not null,
+                      civilProtectionZoneInfo varchar(20) not null,
+                      link varchar(200) not null,
+                      datePublication datetime not null);
+                      
 ALTER TABLE team
 ADD CONSTRAINT team_fk_1 FOREIGN KEY (idArea) 
 REFERENCES area (idArea) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -59,6 +102,6 @@ SET FOREIGN_KEY_CHECKS = 1;
 DROP TABLE
 
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE `test`.`area`, `test`.`team`, `test`.`user`;
+DROP TABLE `test`.`area`, `test`.`team`, `test`.`user`,`test`.`aprsstation`,`test`.`earthquake`, `test`.`pcreport`;
 SET FOREIGN_KEY_CHECKS = 1;
 */
