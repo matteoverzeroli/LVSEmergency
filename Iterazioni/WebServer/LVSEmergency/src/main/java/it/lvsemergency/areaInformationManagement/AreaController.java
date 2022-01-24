@@ -18,7 +18,7 @@ public class AreaController {
 	}
 
 	@GetMapping(path = "/areas")
-	public List<Area> getTeams() {
+	public List<Area> getAreas() {
 		return areaService.getAreas();
 	}
 

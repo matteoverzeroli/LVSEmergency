@@ -44,7 +44,7 @@ public class UserController {
 
 	@DeleteMapping(path = "/users/{idUser}")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public void deleteEmployee(@PathVariable Integer idUser) {
+	public void deleteUser(@PathVariable Integer idUser) {
 		userService.deleteUser(idUser);
 	}
 
