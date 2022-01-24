@@ -107,7 +107,7 @@ Page {
                 ListElement { title: "Inserisci Utente"; user: 0 ; source: "qrc:/views/InserisciUtente.qml" }
                 ListElement { title: "Cancella Utente"; user: 0 ; source: "qrc:/views/CancellaUtente.qml" }
                 ListElement { title: "Crea Squadra"; user: 0 ; source: "qrc:/views/CreaSquadra.qml" }
-                ListElement { title: "Impostazioni"; user: 2; source: "qrc:/views/Impostazioni.qml" }
+                ListElement { title: "Informazioni"; user: 2; source: "qrc:/views/Impostazioni.qml" }
             }
 
             ScrollIndicator.vertical: ScrollIndicator { }

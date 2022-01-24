@@ -3,20 +3,21 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \begin{itemize}
 	\item UC1 - Login;
 	\item UC2 - Logout;
+	\item UC3 - Visualizzazione informazioni account;
+	\item UC4 - Visualizzazione informazioni squadra;
 	\item UC6 - Segnalazione operatività;
 	\item UC15 - Inserimento utente;
 	\item UC16 - Cancellazione utente;
 	\item UC17 - Gestione squadre [Astratto]:
 	\begin{itemize}
 		\item UC17.1 - Creazione squadra;
-		\item UC17.2 - Modifica squadra;
-		\item UC17.3 - Elimina squadra;
-		\item UC17.4 - Visualizza squadra.
 	\end{itemize}
 \end{itemize}
 
 \subsection{UC1 - Login}
-\todo{Forse bisognerebbe specificare il metodo basic auth che abbiamo implementato. Alla fine ci siamo sbattuti mega per farlo funzionare, perchè non farlo sapere?}
+Per l'autenticazione è stato utilizzato il metodo \textit{Basi Access Authentication}: si tratta di una tecnica che non necessita dell'utilizzo di cookie o di mentenere una sessione tra client e server, ma utilizza gli \textit{header} HTTP per fornire le informazioni di accesso. In particolare, \textit{username} e \textit{password} vengono codificate con \textit{base64} e vengono trasmesse nell'\textit{header} ogni volta che viene chiamata un API. 
+\\
+\\
 \textit{Breve descrizione:} l'utente compila il form per eseguire il login: in caso di credenziali corrette il sistema consente l'accesso ai servizi, altrimenti notifica l'utente della non correttezza delle credenziali. 
 \\
 \\
@@ -26,12 +27,12 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \textit{Precondizione:} l'utente è registrato nel sistema.
 \\
 \\
-\textit{Postcondizione:} l'utente accede alla \textit{login page} (in caso le credenziali siano corrette) oppure viene notificato dell'incorrettezza delle credenziali.
+\textit{Postcondizione:} l'utente accede alla \textit{dashboard} (in caso le credenziali siano corrette) oppure viene notificato dell'incorrettezza delle credenziali.
 \\
 \\
 \textit{Procedimento:}
 \begin{enumerate}
-	\item il sistema richiede all'utente le informazioni di accesso (email e password).
+	\item il sistema richiede all'utente le informazioni di accesso (username e password).
 	\item l'utente inserisce le informazioni di accesso.
 	\item il sistema controlla le informazioni fornite.
 	\item le informazioni sono corrette. [E1: le informazioni sono sbagliate].
@@ -52,6 +53,9 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 
 
 \subsection{UC2 - Logout}
+Grazie alla \textit{Base Access Authentication}, il logout dell'utente consiste nel rimandarlo alla pagina di login per richiedere username e password. Infatti, non c'è nessuna sessione tra client e server e quindi questo caso d'uso viene gestito dal client.
+\\
+\\ 
 \textit{Breve descrizione:} il sistema esegue il logout dell'utente.
 \\
 \\
@@ -70,8 +74,58 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 	\item il sistema effettua il logout dell'utente.
 \end{enumerate}
 
+\subsection{UC3 - Visualizzazione informazioni account}
+\textit{Breve descrizione:} l'utente visualizza le informazioni del suo account.
+\\
+\\
+\textit{Attori coinvolti:} volontario, caposquadra, coordinatore, sistema. 
+\\
+\\
+\textit{Precondizione:} l'utente è loggato nel sistema. L'utente è nella pagina "Informazioni".
+\\
+\\
+\textit{Postcondizione:} il sistema mostra le informazioni dell'account dell'utente.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item il sistema mostra le informazioni dell'account dell'utente.
+\end{enumerate}
+
+
+\subsection{UC4 - Visualizzazione informazioni squadra}
+\textit{Breve descrizione:} l'utente visualizza le informazioni della squadra a cui è stato assegnato.
+\\
+\\
+\textit{Attori coinvolti:} volontario, caposquadra, coordinatore, sistema.
+\\
+\\
+\textit{Precondizione:} l'utente è loggato nel sistema. L'utente è nella pagina "Informazioni".
+\\
+\\
+\textit{Postcondizione:} il sistema mostra le informazioni della squadra a cui l'utente è assegnato.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item il sistema mostra le informazioni della squadra a cui l'utente è assegnato tra cui:
+	\begin{itemize}
+		\item Nome squadra;
+		\item Nome area;
+		\item Numero dei membri della squadra;
+		\item Informazioni sugli utenti appartenenti alla squadra. Per ogni utente viene mostrato:
+		\begin{itemize}
+			\item Nome;
+			\item Cognome;
+			\item Ruolo;
+			\item Cellulare;
+			\item Email.
+		\end{itemize}
+	\end{itemize}
+\end{enumerate}
+
 \subsection{UC6 - Segnalazione operatività}
-\textit{Breve descrizione:} l'utente segnala lo stato di operatività. 
+\textit{Breve descrizione:} l'utente segnala lo stato di operatività ("Attivo" o "Inattivo"). 
 \\
 \\
 \textit{Attori coinvolti:} volontario, caposquadra, sistema.
@@ -85,9 +139,8 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \\
 \textit{Procedimento:}
 \begin{enumerate}
-	\item l'utente seleziona lo stato di operatività (operativo, non operativo).
-	\item l'utente invia lo stato di operatività selezionato al sistema.
-	\item il sistema salva lo stato di operatività inviato dall'utente.
+	\item l'utente clicca sul pulsante per cambiare il suo stato di operatività.
+	\item il sistema salva lo stato di operatività e lo mostra all'utente.
 \end{enumerate}
 
 
@@ -99,7 +152,7 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \textit{Attori coinvolti:} coordinatore, sistema.
 \\
 \\
-\textit{Precondizione:} il coordinatore è loggato nel sistema.
+\textit{Precondizione:} il coordinatore è loggato nel sistema. Il coordinatore è nella pagina "Inserisci utente".
 \\
 \\
 \textit{Postcondizione:} il volontario viene inserito nel database e può accedere ai servizi.
@@ -107,19 +160,24 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \\
 \textit{Procedimento:}
 \begin{enumerate}
-	\item il coordinatore preme il pulsante per aggiungere un nuovo volontario.
 	\item il coordinatore fornisce le seguenti informazioni nel form per la registrazione di un nuovo volontario:
 	\begin{itemize}
+		\item Username;
 		\item Nome;
 		\item Cognome;
-		\item Codice Fiscale;
-		\item Numero Carta d'identità;
+		\item Password;
+		\item Sesso;
+		\item Codice fiscale;
+		\item Indirizzo;
+		\item Cellulare;
 		\item Email;
-		\item Numero di telefono;
-		\item Password;\todo{è una stupidaggine che inserisca il coordinatore la password, in questo momento è solo ed esclusivamente per semplificare. è ovvio che poi questo sistema non va assolutamente bene. Aggiungere altri campi se necessari, questi sono i primi che mi son venuti in mente ma non sono gli unici}
+		\item Ruolo;
+		\item Squadra.
 	\end{itemize}
-	\item il sistema verifica che email e codice fiscale non siano già associati ad altri utenti.
-	\item il sistema aggiunge l'utente con i rispettivi dati nel database [E1: i dati sono già stati associati ad un altro utente presente nel database].
+	\item il coordinatore clicca il pulsante "Inserisci utente".
+	\item il sistema verifica che tutti i campi siano stati compilati [E1; ci sono dei campi vuoti]. Nel caso il ruolo sia "Caposquadra", il sistema verifica che la squadra a cui deve essere assegnato l'utente non abbia già un caposquadra.
+	\item il sistema verifica che username e codice fiscale non siano già associati ad altri utenti.
+	\item il sistema aggiunge l'utente con i rispettivi dati nel database [E2: i dati sono già stati associati ad un altro utente presente nel database].
 \end{enumerate}
 
 
@@ -129,7 +187,13 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 	\begin{enumerate}
 		\item i dati sono già associati ad un altro utente presente nel database.
 		\item il sistema comunica al coordinatore che i dati sono già associati ad un altro utente.
-		\item ritorno al passo 2 del "Procedimento".
+		\item ritorno al passo 1 del "Procedimento".
+	\end{enumerate}
+	\item E2:
+	\begin{enumerate}
+		\item i dati sono già associati ad un altro utente presente nel database.
+		\item il sistema comunica al coordinatore che i dati sono già associati ad un altro utente.
+		\item ritorno al passo 1 del "Procedimento".
 	\end{enumerate}
 \end{itemize}
 
@@ -142,6 +206,7 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \\
 \textit{Precondizione:} il coordinatore è loggato nel sistema.
 L'utente che deve essere cancellato è inserito nel sistema.
+Il coordinatore è nella pagina "Cancella utente".
 \\
 \\
 \textit{Postcondizione:} l'utente viene cancellato dal sistema.
@@ -149,10 +214,10 @@ L'utente che deve essere cancellato è inserito nel sistema.
 \\
 \textit{Procedimento:}
 \begin{enumerate}
+	\item il sistema mostra tutti gli utenti registrati tranne i coordinatori che non possono essere cancellati per motivi di sicurezza.
 	\item il coordinatore preme il pulsante per cancellare un utente.
 	\item l'utente viene cancellato.
 \end{enumerate}
-\todo{Non ci sono eccezioni perchè il fatto che l'utente sia presente nel sistema è una precondizione. Per come lo faremo noi, il coordinatore scorre tra una lista di volontari e preme il pulsante elimina per eliminarli. Non è possibile quindi eliminare un volontario che non è presente nel sistema.}
 
 \subsection{UC17.1 - Creazione squadra}
 \textit{Breve descrizione:} il coordinatore crea una nuova squadra. 
@@ -162,7 +227,6 @@ L'utente che deve essere cancellato è inserito nel sistema.
 \\
 \\
 \textit{Precondizione:} il coordinatore è loggato nel sistema.
-C'è almeno un caposquadra libero a cui può essere assegnata la squadra.
 \\
 \\
 \textit{Postcondizione:} la nuova squadra è inserita nel database.
@@ -170,14 +234,14 @@ C'è almeno un caposquadra libero a cui può essere assegnata la squadra.
 \\
 \textit{Procedimento:}
 \begin{enumerate}
-	\item il coordinatore preme il pulsante per creare una nuova squadra.
-	\item il coordinatore inserisce le informazioni richieste per la creazione di una squadra, come:
+	\item il coordinatore inserisce le informazioni richieste per la creazione di una squadra:
 	\begin{itemize}
 		\item il nome della squadra.
-		\item il caposquadra (da scegliere tra quelli che non hanno già una squadra).
 		\item l'area di competenza della squadra.
 	\end{itemize}
-	\item il sistema verifica che il nome della squadra non sia già stato assegnato ad altre squadre [E1: il nome della squadra è già stato assegnato ad un'altra squadra].
+	\item il coordinatore preme il pulsante "Crea squadra".
+	\item il sistema verifica che siano stati inseriti tutti i campi [E1: ci sono dei campi vuoti].
+	\item il sistema verifica che il nome della squadra non sia già stato assegnato ad altre squadre [E2: il nome della squadra è già stato assegnato ad un'altra squadra].
 	\item il sistema inserisce la nuova squadra nel database. 
 \end{enumerate}
 
@@ -185,11 +249,16 @@ C'è almeno un caposquadra libero a cui può essere assegnata la squadra.
 \begin{itemize}
 	\item E1:
 	\begin{enumerate}
+		\item ci sono dei campi vuoti.
+		\item il sistema comunica al coordinatore che ci sono dei campi vuoti.
+		\item ritorno al passo 1 del "Procedimento".
+	\end{enumerate}
+	\item E2:
+	\begin{enumerate}
 		\item il nome della squadra è già stato assegnato.
 		\item il sistema comunica al coordinatore che il nome della squadra è già in uso.
-		\item ritorno al passo 2 del "Procedimento".
+		\item ritorno al passo 1 del "Procedimento".
 	\end{enumerate}
 \end{itemize}
-
 
 
