@@ -1,0 +1,42 @@
+{
+  "idTeam": 1,
+  "teamName": "BGTeam",
+  "idForeman": 4,
+  "users": [
+    {
+      "idUser": 1,
+      "username": "admin",
+      "name": "Mario",
+      "surname": "Rossi",
+      "address": "Via Nazionale 7",
+      "cellNumber": "3485556255",
+      "sex": "M",
+      "email": "mario@rossi.it",
+      "idTeam": 1,
+      "role": "VOLUNTEER",
+      "state": "ACTIVE",
+      "cf": "MRARSS80A01C800V"
+    },
+    {
+      "idUser": 4,
+      "username": "foreman1",
+      "name": "Giancarlo",
+      "surname": "Bianchi",
+      "address": "Via Verdi 1",
+      "cellNumber": "3215186255",
+      "sex": "M",
+      "email": "giancarlo@bianchi.it",
+      "idTeam": 1,
+      "role": "FOREMAN",
+      "state": "ACTIVE",
+      "cf": "BNARSS80A01C800V"
+    }
+  ],
+  "area": {
+    "idArea": 1,
+    "areaName": "Bergamo",
+    "lat": 45.69499969482422,
+    "lng": 9.670000076293945,
+    "istatCode": "016024"
+  }
+}
