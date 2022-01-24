@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "7028d67e-9f63-46a6-bc12-a882201cf43e",
+		"name": "Test Iteratione 2 : TeamController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get one team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200; Team ricevuto\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"const expected = {\r",
+							"    \"idTeam\": 1,\r",
+							"    \"teamName\": \"BGTeam\",\r",
+							"    \"idForeman\": 4,\r",
+							"    \"users\": [\r",
+							"        {\r",
+							"            \"idUser\": 1,\r",
+							"            \"username\": \"admin\",\r",
+							"            \"name\": \"Mario\",\r",
+							"            \"surname\": \"Rossi\",\r",
+							"            \"address\": \"Via Nazionale 7\",\r",
+							"            \"cellNumber\": \"3485556255\",\r",
+							"            \"sex\": \"M\",\r",
+							"            \"email\": \"mario@rossi.it\",\r",
+							"            \"idTeam\": 1,\r",
+							"            \"role\": \"ADMINISTRATOR\",\r",
+							"            \"state\": \"ACTIVE\",\r",
+							"            \"cf\": \"MRARSS80A01C800V\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"idUser\": 2,\r",
+							"            \"username\": \"admin1\",\r",
+							"            \"name\": \"Daniela\",\r",
+							"            \"surname\": \"Rossi\",\r",
+							"            \"address\": \"Via Nazionale 8\",\r",
+							"            \"cellNumber\": \"325186255\",\r",
+							"            \"sex\": \"F\",\r",
+							"            \"email\": \"daniela@rossi.it\",\r",
+							"            \"idTeam\": 1,\r",
+							"            \"role\": \"ADMINISTRATOR\",\r",
+							"            \"state\": \"ACTIVE\",\r",
+							"            \"cf\": \"DNARSS80A01C800V\"\r",
+							"        },\r",
+							"        {\r",
+							"            \"idUser\": 4,\r",
+							"            \"username\": \"foreman1\",\r",
+							"            \"name\": \"Giancarlo\",\r",
+							"            \"surname\": \"Bianchi\",\r",
+							"            \"address\": \"Via Verdi 1\",\r",
+							"            \"cellNumber\": \"3215186255\",\r",
+							"            \"sex\": \"M\",\r",
+							"            \"email\": \"giancarlo@bianchi.it\",\r",
+							"            \"idTeam\": 1,\r",
+							"            \"role\": \"FOREMAN\",\r",
+							"            \"state\": \"ACTIVE\",\r",
+							"            \"cf\": \"BNARSS80A01C800V\"\r",
+							"        }\r",
+							"    ],\r",
+							"    \"area\": {\r",
+							"        \"idArea\": 1,\r",
+							"        \"areaName\": \"Bergamo\",\r",
+							"        \"lat\": 45.69499969482422,\r",
+							"        \"lng\": 9.670000076293945,\r",
+							"        \"istatCode\": \"016024\"\r",
+							"    }\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Team ricevuto corretto\", () => {\r",
+							"    pm.expect(expected).to.eql(response);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/teams/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"1"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get one team",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/teams/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"teams",
+								"1"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 15:49:02 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"idTeam\": 1,\n    \"teamName\": \"BGTeam\",\n    \"idForeman\": 4,\n    \"users\": [\n        {\n            \"idUser\": 1,\n            \"username\": \"admin\",\n            \"name\": \"Mario\",\n            \"surname\": \"Rossi\",\n            \"address\": \"Via Nazionale 7\",\n            \"cellNumber\": \"3485556255\",\n            \"sex\": \"M\",\n            \"email\": \"mario@rossi.it\",\n            \"idTeam\": 1,\n            \"role\": \"ADMINISTRATOR\",\n            \"state\": \"ACTIVE\",\n            \"cf\": \"MRARSS80A01C800V\"\n        },\n        {\n            \"idUser\": 4,\n            \"username\": \"foreman1\",\n            \"name\": \"Giancarlo\",\n            \"surname\": \"Bianchi\",\n            \"address\": \"Via Verdi 1\",\n            \"cellNumber\": \"3215186255\",\n            \"sex\": \"M\",\n            \"email\": \"giancarlo@bianchi.it\",\n            \"idTeam\": 1,\n            \"role\": \"FOREMAN\",\n            \"state\": \"ACTIVE\",\n            \"cf\": \"BNARSS80A01C800V\"\n        },\n        {\n            \"idUser\": 7,\n            \"username\": \"admin1\",\n            \"name\": \"Daniela\",\n            \"surname\": \"Rossi\",\n            \"address\": \"Via Nazionale 8\",\n            \"cellNumber\": \"325186255\",\n            \"sex\": \"F\",\n            \"email\": \"daniela@rossi.it\",\n            \"idTeam\": 1,\n            \"role\": \"ADMINISTRATOR\",\n            \"state\": \"ACTIVE\",\n            \"cf\": \"DNARSS80A01C800V\"\n        }\n    ],\n    \"area\": {\n        \"idArea\": 1,\n        \"areaName\": \"Bergamo\",\n        \"lat\": 45.69499969482422,\n        \"lng\": 9.670000076293945,\n        \"istatCode\": \"016024\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get all teams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200; Squadre ricevute\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(pm.response.json()).not.to.eql(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/teams",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all teams",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/teams",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 15:49:07 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"idTeam\": 1,\n        \"teamName\": \"BGTeam\",\n        \"idForeman\": 4,\n        \"users\": [\n            {\n                \"idUser\": 1,\n                \"username\": \"admin\",\n                \"name\": \"Mario\",\n                \"surname\": \"Rossi\",\n                \"address\": \"Via Nazionale 7\",\n                \"cellNumber\": \"3485556255\",\n                \"sex\": \"M\",\n                \"email\": \"mario@rossi.it\",\n                \"idTeam\": 1,\n                \"role\": \"ADMINISTRATOR\",\n                \"state\": \"ACTIVE\",\n                \"cf\": \"MRARSS80A01C800V\"\n            },\n            {\n                \"idUser\": 4,\n                \"username\": \"foreman1\",\n                \"name\": \"Giancarlo\",\n                \"surname\": \"Bianchi\",\n                \"address\": \"Via Verdi 1\",\n                \"cellNumber\": \"3215186255\",\n                \"sex\": \"M\",\n                \"email\": \"giancarlo@bianchi.it\",\n                \"idTeam\": 1,\n                \"role\": \"FOREMAN\",\n                \"state\": \"ACTIVE\",\n                \"cf\": \"BNARSS80A01C800V\"\n            },\n            {\n                \"idUser\": 7,\n                \"username\": \"admin1\",\n                \"name\": \"Daniela\",\n                \"surname\": \"Rossi\",\n                \"address\": \"Via Nazionale 8\",\n                \"cellNumber\": \"325186255\",\n                \"sex\": \"F\",\n                \"email\": \"daniela@rossi.it\",\n                \"idTeam\": 1,\n                \"role\": \"ADMINISTRATOR\",\n                \"state\": \"ACTIVE\",\n                \"cf\": \"DNARSS80A01C800V\"\n            }\n        ],\n        \"area\": {\n            \"idArea\": 1,\n            \"areaName\": \"Bergamo\",\n            \"lat\": 45.69499969482422,\n            \"lng\": 9.670000076293945,\n            \"istatCode\": \"016024\"\n        }\n    },\n    {\n        \"idTeam\": 2,\n        \"teamName\": \"SVTeam\",\n        \"idForeman\": 5,\n        \"users\": [\n            {\n                \"idUser\": 3,\n                \"username\": \"admin2\",\n                \"name\": \"Luca\",\n                \"surname\": \"Rossi\",\n                \"address\": \"Via Nazionale 9\",\n                \"cellNumber\": \"3252186255\",\n                \"sex\": \"M\",\n                \"email\": \"luca@rossi.it\",\n                \"idTeam\": 2,\n                \"role\": \"ADMINISTRATOR\",\n                \"state\": \"ACTIVE\",\n                \"cf\": \"ABCSS80A01C800V\"\n            },\n            {\n                \"idUser\": 5,\n                \"username\": \"foreman2\",\n                \"name\": \"Loredana\",\n                \"surname\": \"Bianchi\",\n                \"address\": \"Via Verdi 2\",\n                \"cellNumber\": \"3355844512\",\n                \"sex\": \"F\",\n                \"email\": \"loredana@bianchi.it\",\n                \"idTeam\": 2,\n                \"role\": \"FOREMAN\",\n                \"state\": \"ACTIVE\",\n                \"cf\": \"LDARSS80A01C800V\"\n            }\n        ],\n        \"area\": {\n            \"idArea\": 2,\n            \"areaName\": \"Sovere\",\n            \"lat\": 45.81666564941406,\n            \"lng\": 10.033333778381348,\n            \"istatCode\": \"016204\"\n        }\n    },\n    {\n        \"idTeam\": 3,\n        \"teamName\": \"CDMTeam\",\n        \"idForeman\": null,\n        \"users\": [\n            {\n                \"idUser\": 6,\n                \"username\": \"foreman3\",\n                \"name\": \"Lorenzo\",\n                \"surname\": \"Verdi\",\n                \"address\": \"Via Bianchi 1\",\n                \"cellNumber\": \"3655844512\",\n                \"sex\": \"M\",\n                \"email\": \"lorenzo@verdi.it\",\n                \"idTeam\": 3,\n                \"role\": \"FOREMAN\",\n                \"state\": \"ACTIVE\",\n                \"cf\": \"LVARSS80A01C800V\"\n            }\n        ],\n        \"area\": {\n            \"idArea\": 3,\n            \"areaName\": \"Costa di Mezzate\",\n            \"lat\": 45.66666793823242,\n            \"lng\": 9.800000190734863,\n            \"istatCode\": \"016084\"\n        }\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Delete a team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 202; Team eliminato\", () => {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/teams/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"3"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete a team",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/teams/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"teams",
+								"3"
+							]
+						}
+					},
+					"status": "Accepted",
+					"code": 202,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 15:49:12 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Create a team",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 201; Squadra creata\", () => {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.expect(\"Team created successfully!\").to.eql(pm.response.text());\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"teamName\" : \"LVSTeam\",\r\n    \"idArea\" : \"4\",\r\n    \"idForeman\" : \"3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/teams",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create a team",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"teamName\" : \"LVSTeam\",\r\n    \"idArea\" : \"4\",\r\n    \"idForeman\" : \"3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/teams",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"teams"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "26"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 15:49:38 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "Team created successfully!"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

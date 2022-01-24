@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "26b91282-3f99-4f6c-befb-38e9212e4043",
+		"name": "Test Iterazione 2 : AreaController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all areas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200; Zone ricevute\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    expected = pm.response.json();\r",
+							"    response = expected.filter(x => x['idArea'] != null)\r",
+							"    pm.expect(response).not.to.eql([]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/areas",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"areas"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all areas",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/areas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"areas"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jan 2022 15:47:21 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"idArea\": 1,\n        \"areaName\": \"Bergamo\",\n        \"lat\": 45.69499969482422,\n        \"lng\": 9.670000076293945,\n        \"istatCode\": \"016024\"\n    },\n    {\n        \"idArea\": 2,\n        \"areaName\": \"Sovere\",\n        \"lat\": 45.81666564941406,\n        \"lng\": 10.033333778381348,\n        \"istatCode\": \"016204\"\n    },\n    {\n        \"idArea\": 3,\n        \"areaName\": \"Costa di Mezzate\",\n        \"lat\": 45.66666793823242,\n        \"lng\": 9.800000190734863,\n        \"istatCode\": \"016084\"\n    },\n    {\n        \"idArea\": 4,\n        \"areaName\": \"Dalmine\",\n        \"lat\": 45.650001525878906,\n        \"lng\": 9.600000381469727,\n        \"istatCode\": \"016091\"\n    }\n]"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

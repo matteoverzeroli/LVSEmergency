@@ -11,7 +11,7 @@ insert into area (idArea, areaName, lat, lng, istatCode)
 values(3, "Costa di Mezzate", 45.66666793823242, 9.800000190734863, "016084");
 
 insert into area (idArea, areaName, lat, lng, istatCode)
-values(4, "test", 1, 1, "111111");
+values(4, "Dalmine", 45.650001525878906, 9.600000381469727, "016091");
 
 insert into team (idTeam, teamName, idForeman, idArea)
 values(1, "BGTeam", null, 1);

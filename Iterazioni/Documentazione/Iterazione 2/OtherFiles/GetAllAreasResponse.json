@@ -1,0 +1,30 @@
+[
+    {
+        "idArea": 1,
+        "areaName": "Bergamo",
+        "lat": 45.69499969482422,
+        "lng": 9.670000076293945,
+        "istatCode": "016024"
+    },
+    {
+        "idArea": 2,
+        "areaName": "Sovere",
+        "lat": 45.81666564941406,
+        "lng": 10.033333778381348,
+        "istatCode": "016204"
+    },
+    {
+        "idArea": 3,
+        "areaName": "Costa di Mezzate",
+        "lat": 45.66666793823242,
+        "lng": 9.800000190734863,
+        "istatCode": "016084"
+    },
+    {
+        "idArea": 4,
+        "areaName": "Dalmine",
+        "lat": 45.650001525878906,
+        "lng": 9.600000381469727,
+        "istatCode": "016091"
+    }
+]
