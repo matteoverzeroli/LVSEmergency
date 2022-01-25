@@ -1,8 +1,6 @@
 \section{Testing}
 \subsection{Analisi statica}
-Per l'analisi statica del codice è stato utilizzato il tool STAN4J, integrato nel IDE Eclipse.
-Inserire report?
-\todo{Ho visto che un gruppo lo ha inserito alla fine di tutto.}
+Per l'analisi statica del codice Java è stato utilizzato il tool STAN4J, integrato nel IDE Eclipse.
 
 \subsection{Analisi dinamica}
 Nell'iterazione 2 si sono testate tutte le API Rest implementate, utlizzando Postman (\Fig \ref{fig:RisultatiTestAPIIT2}). In particolare si sono testate le seguenti funzionalità:
@@ -44,6 +42,7 @@ Nell'iterazione 2 si sono testate tutte le API Rest implementate, utlizzando Pos
 \clearpage
 
 \subsection{Unit Test}
+\subsubsection{Spring}
 In questa iterazione è stata testata la funzione \textit{findByUsername()} che permette di recuperare l'utente inserito nel database con lo \textit{username} specificato. Inoltre viene eseguito il test di avvio del framework Spring, inserito di default. Di seguito è riportato il codice del test.
 
 \lstinputlisting[language=Java]{./Iterazione 2/OtherFiles/UserRepositoryTest.java}
@@ -57,9 +56,23 @@ Il risultato del test con JUnit ha confermato il corretto funzionamento della fu
 	\label{fig:RisultatiTestJunitIT2}
 \end{figure}
 
+\subsubsection{Qt}
+Lato client è stata testata la corretta creazione delle classi \texttt{User}, \texttt{Team} e \texttt{Area} a partire da una stringa Json. Per fare ciò, è stato utilizzato il framework \textit{Qt Test}. Di seguito viene riportato il codice del test.
+ 
+\lstinputlisting[language=C++]{./Iterazione 2/OtherFiles/testentityif.cpp}
+
+Il risultato del test ha confermato il corretto funzionamento delle funzioni.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/TestQtTest}
+	\caption{Risultato test con Qt Test.}
+	\label{fig:RisultatiTestQTestIT2}
+\end{figure}
+
 \subsection{Documentazione API}
 
-In questa sezione vengono mostrate la documentazione relativa ad alcune API implementate nell'iterazione 2. \`E possibile visualizzare una collezione (creata con Postman) di tutte le API realizzate e testate sulla repository GitHub. In particolare, si riportano di seguito le più significative:
+In questa sezione viene mostrata la documentazione relativa ad alcune API implementate nell'iterazione 2. \`E possibile visualizzare una collezione (creata con Postman) di tutte le API realizzate e testate sulla repository GitHub. In particolare, si riportano di seguito le più significative:
 \begin{itemize}
 	\item API per il login (nel header della richiesta sono state inserite correttamente le informazioni secondo il protocollo della Basic Authentication);
 	\item API per la visualizzazione di un utente specifico, il cui id è inserito nel path della chiamata;

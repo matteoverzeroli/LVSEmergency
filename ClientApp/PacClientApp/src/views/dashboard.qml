@@ -207,6 +207,8 @@ Page {
                         wrapMode: Label.Wrap
                         horizontalAlignment: Qt.AlignHCenter
                         text: qsTr("Clicca il pulsante per modificare lo stato di operatività.")
+
+                        visible: masterController.ui_userController.currentUser.role !== 0
                     }
 
                     Button {
@@ -216,6 +218,8 @@ Page {
                         highlighted: masterController.ui_userController.currentUser.state == 1
 
                         anchors.horizontalCenter: parent.horizontalCenter
+
+                        visible: masterController.ui_userController.currentUser.role !== 0
 
                         onClicked: {
                             var stateString = masterController.ui_userController.currentUser.state == 0 ? "ACTIVE" : "INACTIVE"
