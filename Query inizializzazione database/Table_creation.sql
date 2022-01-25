@@ -39,7 +39,7 @@ create table aprsdata (name varchar(10) primary key,
                          luminosity float default null);
                          
 create table earthquake (eventId varchar(15) primary key,
-						time timestamp not null,
+						time datetime not null,
                         lat double not null,
                         lng double not null,
                         depth float not null,
@@ -105,6 +105,6 @@ SET FOREIGN_KEY_CHECKS = 1;
 DROP TABLE
 
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE `test`.`area`, `test`.`team`, `test`.`user`,`test`.`aprsstation`,`test`.`earthquake`, `test`.`pcreport`;
+DROP TABLE `test`.`area`, `test`.`team`, `test`.`user`,`test`.`aprsdata`,`test`.`earthquake`, `test`.`pcreport`;
 SET FOREIGN_KEY_CHECKS = 1;
 */
