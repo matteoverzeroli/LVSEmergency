@@ -23,9 +23,10 @@ create table if not exists area (idArea integer primary key auto_increment,
 								areaName varchar(50) unique not null,
 								lat double not null,
                                 lng double not null,
+                                nameAprsStation varchar(10) unique,
                                 istatCode char(6) unique not null);
                                 
-create table aprsstation (name varchar(10) primary key,
+create table aprsdata (name varchar(10) primary key,
 						 time datetime not null,
                          pressure float default null,
                          humidity  smallint default null,
@@ -35,9 +36,7 @@ create table aprsstation (name varchar(10) primary key,
                          rainOneHour float default null,
                          rainDay float default null,
                          rainMidNight float default null,
-                         luminosity float default null,
-                         idArea integer not null,
-                         foreign key (idArea) references area(IdArea));
+                         luminosity float default null);
                          
 create table earthquake (eventId varchar(15) primary key,
 						time timestamp not null,
@@ -79,6 +78,10 @@ REFERENCES user (idUser) ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE user
 ADD CONSTRAINT user_fk_1 FOREIGN KEY (idTeam) 
 REFERENCES team (idTeam) ON DELETE SET NULL ON UPDATE CASCADE;
+
+ALTER TABLE aprsdata
+ADD CONSTRAINT area_fk_1 FOREIGN KEY (name) 
+REFERENCES area (nameAprsStation) ON DELETE NO ACTION ON UPDATE NO ACTION;
                    
                    
 
