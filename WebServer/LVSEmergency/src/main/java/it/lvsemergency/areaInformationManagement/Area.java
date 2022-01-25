@@ -14,17 +14,19 @@ public class Area {
 	private String areaName;
 	private Double lat;
 	private Double lng;
+	private String nameAprsStation;
 	private String istatCode;
 
 	public Area() {
 
 	}
 
-	public Area(Integer idArea, Double lat, Double lng, String istatCode) {
+	public Area(Integer idArea, Double lat, Double lng, String nameAprsStation, String istatCode) {
 		super();
 		this.idArea = idArea;
 		this.lat = lat;
 		this.lng = lng;
+		this.nameAprsStation = nameAprsStation;
 		this.istatCode = istatCode;
 	}
 
@@ -58,6 +60,14 @@ public class Area {
 
 	public void setLng(Double lng) {
 		this.lng = lng;
+	}
+	
+	public String getNameAprsStation() {
+		return nameAprsStation;
+	}
+	
+	public void setNameAprsStation(String nameAprsStation) {
+		this.nameAprsStation = nameAprsStation;
 	}
 
 	public String getIstatCode() {
