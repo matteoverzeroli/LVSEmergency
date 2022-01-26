@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.lvsemergency.areaInformationManagement.data.AprsData;
@@ -28,5 +29,11 @@ public class AreaController {
 	public List<AprsData> getAprsData() {
 		return areaService.getAprsDatas();
 	}
+	
+	@GetMapping(path = "/areas/{idArea}/aprsdata")
+	public AprsData getAprsDataByIdArea(@PathVariable Integer idArea ) {
+		return areaService.getAprsDataByIdArea(idArea);
+	}
+	
 
 }

@@ -1,23 +1,19 @@
 package it.lvsemergency.areaInformationManagement.data;
 
-import java.util.Date;
-
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 @Table(name = "aprsdata")
 @Entity
 public class AprsData {
-	private @Id String name;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
-	private Date time;
+	@JsonUnwrapped
+	@EmbeddedId
+	private AprsDataId aprsDataId;
+	
 	private Float temperature;
 	private Float pressure;
 	private Integer humidity;
@@ -33,11 +29,10 @@ public class AprsData {
 
 	}
 
-	public AprsData(String name, Date time, Float temperature, Float pressure, Integer humidity, Float windDirection, Float windSpeed,
+	public AprsData(AprsDataId aprsDataId, Float temperature, Float pressure, Integer humidity, Float windDirection, Float windSpeed,
 			Float windGust, Float rainOneHour, Float rainDay, Float rainMidNight, Float luminosity) {
 		super();
-		this.name = name;
-		this.time = time;
+		this.aprsDataId = aprsDataId;
 		this.temperature = temperature;
 		this.pressure = pressure;
 		this.humidity = humidity;
@@ -50,28 +45,20 @@ public class AprsData {
 		this.luminosity = luminosity;
 	}
 
+	public AprsDataId getAprsDataId() {
+		return aprsDataId;
+	}
+	
+	public void setAprsDataId(AprsDataId aprsDataId) {
+		this.aprsDataId = aprsDataId;
+	}
+	
 	public Float getTemperature() {
 		return temperature;
 	}
 
 	public void setTemperature(Float temperature) {
 		this.temperature = temperature;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
 	}
 
 	public Float getPressure() {

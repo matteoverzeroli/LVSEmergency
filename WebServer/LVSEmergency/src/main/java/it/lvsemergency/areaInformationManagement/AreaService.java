@@ -29,12 +29,24 @@ public class AreaService {
 		Optional<Area> area = areaRepository.findById(idArea);
 		
 		if (!area.isPresent())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No team found!");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No area found!");
 		
 		return area.get();
 	}
 	
 	public List<AprsData> getAprsDatas() {
 		return aprsDataRepository.findAll();
+	}
+
+	public AprsData getAprsDataByIdArea(Integer idArea) {
+		
+		Optional<Area> area = areaRepository.findById(idArea);
+		
+		if (!area.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No area found!");
+		
+		String nameAprsStation = area.get().getNameAprsStation();
+		
+		return aprsDataRepository.findFirstByAprsDataIdNameOrderByAprsDataIdTimeDesc(nameAprsStation);
 	}
 }
