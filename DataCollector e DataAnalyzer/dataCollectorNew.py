@@ -12,6 +12,7 @@ import time as tm
 from threading import Thread as th
 from mysql.connector import errorcode
 from datetime import datetime as dt
+import datetime
 
 class MyThread (th):
     def __init__(self, name, station_code):
@@ -20,13 +21,15 @@ class MyThread (th):
         self.station_code = station_code
         self.esecution = 1
         self.id_row = 1
-        self.time_old = None
+        self.delta = datetime.timedelta(hours=1)
     def run(self):
         print("Esecution #", self.esecution, "of thread #", self.name,"at", dt.now().strftime('%Y-%m-%d %H:%M:%S'))
-        address = "https://api.aprs.fi/api/get?name=" + self.station_code + "&what=wx&apikey=167256.2UfZjqsO8842Bk3l&format=json"
+        address = "https://api.aprs.fi/api/get?name=" + self.station_code + "&what=wx&apikey=167471.rw8Fn5BbbYAYdMw&format=json"
         response = rq.get(address)
         data = response.json()
-        time= dt.utcfromtimestamp(int(data["entries"][0]["time"])).strftime('%Y-%m-%d %H:%M:%S')
+        time = dt.utcfromtimestamp(int(data["entries"][0]["time"]))
+        time = time + self.delta
+        time = time.strftime('%Y-%m-%d %H:%M:%S')
         temp = float(data["entries"][0]["temp"])
         pressure = float(data["entries"][0]["pressure"])
         humidity = int(data["entries"][0]["humidity"])
@@ -37,20 +40,25 @@ class MyThread (th):
         rain_24h = float(data["entries"][0]["rain_24h"])
         rain_mn = float(data["entries"][0]["rain_mn"])
         #luminosity = float(data["entries"][0]["luminosity"])
-        if self.time_old is not None:
-            cursor.execute("SELECT max(time) FROM test.aprsdata WHERE name = %(code)s;", {'code':self.station_code})
-            temporary = cursor.fetchall()
-            self.time_old = list(temporary[0])[0].strftime('%Y-%m-%d %H:%M:%S')
+        cursor.execute("SELECT max(time) FROM test.aprsdata WHERE name = %(code)s;", {'code':self.station_code})
+        temporary = cursor.fetchall()
+        temporary = list(temporary[0])[0]
+        if temporary is not None:
+            self.time_old = temporary.strftime('%Y-%m-%d %H:%M:%S')
+        else:
+            self.time_old = None
+        print("- Actual time:", time)
+        print("- Old time:", self.time_old)
         if self.time_old is None or time != self.time_old:
             cursor.execute("INSERT INTO test.aprsdata (name, time, temperature, pressure, humidity, windDirection, windSpeed, windGust, \
                            rainOneHour, rainDay, rainMidNight) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",\
                                   (self.station_code, time, temp, pressure, humidity, wind_direction, wind_speed, wind_gust, rain_1h, rain_24h, rain_mn))
             conn.commit()
-            print("Update committed to DB")
-            print("  #", self.id_row, "/", self.station_code, "/", time, "/", pressure, "hPa /", temp, "°C /", humidity, "% /", wind_direction, "° /", wind_speed, "m/s / (gust)", wind_gust, "m/s /", rain_1h, "mm /", rain_24h, "mm /", rain_mn, "mm")
+            print("- #", self.id_row, "/", self.station_code, "/", time, "/", pressure, "hPa /", temp, "°C /", humidity, "% /", wind_direction, "° /", wind_speed, "m/s / (gust)", wind_gust, "m/s /", rain_1h, "mm /", rain_24h, "mm /", rain_mn, "mm")
+            print("° Update committed to DB")
             self.id_row += 1
         else:
-            print(" same acquisition --> no new row")
+            print("° Same acquisition --> no new row")
         self.esecution += 1
         
 # apertura della connessione con il DB
