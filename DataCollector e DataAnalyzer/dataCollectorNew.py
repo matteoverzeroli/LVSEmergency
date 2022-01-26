@@ -20,7 +20,7 @@ class MyThread (th):
         self.station_code = station_code
         self.esecution = 1
         self.id_row = 1
-        self.time_old = dt.now()
+        self.time_old = None
     def run(self):
         print("Esecution #", self.esecution, "of thread #", self.name,"at", dt.now().strftime('%Y-%m-%d %H:%M:%S'))
         address = "https://api.aprs.fi/api/get?name=" + self.station_code + "&what=wx&apikey=167256.2UfZjqsO8842Bk3l&format=json"
@@ -37,7 +37,10 @@ class MyThread (th):
         rain_24h = float(data["entries"][0]["rain_24h"])
         rain_mn = float(data["entries"][0]["rain_mn"])
         #luminosity = float(data["entries"][0]["luminosity"])
-        if self.esecution == 1 or time != self.time_old:
+        cursor.execute("SELECT max(time) FROM test.aprsdata WHERE name = %(code)s;", {'code':self.station_code})
+        temporary = cursor.fetchall()
+        self.time_old = list(temporary[0])[0].strftime('%Y-%m-%d %H:%M:%S')
+        if self.time_old is None or time != self.time_old:
             cursor.execute("INSERT INTO test.aprsdata (name, time, temperature, pressure, humidity, windDirection, windSpeed, windGust, \
                            rainOneHour, rainDay, rainMidNight) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",\
                                   (self.station_code, time, temp, pressure, humidity, wind_direction, wind_speed, wind_gust, rain_1h, rain_24h, rain_mn))
@@ -45,7 +48,6 @@ class MyThread (th):
             print("Update committed to DB")
             print("  #", self.id_row, "/", self.station_code, "/", time, "/", pressure, "hPa /", temp, "°C /", humidity, "% /", wind_direction, "° /", wind_speed, "m/s / (gust)", wind_gust, "m/s /", rain_1h, "mm /", rain_24h, "mm /", rain_mn, "mm")
             self.id_row += 1
-            self.time_old = time
         else:
             print(" same acquisition --> no new row")
         self.esecution += 1
