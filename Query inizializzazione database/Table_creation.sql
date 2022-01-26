@@ -51,8 +51,9 @@ create table earthquake (eventId varchar(15) primary key,
                         eventType varchar(20) not null,
                         idArea integer not null,
 						foreign key (idArea) references area(IdArea));
+                        
 create table pcreport (reportId integer primary key auto_increment,
-					  date datetime not null,
+					  time datetime not null,
                       risk varchar(15) not null,
                       info varchar(50) not null,
                       alert varchar(10) not null,
@@ -68,7 +69,15 @@ create table pcreport (reportId integer primary key auto_increment,
                       civilProtectionZoneInfo varchar(20) not null,
                       link varchar(200) not null,
                       datePublication datetime not null);
-                      
+
+create table alarm (idAlarm integer primary key auto_increment,
+					time timestamp not null default now(),
+                    type varchar(15) not null,
+                    color varchar(15) not null,
+                    idArea integer not null,
+                    description varchar(100) default 'no description',
+                    foreign key (idArea) references area(idArea));
+
 ALTER TABLE team
 ADD CONSTRAINT team_fk_1 FOREIGN KEY (idArea) 
 REFERENCES area (idArea) ON DELETE SET NULL ON UPDATE CASCADE;
@@ -85,8 +94,6 @@ ALTER TABLE aprsdata
 ADD CONSTRAINT area_fk_1 FOREIGN KEY (name) 
 REFERENCES area (nameAprsStation) ON DELETE NO ACTION ON UPDATE NO ACTION;
                    
-                   
-
 /*
 delete constraint 
 

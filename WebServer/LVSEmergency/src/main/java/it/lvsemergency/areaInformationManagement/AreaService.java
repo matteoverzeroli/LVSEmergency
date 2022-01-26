@@ -8,45 +8,67 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import it.lvsemergency.areaInformationManagement.alarm.Alarm;
+import it.lvsemergency.areaInformationManagement.alarm.AlarmRepository;
+import it.lvsemergency.areaInformationManagement.alarm.AlarmType;
 import it.lvsemergency.areaInformationManagement.data.AprsData;
 import it.lvsemergency.areaInformationManagement.data.AprsDataRepository;
 
-
 @Service
 public class AreaService {
-	
+
 	@Autowired
 	private AreaRepository areaRepository;
-	
+
 	@Autowired
 	private AprsDataRepository aprsDataRepository;
-	
+
+	@Autowired
+	private AlarmRepository alarmRepository;
+
 	public List<Area> getAreas() {
 		return areaRepository.findAll();
 	}
-	
+
 	public Area getArea(Integer idArea) {
 		Optional<Area> area = areaRepository.findById(idArea);
-		
+
 		if (!area.isPresent())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No area found!");
-		
+
 		return area.get();
 	}
-	
+
 	public List<AprsData> getAprsDatas() {
 		return aprsDataRepository.findAll();
 	}
 
 	public AprsData getAprsDataByIdArea(Integer idArea) {
-		
+
 		Optional<Area> area = areaRepository.findById(idArea);
-		
+
 		if (!area.isPresent())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No area found!");
-		
+
 		String nameAprsStation = area.get().getNameAprsStation();
-		
+
+		if (nameAprsStation.isEmpty())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+					"No aprs station found with area id: " + idArea + "!");
+
 		return aprsDataRepository.findFirstByAprsDataIdNameOrderByAprsDataIdTimeDesc(nameAprsStation);
 	}
+
+	public Alarm getFogOrFrostAlarmByIdArea(Integer idArea) {
+
+		Optional<Area> area = areaRepository.findById(idArea);
+
+		if (!area.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No area found!");
+
+		Alarm alarm = alarmRepository.findFirstByIdAreaAndTypeOrTypeOrderByTimeDesc(idArea, AlarmType.FROST,  AlarmType.FOG);
+
+		return alarm;
+	}
+
 }
