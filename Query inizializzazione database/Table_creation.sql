@@ -26,8 +26,9 @@ create table if not exists area (idArea integer primary key auto_increment,
                                 nameAprsStation varchar(10) unique,
                                 istatCode char(6) unique not null);
                                 
-create table aprsdata (name varchar(10) primary key,
+create table aprsdata (name varchar(10),
 						 time datetime not null,
+                         temperature float default null,
                          pressure float default null,
                          humidity  smallint default null,
                          windDirection float default null,
@@ -36,7 +37,8 @@ create table aprsdata (name varchar(10) primary key,
                          rainOneHour float default null,
                          rainDay float default null,
                          rainMidNight float default null,
-                         luminosity float default null);
+                         luminosity float default null,
+                         primary key (name, time));
                          
 create table earthquake (eventId varchar(15) primary key,
 						time datetime not null,
