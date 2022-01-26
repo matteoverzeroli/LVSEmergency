@@ -18,6 +18,7 @@ public class AprsData {
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="dd-MM-yyyy HH:mm:ss")
 	private Date time;
+	private Float temperature;
 	private Float pressure;
 	private Integer humidity;
 	private Float windDirection;
@@ -32,11 +33,12 @@ public class AprsData {
 
 	}
 
-	public AprsData(String name, Date time, Float pressure, Integer humidity, Float windDirection, Float windSpeed,
+	public AprsData(String name, Date time, Float temperature, Float pressure, Integer humidity, Float windDirection, Float windSpeed,
 			Float windGust, Float rainOneHour, Float rainDay, Float rainMidNight, Float luminosity) {
 		super();
 		this.name = name;
 		this.time = time;
+		this.temperature = temperature;
 		this.pressure = pressure;
 		this.humidity = humidity;
 		this.windDirection = windDirection;
@@ -46,6 +48,14 @@ public class AprsData {
 		this.rainDay = rainDay;
 		this.rainMidNight = rainMidNight;
 		this.luminosity = luminosity;
+	}
+
+	public Float getTemperature() {
+		return temperature;
+	}
+
+	public void setTemperature(Float temperature) {
+		this.temperature = temperature;
 	}
 
 	public String getName() {

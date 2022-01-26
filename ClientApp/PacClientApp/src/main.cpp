@@ -5,6 +5,7 @@
 #include <QIcon>
 
 #include "mastercontroller.h"
+#include "./helpers/radialbar.h"
 
 int main(int argc, char *argv[])
 {
@@ -31,7 +32,8 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<teamManagementIF::TeamController>("PacApp", 1, 0, "TeamController", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<teamManagementIF::Team>("PacApp", 1, 0, "Team", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<areaInformationManagementIF::Area>("PacApp", 1, 0, "Area", "This class cannot be created by QML.");
-
+    qmlRegisterUncreatableType<areaInformationManagementIF::AprsData>("PacApp", 1, 0, "AprsData", "This class cannot be created by QML.");
+    qmlRegisterType<helpers::RadialBar>("CustomControls", 1, 0, "RadialBar");
 
     MasterController masterController;
 

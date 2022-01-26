@@ -50,6 +50,46 @@ void AreaController::allAreasReceived()
 
     reply->deleteLater();
 }
+/*!
+ * \brief Funzione per invocare l'API che richiede i dati aprs dell'area idArea.
+ */
+void AreaController::getAprsData(int idArea)
+{
+    QNetworkRequest request;
+//    request.setUrl(QUrl("http://localhost:8080/areas/" + QString::number(idArea) + "/aprsdata"));
+    request.setUrl(QUrl("http://localhost:8080/aprsdata"));
+    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+
+    QNetworkReply *reply = networkManager->get(request);
+    connect(reply, &QNetworkReply::finished, this, &AreaController::aprsdataReceived);
+}
+
+/*!
+ * \brief Slot che riceve la risposta dell'API che richiede i dati aprs.
+ */
+void AreaController::aprsdataReceived()
+{
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+    QByteArray response = reply->readAll();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        if (aprsData != nullptr)
+            delete aprsData;
+
+        QJsonArray aprsArray = QJsonDocument::fromJson(response).array();
+        foreach (const QJsonValue &aprsValue, aprsArray) {
+            aprsData = new AprsData(this);
+            aprsData->fromJsonObject(aprsValue.toObject());
+            break;
+        }
+
+        emit aprsDataChanged();
+    } else {
+        qDebug() << "Error:" << reply->error();
+    }
+
+    reply->deleteLater();
+}
 
 int AreaController::getIdAreaByName(QString areaName)
 {
@@ -69,6 +109,11 @@ QStringList AreaController::getAreasAvailableList()
     }
 
     return areasNameList;
+}
+
+AprsData *AreaController::getAprsData()
+{
+    return aprsData;
 }
 
 }

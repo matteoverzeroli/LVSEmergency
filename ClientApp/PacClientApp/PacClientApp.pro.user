@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2022-01-25T09:03:41. -->
+<!-- Written by QtCreator 6.0.2, 2022-01-26T11:10:07. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -67,7 +67,12 @@
     <value type="bool" key="AutoTest.Framework.QtQuickTest">true</value>
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
+    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.cpp:testAreaFromJson">Checked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.cpp:testTeamFromJson">Checked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.cpp:testUserFromJson">Checked</value>
+    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.h:TestEntityIF">Checked</value>
+   </valuemap>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey">
@@ -99,7 +104,7 @@
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">qt.qt5.5152.win64_mingw81_kit</value>
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="qlonglong" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
-   <value type="qlonglong" key="ProjectExplorer.Target.ActiveRunConfiguration">1</value>
+   <value type="qlonglong" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
     <value type="int" key="EnableQmlDebugging">0</value>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\Davide\Desktop\Progetto_PAC\ClientApp\build-PacClientApp-Desktop_Qt_5_15_2_MinGW_64_bit-Debug</value>

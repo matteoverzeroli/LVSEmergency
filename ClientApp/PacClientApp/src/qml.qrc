@@ -9,8 +9,10 @@
         <file alias="InserisciUtente.qml">views/InserisciUtente.qml</file>
         <file alias="CreaSquadra.qml">views/CreaSquadra.qml</file>
         <file alias="CancellaUtente.qml">views/CancellaUtente.qml</file>
+        <file alias="AreaInfo.qml">views/AreaInfo.qml</file>
     </qresource>
     <qresource prefix="/assets">
         <file alias="RoundPane.qml">assets/RoundPane.qml</file>
+        <file alias="RoundDial.qml">assets/RoundDial.qml</file>
     </qresource>
 </RCC>
