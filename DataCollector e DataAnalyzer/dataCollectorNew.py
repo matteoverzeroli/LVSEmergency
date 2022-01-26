@@ -37,9 +37,10 @@ class MyThread (th):
         rain_24h = float(data["entries"][0]["rain_24h"])
         rain_mn = float(data["entries"][0]["rain_mn"])
         #luminosity = float(data["entries"][0]["luminosity"])
-        cursor.execute("SELECT max(time) FROM test.aprsdata WHERE name = %(code)s;", {'code':self.station_code})
-        temporary = cursor.fetchall()
-        self.time_old = list(temporary[0])[0].strftime('%Y-%m-%d %H:%M:%S')
+        if self.time_old is not None:
+            cursor.execute("SELECT max(time) FROM test.aprsdata WHERE name = %(code)s;", {'code':self.station_code})
+            temporary = cursor.fetchall()
+            self.time_old = list(temporary[0])[0].strftime('%Y-%m-%d %H:%M:%S')
         if self.time_old is None or time != self.time_old:
             cursor.execute("INSERT INTO test.aprsdata (name, time, temperature, pressure, humidity, windDirection, windSpeed, windGust, \
                            rainOneHour, rainDay, rainMidNight) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",\
