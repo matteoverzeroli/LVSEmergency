@@ -1,4 +1,4 @@
-"ID, Time, Pressure",Temperature,Humidity,Wind_direction,Wind_speed
+ID,Time,Pressure,Temperature,Humidity,Wind_direction,Wind_speed
 1,2022-01-22 13:14:17,1024.9,5.0,62,225,0.0
 2,2022-01-22 13:23:17,1024.7,5.0,62,225,0.0
 3,2022-01-22 13:32:17,1024.7,5.0,62,248,0.0
