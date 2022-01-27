@@ -1,5 +1,7 @@
 package it.lvsemergency.areaInformationManagement.data;
 
+import java.util.Objects;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -131,6 +133,24 @@ public class AprsData {
 
 	public void setLuminosity(Float luminosity) {
 		this.luminosity = luminosity;
+	}
+	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AprsData other = (AprsData) obj;
+		return Objects.equals(aprsDataId, other.aprsDataId) && Objects.equals(humidity, other.humidity)
+				&& Objects.equals(luminosity, other.luminosity) && Objects.equals(pressure, other.pressure)
+				&& Objects.equals(rainDay, other.rainDay) && Objects.equals(rainMidNight, other.rainMidNight)
+				&& Objects.equals(rainOneHour, other.rainOneHour) && Objects.equals(temperature, other.temperature)
+				&& Objects.equals(windDirection, other.windDirection) && Objects.equals(windGust, other.windGust)
+				&& Objects.equals(windSpeed, other.windSpeed);
 	}
 
 }
