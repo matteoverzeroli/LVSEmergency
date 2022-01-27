@@ -5,26 +5,25 @@ Created on Tue Jan 25 21:05:18 2022
 @author: Lorenzo Leoni
 """
 import mysql.connector
-#import numpy as np
 import pandas as pd
 import requests as rq
 import time as tm
 from threading import Thread as th
-from mysql.connector import errorcode
 from datetime import datetime as dt
 import datetime
 
 class MyThread (th):
-    def __init__(self, name, station_code):
+    def __init__(self, name, station_code, API_key):
         th.__init__(self)
         self.name = name
         self.station_code = station_code
+        self.API_key = API_key
         self.esecution = 1
         self.id_row = 1
         self.delta = datetime.timedelta(hours=1)
     def run(self):
         print("Esecution #", self.esecution, "of thread #", self.name,"at", dt.now().strftime('%Y-%m-%d %H:%M:%S'))
-        address = "https://api.aprs.fi/api/get?name=" + self.station_code + "&what=wx&apikey=167471.rw8Fn5BbbYAYdMw&format=json"
+        address = "https://api.aprs.fi/api/get?name=" + self.station_code + "&what=wx&apikey=" + self.API_key + "&format=json"
         response = rq.get(address)
         data = response.json()
         time = dt.utcfromtimestamp(int(data["entries"][0]["time"]))
@@ -60,8 +59,8 @@ class MyThread (th):
         else:
             print("° Same acquisition --> no new row")
         self.esecution += 1
-        
-# apertura della connessione con il DB
+
+# definizione dei parametri per aprire la connessione con il DB
 config = {
   'host':'progettopacdb.mysql.database.azure.com',
   'user':'dsalvetti',
@@ -71,47 +70,69 @@ config = {
   'ssl_ca': 'C:\\Users\\loren\\Desktop\\Progetto PAC\\DataCollector e DataAnalyzer\\DigiCertGlobalRootG2.crt.pem'
 }
 
-try:
-   conn = mysql.connector.connect(**config)
-   print("Connection established")
-except mysql.connector.Error as err:
-  if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
-    print("Something is wrong with the user name or password")
-  elif err.errno == errorcode.ER_BAD_DB_ERROR:
-    print("Database does not exist")
-  else:
-    print(err)
-else:
-  cursor = conn.cursor()
-
-# accesso ai dati relativi alle zone
-cursor.execute("SELECT * FROM test.area;")
-rows = cursor.fetchall()
-area_DB = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
-for i in range(len(rows)):
-    area_DB.loc[i] = list(rows[i])
+# definizione delle API key
+API_key = ["165780.vwUJxymaP4yIjUx", "167256.2UfZjqsO8842Bk3l", "167471.rw8Fn5BbbYAYdMw"]
+API_key_num = 0
 
 # avvio dell'applicazione
 stop_time = input("Stop datatime [YYYY-MM-DD HH:MM:SS]: ")
 print(" ")
 stop_time = dt.strptime(stop_time, '%Y-%m-%d %H:%M:%S')
 
-# creazione dei thread
-threads = []
-for i in range(len(rows)):
-   if area_DB.at[i, "nameAprStation"] is not None:
-     t = MyThread(i, area_DB.at[i, "nameAprStation"])
-     threads.append(t)
-     
-# avvio periodico dei thread 
 while stop_time > dt.now():
+    
+    # apertura della connessione con il DB
+    connected = False
+    while connected == False:
+        try:
+            conn = mysql.connector.connect(**config)
+            print("***")
+            print("Connection established")
+        except mysql.connector.Error:
+            print("An error is occured at " + dt.now().strftime('%Y-%m-%d %H:%M:%S'))
+            print("--> Retrying between 10 seconds")
+            print(" ")
+            tm.sleep(10)
+        else:
+            cursor = conn.cursor()
+            connected = True
+
+    # accesso ai dati relativi alle zone
+    cursor.execute("SELECT * FROM test.area;")
+    rows = cursor.fetchall()
+    area_DB = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
+    for i in range(len(rows)):
+        area_DB.loc[i] = list(rows[i])
+    
+    # switch delle API key
+    if API_key_num == 0:
+        j = 0
+        API_key_num = 1
+        print("API key: " + API_key[j])
+    elif API_key_num == 1:
+        j = 1
+        API_key_num = 2
+        print("API key: " + API_key[j])
+    else:
+        j = 2
+        API_key_num = 0
+        print("API key: " + API_key[j])
+    
+    # creazione dei thread
+    threads = []
+    for i in range(len(rows)):
+        if area_DB.at[i, "nameAprStation"] is not None:
+            t = MyThread(i, area_DB.at[i, "nameAprStation"], API_key[j])
+            threads.append(t)
+        
+    # avvio periodico dei thread 
     for go in threads:
         go.run()
-    tm.sleep(540)
+    
+    # chiusura della connessione con il DB
+    cursor.close()
+    conn.close()
+    print("Done.")
+    print("***")
     print(" ")
-
-# chiusura della connessione con il DB
-conn.commit()
-cursor.close()
-conn.close()
-print("Done.")
+    tm.sleep(60*9)
