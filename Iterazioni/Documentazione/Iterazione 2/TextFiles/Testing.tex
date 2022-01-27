@@ -42,7 +42,7 @@ Nell'iterazione 2 si sono testate tutte le API Rest implementate, utlizzando Pos
 \clearpage
 
 \subsection{Unit Test}
-\subsubsection{Spring}
+\subsubsection{LvsEmergency Server}
 In questa iterazione è stata testata la funzione \textit{findByUsername()} che permette di recuperare l'utente inserito nel database con lo \textit{username} specificato. Inoltre viene eseguito il test di avvio del framework Spring, inserito di default. Di seguito è riportato il codice del test.
 
 \lstinputlisting[language=Java]{./Iterazione 2/OtherFiles/UserRepositoryTest.java}
@@ -56,7 +56,7 @@ Il risultato del test con JUnit ha confermato il corretto funzionamento della fu
 	\label{fig:RisultatiTestJunitIT2}
 \end{figure}
 
-\subsubsection{Qt}
+\subsubsection{Client app}
 Lato client è stata testata la corretta creazione delle classi \texttt{User}, \texttt{Team} e \texttt{Area} a partire da una stringa Json. Per fare ciò, è stato utilizzato il framework \textit{Qt Test}. Di seguito viene riportato il codice del test.
  
 \lstinputlisting[language=C++]{./Iterazione 2/OtherFiles/testentityif.cpp}

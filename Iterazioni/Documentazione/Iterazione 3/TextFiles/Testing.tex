@@ -1,0 +1,53 @@
+\section{Testing}
+\subsection{Analisi statica}
+Per l'analisi statica del codice Java è stato utilizzato il tool STAN4J, integrato nel IDE Eclipse.
+
+\subsection{Analisi dinamica}
+Nell'iterazione 3 si sono testate tutte le API Rest implementate, utlizzando Postman (\Fig \ref{fig:RisultatiTestAPIIT3}). In particolare si sono testate le seguenti funzionalità:
+
+\begin{itemize}
+	\item AreaController:
+	\begin{itemize}
+		\item Visualizzazione degli ultimi dati meteo scaricati di un'area, il cui id è specificato nel oath della richiesta;
+		\item Visualizzazione del più recente allarme relativo a nebbia o brina associata all'area il cui id è specificato nel path della richiesta;
+	\end{itemize}
+
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/TestGetAprsData}
+		\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/TestGetFrostOrFogAlarm}
+		\caption{Risultati test API su Postman.}
+		\label{fig:RisultatiTestAPIIT3}
+	\end{figure}
+\end{itemize}
+
+\clearpage
+
+\subsection{Unit Test}
+\subsubsection{LvsEmergency Server}
+\todo{da inserire}
+\subsubsection{Client App}
+\todo{forse da inserire}
+\subsection{Documentazione API}
+
+In questa sezione viene mostrata la documentazione relativa ad alcune API implementate nell'iterazione 3. \`E possibile visualizzare una collezione (creata con Postman) di tutte le API realizzate e testate sulla repository GitHub. In particolare, si riportano di seguito le più significative:
+\begin{itemize}
+	\item API per la visualizzazione degli ultimi dati meteorologici raccolti dalla stazione APRS associata all'area, il cui id è specificato nel path della richiesta;
+	\item API per la visualizzazione del più recente allarme di nebbia o brina generato nell'area di interesse;
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/GetAprsDataRequest}
+	\lstinputlisting[language=json]{./Iterazione 3/OtherFiles/GetAprsDataResponse.json}
+	\caption{Documentazione API Get Aprs data.}
+	\label{fig:LoginAPI}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/GetFrostOrFogAlarmRequest}
+	\lstinputlisting[language=json]{./Iterazione 3/OtherFiles/GetFrostOrFogAlarmResponse.json}
+	\caption{Documentazione API Get fog or frost alarm.}
+	\label{fig:GetOneUserAPI}
+\end{figure}

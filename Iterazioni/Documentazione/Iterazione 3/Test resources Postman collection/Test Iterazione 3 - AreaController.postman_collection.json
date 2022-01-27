@@ -1,0 +1,288 @@
+{
+	"info": {
+		"_postman_id": "66775782-4227-445c-a841-ff7c3893644e",
+		"name": "Test Iterazione 3 : AreaController",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get last aprs data of an area",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200; Dati aprs ricevuti\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"const expected = {\r",
+							"    \"name\": \"cw6134\",\r",
+							"    \"time\": \"27-01-2022 17:20:12\",\r",
+							"    \"temperature\": 3.9,\r",
+							"    \"pressure\": 1024.7,\r",
+							"    \"humidity\": 87,\r",
+							"    \"windDirection\": 180.0,\r",
+							"    \"windSpeed\": 0.0,\r",
+							"    \"windGust\": 0.9,\r",
+							"    \"rainOneHour\": 0.0,\r",
+							"    \"rainDay\": 0.0,\r",
+							"    \"rainMidNight\": 0.0,\r",
+							"    \"luminosity\": null\r",
+							"};\r",
+							"\r",
+							"pm.test(\"Dati ricevuti corretti\", () => {\r",
+							"    pm.expect(expected).to.eql(response);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/areas/1/aprsdata",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"areas",
+						"1",
+						"aprsdata"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get last aprs data from an area",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/areas/1/aprsdata",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"areas",
+								"1",
+								"aprsdata"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 27 Jan 2022 16:40:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"cw6134\",\n    \"time\": \"27-01-2022 17:20:12\",\n    \"temperature\": 3.9,\n    \"pressure\": 1024.7,\n    \"humidity\": 87,\n    \"windDirection\": 180,\n    \"windSpeed\": 0,\n    \"windGust\": 0.9,\n    \"rainOneHour\": 0,\n    \"rainDay\": 0,\n    \"rainMidNight\": 0,\n    \"luminosity\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "Get last fog or frost alarm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200; Allarme ricevuto\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"const expected = {\r",
+							"    \"idAlarm\": 4,\r",
+							"    \"time\": \"26-01-2022 18:12:24\",\r",
+							"    \"type\": \"FROST\",\r",
+							"    \"color\": \"GREEN\",\r",
+							"    \"idArea\": 1,\r",
+							"    \"description\": \"no description\"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Allarme ricevuto corretto\", () => {\r",
+							"    pm.expect(expected).to.eql(response);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/areas/1/alarms/fogorfrost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"areas",
+						"1",
+						"alarms",
+						"fogorfrost"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get last fog or frost alarm",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/areas/1/alarms/fogorfrost",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"areas",
+								"1",
+								"alarms",
+								"fogorfrost"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 27 Jan 2022 16:45:13 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"idAlarm\": 4,\n    \"time\": \"26-01-2022 18:12:24\",\n    \"type\": \"FROST\",\n    \"color\": \"GREEN\",\n    \"idArea\": 1,\n    \"description\": \"no description\"\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "admin",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "admin",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

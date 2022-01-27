@@ -1,0 +1,14 @@
+{
+  "name": "cw6134",
+  "time": "27-01-2022 17:20:12",
+  "temperature": 3.9,
+  "pressure": 1024.7,
+  "humidity": 87,
+  "windDirection": 180.0,
+  "windSpeed": 0.0,
+  "windGust": 0.9,
+  "rainOneHour": 0.0,
+  "rainDay": 0.0,
+  "rainMidNight": 0.0,
+  "luminosity": null
+}
