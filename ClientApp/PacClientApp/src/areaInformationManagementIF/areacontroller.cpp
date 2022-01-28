@@ -56,8 +56,7 @@ void AreaController::allAreasReceived()
 void AreaController::getAprsData(int idArea)
 {
     QNetworkRequest request;
-//    request.setUrl(QUrl("http://localhost:8080/areas/" + QString::number(idArea) + "/aprsdata"));
-    request.setUrl(QUrl("http://localhost:8080/aprsdata"));
+    request.setUrl(QUrl("http://localhost:8080/areas/" + QString::number(idArea) + "/aprsdata"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
@@ -76,12 +75,8 @@ void AreaController::aprsdataReceived()
         if (aprsData != nullptr)
             delete aprsData;
 
-        QJsonArray aprsArray = QJsonDocument::fromJson(response).array();
-        foreach (const QJsonValue &aprsValue, aprsArray) {
-            aprsData = new AprsData(this);
-            aprsData->fromJsonObject(aprsValue.toObject());
-            break;
-        }
+        aprsData = new AprsData(this);
+        aprsData->fromJsonObject(QJsonDocument::fromJson(response).object());
 
         emit aprsDataChanged();
     } else {
@@ -90,6 +85,43 @@ void AreaController::aprsdataReceived()
 
     reply->deleteLater();
 }
+
+/*!
+ * \brief Funzione per invocare l'API che richiede gli allarmi di un area.
+ */
+void AreaController::getAlarms(int idArea)
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl("http://localhost:8080/areas/" + QString::number(idArea) + "/alarms/fogorfrost"));
+    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+
+    QNetworkReply *reply = networkManager->get(request);
+    connect(reply, &QNetworkReply::finished, this, &AreaController::alarmReceived);
+}
+
+/*!
+ * \brief Slot che riceve la risposta dell'API che richiede gli allarmi.
+ */
+void AreaController::alarmReceived()
+{
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+    QByteArray response = reply->readAll();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        if (frogorfrostAlarm != nullptr)
+            delete frogorfrostAlarm;
+
+        frogorfrostAlarm = new Alarm(this);
+        frogorfrostAlarm->fromJsonObject(QJsonDocument::fromJson(response).object());
+
+        emit frogorfrostAlarmChanged();
+    } else {
+        qDebug() << "Error:" << reply->error();
+    }
+
+    reply->deleteLater();
+}
+
 
 int AreaController::getIdAreaByName(QString areaName)
 {
@@ -114,6 +146,11 @@ QStringList AreaController::getAreasAvailableList()
 AprsData *AreaController::getAprsData()
 {
     return aprsData;
+}
+
+Alarm *AreaController::getFrogOrFrostAlarm()
+{
+    return frogorfrostAlarm;
 }
 
 }

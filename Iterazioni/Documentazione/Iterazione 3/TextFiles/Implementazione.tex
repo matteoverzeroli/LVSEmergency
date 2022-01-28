@@ -1,0 +1,65 @@
+\section{Implementazione}
+Nella terza iterazione sono stati implementati i componenti \textit{Data Analyzer} e \textit{Data collector}. \todo{Spiegare un attimo a cosa servono velocemente}
+
+Grazie all'implementazione di questi due componenti, è stato possibile realizzare anche i seguenti casi d'uso:
+\begin{itemize}
+	\item UC18 - Visualizzazione informazioni zona [Astratto];
+	\begin{itemize}
+		\item UC18.1 - Visualizzazione dati ambientali;
+		\item UC18.1 - Visualizzazione allarmi;
+	\end{itemize}
+\end{itemize}
+
+
+\subsection{Data Collector}
+\todo{Spiegare cosa fa, come è stato implementato, linguaggio utilizzato.}
+
+
+\subsection{Data Analyzer}
+\todo{Spiegare cosa fa, come è stato implementato, linguaggio utilizzato. Spiegare anche l'algoritmo. Ricordarsi che bisogna mettere i test dell'algoritmo}
+
+\subsection{UC18.1 - Visualizzazione dati ambientali}
+\textit{Breve descrizione:} il volontario (o caposquadra) accede alla pagina in cui gli vengono mostrati gli ultimi dati disponibili relativi all'area del team di cui fa parte. 
+\\
+\\
+\textit{Attori coinvolti:} volontario, caposquadra, sistema.
+\\
+\\
+\textit{Precondizione:} il volontario (o caposquadra) è registrato nel sistema.
+\\
+\\
+\textit{Postcondizione:} il volontario visualizza i dati relativi all'area del team di cui fa parte.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item il volontario accede alla pagina "Dati Area".
+	\item il sistema mostra gli ultimi dati disponibili relativi a:
+	\begin{itemize}
+		\item stazioni APRS;
+		\item terremoti;
+		\item bollettini della protezione civile.
+	\end{itemize}
+\end{enumerate}
+
+\subsection{UC18.2 - Visualizzazione allarmi}
+\textit{Breve descrizione:} il volontario (o caposquadra) accede alla pagina in cui gli vengono mostrati gli allarmi disponibili relativi all'area del team di cui fa parte. 
+\\
+\\
+\textit{Attori coinvolti:} volontario, caposquadra, sistema.
+\\
+\\
+\textit{Precondizione:} il volontario (o caposquadra) è registrato nel sistema.
+\\
+\\
+\textit{Postcondizione:} il volontario visualizza gli allarmi relativi all'area del team di cui fa parte.
+\\
+\\
+\textit{Procedimento:}
+\begin{enumerate}
+	\item il volontario accede alla pagina "Dati Area".
+	\item il sistema mostra gli allarmi emessi per la specifica area:
+	\begin{itemize}
+		\item allarme nebbia o brina;
+	\end{itemize}
+\end{enumerate}

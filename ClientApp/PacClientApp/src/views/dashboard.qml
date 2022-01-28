@@ -100,7 +100,11 @@ Page {
                     } else if (model.source === "qrc:/views/CancellaUtente.qml") {
                         masterController.ui_userController.getUsers()
                     } else if (model.source === "qrc:/views/AreaInfo.qml") {
-                        masterController.ui_areaController.getAprsData(0)
+                        masterController.ui_areaController.getAprsData(
+                                    masterController.ui_teamController.currentTeam.area.idArea)
+                    } else if (model.source === "qrc:/views/Alarm.qml") {
+                        masterController.ui_areaController.getAlarms(
+                                    masterController.ui_teamController.currentTeam.area.idArea)
                     }
                 }
             }
@@ -109,6 +113,7 @@ Page {
                 ListElement { title: "Inserisci Utente"; user: 0 ; source: "qrc:/views/InserisciUtente.qml" }
                 ListElement { title: "Cancella Utente"; user: 0 ; source: "qrc:/views/CancellaUtente.qml" }
                 ListElement { title: "Crea Squadra"; user: 0 ; source: "qrc:/views/CreaSquadra.qml" }
+                ListElement { title: "Allarmi"; user: 2; source: "qrc:/views/Alarm.qml" }
                 ListElement { title: "Dati Area"; user: 2; source: "qrc:/views/AreaInfo.qml" }
                 ListElement { title: "Informazioni"; user: 2; source: "qrc:/views/Impostazioni.qml" }
             }
