@@ -82,7 +82,7 @@ Page {
             delegate: ItemDelegate {
                 width: listView.width
                 text: model.title
-                visible: model.user >= masterController.ui_userController.currentUser.role
+                visible: isVisible(model.user, model.admin)
                 height: visible == true ? implicitHeight : 0
                 highlighted: ListView.isCurrentItem
                 onClicked: {
@@ -95,8 +95,7 @@ Page {
                     } else if (model.source === "qrc:/views/CreaSquadra.qml") {
                         masterController.ui_areaController.getAreas()
                     } else if (model.source === "qrc:/views/Impostazioni.qml") {
-//                        masterController.ui_teamController.getTeam(
-//                                    masterController.ui_userController.currentUser.idTeam)
+
                     } else if (model.source === "qrc:/views/CancellaUtente.qml") {
                         masterController.ui_userController.getUsers()
                     } else if (model.source === "qrc:/views/AreaInfo.qml") {
@@ -107,15 +106,28 @@ Page {
                                     masterController.ui_teamController.currentTeam.area.idArea)
                     }
                 }
+
+                function isVisible(userVisibility, adminVisibility) {
+
+                    if (userVisibility && (masterController.ui_userController.currentUser.role === 2
+                                           || masterController.ui_userController.currentUser.role === 1))
+                        return true
+
+                    if (adminVisibility && masterController.ui_userController.currentUser.role === 0)
+                        return true
+
+                    return false
+
+                }
             }
 
             model: ListModel {
-                ListElement { title: "Inserisci Utente"; user: 0 ; source: "qrc:/views/InserisciUtente.qml" }
-                ListElement { title: "Cancella Utente"; user: 0 ; source: "qrc:/views/CancellaUtente.qml" }
-                ListElement { title: "Crea Squadra"; user: 0 ; source: "qrc:/views/CreaSquadra.qml" }
-                ListElement { title: "Allarmi"; user: 2; source: "qrc:/views/Alarm.qml" }
-                ListElement { title: "Dati Area"; user: 2; source: "qrc:/views/AreaInfo.qml" }
-                ListElement { title: "Informazioni"; user: 2; source: "qrc:/views/Impostazioni.qml" }
+                ListElement { title: "Inserisci Utente"; admin: true; user: false ; source: "qrc:/views/InserisciUtente.qml" }
+                ListElement { title: "Cancella Utente"; admin: true; user: false ; source: "qrc:/views/CancellaUtente.qml" }
+                ListElement { title: "Crea Squadra"; admin: true; user: false ; source: "qrc:/views/CreaSquadra.qml" }
+                ListElement { title: "Allarmi"; admin: false; user: true; source: "qrc:/views/Alarm.qml" }
+                ListElement { title: "Dati Area"; admin: false; user: true; source: "qrc:/views/AreaInfo.qml" }
+                ListElement { title: "Informazioni"; admin: true; user: true; source: "qrc:/views/Impostazioni.qml" }
             }
 
             ScrollIndicator.vertical: ScrollIndicator { }
