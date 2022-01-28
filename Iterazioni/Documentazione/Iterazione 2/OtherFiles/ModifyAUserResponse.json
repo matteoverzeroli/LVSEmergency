@@ -8,7 +8,7 @@
   "cellNumber": "3252186255",
   "sex": "M",
   "email": "luca@rossi.it",
-  "idTeam": 2,
+  "idTeam": null,
   "role": "ADMINISTRATOR",
   "state": "ACTIVE",
   "cf": "ABCSS80A01C800V"

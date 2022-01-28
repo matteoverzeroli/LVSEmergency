@@ -125,7 +125,7 @@ while stop_time > dt.now():
             t = MyThread(i, area_DB.at[i, "nameAprStation"], API_key[j])
             threads.append(t)
         
-    # avvio periodico dei thread 
+    # avvio dei thread 
     for go in threads:
         go.run()
     
