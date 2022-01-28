@@ -30,7 +30,8 @@ class FogFrostAllertsCreator (th):
         self.cursor1.execute("SELECT max(time) FROM test.aprsdata WHERE name = %(code)s;", {'code':self.station_code})
         temporary = self.cursor1.fetchall()
         self.recent_time = list(temporary[0])[0]
-        if self.old_final_time is not None or self.recent_time == self.old_final_time:
+        final_old_time_list[self.index] = self.recent_time
+        if flag == False or self.recent_time == self.old_final_time:
             print("Dentro")
             self.conn1.close()
             self.cursor1.close()
@@ -44,7 +45,10 @@ class FogFrostAllertsCreator (th):
         for j in range(3):
             for i in range(4):
                 summaryTd.iat[i,j] = self.__computeTd(summaryT.iat[i,j], summaryUR.iat[i,j])
-                
+        print(self.station_code)
+        print(summaryT)
+        print(summaryUR)
+        print(summaryTd)        
         if summaryT.at['tf','value'] >= summaryTd.at['tf','I_low'] and summaryT.at['tf','value'] <= summaryTd.at['tf','I_up']:
            if summaryT.at['tf','value'] > 0:
                print('CAUTION! Fog allert')
@@ -54,7 +58,7 @@ class FogFrostAllertsCreator (th):
                print('CAUTION! Frost allert')
                self.__allertsCreator("tf", "FROST")
                self.__debug("tf", "FROST", summaryT, summaryTd)
-        if summaryT.at['t1','value'] >= summaryTd.at['t1','I_low'] and summaryT.at['t1','value'] <= summaryTd.at['t1','I_up']:
+        elif summaryT.at['t1','value'] >= summaryTd.at['t1','I_low'] and summaryT.at['t1','value'] <= summaryTd.at['t1','I_up']:
            if summaryT.at['t1','value'] > 0:
                print('Caution! Fog')
                self.__allertsCreator("t1", "FOG")
@@ -63,7 +67,7 @@ class FogFrostAllertsCreator (th):
                print('ATTENZIONE! Allerta brina')
                self.__allertsCreator("t1", "FROST")
                self.__debug("t1", "FROST", summaryT, summaryTd)
-        if summaryT.at['t2','value'] >= summaryTd.at['t2','I_low'] and summaryT.at['t2','value'] <= summaryTd.at['t2','I_up']:
+        elif summaryT.at['t2','value'] >= summaryTd.at['t2','I_low'] and summaryT.at['t2','value'] <= summaryTd.at['t2','I_up']:
            if summaryT.at['t2','value'] > 0:
                print('ATTENZIONE! Allerta nebbia')
                self.__allertsCreator("t2", "FOG")
@@ -72,7 +76,7 @@ class FogFrostAllertsCreator (th):
                print('ATTENZIONE! Allerta brina')
                self.__allertsCreator("t2", "FROST")
                self.__debug("t2", "FROST", summaryT, summaryTd)
-        if summaryT.at['t3','value'] >= summaryTd.at['t3','I_low'] and summaryT.at['t3','value'] <= summaryTd.at['t3','I_up']:
+        elif summaryT.at['t3','value'] >= summaryTd.at['t3','I_low'] and summaryT.at['t3','value'] <= summaryTd.at['t3','I_up']:
            if summaryT.at['t3','value'] > 0:
                print('ATTENZIONE! Allerta nebbia')
                self.__allertsCreator("t3", "FOG")
@@ -81,6 +85,7 @@ class FogFrostAllertsCreator (th):
                print('ATTENZIONE! Allerta brina')
                self.__allertsCreator("t3", "FROST")
                self.__debug("t3", "FROST", summaryT, summaryTd)
+        self.conn1.commit()
         self.conn1.close()
         self.cursor1.close()
         
@@ -117,22 +122,22 @@ class FogFrostAllertsCreator (th):
         dataToUpdate.at['t3', 'value'] = fc[2]
         if parameter == "temperature":
             dataToUpdate.at['tf', 'I_low'] = dataToUpdate.at['tf', 'value'] - 0.15
-            dataToUpdate.at['t1', 'I_low'] = dataToUpdate.at['t1', 'value'] - 0.20
-            dataToUpdate.at['t2', 'I_low'] = dataToUpdate.at['t2', 'value'] - 0.25
-            dataToUpdate.at['t3', 'I_low'] = dataToUpdate.at['t3', 'value'] - 0.30
+            dataToUpdate.at['t1', 'I_low'] = dataToUpdate.at['t1', 'value'] - 0.18
+            dataToUpdate.at['t2', 'I_low'] = dataToUpdate.at['t2', 'value'] - 0.21
+            dataToUpdate.at['t3', 'I_low'] = dataToUpdate.at['t3', 'value'] - 0.24
             dataToUpdate.at['tf', 'I_up'] = dataToUpdate.at['tf', 'value'] + 0.15
-            dataToUpdate.at['t1', 'I_up'] = dataToUpdate.at['t1', 'value'] + 0.20
-            dataToUpdate.at['t2', 'I_up'] = dataToUpdate.at['t2', 'value'] + 0.25
-            dataToUpdate.at['t3', 'I_up'] = dataToUpdate.at['t3', 'value'] + 0.30
+            dataToUpdate.at['t1', 'I_up'] = dataToUpdate.at['t1', 'value'] + 0.18
+            dataToUpdate.at['t2', 'I_up'] = dataToUpdate.at['t2', 'value'] + 0.21
+            dataToUpdate.at['t3', 'I_up'] = dataToUpdate.at['t3', 'value'] + 0.24
         if parameter == "humidity":
-            dataToUpdate.at['tf', 'I_low'] = dataToUpdate.at['tf', 'value'] - 0.5
-            dataToUpdate.at['t1', 'I_low'] = dataToUpdate.at['t1', 'value'] - 0.6
-            dataToUpdate.at['t2', 'I_low'] = dataToUpdate.at['t2', 'value'] - 0.7
-            dataToUpdate.at['t3', 'I_low'] = dataToUpdate.at['t3', 'value'] - 0.8
-            dataToUpdate.at['tf', 'I_up'] = dataToUpdate.at['tf', 'value'] + 0.5
-            dataToUpdate.at['t1', 'I_up'] = dataToUpdate.at['t1', 'value'] + 0.6
-            dataToUpdate.at['t2', 'I_up'] = dataToUpdate.at['t2', 'value'] + 0.7
-            dataToUpdate.at['t3', 'I_up'] = dataToUpdate.at['t3', 'value'] + 0.8
+            dataToUpdate.at['tf', 'I_low'] = dataToUpdate.at['tf', 'value'] - 0.50
+            dataToUpdate.at['t1', 'I_low'] = dataToUpdate.at['t1', 'value'] - 0.55
+            dataToUpdate.at['t2', 'I_low'] = dataToUpdate.at['t2', 'value'] - 0.60
+            dataToUpdate.at['t3', 'I_low'] = dataToUpdate.at['t3', 'value'] - 0.65
+            dataToUpdate.at['tf', 'I_up'] = dataToUpdate.at['tf', 'value'] + 0.50
+            dataToUpdate.at['t1', 'I_up'] = dataToUpdate.at['t1', 'value'] + 0.55
+            dataToUpdate.at['t2', 'I_up'] = dataToUpdate.at['t2', 'value'] + 0.60
+            dataToUpdate.at['t3', 'I_up'] = dataToUpdate.at['t3', 'value'] + 0.65
         
     def __computeTd(self, T, UR):
         a = 17.27
@@ -148,6 +153,7 @@ class FogFrostAllertsCreator (th):
     def __allertsCreator(self, t, typology):
         coulor = None
         delta = None
+        trad = None
         if t == "tf":
             coulor = "RED"
             delta = "attuale"
@@ -160,10 +166,13 @@ class FogFrostAllertsCreator (th):
         else:
             coulor = "WHITE"
             delta = "30 minuti"
-        description = "Rischio " + str.lower(typology) + " tra " + delta
+        if typology == "FROST":
+            trad = "brina"
+        else:
+            trad = "nebbia"
+        description = "Rischio " + trad + " tra " + delta
         self.cursor1.execute("INSERT INTO test.alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
                               (dt.now().strftime('%Y-%m-%d %H:%M:%S'), typology, coulor, self.areaID, description))
-        self.conn1.commit()
      
     def __debug(self, t, typology, summaryT, summaryTd):
         delta = None
@@ -175,13 +184,16 @@ class FogFrostAllertsCreator (th):
             delta = "20 minutes"
         else:
             delta = "30 minutes"
+        print(" ")
+        print("***")
         print("CAUTION! " + str.lower(typology) + " allert")
-        print("-ID area: " + self.areaID)
+        print("-ID area: " + str(self.areaID))
         print("-Recent time: " + dt.now().strftime('%Y-%m-%d %H:%M:%S'))
         print("-Final time: " + self.recent_time.strftime('%Y-%m-%d %H:%M:%S'))
         print("-Delta: " + delta)
-        print("-Interval: [" + summaryTd.at[t, "IC_low"] + "; " + summaryT.at[t, "value"] + "; " + summaryTd.at[t, "IC_up"] + "]")
-        
+        print("-Interval: [" + str(summaryTd.at[t, "I_low"]) + "; " + str(summaryT.at[t, "value"]) + "; " + str(summaryTd.at[t, "I_up"]) + "]")
+        print("***")
+        print(" ")
 #------------------------------------------------------------------------------   
 # definizione dei parametri per aprire la connessione con il DB
 config = {
@@ -201,6 +213,7 @@ print(" ")
 stop_time = "2022-01-31 00:00:00"
 stop_time = dt.strptime(stop_time, '%Y-%m-%d %H:%M:%S')
 final_old_time_list = [None]*5
+flag = True
 
 while stop_time > dt.now():
     
