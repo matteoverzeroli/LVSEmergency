@@ -10,6 +10,7 @@
         <file alias="CreaSquadra.qml">views/CreaSquadra.qml</file>
         <file alias="CancellaUtente.qml">views/CancellaUtente.qml</file>
         <file alias="AreaInfo.qml">views/AreaInfo.qml</file>
+        <file alias="Alarm.qml">views/Alarm.qml</file>
     </qresource>
     <qresource prefix="/assets">
         <file alias="RoundPane.qml">assets/RoundPane.qml</file>

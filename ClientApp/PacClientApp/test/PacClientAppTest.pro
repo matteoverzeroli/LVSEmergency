@@ -6,12 +6,16 @@ QT += quick quickcontrols2 testlib
 
 SOURCES += \
     ../src/accountManagementIF/user.cpp \
+    ../src/areaInformationManagementIF/alarm.cpp \
+    ../src/areaInformationManagementIF/aprsdata.cpp \
     ../src/areaInformationManagementIF/area.cpp \
     ../src/teamManagementIF/team.cpp \
     testentityif.cpp
 
 HEADERS += \
     ../src/accountManagementIF/user.h \
+    ../src/areaInformationManagementIF/alarm.h \
+    ../src/areaInformationManagementIF/aprsdata.h \
     ../src/areaInformationManagementIF/area.h \
     ../src/helpers/entityif.h \
     ../src/teamManagementIF/team.h \

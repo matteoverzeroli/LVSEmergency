@@ -11,6 +11,7 @@ class Area : public helpers::EntityIF
 {
     Q_OBJECT
     Q_PROPERTY(QString areaName READ getAreaName CONSTANT)
+    Q_PROPERTY(int idArea READ getIdArea CONSTANT)
 public:
     explicit Area(QObject *parent = nullptr);
 
