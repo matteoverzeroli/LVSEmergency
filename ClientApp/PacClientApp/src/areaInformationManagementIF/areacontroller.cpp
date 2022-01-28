@@ -87,9 +87,9 @@ void AreaController::aprsdataReceived()
 }
 
 /*!
- * \brief Funzione per invocare l'API che richiede gli allarmi di un area.
+ * \brief Funzione per invocare l'API che richiede gli allarmi di nebbia.
  */
-void AreaController::getAlarms(int idArea)
+void AreaController::getAlarmsFogOrFrost(int idArea)
 {
     QNetworkRequest request;
     request.setUrl(QUrl("http://localhost:8080/areas/" + QString::number(idArea) + "/alarms/fogorfrost"));
@@ -115,6 +115,42 @@ void AreaController::alarmReceived()
         frogorfrostAlarm->fromJsonObject(QJsonDocument::fromJson(response).object());
 
         emit frogorfrostAlarmChanged();
+    } else {
+        qDebug() << "Error:" << reply->error();
+    }
+
+    reply->deleteLater();
+}
+
+/*!
+ * \brief Funzione per invocare l'API che richiede gli allarmi di mal tempo.
+ */
+void AreaController::getAlarmsBadWheather(int idArea)
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl("http://localhost:8080/areas/" + QString::number(idArea) + "/alarms/badweather"));
+    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+
+    QNetworkReply *reply = networkManager->get(request);
+    connect(reply, &QNetworkReply::finished, this, &AreaController::alarmsBadWheatherReceived);
+}
+
+/*!
+ * \brief Slot che riceve la risposta dell'API che richiede gli allarmi.
+ */
+void AreaController::alarmsBadWheatherReceived()
+{
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+    QByteArray response = reply->readAll();
+
+    if (reply->error() == QNetworkReply::NoError) {
+        if (badwheatherAlarm != nullptr)
+            delete badwheatherAlarm;
+
+        badwheatherAlarm = new Alarm(this);
+        badwheatherAlarm->fromJsonObject(QJsonDocument::fromJson(response).object());
+
+        emit badWheatherAlarmChanged();
     } else {
         qDebug() << "Error:" << reply->error();
     }
@@ -151,6 +187,11 @@ AprsData *AreaController::getAprsData()
 Alarm *AreaController::getFrogOrFrostAlarm()
 {
     return frogorfrostAlarm;
+}
+
+Alarm *AreaController::getBadWheatherAlarm()
+{
+    return badwheatherAlarm;
 }
 
 }

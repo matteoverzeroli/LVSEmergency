@@ -17,6 +17,7 @@ class TeamController : public QObject
 public:
     explicit TeamController(QNetworkAccessManager *networkManager,
                             QObject *parent = nullptr);
+    ~TeamController() override;
 
     Q_INVOKABLE void getTeams();
     Q_INVOKABLE void getTeam(int idTeam);

@@ -11,6 +11,11 @@ TeamController::TeamController(QNetworkAccessManager *networkManager, QObject *p
 
 }
 
+TeamController::~TeamController()
+{
+    qDebug() << "TeamController destructor";
+}
+
 /*!
  * \brief Funzione per invocare l'API che richiede tutti i team.
  */

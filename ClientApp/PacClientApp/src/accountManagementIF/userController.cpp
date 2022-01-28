@@ -18,6 +18,11 @@ UserController::UserController(QNetworkAccessManager *networkManager,
 
 }
 
+UserController::~UserController()
+{
+    qDebug() << "UserController destructor";
+}
+
 /*!
  * \brief Funzione per invocare l'API che esegue il login.
  */

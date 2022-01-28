@@ -35,27 +35,6 @@ Item {
         contentHeight: column.height + 20
 
         Dialog {
-            id: teamAddedDialog
-
-            x: (parent.width - width) / 2
-            y: (parent.height - height) / 2
-            parent: Overlay.overlay
-
-            modal: true
-            title: "Squadra creata!"
-            standardButtons: Dialog.Ok
-
-            Column {
-                spacing: 20
-                anchors.fill: parent
-                Label {
-                    text: "La squadra è stata inserita con successo!"
-                    wrapMode: Label.Wrap
-                }
-            }
-        }
-
-        Dialog {
             id: dataErrorDialog
 
             x: (parent.width - width) / 2
@@ -81,6 +60,40 @@ Item {
             width: parent.width - 40
             x: 20
             spacing: 16
+
+            function getText(type) {
+                if (type === "FOG")
+                    return "Nebbia"
+                if (type === "FROST")
+                    return "Brina"
+                if (type === "BW")
+                    return "Maltempo"
+            }
+
+            function getColor(color) {
+                if (color === "NONE")
+                    return "#D9D9D9"
+                if (color === "WHITE")
+                    return "white"
+                if (color === "GREEN")
+                    return "green"
+                if (color === "ORANGE")
+                    return "#F29F05"
+                if (color === "RED")
+                    return "red"
+            }
+
+            function getForeground(color){
+                if (color === "NONE" || color === "WHITE")
+                    return "#000000"
+
+                return "#FFFFFF"
+            }
+
+            Rectangle {
+                id: spacer
+                height: 20
+            }
 
             Label {
                 id: username
@@ -111,30 +124,10 @@ Item {
 
                 width: parent.width * 4 / 5
 
-                Material.background: getColor()
-                Material.foreground: getForeground()
+                Material.background: column.getColor(masterController.ui_areaController.frogorfrostAlarm.color)
+                Material.foreground: column.getForeground(masterController.ui_areaController.frogorfrostAlarm.color)
 
-                function getColor() {
-                    var color = masterController.ui_areaController.frogorfrostAlarm.color
-                    if (color === "NONE")
-                        return "#D9D9D9"
-                    if (color === "WHITE")
-                        return "white"
-                    if (color === "GREEN")
-                        return "green"
-                    if (color === "ORANGE")
-                        return "#F29F05"
-                    if (color === "RED")
-                        return "red"
-                }
 
-                function getForeground(){
-                    var color = masterController.ui_areaController.frogorfrostAlarm.color
-                    if (color === "NONE" || color === "WHITE")
-                        return "#000000"
-
-                    return "#FFFFFF"
-                }
 
                 Column {
                     spacing: 8
@@ -151,25 +144,63 @@ Item {
 
                     Label {
                         id: alarmType
-                        text: getText()
+                        text: column.getText(masterController.ui_areaController.frogorfrostAlarm.type)
                         width: parent.width
 
                         horizontalAlignment: Qt.AlignHCenter
                         font.bold: true
                         font.pointSize: 16
 
-                        function getText() {
-                            var type = masterController.ui_areaController.frogorfrostAlarm.type
-                            if (type === "FOG")
-                                return "Nebbia"
-                            if (type === "FROST")
-                                return "Brina"
-                        }
+
                     }
 
 
                     Label {
                         text: masterController.ui_areaController.frogorfrostAlarm.description
+                        wrapMode: Label.Wrap
+                        font.pointSize: 14
+                    }
+                }
+            }
+
+            RoundPane {
+                Material.elevation: 6
+                radius: 6
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                width: parent.width * 4 / 5
+
+                Material.background: column.getColor(masterController.ui_areaController.badwheatherAlarm.color)
+                Material.foreground: column.getForeground(masterController.ui_areaController.badwheatherAlarm.color)
+
+
+
+                Column {
+                    spacing: 8
+                    width: parent.width
+
+                    Label {
+                        id: alarmDateBw
+                        text: masterController.ui_areaController.badwheatherAlarm.date
+                        width: parent.width
+
+                        horizontalAlignment: Qt.AlignLeft
+                        font.pointSize: 10
+                    }
+
+                    Label {
+                        id: alarmTypeBw
+                        text: column.getText(masterController.ui_areaController.badwheatherAlarm.type)
+                        width: parent.width
+
+                        horizontalAlignment: Qt.AlignHCenter
+                        font.bold: true
+                        font.pointSize: 16
+                    }
+
+
+                    Label {
+                        text: masterController.ui_areaController.badwheatherAlarm.description
                         wrapMode: Label.Wrap
                         font.pointSize: 14
                     }

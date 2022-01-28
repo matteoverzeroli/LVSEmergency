@@ -25,6 +25,27 @@ Item {
         anchors.centerIn: parent
     }
 
+    Dialog {
+        id: dataErrorDialog
+
+        x: (parent.width - width) / 2
+        y: (parent.height - height) / 2
+        parent: Overlay.overlay
+
+        modal: true
+        title: "Attenzione!"
+        standardButtons: Dialog.Ok
+
+        Column {
+            spacing: 20
+            anchors.fill: parent
+            Label {
+                text: "Errore durante la ricezione dei dati!"
+                wrapMode: Label.Wrap
+            }
+        }
+    }
+
     Flickable {
         id: flickable
         anchors.fill: parent
@@ -33,50 +54,6 @@ Item {
 
         contentHeight: column.height + 20
 
-
-
-        Dialog {
-            id: teamAddedDialog
-
-            x: (parent.width - width) / 2
-            y: (parent.height - height) / 2
-            parent: Overlay.overlay
-
-            modal: true
-            title: "Squadra creata!"
-            standardButtons: Dialog.Ok
-
-            Column {
-                spacing: 20
-                anchors.fill: parent
-                Label {
-                    text: "La squadra è stata inserita con successo!"
-                    wrapMode: Label.Wrap
-                }
-            }
-        }
-
-        Dialog {
-            id: dataErrorDialog
-
-            x: (parent.width - width) / 2
-            y: (parent.height - height) / 2
-            parent: Overlay.overlay
-
-            modal: true
-            title: "Attenzione!"
-            standardButtons: Dialog.Ok
-
-            Column {
-                spacing: 20
-                anchors.fill: parent
-                Label {
-                    text: "Errore durante la ricezione dei dati!"
-                    wrapMode: Label.Wrap
-                }
-            }
-        }
-
         Column {
             id: column
             width: parent.width - 40
@@ -84,6 +61,10 @@ Item {
             spacing: 16
 
 
+            Rectangle {
+                id: spacer
+                height: 20
+            }
 
             Label {
                 id: username

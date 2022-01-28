@@ -70,9 +70,9 @@ Flickable {
                         text: qsTr("Ruolo: ") + getRole(masterController.ui_userController.currentUser.role)
 
                         function getRole(role) {
-                            if (role == 0) return "Amministratore"
-                            if (role == 1) return "Caposquadra"
-                            if (role == 2) return "Volontario"
+                            if (role === 0) return "Amministratore"
+                            if (role === 1) return "Caposquadra"
+                            if (role === 2) return "Volontario"
                         }
                     }
 
@@ -110,7 +110,7 @@ Flickable {
                 text: checkTeamNull()
 
                 function checkTeamNull() {
-                    if (masterController.ui_teamController.currentTeam == null)
+                    if (masterController.ui_teamController.currentTeam === null)
                         return "Non sei stato assegnato ad una squadra."
 
                     return "Ecco alcune informazioni sulla tua squadra:"
@@ -161,9 +161,16 @@ Flickable {
                 width: parent.width
                 wrapMode: Label.Wrap
                 horizontalAlignment: Qt.AlignHCenter
-                text: "Ecco i tuoi compagni di squadra:"
+                text: checkNoMemberNull()
 
                 font.pointSize: 12
+
+                function checkNoMemberNull() {
+                    if (masterController.ui_teamController.currentTeam.users.length === 1)
+                        return "Al momento non hai compagni di squadra."
+
+                    return "Ecco i tuoi compagni di squadra:"
+                }
             }
 
             Column {

@@ -20,6 +20,7 @@ class UserController : public QObject
 public:
     explicit UserController(QNetworkAccessManager *networkManager,
                             NavigationController *navigationController, QObject *parent = nullptr);
+    ~UserController() override;
 
     Q_INVOKABLE void login(QString username, QString password);
     Q_INVOKABLE void modifyUser();

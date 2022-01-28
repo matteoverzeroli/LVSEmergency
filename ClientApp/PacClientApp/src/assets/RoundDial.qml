@@ -27,7 +27,7 @@ Rectangle {
         anchors.rightMargin: 10
         anchors.leftMargin: 10
         anchors.topMargin: 10
-        font.pointSize: 13
+        font.pointSize: 11
         color: "#F29F05"
         horizontalAlignment: Text.AlignHCenter
     }
@@ -45,7 +45,7 @@ Rectangle {
         textFont {
             family: "Halvetica"
             italic: false
-            pointSize: 12
+            pointSize: 10
         }
         textColor: "#F29F05"
 

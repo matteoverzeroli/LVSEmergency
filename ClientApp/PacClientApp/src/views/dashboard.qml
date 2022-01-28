@@ -102,7 +102,9 @@ Page {
                         masterController.ui_areaController.getAprsData(
                                     masterController.ui_teamController.currentTeam.area.idArea)
                     } else if (model.source === "qrc:/views/Alarm.qml") {
-                        masterController.ui_areaController.getAlarms(
+                        masterController.ui_areaController.getAlarmsBadWheather(
+                                    masterController.ui_teamController.currentTeam.area.idArea)
+                        masterController.ui_areaController.getAlarmsFogOrFrost(
                                     masterController.ui_teamController.currentTeam.area.idArea)
                     }
                 }
@@ -191,7 +193,7 @@ Page {
 
                             Label {
                                 id: surname
-                                text: qsTr("Cognome: ") + masterController.ui_userController.currentUser.username
+                                text: qsTr("Cognome: ") + masterController.ui_userController.currentUser.surname
                             }
 
                             Label {
@@ -204,9 +206,9 @@ Page {
                                 text: qsTr("Ruolo: ") + getRole(masterController.ui_userController.currentUser.role)
 
                                 function getRole(role) {
-                                    if (role == 0) return "Amministratore"
-                                    if (role == 1) return "Caposquadra"
-                                    if (role == 2) return "Volontario"
+                                    if (role === 0) return "Amministratore"
+                                    if (role === 1) return "Caposquadra"
+                                    if (role === 2) return "Volontario"
                                 }
                             }
                         }
