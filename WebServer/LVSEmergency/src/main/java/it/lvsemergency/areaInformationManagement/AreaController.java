@@ -43,14 +43,25 @@ public class AreaController {
 	}
 
 	/**
-	 * get last fog alarm of a area
+	 * get last fog or frost alarm of a area
 	 * 
 	 * @param idArea area of interest
-	 * @return last fog alarm if present in a particular area
+	 * @return last fog or frost alarm if present in a particular area
 	 */
 	@GetMapping(path = "/areas/{idArea}/alarms/fogorfrost")
 	public Alarm getFogOrFrostAlarmByIdArea(@PathVariable Integer idArea) {
 		return areaService.getFogOrFrostAlarmByIdArea(idArea);
+	}
+
+	/**
+	 * get last bad weather alarm of a area
+	 * 
+	 * @param idArea area of interest
+	 * @return last bad weather alarm if present in a particular area
+	 */
+	@GetMapping(path = "/areas/{idArea}/alarms/badweather")
+	public Alarm getBadWeatherByIdArea(@PathVariable Integer idArea) {
+		return areaService.getBadWeatherByIdArea(idArea);
 	}
 
 }

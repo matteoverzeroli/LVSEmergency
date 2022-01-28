@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -66,9 +67,23 @@ public class AreaService {
 
 		if (!area.isPresent())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No area found!");
-		
+
 		Sort sort = Sort.by(Sort.Direction.DESC, "time");
-		Alarm alarm = alarmRepository.findAlarmByIdAreaFogOrFrost(idArea, sort, AlarmType.FROST, AlarmType.FOG).get(0);
+		Alarm alarm = alarmRepository.findAlarmByIdAreaFogOrFrost(idArea, sort, AlarmType.FROST, AlarmType.FOG, PageRequest.of(0, 1));
+
+		return alarm;
+	}
+
+	public Alarm getBadWeatherByIdArea(Integer idArea) {
+
+		Optional<Area> area = areaRepository.findById(idArea);
+
+		if (!area.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No area found!");
+
+		Sort sort = Sort.by(Sort.Direction.DESC, "time");
+		
+		Alarm alarm = alarmRepository.getBadWeatherByIdArea(idArea, sort, AlarmType.BW, PageRequest.of(0, 1));
 
 		return alarm;
 	}
