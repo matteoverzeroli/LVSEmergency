@@ -21,7 +21,7 @@ public class UserRepositoryTest {
 		//given
 		User expected = new User(1, username, "Mario", "Rossi",
 		"MRARSS80A01C800V","test","Via Nazionale 7","3485556255",'M',
-		"mario@rossi.it",1, UserRole.ADMINISTRATOR,OperativityRole.ACTIVE);
+		"mario@rossi.it",null, UserRole.ADMINISTRATOR,OperativityRole.ACTIVE);
 		
 		underTest.save(expected);
 		

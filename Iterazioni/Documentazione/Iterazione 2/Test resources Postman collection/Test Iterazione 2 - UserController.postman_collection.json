@@ -26,7 +26,7 @@
 							"    \"cellNumber\": \"3485556255\",\r",
 							"    \"sex\": \"M\",\r",
 							"    \"email\": \"mario@rossi.it\",\r",
-							"    \"idTeam\": 1,\r",
+							"    \"idTeam\": null,\r",
 							"    \"role\": \"ADMINISTRATOR\",\r",
 							"    \"state\": \"ACTIVE\",\r",
 							"    \"cf\": \"MRARSS80A01C800V\"\r",
@@ -109,7 +109,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Mon, 24 Jan 2022 15:47:36 GMT"
+							"value": "Fri, 28 Jan 2022 17:35:00 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -121,7 +121,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"idUser\": 1,\n    \"username\": \"admin\",\n    \"name\": \"Mario\",\n    \"surname\": \"Rossi\",\n    \"address\": \"Via Nazionale 7\",\n    \"cellNumber\": \"3485556255\",\n    \"sex\": \"M\",\n    \"email\": \"mario@rossi.it\",\n    \"idTeam\": 1,\n    \"role\": \"ADMINISTRATOR\",\n    \"state\": \"ACTIVE\",\n    \"cf\": \"MRARSS80A01C800V\"\n}"
+					"body": "{\n    \"idUser\": 1,\n    \"username\": \"admin\",\n    \"name\": \"Mario\",\n    \"surname\": \"Rossi\",\n    \"address\": \"Via Nazionale 7\",\n    \"cellNumber\": \"3485556255\",\n    \"sex\": \"M\",\n    \"email\": \"mario@rossi.it\",\n    \"idTeam\": null,\n    \"role\": \"ADMINISTRATOR\",\n    \"state\": \"ACTIVE\",\n    \"cf\": \"MRARSS80A01C800V\"\n}"
 				}
 			]
 		},
@@ -329,7 +329,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Mon, 24 Jan 2022 15:47:53 GMT"
+							"value": "Fri, 28 Jan 2022 17:35:19 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -341,7 +341,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"idUser\": 1,\n        \"username\": \"admin\",\n        \"name\": \"Mario\",\n        \"surname\": \"Rossi\",\n        \"address\": \"Via Nazionale 7\",\n        \"cellNumber\": \"3485556255\",\n        \"sex\": \"M\",\n        \"email\": \"mario@rossi.it\",\n        \"idTeam\": 1,\n        \"role\": \"ADMINISTRATOR\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"MRARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 2,\n        \"username\": \"admin1\",\n        \"name\": \"Daniela\",\n        \"surname\": \"Rossi\",\n        \"address\": \"Via Nazionale 8\",\n        \"cellNumber\": \"325186255\",\n        \"sex\": \"F\",\n        \"email\": \"daniela@rossi.it\",\n        \"idTeam\": 1,\n        \"role\": \"ADMINISTRATOR\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"DNARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 3,\n        \"username\": \"admin2\",\n        \"name\": \"Luca\",\n        \"surname\": \"Rossi\",\n        \"address\": \"Via Nazionale 9\",\n        \"cellNumber\": \"3252186255\",\n        \"sex\": \"M\",\n        \"email\": \"luca@rossi.it\",\n        \"idTeam\": 2,\n        \"role\": \"ADMINISTRATOR\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"LCARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 4,\n        \"username\": \"foreman1\",\n        \"name\": \"Giancarlo\",\n        \"surname\": \"Bianchi\",\n        \"address\": \"Via Verdi 1\",\n        \"cellNumber\": \"3215186255\",\n        \"sex\": \"M\",\n        \"email\": \"giancarlo@bianchi.it\",\n        \"idTeam\": 1,\n        \"role\": \"FOREMAN\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"BNARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 5,\n        \"username\": \"foreman2\",\n        \"name\": \"Loredana\",\n        \"surname\": \"Bianchi\",\n        \"address\": \"Via Verdi 2\",\n        \"cellNumber\": \"3355844512\",\n        \"sex\": \"F\",\n        \"email\": \"loredana@bianchi.it\",\n        \"idTeam\": 2,\n        \"role\": \"FOREMAN\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"LDARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 6,\n        \"username\": \"foreman3\",\n        \"name\": \"Lorenzo\",\n        \"surname\": \"Verdi\",\n        \"address\": \"Via Bianchi 1\",\n        \"cellNumber\": \"3655844512\",\n        \"sex\": \"M\",\n        \"email\": \"lorenzo@verdi.it\",\n        \"idTeam\": 3,\n        \"role\": \"FOREMAN\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"LVARSS80A01C800V\"\n    }\n]"
+					"body": "[\n    {\n        \"idUser\": 1,\n        \"username\": \"admin\",\n        \"name\": \"Mario\",\n        \"surname\": \"Rossi\",\n        \"address\": \"Via Nazionale 7\",\n        \"cellNumber\": \"3485556255\",\n        \"sex\": \"M\",\n        \"email\": \"mario@rossi.it\",\n        \"idTeam\": null,\n        \"role\": \"ADMINISTRATOR\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"MRARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 2,\n        \"username\": \"admin1\",\n        \"name\": \"Daniela\",\n        \"surname\": \"Rossi\",\n        \"address\": \"Via Nazionale 8\",\n        \"cellNumber\": \"325186255\",\n        \"sex\": \"F\",\n        \"email\": \"daniela@rossi.it\",\n        \"idTeam\": null,\n        \"role\": \"ADMINISTRATOR\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"DNARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 3,\n        \"username\": \"admin2\",\n        \"name\": \"Luca\",\n        \"surname\": \"Rossi\",\n        \"address\": \"Via Nazionale 9\",\n        \"cellNumber\": \"3252186255\",\n        \"sex\": \"M\",\n        \"email\": \"luca@rossi.it\",\n        \"idTeam\": null,\n        \"role\": \"ADMINISTRATOR\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"LCARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 4,\n        \"username\": \"foreman1\",\n        \"name\": \"Giancarlo\",\n        \"surname\": \"Bianchi\",\n        \"address\": \"Via Verdi 1\",\n        \"cellNumber\": \"3215186255\",\n        \"sex\": \"M\",\n        \"email\": \"giancarlo@bianchi.it\",\n        \"idTeam\": 1,\n        \"role\": \"FOREMAN\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"BNARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 5,\n        \"username\": \"foreman2\",\n        \"name\": \"Loredana\",\n        \"surname\": \"Bianchi\",\n        \"address\": \"Via Verdi 2\",\n        \"cellNumber\": \"3355844512\",\n        \"sex\": \"F\",\n        \"email\": \"loredana@bianchi.it\",\n        \"idTeam\": 2,\n        \"role\": \"FOREMAN\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"LDARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 6,\n        \"username\": \"foreman3\",\n        \"name\": \"Lorenzo\",\n        \"surname\": \"Verdi\",\n        \"address\": \"Via Bianchi 1\",\n        \"cellNumber\": \"3655844512\",\n        \"sex\": \"M\",\n        \"email\": \"lorenzo@verdi.it\",\n        \"idTeam\": 3,\n        \"role\": \"FOREMAN\",\n        \"state\": \"ACTIVE\",\n        \"cf\": \"LVARSS80A01C800V\"\n    },\n    {\n        \"idUser\": 7,\n        \"username\": \"d.salvetti\",\n        \"name\": \"Davide\",\n        \"surname\": \"Salvetti\",\n        \"address\": \"Via Nazionale 21\",\n        \"cellNumber\": \"3470000001\",\n        \"sex\": \"M\",\n        \"email\": \"d.salvetti@email.com\",\n        \"idTeam\": 4,\n        \"role\": \"VOLUNTEER\",\n        \"state\": \"INACTIVE\",\n        \"cf\": \"SLVDVD97A00A000A\"\n    }\n]"
 				}
 			]
 		},
@@ -358,18 +358,18 @@
 							"\r",
 							"const response = pm.response.json();\r",
 							"const expected = {\r",
-							"    \"idUser\": 1,\r",
-							"    \"username\": \"admin\",\r",
-							"    \"name\": \"Mario\",\r",
-							"    \"surname\": \"Rossi\",\r",
-							"    \"address\": \"Via Nazionale 7\",\r",
-							"    \"cellNumber\": \"3485556255\",\r",
+							"    \"idUser\": 4,\r",
+							"    \"username\": \"foreman1\",\r",
+							"    \"name\": \"Giancarlo\",\r",
+							"    \"surname\": \"Bianchi\",\r",
+							"    \"address\": \"Via Verdi 1\",\r",
+							"    \"cellNumber\": \"3215186255\",\r",
 							"    \"sex\": \"M\",\r",
-							"    \"email\": \"mario@rossi.it\",\r",
+							"    \"email\": \"giancarlo@bianchi.it\",\r",
 							"    \"idTeam\": 1,\r",
-							"    \"role\": \"ADMINISTRATOR\",\r",
+							"    \"role\": \"FOREMAN\",\r",
 							"    \"state\": \"ACTIVE\",\r",
-							"    \"cf\": \"MRARSS80A01C800V\"\r",
+							"    \"cf\": \"BNARSS80A01C800V\"\r",
 							"};\r",
 							"\r",
 							"pm.test(\"Utente ricevuto corretto\", () => {\r",
@@ -384,14 +384,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/users/1",
+					"raw": "localhost:8080/users/4",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"users",
-						"1"
+						"4"
 					]
 				}
 			},
@@ -402,14 +402,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/users/1",
+							"raw": "localhost:8080/users/4",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"users",
-								"1"
+								"4"
 							]
 						}
 					},
@@ -451,7 +451,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Mon, 24 Jan 2022 15:48:00 GMT"
+							"value": "Fri, 28 Jan 2022 17:35:39 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -463,7 +463,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"idUser\": 1,\n    \"username\": \"admin\",\n    \"name\": \"Mario\",\n    \"surname\": \"Rossi\",\n    \"address\": \"Via Nazionale 7\",\n    \"cellNumber\": \"3485556255\",\n    \"sex\": \"M\",\n    \"email\": \"mario@rossi.it\",\n    \"idTeam\": 1,\n    \"role\": \"ADMINISTRATOR\",\n    \"state\": \"ACTIVE\",\n    \"cf\": \"MRARSS80A01C800V\"\n}"
+					"body": "{\n    \"idUser\": 4,\n    \"username\": \"foreman1\",\n    \"name\": \"Giancarlo\",\n    \"surname\": \"Bianchi\",\n    \"address\": \"Via Verdi 1\",\n    \"cellNumber\": \"3215186255\",\n    \"sex\": \"M\",\n    \"email\": \"giancarlo@bianchi.it\",\n    \"idTeam\": 1,\n    \"role\": \"FOREMAN\",\n    \"state\": \"ACTIVE\",\n    \"cf\": \"BNARSS80A01C800V\"\n}"
 				}
 			]
 		},
@@ -588,7 +588,7 @@
 							"    \"cellNumber\": \"325186255\",\r",
 							"    \"sex\": \"F\",\r",
 							"    \"email\": \"daniela@rossi.it\",\r",
-							"    \"idTeam\": 1,\r",
+							"    \"idTeam\": null,\r",
 							"    \"role\": \"ADMINISTRATOR\",\r",
 							"    \"state\": \"ACTIVE\",\r",
 							"    \"cf\": \"DNARSS80A01C800V\"\r",
@@ -608,7 +608,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\" : \"admin1\",\r\n    \"name\": \"Daniela\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 8\",\r\n    \"cellNumber\": \"325186255\",\r\n    \"sex\": \"F\",\r\n    \"email\": \"daniela@rossi.it\",\r\n    \"idTeam\": 1,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"DNARSS80A01C800V\"\r\n}",
+					"raw": "{\r\n    \"username\": \"admin1\",\r\n    \"password\" : \"admin1\",\r\n    \"name\": \"Daniela\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 8\",\r\n    \"cellNumber\": \"325186255\",\r\n    \"sex\": \"F\",\r\n    \"email\": \"daniela@rossi.it\",\r\n    \"idTeam\": null,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"DNARSS80A01C800V\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -702,7 +702,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"idUser\": 7,\n    \"username\": \"admin1\",\n    \"name\": \"Daniela\",\n    \"surname\": \"Rossi\",\n    \"address\": \"Via Nazionale 8\",\n    \"cellNumber\": \"325186255\",\n    \"sex\": \"F\",\n    \"email\": \"daniela@rossi.it\",\n    \"idTeam\": 1,\n    \"role\": \"ADMINISTRATOR\",\n    \"state\": \"ACTIVE\",\n    \"cf\": \"DNARSS80A01C800V\"\n}"
+					"body": "{\n    \"idUser\": 7,\n    \"username\": \"admin1\",\n    \"name\": \"Daniela\",\n    \"surname\": \"Rossi\",\n    \"address\": \"Via Nazionale 8\",\n    \"cellNumber\": \"325186255\",\n    \"sex\": \"F\",\n    \"email\": \"daniela@rossi.it\",\n    \"idTeam\": null,\n    \"role\": \"ADMINISTRATOR\",\n    \"state\": \"ACTIVE\",\n    \"cf\": \"DNARSS80A01C800V\"\n}"
 				}
 			]
 		},
@@ -728,7 +728,7 @@
 							"    \"cellNumber\": \"3252186255\",\r",
 							"    \"sex\": \"M\",\r",
 							"    \"email\": \"luca@rossi.it\",\r",
-							"    \"idTeam\": 2,\r",
+							"    \"idTeam\": null,\r",
 							"    \"role\": \"ADMINISTRATOR\",\r",
 							"    \"state\": \"ACTIVE\",\r",
 							"    \"cf\": \"ABCSS80A01C800V\"\r",
@@ -748,7 +748,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"idUser\": 3,\r\n    \"username\": \"admin2\",\r\n    \"password\": \"admin2\",\r\n    \"name\": \"Luca\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 9\",\r\n    \"cellNumber\": \"3252186255\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"luca@rossi.it\",\r\n    \"idTeam\": 2,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"ABCSS80A01C800V\"\r\n}",
+					"raw": "{\r\n    \"idUser\": 3,\r\n    \"username\": \"admin2\",\r\n    \"password\": \"admin2\",\r\n    \"name\": \"Luca\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 9\",\r\n    \"cellNumber\": \"3252186255\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"luca@rossi.it\",\r\n    \"idTeam\": null,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"ABCSS80A01C800V\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -774,7 +774,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"idUser\": 3,\r\n    \"username\": \"admin2\",\r\n    \"password\": \"admin2\",\r\n    \"name\": \"Luca\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 9\",\r\n    \"cellNumber\": \"3252186255\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"luca@rossi.it\",\r\n    \"idTeam\": 2,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"ABCSS80A01C800V\"\r\n}",
+							"raw": "{\r\n    \"idUser\": 3,\r\n    \"username\": \"admin2\",\r\n    \"password\": \"admin2\",\r\n    \"name\": \"Luca\",\r\n    \"surname\": \"Rossi\",\r\n    \"address\": \"Via Nazionale 9\",\r\n    \"cellNumber\": \"3252186255\",\r\n    \"sex\": \"M\",\r\n    \"email\": \"luca@rossi.it\",\r\n    \"idTeam\": null,\r\n    \"role\": \"ADMINISTRATOR\",\r\n    \"state\": \"ACTIVE\",\r\n    \"cf\": \"ABCSS80A01C800V\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -830,7 +830,7 @@
 						},
 						{
 							"key": "Date",
-							"value": "Mon, 24 Jan 2022 15:48:46 GMT"
+							"value": "Fri, 28 Jan 2022 17:36:40 GMT"
 						},
 						{
 							"key": "Keep-Alive",
@@ -842,7 +842,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"idUser\": 3,\n    \"username\": \"admin2\",\n    \"name\": \"Luca\",\n    \"surname\": \"Rossi\",\n    \"address\": \"Via Nazionale 9\",\n    \"cellNumber\": \"3252186255\",\n    \"sex\": \"M\",\n    \"email\": \"luca@rossi.it\",\n    \"idTeam\": 2,\n    \"role\": \"ADMINISTRATOR\",\n    \"state\": \"ACTIVE\",\n    \"cf\": \"ABCSS80A01C800V\"\n}"
+					"body": "{\n    \"idUser\": 3,\n    \"username\": \"admin2\",\n    \"name\": \"Luca\",\n    \"surname\": \"Rossi\",\n    \"address\": \"Via Nazionale 9\",\n    \"cellNumber\": \"3252186255\",\n    \"sex\": \"M\",\n    \"email\": \"luca@rossi.it\",\n    \"idTeam\": null,\n    \"role\": \"ADMINISTRATOR\",\n    \"state\": \"ACTIVE\",\n    \"cf\": \"ABCSS80A01C800V\"\n}"
 				}
 			]
 		}

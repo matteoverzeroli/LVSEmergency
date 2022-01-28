@@ -7,7 +7,7 @@
   "cellNumber": "3485556255",
   "sex": "M",
   "email": "mario@rossi.it",
-  "idTeam": 1,
+  "idTeam": null,
   "role": "ADMINISTRATOR",
   "state": "ACTIVE",
   "cf": "MRARSS80A01C800V"
