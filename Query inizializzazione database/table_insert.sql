@@ -26,13 +26,13 @@ insert into team (idTeam, teamName, idForeman, idArea)
 values(3, "CDMTeam", null, 3);
 
 insert into user (idUser, username,name,surname,CF,password,address,cellNumber,sex,email,idTeam,role,state)
-values(1,"admin", "Mario", "Rossi","MRARSS80A01C800V","admin","Via Nazionale 7","3485556255",'M',"mario@rossi.it",1, "ADMINISTRATOR", "ACTIVE");
+values(1,"admin", "Mario", "Rossi","MRARSS80A01C800V","admin","Via Nazionale 7","3485556255",'M',"mario@rossi.it", null, "ADMINISTRATOR", "ACTIVE");
 
 insert into user (idUser, username,name,surname,CF,password,address,cellNumber,sex,email,idTeam,role,state)
-values(2,"admin1", "Daniela", "Rossi","DNARSS80A01C800V","admin1","Via Nazionale 8","325186255",'F',"daniela@rossi.it",1, "ADMINISTRATOR", "ACTIVE");
+values(2,"admin1", "Daniela", "Rossi","DNARSS80A01C800V","admin1","Via Nazionale 8","325186255",'F',"daniela@rossi.it", null, "ADMINISTRATOR", "ACTIVE");
 
 insert into user (idUser, username,name,surname,CF,password,address,cellNumber,sex,email,idTeam,role,state)
-values(3,"admin2", "Luca", "Rossi","LCARSS80A01C800V","admin2","Via Nazionale 9","3252186255",'M',"luca@rossi.it",2, "ADMINISTRATOR", "ACTIVE");
+values(3,"admin2", "Luca", "Rossi","LCARSS80A01C800V","admin2","Via Nazionale 9","3252186255",'M',"luca@rossi.it", null, "ADMINISTRATOR", "ACTIVE");
 
 insert into user (idUser, username,name,surname,CF,password,address,cellNumber,sex,email,idTeam,role,state)
 values(4,"foreman1", "Giancarlo", "Bianchi","BNARSS80A01C800V","foreman1","Via Verdi 1","3215186255",'M',"giancarlo@bianchi.it",1, "FOREMAN", "ACTIVE");
