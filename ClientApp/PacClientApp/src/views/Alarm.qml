@@ -32,7 +32,7 @@ Item {
 
         visible: false
 
-        contentHeight: column.height + 20
+        contentHeight: pane.height
 
         Dialog {
             id: dataErrorDialog
@@ -55,154 +55,154 @@ Item {
             }
         }
 
-        Column {
-            id: column
-            width: parent.width - 40
-            x: 20
-            spacing: 16
+        Pane {
+            id: pane
+            width: flickable.width
 
-            function getText(type) {
-                if (type === "FOG")
-                    return "Nebbia"
-                if (type === "FROST")
-                    return "Brina"
-                if (type === "BW")
-                    return "Maltempo"
-            }
+            Column {
+                id: column
+                width: parent.width - 40
+                x: 20
+                spacing: 16
 
-            function getColor(color) {
-                if (color === "NONE")
-                    return "#D9D9D9"
-                if (color === "WHITE")
-                    return "white"
-                if (color === "GREEN")
-                    return "green"
-                if (color === "ORANGE")
-                    return "#F29F05"
-                if (color === "RED")
-                    return "red"
-            }
+                function getText(type) {
+                    if (type === "FOG")
+                        return "Nebbia"
+                    if (type === "FROST")
+                        return "Brina"
+                    if (type === "BW")
+                        return "Maltempo"
+                }
 
-            function getForeground(color){
-                if (color === "NONE" || color === "WHITE")
-                    return "#000000"
+                function getColor(color) {
+                    if (color === "NONE")
+                        return "#D9D9D9"
+                    if (color === "WHITE")
+                        return "white"
+                    if (color === "GREEN")
+                        return "green"
+                    if (color === "ORANGE")
+                        return "#F29F05"
+                    if (color === "RED")
+                        return "red"
+                }
 
-                return "#FFFFFF"
-            }
+                function getForeground(color){
+                    if (color === "NONE" || color === "WHITE")
+                        return "#000000"
 
-            Rectangle {
-                id: spacer
-                height: 20
-            }
+                    return "#FFFFFF"
+                }
 
-            Label {
-                id: username
-                width: parent.width
-                wrapMode: Label.Wrap
-                horizontalAlignment: Qt.AlignHCenter
-                text: "Ciao " +
-                      masterController.ui_userController.currentUser.username
-                      + "!"
-                font.bold: true
-                font.pointSize: 16
-            }
-
-            Label {
-                id: info
-                width: parent.width
-                wrapMode: Label.Wrap
-                horizontalAlignment: Qt.AlignHCenter
-                text: "Ecco gli allarmi presenti nella tua area:"
-
-                font.pointSize: 12
-            }
-
-            RoundPane {
-                Material.elevation: 6
-                radius: 6
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                width: parent.width * 4 / 5
-
-                Material.background: column.getColor(masterController.ui_areaController.frogorfrostAlarm.color)
-                Material.foreground: column.getForeground(masterController.ui_areaController.frogorfrostAlarm.color)
-
-
-
-                Column {
-                    spacing: 8
+                Label {
+                    id: username
                     width: parent.width
+                    wrapMode: Label.Wrap
+                    horizontalAlignment: Qt.AlignHCenter
+                    text: "Ciao " +
+                          masterController.ui_userController.currentUser.username
+                          + "!"
+                    font.bold: true
+                    font.pointSize: 16
+                }
 
-                    Label {
-                        id: alarmDate
-                        text: masterController.ui_areaController.frogorfrostAlarm.date
+                Label {
+                    id: info
+                    width: parent.width
+                    wrapMode: Label.Wrap
+                    horizontalAlignment: Qt.AlignHCenter
+                    text: "Ecco gli allarmi presenti nella tua area:"
+
+                    font.pointSize: 12
+                }
+
+                RoundPane {
+                    Material.elevation: 6
+                    radius: 6
+                    anchors.horizontalCenter: parent.horizontalCenter
+
+                    width: parent.width * 4 / 5
+
+                    Material.background: column.getColor(masterController.ui_areaController.frogorfrostAlarm.color)
+                    Material.foreground: column.getForeground(masterController.ui_areaController.frogorfrostAlarm.color)
+
+
+
+                    Column {
+                        spacing: 8
                         width: parent.width
 
-                        horizontalAlignment: Qt.AlignLeft
-                        font.pointSize: 10
-                    }
+                        Label {
+                            id: alarmDate
+                            text: masterController.ui_areaController.frogorfrostAlarm.date
+                            width: parent.width
 
-                    Label {
-                        id: alarmType
-                        text: column.getText(masterController.ui_areaController.frogorfrostAlarm.type)
-                        width: parent.width
+                            horizontalAlignment: Qt.AlignLeft
+                            font.pointSize: 10
+                        }
 
-                        horizontalAlignment: Qt.AlignHCenter
-                        font.bold: true
-                        font.pointSize: 16
+                        Label {
+                            id: alarmType
+                            text: column.getText(masterController.ui_areaController.frogorfrostAlarm.type)
+                            width: parent.width
+
+                            horizontalAlignment: Qt.AlignHCenter
+                            font.bold: true
+                            font.pointSize: 16
 
 
-                    }
+                        }
 
 
-                    Label {
-                        text: masterController.ui_areaController.frogorfrostAlarm.description
-                        wrapMode: Label.Wrap
-                        font.pointSize: 14
+                        Label {
+                            text: masterController.ui_areaController.frogorfrostAlarm.description
+                            wrapMode: Label.Wrap
+                            font.pointSize: 14
+                        }
                     }
                 }
-            }
 
-            RoundPane {
-                Material.elevation: 6
-                radius: 6
-                anchors.horizontalCenter: parent.horizontalCenter
+                RoundPane {
+                    Material.elevation: 6
+                    radius: 6
+                    anchors.horizontalCenter: parent.horizontalCenter
 
-                width: parent.width * 4 / 5
+                    width: parent.width * 4 / 5
 
-                Material.background: column.getColor(masterController.ui_areaController.badwheatherAlarm.color)
-                Material.foreground: column.getForeground(masterController.ui_areaController.badwheatherAlarm.color)
-
+                    Material.background: column.getColor(masterController.ui_areaController.badwheatherAlarm.color)
+                    Material.foreground: column.getForeground(masterController.ui_areaController.badwheatherAlarm.color)
 
 
-                Column {
-                    spacing: 8
-                    width: parent.width
 
-                    Label {
-                        id: alarmDateBw
-                        text: masterController.ui_areaController.badwheatherAlarm.date
+                    Column {
+                        spacing: 8
                         width: parent.width
 
-                        horizontalAlignment: Qt.AlignLeft
-                        font.pointSize: 10
-                    }
+                        Label {
+                            id: alarmDateBw
+                            text: masterController.ui_areaController.badwheatherAlarm.date
+                            width: parent.width
 
-                    Label {
-                        id: alarmTypeBw
-                        text: column.getText(masterController.ui_areaController.badwheatherAlarm.type)
-                        width: parent.width
+                            horizontalAlignment: Qt.AlignLeft
+                            font.pointSize: 10
+                        }
 
-                        horizontalAlignment: Qt.AlignHCenter
-                        font.bold: true
-                        font.pointSize: 16
-                    }
+                        Label {
+                            id: alarmTypeBw
+                            text: column.getText(masterController.ui_areaController.badwheatherAlarm.type)
+                            width: parent.width
+
+                            horizontalAlignment: Qt.AlignHCenter
+                            font.bold: true
+                            font.pointSize: 16
+                        }
 
 
-                    Label {
-                        text: masterController.ui_areaController.badwheatherAlarm.description
-                        wrapMode: Label.Wrap
-                        font.pointSize: 14
+                        Label {
+                            text: masterController.ui_areaController.badwheatherAlarm.description
+                            wrapMode: Label.Wrap
+                            font.pointSize: 14
+                        }
                     }
                 }
             }

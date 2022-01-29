@@ -52,117 +52,116 @@ Item {
 
         visible: false
 
-        contentHeight: column.height + 20
+        contentHeight: pane.height
 
-        Column {
-            id: column
-            width: parent.width - 40
-            x: 20
-            spacing: 16
+        Pane {
+            id: pane
+            width: flickable.width
 
+            Column {
+                id: column
+                width: parent.width - 40
+                x: 20
+                spacing: 16
 
-            Rectangle {
-                id: spacer
-                height: 20
-            }
+                Label {
+                    id: username
+                    width: parent.width
+                    wrapMode: Label.Wrap
+                    horizontalAlignment: Qt.AlignHCenter
+                    text: "Ciao " +
+                          masterController.ui_userController.currentUser.username
+                          + "!"
+                    font.bold: true
+                    font.pointSize: 16
+                }
 
-            Label {
-                id: username
-                width: parent.width
-                wrapMode: Label.Wrap
-                horizontalAlignment: Qt.AlignHCenter
-                text: "Ciao " +
-                      masterController.ui_userController.currentUser.username
-                      + "!"
-                font.bold: true
-                font.pointSize: 16
-            }
+                Label {
+                    id: info
+                    width: parent.width
+                    wrapMode: Label.Wrap
+                    horizontalAlignment: Qt.AlignHCenter
+                    text: "Ecco i dati della tua area:"
 
-            Label {
-                id: info
-                width: parent.width
-                wrapMode: Label.Wrap
-                horizontalAlignment: Qt.AlignHCenter
-                text: "Ecco i dati della tua area:"
+                    font.pointSize: 12
+                }
 
-                font.pointSize: 12
-            }
+                RoundPane {
+                    Material.elevation: 6
+                    radius: 6
+                    anchors.horizontalCenter: parent.horizontalCenter
 
-            RoundPane {
-                Material.elevation: 6
-                radius: 6
-                anchors.horizontalCenter: parent.horizontalCenter
+                    Column {
 
-                Column {
+                        Label {
+                            text: masterController.ui_areaController.aprsData.date
+                            width: parent.width
+                            color: "#F29F05"
 
-                    Label {
-                        text: masterController.ui_areaController.aprsData.date
-                        width: parent.width
-                        color: "#F29F05"
-
-                        horizontalAlignment: Qt.AlignHCenter
-                        font.pointSize: 10
-                    }
-
-                    Rectangle {
-                        height: 2
-                        width: parent.width * 5 / 6
-                        radius: 5
-                        anchors.horizontalCenter: parent.horizontalCenter
-
-                        color: "#999999"
-                    }
-
-                    GridLayout {
-                        rows: 2; columns: 3
-                        columnSpacing: 0; rowSpacing: 0
-
-                        RoundDial {
-                            tagName: qsTr("Temperatura")
-                            minVal: -20
-                            maxVale: 50
-                            value: masterController.ui_areaController.aprsData.temperature
-                            suffix: "°"
+                            horizontalAlignment: Qt.AlignHCenter
+                            font.pointSize: 10
                         }
 
-                        RoundDial {
-                            tagName: qsTr("Umidità")
-                            minVal: 0
-                            maxVale: 100
-                            value: masterController.ui_areaController.aprsData.humidity
-                            suffix: "%"
+                        Rectangle {
+                            height: 2
+                            width: parent.width * 5 / 6
+                            radius: 5
+                            anchors.horizontalCenter: parent.horizontalCenter
+
+                            color: "#999999"
                         }
 
-                        RoundDial {
-                            tagName: qsTr("Pressione")
-                            minVal: 900
-                            maxVale: 1100
-                            value: masterController.ui_areaController.aprsData.pressure
-                            suffix: "hPa"
-                        }
+                        GridLayout {
+                            rows: 2; columns: 3
+                            columnSpacing: 0; rowSpacing: 0
 
-                        RoundDial {
-                            tagName: qsTr("Velocità Vento")
-                            minVal: 0
-                            maxVale: 40
-                            value: masterController.ui_areaController.aprsData.windSpeed
-                            suffix: "m/s"
-                        }
+                            RoundDial {
+                                tagName: qsTr("Temperatura")
+                                minVal: -20
+                                maxVale: 50
+                                value: masterController.ui_areaController.aprsData.temperature
+                                suffix: "°"
+                            }
 
-                        RoundDial {
-                            tagName: qsTr("Direzione Vento")
-                            minVal: 0
-                            maxVale: 360
-                            value: masterController.ui_areaController.aprsData.windDirection
-                            suffix: "°"
-                        }
+                            RoundDial {
+                                tagName: qsTr("Umidità")
+                                minVal: 0
+                                maxVale: 100
+                                value: masterController.ui_areaController.aprsData.humidity
+                                suffix: "%"
+                            }
 
-                        RoundDial {
-                            tagName: qsTr("Pioggia in un ora")
-                            minVal: 0
-                            maxVale: 5
-                            value: masterController.ui_areaController.aprsData.rainOneHour
-                            suffix: "mm"
+                            RoundDial {
+                                tagName: qsTr("Pressione")
+                                minVal: 900
+                                maxVale: 1100
+                                value: masterController.ui_areaController.aprsData.pressure
+                                suffix: "hPa"
+                            }
+
+                            RoundDial {
+                                tagName: qsTr("Velocità Vento")
+                                minVal: 0
+                                maxVale: 40
+                                value: masterController.ui_areaController.aprsData.windSpeed
+                                suffix: "m/s"
+                            }
+
+                            RoundDial {
+                                tagName: qsTr("Direzione Vento")
+                                minVal: 0
+                                maxVale: 360
+                                value: masterController.ui_areaController.aprsData.windDirection
+                                suffix: "°"
+                            }
+
+                            RoundDial {
+                                tagName: qsTr("Pioggia in un ora")
+                                minVal: 0
+                                maxVale: 5
+                                value: masterController.ui_areaController.aprsData.rainOneHour
+                                suffix: "mm"
+                            }
                         }
                     }
                 }

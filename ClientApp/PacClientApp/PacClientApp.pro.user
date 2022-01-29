@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2022-01-29T00:35:24. -->
+<!-- Written by QtCreator 6.0.2, 2022-01-29T09:02:36. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -67,14 +67,7 @@
     <value type="bool" key="AutoTest.Framework.QtQuickTest">true</value>
     <value type="bool" key="AutoTest.Framework.QtTest">true</value>
    </valuemap>
-   <valuemap type="QVariantMap" key="AutoTest.CheckStates">
-    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.cpp:testAlarmFromJson">Checked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.cpp:testAprsDataFromJson">Checked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.cpp:testAreaFromJson">Checked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.cpp:testTeamFromJson">Checked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.cpp:testUserFromJson">Checked</value>
-    <value type="Qt::CheckState" key="1@C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/testentityif.h:TestEntityIF">Checked</value>
-   </valuemap>
+   <valuemap type="QVariantMap" key="AutoTest.CheckStates"/>
    <value type="int" key="AutoTest.RunAfterBuild">0</value>
    <value type="bool" key="AutoTest.UseGlobal">true</value>
    <valuelist type="QVariantList" key="ClangCodeModel.CustomCommandLineKey">
@@ -483,23 +476,6 @@
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.QmlProfiler.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.Valgrind.Settings.UseGlobalSettings">true</value>
-    <valuelist type="QVariantList" key="Analyzer.Valgrind.VisibleErrorKinds">
-     <value type="QString">0</value>
-     <value type="QString">1</value>
-     <value type="QString">2</value>
-     <value type="QString">3</value>
-     <value type="QString">4</value>
-     <value type="QString">5</value>
-     <value type="QString">6</value>
-     <value type="QString">7</value>
-     <value type="QString">8</value>
-     <value type="QString">9</value>
-     <value type="QString">10</value>
-     <value type="QString">11</value>
-     <value type="QString">12</value>
-     <value type="QString">13</value>
-     <value type="QString">14</value>
-    </valuelist>
     <valuelist type="QVariantList" key="Android.PostStartShellCmdListKey">
      <value type="QString"></value>
     </valuelist>
@@ -509,7 +485,6 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">0</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">PacClientAppSrc</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidRunConfiguration:C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/src/PacClientAppSrc.pro</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/src/PacClientAppSrc.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
@@ -521,23 +496,6 @@
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.QmlProfiler.Settings.UseGlobalSettings">true</value>
     <value type="bool" key="Analyzer.Valgrind.Settings.UseGlobalSettings">true</value>
-    <valuelist type="QVariantList" key="Analyzer.Valgrind.VisibleErrorKinds">
-     <value type="QString">0</value>
-     <value type="QString">1</value>
-     <value type="QString">2</value>
-     <value type="QString">3</value>
-     <value type="QString">4</value>
-     <value type="QString">5</value>
-     <value type="QString">6</value>
-     <value type="QString">7</value>
-     <value type="QString">8</value>
-     <value type="QString">9</value>
-     <value type="QString">10</value>
-     <value type="QString">11</value>
-     <value type="QString">12</value>
-     <value type="QString">13</value>
-     <value type="QString">14</value>
-    </valuelist>
     <valuelist type="QVariantList" key="Android.PostStartShellCmdListKey">
      <value type="QString"></value>
     </valuelist>
@@ -547,7 +505,6 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">0</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">PacClientAppTest</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidRunConfiguration:C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/PacClientAppTest.pro</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/PacClientAppTest.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
