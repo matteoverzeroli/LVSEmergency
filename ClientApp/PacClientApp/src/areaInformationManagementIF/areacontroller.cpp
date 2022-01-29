@@ -18,7 +18,7 @@ AreaController::AreaController(QNetworkAccessManager *networkManager, QObject *p
 void AreaController::getAreas()
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/areas"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/areas"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
@@ -56,7 +56,7 @@ void AreaController::allAreasReceived()
 void AreaController::getAprsData(int idArea)
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/areas/" + QString::number(idArea) + "/aprsdata"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/areas/" + QString::number(idArea) + "/aprsdata"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
@@ -92,7 +92,7 @@ void AreaController::aprsdataReceived()
 void AreaController::getAlarmsFogOrFrost(int idArea)
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/areas/" + QString::number(idArea) + "/alarms/fogorfrost"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/areas/" + QString::number(idArea) + "/alarms/fogorfrost"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
@@ -128,7 +128,7 @@ void AreaController::alarmReceived()
 void AreaController::getAlarmsBadWheather(int idArea)
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/areas/" + QString::number(idArea) + "/alarms/badweather"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/areas/" + QString::number(idArea) + "/alarms/badweather"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);

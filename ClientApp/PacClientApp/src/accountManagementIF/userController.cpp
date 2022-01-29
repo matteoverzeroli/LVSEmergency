@@ -35,7 +35,7 @@ void UserController::login(QString username, QString password)
     settings.endGroup();
 
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/login"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/login"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
@@ -81,7 +81,7 @@ void UserController::responseReceived()
 void UserController::modifyUser()
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/users"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/users"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
     request.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
 
@@ -136,7 +136,7 @@ void UserController::addUser(QString userName, QString name, QString surname,
     newUser->setState("INACTIVE");
 
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/users"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/users"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
     request.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
 
@@ -166,7 +166,7 @@ void UserController::userAdded()
 void UserController::getUsers()
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/users"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/users"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
@@ -204,7 +204,7 @@ void UserController::allUsersReceived()
 void UserController::deleteUser(int idUser)
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/users/" + QString::number(idUser)));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/users/" + QString::number(idUser)));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->deleteResource(request);

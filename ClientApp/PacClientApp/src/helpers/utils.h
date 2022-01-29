@@ -11,6 +11,7 @@ class Utils : public QObject
     Q_OBJECT
 public:
     static QByteArray getAuthString();
+    static QString getWebServerPrefix();
 
 signals:
 

@@ -22,7 +22,7 @@ TeamController::~TeamController()
 void TeamController::getTeams()
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/teams"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/teams"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
@@ -61,7 +61,7 @@ void TeamController::allTeamsReceived()
 void TeamController::getTeam(int idTeam)
 {
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/teams/" + QString::number(idTeam)));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/teams/" + QString::number(idTeam)));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
@@ -102,7 +102,7 @@ void TeamController::addTeam(QString teamName, int idArea)
     newTeam->setIdArea(idArea);
 
     QNetworkRequest request;
-    request.setUrl(QUrl("http://localhost:8080/teams"));
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/teams"));
     request.setRawHeader("Authorization", helpers::Utils::getAuthString());
     request.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
 

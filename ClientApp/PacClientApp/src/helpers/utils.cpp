@@ -23,4 +23,16 @@ QByteArray Utils::getAuthString()
     return authString.toUtf8();
 }
 
+/*!
+ * \brief Ritorna il prefisso della stringa da usare a seconda che si stia lavorando
+ * con Spring boot in locale o in Cloud
+ */
+QString Utils::getWebServerPrefix()
+{
+    if (1)
+        return QString("https://progetto-pac-lvsemergency-2021-pacserverweb.azuremicroservices.io");
+    else
+        return QString("http://localhost:8080");
+}
+
 }

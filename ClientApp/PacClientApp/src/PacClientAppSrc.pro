@@ -73,6 +73,9 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+android: include(C:/Users/Davide/AppData/Local/Android/Sdk/android_openssl/openssl.pri)
+
+
 
 
 
