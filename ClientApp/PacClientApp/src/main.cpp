@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
     QIcon::setThemeName("gallery");
 
 
+    MasterController masterController;
+
     QQmlApplicationEngine engine;
 
     // faccio conoscere al QML le classi che può utilizzare registrando il loro tipo
@@ -35,8 +37,6 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<areaInformationManagementIF::AprsData>("PacApp", 1, 0, "AprsData", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<areaInformationManagementIF::Alarm>("PacApp", 1, 0, "Alarm", "This class cannot be created by QML.");
     qmlRegisterType<helpers::RadialBar>("CustomControls", 1, 0, "RadialBar");
-
-    MasterController masterController;
 
     engine.rootContext()->setContextProperty("masterController", &masterController);
 

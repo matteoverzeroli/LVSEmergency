@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2022-01-29T11:54:55. -->
+<!-- Written by QtCreator 6.0.2, 2022-01-30T00:39:11. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -494,7 +494,6 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">0</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">PacClientAppSrc</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidRunConfiguration:C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/src/PacClientAppSrc.pro</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/src/PacClientAppSrc.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
@@ -515,7 +514,6 @@
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="int" key="PE.EnvironmentAspect.Base">0</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">PacClientAppTest</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.AndroidRunConfiguration:C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/PacClientAppTest.pro</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/Davide/Desktop/ProgettoPAC/ClientApp/PacClientApp/test/PacClientAppTest.pro</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>

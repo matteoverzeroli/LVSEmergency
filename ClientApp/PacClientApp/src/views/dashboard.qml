@@ -95,7 +95,8 @@ Page {
                     } else if (model.source === "qrc:/views/CreaSquadra.qml") {
                         masterController.ui_areaController.getAreas()
                     } else if (model.source === "qrc:/views/Impostazioni.qml") {
-
+                        masterController.ui_teamController.getTeam(
+                                    masterController.ui_userController.currentUser.idTeam)
                     } else if (model.source === "qrc:/views/CancellaUtente.qml") {
                         masterController.ui_userController.getUsers()
                     } else if (model.source === "qrc:/views/AreaInfo.qml") {

@@ -149,15 +149,14 @@ Item {
                             horizontalAlignment: Qt.AlignHCenter
                             font.bold: true
                             font.pointSize: 16
-
-
                         }
 
 
                         Label {
                             text: masterController.ui_areaController.frogorfrostAlarm.description
                             wrapMode: Label.Wrap
-                            font.pointSize: 14
+                            font.pointSize: 12
+                            width: parent.width
                         }
                     }
                 }
@@ -201,7 +200,8 @@ Item {
                         Label {
                             text: masterController.ui_areaController.badwheatherAlarm.description
                             wrapMode: Label.Wrap
-                            font.pointSize: 14
+                            font.pointSize: 12
+                            width: parent.width
                         }
                     }
                 }

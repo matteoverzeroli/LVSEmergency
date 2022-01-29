@@ -94,7 +94,8 @@ Item {
                     Column {
 
                         Label {
-                            text: masterController.ui_areaController.aprsData.date
+                            text: masterController.ui_areaController.aprsData === null ?
+                                      "" : masterController.ui_areaController.aprsData.date
                             width: parent.width
                             color: "#F29F05"
 
@@ -112,7 +113,7 @@ Item {
                         }
 
                         GridLayout {
-                            rows: 2; columns: 3
+                            rows: 3; columns: 2
                             columnSpacing: 0; rowSpacing: 0
 
                             RoundDial {

@@ -29,6 +29,7 @@ public:
                              QString cellNumber, QString email, int role, int idTeam, QString sex);
     Q_INVOKABLE void getUsers();
     Q_INVOKABLE void deleteUser(int idUser);
+    void setForemanForTeam(int idTeam, int idForeman);
 
     bool getAuthError();
     User *getCurrentUser();
@@ -53,6 +54,7 @@ private slots:
     void userAdded();
     void allUsersReceived();
     void userDeleted();
+    void newForemanSet();
 private:
     QNetworkAccessManager *networkManager {nullptr};
     NavigationController *navigationController {nullptr};

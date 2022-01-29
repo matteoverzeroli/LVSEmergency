@@ -4,13 +4,10 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.12
 
 ApplicationWindow {
-    width: 640
-    height: 480
+    width: 400
+    height: 640
     visible: true
     title: qsTr("PacApp")
-
-//    Material.theme: Material.Light
-//    Material.accent: Material.Green
 
     Component.onCompleted: contentFrame.replace("qrc:/views/LoginForm.qml");
 

@@ -237,7 +237,7 @@ Flickable {
                     id: cfField
                     height: parent.height
                     width: parent.width / 2
-                    placeholderText: qsTr("Codice Fiscale:")
+                    placeholderText: qsTr("Codice Fiscale")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
                 }
@@ -286,7 +286,7 @@ Flickable {
                     id: addressField
                     height: parent.height
                     width: parent.width / 2
-                    placeholderText: qsTr("Indirizzo:")
+                    placeholderText: qsTr("Indirizzo")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
                 }
@@ -312,7 +312,7 @@ Flickable {
                     id: cellNumberField
                     height: parent.height
                     width: parent.width / 2
-                    placeholderText: qsTr("Cellulare:")
+                    placeholderText: qsTr("Cellulare")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
                 }
@@ -338,7 +338,7 @@ Flickable {
                     id: emailField
                     height: parent.height
                     width: parent.width / 2
-                    placeholderText: qsTr("Email:")
+                    placeholderText: qsTr("Email")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
                 }

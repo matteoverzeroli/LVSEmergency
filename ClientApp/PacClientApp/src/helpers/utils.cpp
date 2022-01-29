@@ -29,7 +29,7 @@ QByteArray Utils::getAuthString()
  */
 QString Utils::getWebServerPrefix()
 {
-    if (1)
+    if (0)
         return QString("https://progetto-pac-lvsemergency-2021-pacserverweb.azuremicroservices.io");
     else
         return QString("http://localhost:8080");

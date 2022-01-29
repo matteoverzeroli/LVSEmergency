@@ -125,6 +125,7 @@ Flickable {
                 Material.background: "#F2CB05"
                 anchors.horizontalCenter: parent.horizontalCenter
 
+                visible: masterController.ui_teamController.currentTeam === null ? false : true
 
                 Column {
                     id: columnInfoSquadra

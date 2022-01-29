@@ -20,7 +20,7 @@ UserController::UserController(QNetworkAccessManager *networkManager,
 
 UserController::~UserController()
 {
-    qDebug() << "UserController destructor";
+
 }
 
 /*!
@@ -150,8 +150,16 @@ void UserController::addUser(QString userName, QString name, QString surname,
 void UserController::userAdded()
 {
     QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+    QByteArray response = reply->readAll();
 
     if (reply->error() == QNetworkReply::NoError) {
+        QScopedPointer<User> newUser(new User());
+        newUser->fromJsonDocument(QJsonDocument::fromJson(response));
+
+        if (newUser->getRole() == 2) {
+            setForemanForTeam(newUser->getTeam(), newUser->getIdUser());
+        }
+
         emit userAddedWithSuccess();
     } else {
         emit errorOnAddingNewUser();
@@ -225,6 +233,36 @@ void UserController::userDeleted()
     }
 
     this->getUsers();
+
+    reply->deleteLater();
+}
+
+/*!
+ * \brief Funzione per invocare l'API che imposta il caposquadra di un team.
+ */
+void UserController::setForemanForTeam(int idTeam, int idForeman)
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/teams/setforeman?idTeam="
+                        +QString::number(idTeam)+"&idForeman="+QString::number(idForeman)));
+    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+
+    QNetworkReply *reply = networkManager->get(request);
+    connect(reply, &QNetworkReply::finished, this, &UserController::newForemanSet);
+}
+
+/*!
+ * \brief Slot che riceve la risposta dell'API di settaggio caposquadra.
+ */
+void UserController::newForemanSet()
+{
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+
+    if (reply->error() == QNetworkReply::NoError) {
+        qDebug() << "Everything is ok.";
+    } else {
+        qDebug() << "error setting the foreman.";
+    }
 
     reply->deleteLater();
 }

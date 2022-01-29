@@ -13,7 +13,7 @@ TeamController::TeamController(QNetworkAccessManager *networkManager, QObject *p
 
 TeamController::~TeamController()
 {
-    qDebug() << "TeamController destructor";
+
 }
 
 /*!
@@ -76,10 +76,12 @@ void TeamController::teamReceived()
     QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
     QByteArray response = reply->readAll();
 
-    if (reply->error() == QNetworkReply::NoError) {
+    if (currentTeam != nullptr) {
+        delete currentTeam;
+        currentTeam = nullptr;
+    }
 
-        if (currentTeam != nullptr)
-            delete currentTeam;
+    if (reply->error() == QNetworkReply::NoError) {
 
         currentTeam = new Team(this);
         currentTeam->fromJsonObject(QJsonDocument::fromJson(response).object());
