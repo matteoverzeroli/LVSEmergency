@@ -22,6 +22,7 @@ Nell'iterazione 2 si sono testate tutte le API Rest implementate, utlizzando Pos
 		\item Visualizzazione di tutte le squadre inserite nel sistema;
 		\item Eliminazione di una squadra;
 		\item Inserimento di una nuova squadra;
+		\item Assegnamento di un caposquadra a una squadra;
 	\end{itemize}
 	\item AreaController:
 	\begin{itemize}
@@ -33,6 +34,7 @@ Nell'iterazione 2 si sono testate tutte le API Rest implementate, utlizzando Pos
 		\includegraphics[width=0.99\linewidth]{./Iterazione 2/ImageFiles/TestUserController1}
 		\includegraphics[width=0.99\linewidth]{./Iterazione 2/ImageFiles/TestUserController2}
 		\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/TestTeamController}
+		\includegraphics[width=0.99\linewidth]{./Iterazione 2/ImageFiles/TestSetIdForeman}
 		\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/TestAreaController}
 		\caption{Risultati test API su Postman.}
 		\label{fig:RisultatiTestAPIIT2}
@@ -79,6 +81,7 @@ In questa sezione viene mostrata la documentazione relativa ad alcune API implem
 	\item API per la modifica di un utente, inserendo nel body della richiesta l'utente modificato;
 	\item API per visualizzare un team, il cui id viene specificato nel path della richiesta;
 	\item API per la creazione di un team, inserendo nel body della richiesta le informazioni del team;
+	\item API per l'assegnamento di un caposquadra a una squadra;
 	\item API per la visualizzazione di tutte le area inserite nel sistema;
 \end{itemize}
 
@@ -127,6 +130,17 @@ In questa sezione viene mostrata la documentazione relativa ad alcune API implem
 	Team created successfully!
 	\caption{Documentazione API Create a team.}
 	\label{fig:CreateATeamAPI}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 2/ImageFiles/SetIdForemanRequest}
+	
+	Response: 
+	
+	Foreman 6 assigned to 3 correctly !
+	\caption{Documentazione API Set id foreman.}
+	\label{fig:SetIdForemanAPI}
 \end{figure}
 
 
