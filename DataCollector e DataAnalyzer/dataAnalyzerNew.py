@@ -303,7 +303,7 @@ old_delta_list = [0]*5
 flag = True
 
 while stop_time > dt.now():
-    # apertura della connessione con il DB e definizione del sistema di riconessione automatico
+    # apertura della connessione con il DB e definizione del sistema di riconnessione automatico
     connected = False
     while connected == False:
         try:
@@ -326,7 +326,7 @@ while stop_time > dt.now():
     for i in range(len(rows)):
         area_DB.loc[i] = list(rows[i])
     
-    # creazione dei thread per la generazione delle allerte nebbia, brina e maltempo
+    # creazione dei thread per la generazione delle allerte nebbia, brina e maltempo, uno per ogni zona
     fogFrostAllertsCreators = []
     badWeatherAllertsCreators = []
     for i in range(len(rows)):
