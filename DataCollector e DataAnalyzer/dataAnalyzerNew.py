@@ -48,14 +48,17 @@ class BadWeatherAllertsCreator(th):
         info = self.cursor2.fetchall()
         for i in range(len(info)):
             pressure_DB.loc[i] = list(info[i])
-        min_time = self.recent_time - datetime.timedelta(hours=3)
-        pressure_DB = pressure_DB[pressure_DB.time > min_time]
-        y = list(pressure_DB['pressure'])
-        p_mean = sum(y)/len(y)
-        for i in range(len(y)):
-            y[i] = y[i] - p_mean
-        p_low = (y[1] + y[2])/2
-        p_up = (y[-2] + y[-3])/2
+        min_24h = self.recent_time - datetime.timedelta(hours=24)
+        min_3h = self.recent_time - datetime.timedelta(hours=3)
+        pressure_DB = pressure_DB[pressure_DB.time > min_24h]
+        y_24h = list(pressure_DB['pressure'])
+        p_mean = sum(y_24h)/len(y_24h)
+        for i in list(pressure_DB.index):
+            pressure_DB.at[i,'pressure'] = pressure_DB.at[i,'pressure'] - p_mean
+        pressure_DB = pressure_DB[pressure_DB.time > min_3h]
+        y_3h = list(pressure_DB['pressure'])
+        p_low = (y_3h[1] + y_3h[2])/2
+        p_up = (y_3h[-2] + y_3h[-3])/2
         delta = p_up - p_low
         
         # generazione delle allerte relative al maltempo
@@ -89,7 +92,7 @@ class BadWeatherAllertsCreator(th):
             coulor = "NONE"
             description = "Pressione in diminuzione, delta = " + str(round(delta,2))
         self.cursor2.execute("INSERT INTO test.alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
-                              (dt.now().strftime('%Y-%m-%d %H:%M:%S'), "BW", coulor, self.areaID, description))
+                              (dt.now().strftime('%Y-%m-%d %H:%M:%S'), "BW", coulor, int(self.areaID), description))
         
 #------------------------------------------------------------------------------
 class FogFrostAllertsCreator (th):
@@ -131,7 +134,7 @@ class FogFrostAllertsCreator (th):
         for i in list(summaryTd.index):
             summaryTd.at[i,'I_low'] = summaryTd.at[i,'value']
         for i in list(summaryTd.index):
-            summaryTd.at[i,'I_up'] = summaryTd.at[i,'value'] + 0.35
+            summaryTd.at[i,'I_up'] = summaryTd.at[i,'value'] + 0.45
         
         # debugging
         print(self.station_code)
@@ -191,7 +194,7 @@ class FogFrostAllertsCreator (th):
         thread_DB = pd.DataFrame(columns=["time", parameter])
         for i in range(len(info)):
             thread_DB.loc[i] = list(info[i])
-        min_time = self.recent_time - datetime.timedelta(hours=36)
+        min_time = self.recent_time - datetime.timedelta(hours=24)
         thread_DB = thread_DB[thread_DB.time > min_time]
         y = thread_DB[parameter]
         model = pm.auto_arima(y, start_p=1, start_q=1,
@@ -256,12 +259,12 @@ class FogFrostAllertsCreator (th):
                 trad = "nebbia"
             description = "Rischio " + trad + " tra " + delta
             self.cursor1.execute("INSERT INTO test.alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
-                              (dt.now().strftime('%Y-%m-%d %H:%M:%S'), typology, coulor, self.areaID, description))
+                              (dt.now().strftime('%Y-%m-%d %H:%M:%S'), typology, coulor, int(self.areaID), description))
         else:
             description = "Nessun rischio nè attuale nè previsto"
             typology = "FOG"
             self.cursor1.execute("INSERT INTO test.alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
-                              (dt.now().strftime('%Y-%m-%d %H:%M:%S'), typology, "NONE", self.areaID, description))
+                              (dt.now().strftime('%Y-%m-%d %H:%M:%S'), typology, "NONE", int(self.areaID), description))
                 
     def __debug(self, t, typology, summaryT, summaryTd):
         delta = None
@@ -296,10 +299,10 @@ config = {
 }
 
 # inizializzazione delle variabili di supporto all'esecuzione dei thread
-stop_time = "2022-01-31 00:00:00"
+stop_time = "2022-02-28 00:00:00"
 stop_time = dt.strptime(stop_time, '%Y-%m-%d %H:%M:%S')
-final_old_time_list = [None]*5
-old_delta_list = [0]*5
+final_old_time_list = [None]*100
+old_delta_list = [0]*100
 flag = True
 
 while stop_time > dt.now():
@@ -339,7 +342,6 @@ while stop_time > dt.now():
             w = BadWeatherAllertsCreator(area_DB.at[i, "nameAprStation"], area_DB.at[i, "idArea"], conn2, cursor2, i)
             fogFrostAllertsCreators.append(t)
             badWeatherAllertsCreators.append(w)
-    
     # avvio dei thread         
     for i in fogFrostAllertsCreators:
         i.start()
