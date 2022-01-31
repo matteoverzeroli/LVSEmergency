@@ -1,0 +1,39 @@
+\paragraph{API APRS.FI}
+Nella figura \Fig\ref{fig:APIAPRS} è riportato un esempio di chiamata all'API fornita da APRS.FI e la successiva risposta ricevuta.
+Affinché si possano ricevere i dati relativi ad una stazione è necessario definire i seguenti parametri:
+\begin{itemize}
+	\item \textit{name}: identificativo della stazione meteorologica;
+	\item \textit{what}: definizione della tipologia della stazione. Nel nostro caso siamo interessati a stazioni meteorologiche identificate dal valore \textit{wx};
+	\item \textit{apikey}: API key identificativo dell'utente che richiede i dati;
+	\item \textit{format}: formato della risposta ricevuta (può essere scelto json o xml);
+\end{itemize}
+La risposta conterrà, se la richiesta è andata a buon fine, i seguenti campi:
+\begin{itemize}
+	\item \textit{command}: tipo di richiesta http;
+	\item \textit{result}: indica se la richiesta è andata a buon fine;
+	\item \textit{found}: numero di stazione trovate;
+	\item \textit{name}: identificativo della richiesta;
+	\item \textit{time}: istante di acquisizione della misurazione corrente, nel formato \textit{Unix time};
+	\item \textit{temp}: temperatura in gradi Celsius;
+	\item \textit{pressure}: pressione in mbar;
+	\item \textit{humidity}: umidità relativa;
+	\item \textit{wind\_direction}: direzione del vento in gradi;
+	\item \textit{wind\_speed}: velocità del vento media in metri al secondo;
+	\item \textit{wind\_gust}: raffiche di vento in metri al secondo;
+	\item \textit{rain\_1h}: pioggia cumulata nell'ultima ora in millimetri;
+	\item \textit{rain\_24h}: pioggia cumulata nell'ultimo giorno in millimetri;
+	\item \textit{rain\_mn}: pioggia cumulata dalla mezzanotte in millimetri;
+	\item \textit{luminosity}: luminosità rilevata;
+\end{itemize}
+
+Tutti i campi sono opzionali e dipendono dai sensori attivi sulla particolare stazione. Tutta la documentazione sulle API esposte dal sito APRS.FI sono disponibili \url{https://aprs.fi/page/api}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/APIAPRSRequest}
+	\lstinputlisting[language=C++]{./Iterazione 3/OtherFiles/APIAPRSReponse.json}
+	\caption{Esempio chiamata API APRS.FI}
+	\label{fig:APIAPRS}
+\end{figure}
+
+

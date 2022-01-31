@@ -9,13 +9,15 @@ Nell'iterazione 3 si sono testate tutte le API Rest implementate, utlizzando Pos
 	\item AreaController:
 	\begin{itemize}
 		\item Visualizzazione degli ultimi dati meteo scaricati di un'area, il cui id è specificato nel oath della richiesta;
-		\item Visualizzazione del più recente allarme relativo a nebbia o brina associata all'area il cui id è specificato nel path della richiesta;
+		\item Visualizzazione del più recente allarme relativo a nebbia o brina associato all'area il cui id è specificato nel path della richiesta;
+		\item Visualizzazione del più recente allarme relativo a maltempo associato all'area il cui id è specificato nel path della richiesta;
 	\end{itemize}
 
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/TestGetAprsData}
 		\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/TestGetFrostOrFogAlarm}
+		\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/TestGetBadWeatherAlarm}		
 		\caption{Risultati test API su Postman.}
 		\label{fig:RisultatiTestAPIIT3}
 	\end{figure}
@@ -61,6 +63,7 @@ In questa sezione viene mostrata la documentazione relativa ad alcune API implem
 \begin{itemize}
 	\item API per la visualizzazione degli ultimi dati meteorologici raccolti dalla stazione APRS associata all'area, il cui id è specificato nel path della richiesta;
 	\item API per la visualizzazione del più recente allarme di nebbia o brina generato nell'area di interesse;
+	\item API per la visualizzazione del più recente allarme di maltempo generato nell'area di interesse;
 \end{itemize}
 
 \begin{figure}[h!]
@@ -77,4 +80,12 @@ In questa sezione viene mostrata la documentazione relativa ad alcune API implem
 	\lstinputlisting[language=json]{./Iterazione 3/OtherFiles/GetFrostOrFogAlarmResponse.json}
 	\caption{Documentazione API Get fog or frost alarm.}
 	\label{fig:GetFrostOrFogAlarm}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/GetBadWeatherAlarmRequest}
+	\lstinputlisting[language=json]{./Iterazione 3/OtherFiles/GetBadWeatherAlarmResponse.json}
+	\caption{Documentazione API Get bad weather alarm.}
+	\label{fig:GetBadWeatherAlarm}
 \end{figure}

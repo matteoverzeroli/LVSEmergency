@@ -248,6 +248,126 @@
 					"body": "{\n    \"idAlarm\": 4,\n    \"time\": \"26-01-2022 18:12:24\",\n    \"type\": \"FROST\",\n    \"color\": \"GREEN\",\n    \"idArea\": 1,\n    \"description\": \"no description\"\n}"
 				}
 			]
+		},
+		{
+			"name": "Get last bad weather alarm",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 200; Allarme ricevuto\", () => {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"const expected = {\r",
+							"    \"idAlarm\": 1325,\r",
+							"    \"time\": \"30-01-2022 18:20:36\",\r",
+							"    \"type\": \"BW\",\r",
+							"    \"color\": \"NONE\",\r",
+							"    \"idArea\": 1,\r",
+							"    \"description\": \"Pressione in aumento, delta = 1.05\"\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Allarme ricevuto corretto\", () => {\r",
+							"    pm.expect(expected).to.eql(response);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/areas/1/alarms/badweather",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"areas",
+						"1",
+						"alarms",
+						"badweather"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/areas/1/alarms/badweather",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"areas",
+								"1",
+								"alarms",
+								"badweather"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 30 Jan 2022 17:34:54 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"idAlarm\": 1325,\n    \"time\": \"30-01-2022 18:20:36\",\n    \"type\": \"BW\",\n    \"color\": \"NONE\",\n    \"idArea\": 1,\n    \"description\": \"Pressione in aumento, delta = 1.05\"\n}"
+				}
+			]
 		}
 	],
 	"auth": {
