@@ -42,7 +42,7 @@ class BadWeatherAllertsCreator(th):
             self.cursor2.close()
             return
         
-        # analisi ed elaborazione delle serie storica relativa alla pressione atmosferica delle ultime 3 ore
+        # analisi ed elaborazione delle serie storica relativa alla pressione atmosferica delle ultime 24 ore
         pressure_DB = pd.DataFrame(columns=['time','pressure'])
         self.cursor2.execute("SELECT time, pressure FROM test.aprsdata WHERE name = %(code)s", {'code':self.station_code})
         info = self.cursor2.fetchall()
