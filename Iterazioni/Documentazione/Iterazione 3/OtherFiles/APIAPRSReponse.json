@@ -1,0 +1,21 @@
+{
+  "command": "get",
+  "result": "ok",
+  "found": 1,
+  "what": "wx",
+  "entries": [
+    {
+      "name": "FW0796",
+      "time": "1643649147",
+      "temp": "10.6",
+      "pressure": "1006.0",
+      "humidity": "30",
+      "wind_direction": "315",
+      "wind_speed": "1.8",
+      "wind_gust": "2.7",
+      "rain_1h": "0.0",
+      "rain_24h": "0.0",
+      "rain_mn": "0.0"
+    }
+  ]
+}
