@@ -342,6 +342,7 @@ while stop_time > dt.now():
             w = BadWeatherAllertsCreator(area_DB.at[i, "nameAprStation"], area_DB.at[i, "idArea"], conn2, cursor2, i)
             fogFrostAllertsCreators.append(t)
             badWeatherAllertsCreators.append(w)
+    
     # avvio dei thread         
     for i in fogFrostAllertsCreators:
         i.start()
