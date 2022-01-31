@@ -11,9 +11,12 @@
         <file alias="CancellaUtente.qml">views/CancellaUtente.qml</file>
         <file alias="AreaInfo.qml">views/AreaInfo.qml</file>
         <file alias="Alarm.qml">views/Alarm.qml</file>
+        <file alias="SplashView.qml">views/SplashView.qml</file>
     </qresource>
     <qresource prefix="/assets">
         <file alias="RoundPane.qml">assets/RoundPane.qml</file>
         <file alias="RoundDial.qml">assets/RoundDial.qml</file>
+        <file alias="LVSEmergencyBIGeffects.gif">assets/LVSEmergencyBIGeffects.gif</file>
+        <file alias="LVSEmergencyBIG.gif">assets/LVSEmergencyBIG.gif</file>
     </qresource>
 </RCC>

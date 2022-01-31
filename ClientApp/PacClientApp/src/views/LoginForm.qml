@@ -1,20 +1,38 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.12
+import "../assets"
 
 Item {
 
-    Pane {
+    RoundPane {
         anchors.centerIn: parent
 
         Material.elevation: 6
+        radius: 6
 
         contentWidth: formColumn.implicitWidth
         contentHeight: formColumn.implicitHeight
 
         Column {
             id: formColumn
-            spacing: 48
+            spacing: 40
+
+            Rectangle {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                height: 150
+                color: "transparent"
+
+
+                AnimatedImage { id: animation;
+                    source: "qrc:/assets/LVSEmergencyBIG.gif";
+                    x: 10
+                    width: 200;
+                    height: 200
+                    horizontalAlignment: Image.AlignHCenter
+                }
+            }
 
             Row {
                 spacing: 16

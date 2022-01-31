@@ -16,6 +16,15 @@ values(4, "Dalmine", 45.650001525878906, 9.600000381469727, "016091");
 insert into area (idArea, areaName, lat, lng, nameAprsStation, istatCode)
 values(5, "Ospitaletto", 45.55527877807617, 10.073333740234375, "FW0796", "017127");
 
+insert into area (idArea, areaName, lat, lng, nameAprsStation, istatCode)
+values(6, "Taverna", 39.02101516723633, 16.582666397094727, "FW8778", "079146");
+
+insert into area (idArea, areaName, lat, lng, nameAprsStation, istatCode)
+values(7, "Bologna", 44.49388885498047, 11.342778205871582, "EW0690", "037006");
+
+insert into area (idArea, areaName, lat, lng, nameAprsStation, istatCode)
+values(8, "Perugia", 43.112098693847656, 12.388799667358398, "DW0950", "054039");
+
 insert into team (idTeam, teamName, idForeman, idArea)
 values(1, "BGTeam", null, 1);
 

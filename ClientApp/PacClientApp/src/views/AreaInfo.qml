@@ -81,7 +81,8 @@ Item {
                     width: parent.width
                     wrapMode: Label.Wrap
                     horizontalAlignment: Qt.AlignHCenter
-                    text: "Ecco i dati della tua area:"
+                    text: "Ecco i dati di " +
+                          masterController.ui_teamController.currentTeam.area.areaName+":"
 
                     font.pointSize: 12
                 }
@@ -141,6 +142,14 @@ Item {
                             }
 
                             RoundDial {
+                                tagName: qsTr("Pioggia in un ora")
+                                minVal: 0
+                                maxVale: 5
+                                value: masterController.ui_areaController.aprsData.rainOneHour
+                                suffix: "mm"
+                            }
+
+                            RoundDial {
                                 tagName: qsTr("Velocità Vento")
                                 minVal: 0
                                 maxVale: 40
@@ -151,18 +160,10 @@ Item {
                             RoundDial {
                                 tagName: qsTr("Direzione Vento")
                                 minVal: 0
-                                maxVale: 360
+                                maxVale: 359
                                 value: masterController.ui_areaController.aprsData.windDirection
                                 suffix: "°"
-                            }
-
-                            RoundDial {
-                                tagName: qsTr("Pioggia in un ora")
-                                minVal: 0
-                                maxVale: 5
-                                value: masterController.ui_areaController.aprsData.rainOneHour
-                                suffix: "mm"
-                            }
+                            }                            
                         }
                     }
                 }

@@ -111,7 +111,8 @@ Item {
                     width: parent.width
                     wrapMode: Label.Wrap
                     horizontalAlignment: Qt.AlignHCenter
-                    text: "Ecco gli allarmi presenti nella tua area:"
+                    text: "Ecco gli allarmi presenti a " +
+                          masterController.ui_teamController.currentTeam.area.areaName + ":"
 
                     font.pointSize: 12
                 }

@@ -7,9 +7,15 @@ ApplicationWindow {
     width: 400
     height: 640
     visible: true
-    title: qsTr("PacApp")
+    title: qsTr("LVSEmergency")
 
-    Component.onCompleted: contentFrame.replace("qrc:/views/LoginForm.qml");
+    Component.onCompleted: timer.running = true
+
+    Timer {
+        id: timer
+        interval: 4000; running: false; repeat: false
+        onTriggered: contentFrame.replace("qrc:/views/LoginForm.qml");
+    }
 
     Connections {
         target: masterController.ui_navigationController

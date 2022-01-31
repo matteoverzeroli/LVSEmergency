@@ -171,13 +171,14 @@ Grazie alla \textit{Base Access Authentication}, il logout dell'utente consiste 
 		\item Indirizzo;
 		\item Cellulare;
 		\item Email;
-		\item Ruolo;
+		\item Ruolo: nel caso il ruolo selezionato sia "Caposquadra" verranno mostrate solo le squadre a cui non è ancora stato assegnato un caposquadra;
 		\item Squadra.
 	\end{itemize}
 	\item il coordinatore clicca il pulsante "Inserisci utente".
-	\item il sistema verifica che tutti i campi siano stati compilati [E1; ci sono dei campi vuoti]. Nel caso il ruolo sia "Caposquadra", il sistema verifica che la squadra a cui deve essere assegnato l'utente non abbia già un caposquadra. \todo{sistemare}
+	\item il sistema verifica che tutti i campi siano stati compilati [E1; ci sono dei campi vuoti].
 	\item il sistema verifica che username e codice fiscale non siano già associati ad altri utenti.
 	\item il sistema aggiunge l'utente con i rispettivi dati nel database [E2: i dati sono già stati associati ad un altro utente presente nel database].
+	\item se l'utente inserito ha il ruolo di "Caposquadra", il sistema imposta l'utente come caposquadra della squadra selezionata.
 \end{enumerate}
 
 
