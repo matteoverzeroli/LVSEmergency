@@ -4,7 +4,7 @@ L'architettura del sistema è stata formalizzata attraverso due deployment diagr
 
 \begin{itemize}
 	\item su una macchina è installato un \textbf{Web Server Java}, che si occupa della gestione di richieste tramite protocollo \textit{HTTP/Rest} da parte del client;
-	\item sull'altra macchina ci sono due componenti autonome, un \textbf{Data Fetcher} che si occupa di recuperare informazioni dai data server tramite API e le inserisce all'interno del database, ed un \textbf{Data Analyzer} che si occupa di effettuare delle analisi dei dati acquisiti con lo scopo di identificare possibili situazioni di emergenza.
+	\item sull'altra macchina ci sono due componenti autonome, un \textbf{Data Collector} che si occupa di recuperare informazioni dai data server tramite API e le inserisce all'interno del database, ed un \textbf{Data Analyzer} che si occupa di effettuare delle analisi dei dati acquisiti con lo scopo di identificare possibili situazioni di emergenza.
 \end{itemize}
 
 Nel \textit{data layer} troviamo invece un database all'interno del quale sono inserite tutte le informazioni inerenti il sistema.
