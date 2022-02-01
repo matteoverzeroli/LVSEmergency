@@ -1,5 +1,7 @@
 package it.lvsemergency.accountManagement;
 
+import java.util.Objects;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -161,32 +163,23 @@ public class User {
 	public void setState(OperativityRole state) {
 		this.state = state;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-	    // self check
-	    if (this == obj)
-	        return true;
-	    // null check
-	    if (obj == null)
-	        return false;
-	    // type check and cast
-	    if (getClass() != obj.getClass())
-	        return false;
-	    User otherUser = (User) obj;
-	    // field comparison
-	    return  username.equals(otherUser.username) &&	
-	    		username.equals(otherUser.username) && 
-	    		name.equals(otherUser.name) &&
-	    		surname.equals(otherUser.surname) &&
-	    		CF.equals(otherUser.CF) &&
-	    		password.equals(otherUser.password) &&
-	    		address.equals(otherUser.address) &&
-	    		cellNumber.equals(otherUser.cellNumber) &&
-	    		sex.equals(otherUser.sex) &&
-	    		email.equals(otherUser.email) &&
-	    		idTeam.equals(otherUser.idTeam) &&
-	    		role.equals(otherUser.role) &&
-	    		state.equals(otherUser.state);
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(CF, other.CF) && Objects.equals(address, other.address)
+				&& Objects.equals(cellNumber, other.cellNumber) && Objects.equals(email, other.email)
+				&& Objects.equals(idTeam, other.idTeam) && Objects.equals(idUser, other.idUser)
+				&& Objects.equals(name, other.name) && Objects.equals(password, other.password) && role == other.role
+				&& Objects.equals(sex, other.sex) && state == other.state && Objects.equals(surname, other.surname)
+				&& Objects.equals(username, other.username);
 	}
+	
+
 }

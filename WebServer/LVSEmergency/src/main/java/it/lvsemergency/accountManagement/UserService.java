@@ -19,9 +19,6 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	//@Autowired
-	//private TeamRepository teamRepository;
 
 	@Autowired
 	private ModelMapper modelMapper;
