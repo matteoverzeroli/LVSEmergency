@@ -18,5 +18,6 @@
         <file alias="RoundDial.qml">assets/RoundDial.qml</file>
         <file alias="LVSEmergencyBIGeffects.gif">assets/LVSEmergencyBIGeffects.gif</file>
         <file alias="LVSEmergencyBIG.gif">assets/LVSEmergencyBIG.gif</file>
+        <file alias="marker.png">assets/marker.png</file>
     </qresource>
 </RCC>

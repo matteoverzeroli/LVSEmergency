@@ -1,0 +1,160 @@
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+div.h1 { color: rgb(0, 116, 116); font-size: 28pt; font-weight: bold; font-style: normal; padding: 10pt 0pt 10pt 0pt }
+div.h2 { color: rgb(0, 116, 116); font-size: 22pt; font-weight: bold; font-style: normal; padding: 10pt 0pt 10pt 0pt }
+div.h3 { color: rgb(0, 116, 116); font-size: 16pt; font-weight: bold; font-style: italic; padding: 10pt 0pt 10pt 0pt }
+div.h4 { color: rgb(0, 116, 116); font-size: 12pt; font-weight: bold; font-style: normal; padding: 10pt 0pt 10pt 0pt }
+
+span.label img.icon {
+	margin-right: 4pt;
+	vertical-align: middle;
+}
+span.packagetree, span.package, span.class, span.method, span.field {
+	font-family: monospace;
+}
+span.detail {
+	font-size: 8pt;
+	font-style: italic;
+}
+
+table {
+	font-size: 90%;
+}
+
+table tr.even td {
+	background-color: #FAFAFA;
+}
+
+table tr.odd td {
+	background-color: white;
+}
+
+table tr.disabled td {
+	color: #888888;
+}
+
+table.summary {
+	width: 100%;
+	border-collapse: separate;
+}
+table.summary th {
+	padding: 2px 2px 2px 2px;
+	margin: 2px 2px 2px 2px;
+	border-bottom: 1px solid black;
+}
+table.summary th.column-metric {
+	width: 90%; text-align: left;
+}
+table.summary th.column-value {
+	width: 10%; text-align: right;
+}
+table.summary td {
+	padding: 2px 2px 2px 2px;
+	margin: 2px 2px 2px 2px;
+}
+table.summary td.column-metric {
+	text-align: left;
+}
+table.summary td.column-value {
+	text-align: right;
+}
+
+table.violation-tops {
+	width: 100%;
+	border-collapse: separate;
+}
+table.violation-tops th {
+	padding: 2px 2px 2px 2px;
+	margin: 2px 2px 2px 2px;
+	border-bottom: 1px solid black;
+}
+table.violation-tops th.column-artifact {
+	width: 70%; text-align: left;
+}
+table.violation-tops th.column-metric {
+	width: 20%; text-align: left;
+}
+table.violation-tops th.column-value {
+	width: 10%; text-align: right;
+}
+table.violation-tops td {
+	padding: 2px 2px 2px 2px;
+	margin: 2px 2px 2px 2px;
+}
+table.violation-tops td.column-artifact {
+	text-align: left;
+}
+table.violation-tops td.column-metric {
+	text-align: left;
+}
+table.violation-tops td.column-value {
+	text-align: right;
+}
+
+table.violation-items {
+	width: 100%;
+	border-collapse: separate;
+}
+table.violation-items th {
+	padding: 2px 2px 2px 2px;
+	margin: 2px 2px 2px 2px;
+	border-bottom: 1px solid black;
+}
+table.violation-items th.column-artifact {
+	width: 90%; text-align: left;
+}
+table.violation-items th.column-value {
+	width: 10%; text-align: right;
+}
+table.violation-items td {
+	padding: 2px 2px 2px 2px;
+	margin: 2px 2px 2px 2px;
+}
+table.violation-items td.column-artifact {
+	text-align: left;
+}
+table.violation-items td.column-value {
+	text-align: right;
+}
+
+table.metrics {
+	width: 100%;
+	border-collapse: separate;
+}
+table.metrics th {
+	padding: 2px 2px 2px 2px;
+	margin: 2px 2px 2px 2px;
+	border-bottom: 1px solid black;
+}
+table.metrics th.column-metric {
+	width: 65%; text-align: left;
+}
+table.metrics th.column-rating {
+	width: 30%; text-align: center;
+}
+table.metrics th.column-linear {
+	width: 5%; text-align: center;
+}
+table.metrics td {
+	padding: 2px 2px 2px 2px;
+	margin: 2px 2px 2px 2px;
+}
+table.metrics td.column-metric {
+	text-align: left;
+}
+table.metrics td.column-rating {
+	text-align: center;
+}
+table.metrics td.column-linear {
+	text-align: center;
+}
+
+.rated.amber {
+	background-color: rgb(255, 240, 200);
+}
+.rated.red {
+	background-color: rgb(255, 200, 200);
+}

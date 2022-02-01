@@ -23,6 +23,7 @@ public:
     Q_INVOKABLE void getTeam(int idTeam);
     Q_INVOKABLE void addTeam(QString teamName, int idArea);
     Q_INVOKABLE int getIdTeamByName(QString teamName);
+    Q_INVOKABLE void resetTeam();
     QStringList getTeamsAvailableList();
     QStringList getTeamsAvailableWithoutForeman();
     Team *getCurrentTeam();
