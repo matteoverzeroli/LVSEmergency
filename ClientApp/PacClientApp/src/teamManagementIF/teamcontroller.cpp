@@ -169,4 +169,12 @@ Team *TeamController::getCurrentTeam()
     return currentTeam;
 }
 
+void TeamController::resetTeam()
+{
+    if (currentTeam != nullptr) {
+        delete currentTeam;
+        currentTeam = nullptr;
+    }
+}
+
 }
