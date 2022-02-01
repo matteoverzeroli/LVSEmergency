@@ -293,4 +293,12 @@ QQmlListProperty<User> UserController::getAllUsers()
     return QQmlListProperty<accountmanagementIF::User>(this, &allUsers);
 }
 
+void UserController::resetUser()
+{
+    if (currentUser != nullptr) {
+        delete currentUser;
+        currentUser = nullptr;
+    }
+}
+
 }

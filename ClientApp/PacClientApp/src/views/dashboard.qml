@@ -2,10 +2,27 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
+import QtLocation 5.15
+import QtPositioning 5.2
 import "../assets"
 
 Page {
     id: window
+
+    Connections {
+        target: masterController.ui_teamController
+
+        function onCurrentTeamChanged() {
+            if (masterController.ui_teamController.currentTeam.area.latitude !== null
+                    && masterController.ui_teamController.currentTeam.area.longitude !== null) {
+                map.center = QtPositioning.coordinate(
+                            masterController.ui_teamController.currentTeam.area.latitude,
+                            masterController.ui_teamController.currentTeam.area.longitude)
+                console.log("Updated the coordinate")
+            }
+
+        }
+    }
 
     Action {
         id: navigateBackAction
@@ -58,6 +75,8 @@ Page {
                     Action {
                         text: "Logout"
                         onTriggered: {
+                            masterController.ui_teamController.resetTeam();
+                            masterController.ui_userController.resetUser();
                             masterController.ui_navigationController.needLoginForm();
                         }
                     }
@@ -248,6 +267,65 @@ Page {
                             var stateString = masterController.ui_userController.currentUser.state == 0 ? "ACTIVE" : "INACTIVE"
                             masterController.ui_userController.currentUser.setState(stateString)
                             masterController.ui_userController.modifyUser()
+                        }
+                    }
+
+                    Rectangle {
+                        height: 2
+                        width: parent.width * 5 / 6
+                        radius: 5
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        color: "#999999"
+
+                        visible: masterController.ui_teamController.currentTeam === null ? false : true
+                    }
+
+                    Label {
+                        id: areaVisualization
+                        width: parent.width
+                        wrapMode: Label.Wrap
+                        horizontalAlignment: Qt.AlignHCenter
+                        text: qsTr("Il tuo team opera a: ") +
+                              masterController.ui_teamController.currentTeam.area.areaName
+
+                        visible: masterController.ui_teamController.currentTeam === null ? false : true
+                    }
+
+                    RoundPane {
+                        Material.elevation: 6
+                        radius: 6
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        visible: masterController.ui_teamController.currentTeam === null ? false : true
+
+                        width: parent.width * 4 / 5
+                        height: parent.width * 4 / 5
+
+                        Plugin {
+                            id: mapPlugin
+                            name: "osm"
+                        }
+
+                        Map {
+                            id: map
+                            anchors.fill: parent
+                            plugin: mapPlugin
+                            zoomLevel: 14
+
+                            MapQuickItem {
+                                id: marker
+                                anchorPoint.x: image.width * 0.5
+                                anchorPoint.y: image.height
+
+                                coordinate: QtPositioning.coordinate(
+                                                masterController.ui_teamController.currentTeam.area.latitude,
+                                                masterController.ui_teamController.currentTeam.area.longitude)
+
+                                sourceItem: Image {
+                                    id: image
+                                    source: "qrc:/assets/marker.png"
+                                }
+                            }
                         }
                     }
                 }

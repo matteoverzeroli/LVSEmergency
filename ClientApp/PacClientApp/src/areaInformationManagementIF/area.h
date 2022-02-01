@@ -12,12 +12,13 @@ class Area : public helpers::EntityIF
     Q_OBJECT
     Q_PROPERTY(QString areaName READ getAreaName CONSTANT)
     Q_PROPERTY(int idArea READ getIdArea CONSTANT)
+    Q_PROPERTY(double latitude READ getLat CONSTANT)
+    Q_PROPERTY(double longitude READ getLng CONSTANT)
 public:
     explicit Area(QObject *parent = nullptr);
 
     QJsonDocument toJsonDocument();
     void fromJsonObject(QJsonObject jsonObject);
-
 
     int getIdArea();
     void setIdArea(int newIdArea);

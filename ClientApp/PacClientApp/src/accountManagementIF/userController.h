@@ -29,6 +29,7 @@ public:
                              QString cellNumber, QString email, int role, int idTeam, QString sex);
     Q_INVOKABLE void getUsers();
     Q_INVOKABLE void deleteUser(int idUser);
+    Q_INVOKABLE void resetUser();
     void setForemanForTeam(int idTeam, int idForeman);
 
     bool getAuthError();
