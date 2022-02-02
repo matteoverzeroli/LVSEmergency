@@ -25,6 +25,9 @@ values(7, "Bologna", 44.49388885498047, 11.342778205871582, "EW0690", "037006");
 insert into area (idArea, areaName, lat, lng, nameAprsStation, istatCode)
 values(8, "Perugia", 43.112098693847656, 12.388799667358398, "DW0950", "054039");
 
+insert into area (idArea, areaName, lat, lng, nameAprsStation, istatCode)
+values(9, "Spezia", 44.1080436706543, 9.828880310058594, "DW9691", "011015");
+
 insert into team (idTeam, teamName, idForeman, idArea)
 values(1, "BGTeam", null, 1);
 

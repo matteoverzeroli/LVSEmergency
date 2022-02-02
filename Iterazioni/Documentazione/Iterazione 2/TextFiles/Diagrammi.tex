@@ -1,5 +1,5 @@
 \section{Component View}
-Nella figura \ref{fig:ComponentDiagram_iterazione2} è riportato il diagramma a componenti relativo alle modifiche introdotte nell'iterazione 2. In particolare, è possibile notare le interfacce introdotte e la struttura dei componenti lato server e client.
+Nella figura \ref{fig:ComponentDiagram_iterazione2} è riportato il diagramma a componenti relativo ai casi d'uso sviluppati nell'iterazione 2. In particolare, è possibile notare le interfacce introdotte e la struttura dei componenti lato server e client.
 
 \begin{figure}[h!]
 	\centering
@@ -10,18 +10,19 @@ Nella figura \ref{fig:ComponentDiagram_iterazione2} è riportato il diagramma a 
 
 \clearpage
 
-Di seguito sono riportate le specifiche delle strutture dati \textit{UserDTO} e \textit{TeamDTO} (\Fig\ref{fig:ClassDiagramDTO_iterazione2}). Essi sono utilizzati per definire il formato dei dati scambiati tra l'applicazione client e il server. In particolare, si noti che il campo password nello \textit{UserDTO} è solamente valorizzato dall'app client nell'inserimento di un nuovo utente. Tuttavia, non viene mai inviato dal server al client.  
+\section{Class Diagram}
+Di seguito sono riportate le specifiche delle strutture dati \texttt{UserDTO} e \texttt{TeamDTO} (\Fig\ref{fig:ClassDiagramDTO_iterazione2}). Essi sono utilizzati per definire il formato dei dati scambiati tra l'applicazione client e il server. In particolare, grazie alla direttiva \texttt{@JsonProperty(access, JsonProperty.Access.WRITE\_ONLY)} disponibile in Spring, il campo \texttt{password} presente in \texttt{UserDTO} viene valorizzato dall'app client nell'inserimento di un nuovo utente ma non viene mai inviato dal server al client.  
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=1\linewidth]{./Iterazione 3/OtherFiles/DTOSpecification}
-	\caption{Class Diagram UserDTO e TeamDTO}
+	\caption{Class Diagram \texttt{UserDTO} e \texttt{TeamDTO}}
 	\label{fig:ClassDiagramDTO_iterazione2}
 \end{figure}
 
 \clearpage
 
-\section{Interface and Packages Diagram}
+\section{Interface and Package Diagram}
 Nella \Fig\ref{fig:InterfaceDiagram_iterazione2} è rappresentato il diagramma delle interfacce e dei package, nel quale è stata specificata anche la firma delle interfacce introdotte nell'iterazione 2.
 
 \begin{figure}[h]
