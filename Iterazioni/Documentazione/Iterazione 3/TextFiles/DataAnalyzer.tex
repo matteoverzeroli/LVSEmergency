@@ -2,7 +2,7 @@ Il \textit{Data Analyzer} si occupa dell'analisi dei dati raccolti dal \textit{D
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=1\linewidth]{./Iterazione 3/OtherFiles/FC - Data analyzer}
+	\includegraphics[height=590px]{./Iterazione 3/OtherFiles/FC - Data analyzer}
 	\caption{diagramma di flusso relativo all'esecuzione del componente Data Analyzer.}
 	\label{fig:DAFlowChart}
 \end{figure}
@@ -24,10 +24,10 @@ La pressione atmosferica, inoltre, è soggetta a un andamento periodico nel cors
 Pertanto, è importante innanzitutto destagionalizzare la serie storica affinché possano essere studiate le variazioni relative esclusivamente a un cambiamento delle condizioni meteorologiche.
 
 \subparagraph{Descrizione dell'algoritmo} Si ricorda, in primis, che l'algoritmo (figura \ref{fig:BFFlowChart}) viene eseguito da tanti thread quante sono le aree d'intervento presenti nel DB; l'obiettivo è quello di limitare, mediante la programmazione concorrente, i tempi necessari per creare gli allarmi nel caso in cui fosse attivo un numero elevato di zone, lo stato delle allerte di ognuna delle quali dev'essere aggiornato tempestivamente.
-\par Il primo passo consiste nell'accedere al DB per ottenere la data e l'ora dell'acquisizione più recente di pressione atmosferica, ossia $t_{f}$, con riferimento alla stazione APRS.FI a cui  è associata la zona d'interesse su cui il thread sta operando. Se $t_{f}$ risulta essere uguale a $t_{f,OLD}$, ossia all'instante temporale rispetto al quale è stata generata l'allerta più recente, allora significa che il Data Collector non ha inserito nel DB una nuova rilevazione durante i \SI{5}{\minute} di attesa, quindi l'algoritmo termina perché sarebbe inutile creare un'allerta basata su dei dati che non sono ancora stati aggiornati; il fine è evitare ripetizioni. Una volta verificata la diversità tra $t_{f}$ e $t_{f,OLD}$, si accede alla serie storica della pressione atmosferica delle ultime 24 ore e la si destagionalizza; la $p_{atm}(t)$, come anticipato in precedenza, è caratterizzata, infatti, da un andamento giornaliero che dev'essere eliminato affinché possano essere osservate le variazioni associate esclusivamente a un cambiamento delle condizioni meteorologiche. Per eliminare questa componente di non-stazionarietà è sufficiente sottrarre a ogni campione la media in orizzontale. Dopodiché, vengono definiti i seguenti intervalli:
+\par Il primo passo consiste nell'accedere al DB per ottenere la data e l'ora dell'acquisizione più recente di pressione atmosferica, ossia $t_{f}$, con riferimento alla stazione APRS.FI a cui  è associata la zona d'interesse su cui il thread sta operando. Se $t_{f}$ risulta essere uguale a $t_{f,OLD}$, ossia all'instante temporale rispetto al quale è stata generata l'allerta più recente, allora significa che il Data Collector non ha inserito nel DB una nuova rilevazione durante i \SI{5}{\minute} di attesa, quindi l'algoritmo termina perché sarebbe inutile creare un'allerta basata su dei dati che non sono ancora stati aggiornati; il fine è evitare ripetizioni. Una volta verificata la diversità tra $t_{f}$ e $t_{f,OLD}$, si accede alla serie storica della pressione atmosferica delle ultime 24 ore e la si destagionalizza; $p_{atm}$, come anticipato in precedenza, è caratterizzata, infatti, da un andamento giornaliero che dev'essere eliminato affinché possano essere osservate le variazioni associate esclusivamente a un cambiamento delle condizioni meteorologiche. Per rimuovere questa componente di non-stazionarietà è sufficiente sottrarre a ogni campione la media in orizzontale. Dopodiché, vengono definiti i seguenti intervalli:
 \begin{itemize}
-	\item I$_1$ = \{sottoinsieme dei dati di $p_{atm}(t)$ contenente gli istanti temporali relativi alle prime 2 rilevazioni di a partire dall'istante 3 ore precedente $t_f$\}
-	\item I$_2$ = \{sottoinsieme dei dati di $p_{atm}(t)$ contenente gli istanti temporali relativi alle ultime 2 rilevazioni\}.
+	\item I$_1$ = \{sottoinsieme dei dati di $p_{atm}(t)$ contenente gli istanti temporali relativi alle prime 2~rilevazioni di a partire dall'istante 3 ore precedente a $t_f$\}
+	\item I$_2$ = \{sottoinsieme dei dati di $p_{atm}(t)$ contenente gli istanti temporali relativi alle ultime 2~rilevazioni\}.
 \end{itemize}
 Questi ultimi vengono a loro volta utilizzati per calcolare i seguenti parametri, valori necessari per implementare l'approccio \textit{specifico}, ossia il più affidabile, per prevedere l'andamento delle condizioni meteorologiche:
 \begin{itemize}
@@ -35,7 +35,7 @@ Questi ultimi vengono a loro volta utilizzati per calcolare i seguenti parametri
 	\item $\bar{p}_{up} = \frac{1}{2} \cdot \sum_{i = 1}^{I_2} p_{atm}(i)$.
 	\item $\Delta = \bar{p}_{up} - \bar{p}_{low}$	
 \end{itemize}
-Si sarebbe potuto calcolare la variazione "pura" sottraendo al valore di pressione atmosferica più recente quello 3 ore precedente, ma si è preferito calcolare le medie $\bar{p}_{low}$ e $\bar{p}_{up}$ per limitare i disturbi dovuti a errori di misura dei sensori barometrici installati sulle stazioni APRS.FI. Da notare che $\Delta$ descrive la variazione \textit{media} di $p_{atm}(t)$ nelle ultime 3 ore. In base al valore assunto da quest'ultimo parametro vengono create le seguenti allerte:
+Si sarebbe potuto calcolare la variazione "pura" sottraendo al valore di pressione atmosferica più recente quello 3 ore precedente, ma si è preferito calcolare le medie $\bar{p}_{low}$ e $\bar{p}_{up}$ per limitare i disturbi dovuti a errori di misura dei sensori barometrici installati sulle stazioni APRS.FI. Da notare che $\Delta$ descrive la variazione \textit{media} di $p_{atm}$ nelle ultime 3 ore. In base al valore assunto da quest'ultimo parametro vengono create le seguenti allerte:
 \begin{itemize}
 	\item se $\Delta \ge 0$, allora viene generata un'allerta \textit{nulla}: la pressione atmosferica è in aumento, quindi non è previsto l'arrivo di una perturbazione;
 	\item altrimenti se $\Delta > \Delta_{OLD}$, allora viene creata un'allerta \textit{nulla}: il maltempo si sta allontanando oppure un picco negativo di $p_{atm}$ è stato superato poiché la variazione è più piccola rispetto alla rilevazione precedente;
@@ -47,33 +47,42 @@ Dopo aver inserito l'allerta nel DB tramite una query, i parametri $t_{f,OLD}$ e
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=1\linewidth]{./Iterazione 3/OtherFiles/FC - Generatore allerte BW.pdf}
+	\includegraphics[height=590px]{./Iterazione 3/OtherFiles/FC - Generatore allerte BW.pdf}
 	\caption{diagramma di flusso relativo all'algoritmo di generazione delle allerte maltempo.}
 	\label{fig:BFFlowChart}
 \end{figure}
 
 \paragraph{Generatore di allerte nebbia e brina}
 
-\subparagraph{Cenni di meteorologia} Per prevedere le formazioni di nebbia e brina è necessario calcolare il \textit{punto di rugiada} $T_d$, ossia la temperatura alla quale l'acqua contenuta nell'aria di un ambiente condensa e si trasforma in gocce d'acqua; esso viene raggiunto quando l'umidità relativa raggiunge il \SI{100}{\percent}, cioè nell'istante in cui l'aria diventa satura e non riesce più a contenere l'umidità ambientale. Il punto di rugiada si determina tramite l'\textit{approssimazione di Magnus-Tetens}:
+\subparagraph{Cenni di meteorologia} Per prevedere le formazioni di nebbia e brina è necessario calcolare il \textit{punto di rugiada} T$_d$, ossia la temperatura alla quale l'acqua contenuta nell'aria di un ambiente condensa e si trasforma in gocce d'acqua; esso viene raggiunto quando l'umidità relativa raggiunge il \SI{100}{\percent}, cioè nell'istante in cui l'aria diventa satura e non riesce più a contenere l'umidità ambientale. Il punto di rugiada si determina tramite l'\textit{approssimazione di Magnus-Tetens}:
 \[ T_d = \frac{b \cdot \alpha(T,UR)}{a - \alpha(T,UR)}\]
 \[\mbox{con } \alpha(T,UR) = \frac{a \cdot T}{b + T} + \ln(UR) \mbox{, } a = \si{17,27} \mbox{ e } b = \si{237,7}\si{\degreeCelsius}\]
 \[T\mbox{ (temperatura misurata): } \SI{-20}{\degreeCelsius} < T < \SI{60}{\degreeCelsius}\]
 \[UR\mbox{ (umidità relativa): } 0,01 < UR < 1,00\]
-La nebbia si forma quando $T = T_d$ e in assenza di vento, mentre la brina quando $T = T_d$ con $T_d < 0$
+La nebbia si forma quando T = T$_d$, mentre la brina quando T = T$_d$ con T$_d < 0$
 
-\subparagraph{Descrizione dell'algoritmo}
-\todo{domani sarà ok :-)}
+\subparagraph{Descrizione dell'algoritmo} Per generare le allerte nebbia e brina si deve calcolare la temperatura di rugiada T$_d$ (o \textit{dew point}), la quale a sua volta è funzione della temperatura T e dell'umidità relativa UR. Pertanto, dopo aver verificato la diversità tra $t_f$ e $t_{f,OLD}$, il primo passo dell'algorimto (figura \ref{fig:FFFlowChart1}), viene eseguita una query per accedere ai dati di temperatura delle ultime 24 ore rilevati dalla stazione APR.FI associata alla zona di competenza del thread. Questo parametro atmosferico dev'essere studiato tramite un modello statistico affinché possa essere previsto il suo comportamento nel breve termine; la scelta è ricaduta sull'ARIMA, un modello ARMA che rende stazionaria, se già non lo fosse, la serie storica tramite differenziazioni. Per identificare il modello, ossia per stimare il valore dei suoi parametri a massima verosimiglianza (o MLE), e per svolgere l'analisi di complessità, una procedura basata sulla minimizzazione dell'informazione di Akaike (o AIC), è stata utilizzata la funzione \textit{auto\_arima} del package \textit{pmdarima} disponibile per Python. Da notare che a ogni iterazione viene stimato un nuovo modello utilizzando anche l'acquisizione più recente presente nel DB. Una volta conclusa l'operazione di stima dell'ARIMA, esso viene impiegato per svolgere una predizione a 3 passi della temperatura, ossia a:
+\begin{itemize}
+	\item $t_1 = t_f + k$; 
+	\item $t_2 = t_f + 2 \cdot k$;
+	\item $t_3 = t_f + 3 \cdot k$; 
+\end{itemize}
+con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni consecutive da parte della stazione meteorologica (circa \SI{10}{\minute}) e $t_f$ la data e l'ora dell'acquisizione più recente presente nel DB. Lo stesso studio a scopo predittivo viene fatto anche per l'umidità relativa. Una volta note le previsioni di T e UR, esse vengono combinate per fare la predizione a 3 passi della temperatura di rugiada T$_d$. Dopodiché, vengono calcolati gli intervalli di validità I, IC$_1$, IC$_2$ e IC$_3$ entro i quali la temperatura deve rientrare affinché venga generata un'allerta. Essi sono necessari non solo perché mai si otterrà un'uguaglianza tra T(\textit{t}) e T$_d$(\textit{t}) a causa degli errori di predizione, ma anche perché la condensazione dell'acqua contenuta nell'aria può avvenire a una temperatura superiore a quella di rugiada; T$_d$, infatti, non tiene conto nè della temperatura del suolo, il quale potrebbe essere più freddo della colonna d'aria che lo sovrasta, nè della presenza di sostanze chimiche capaci di alterare il dew point. Gli intervalli sono asimmetrici poiché T non può essere più piccola di T$_d$; se così fosse l'umidità relativa supererebbe il \SI{100}{\percent}, un evento fisicamente impossibile. Per i criteri di generazione delle allerte si invita a visualizzare la figura \ref{fig:FFFlowChart2}; da notare che l'allerta brina viene creata quando la temperatura, attuale $T(t_f)$ o prevista $\hat{T}(t_1|t_f)$, $\hat{T}(t_2|t_f)$ e $\hat{T}(t_3|t_f)$: 
+\begin{itemize}
+	\item rientra nel proprio intervallo di validità (es. $\hat{T}(t_1|t_f) \in$ IC$_1$ $= [\hat{T_d}(t_1|t_f);\hat{T_d}(t_1|t_f) + \SI{0.45}{\degreeCelsius}]$);
+	\item è non-positiva (es. $\hat{T}(t_1|t_f) \le 0$).
+\end{itemize} L'algoritmo, infine, termina con l'aggiornamento di $t_{f,OLD}$.        
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=1\linewidth]{./Iterazione 3/OtherFiles/FC - Generatore allerte F&F(1).pdf}
-	\caption{diagramma di flusso relativo all'algoritmo di generazione delle allerte nebbia e brina, parte~1.}
-	\label{fig:FFFlowChart_1}
+	\includegraphics[height=590px]{./Iterazione 3/OtherFiles/FC - Generatore allerte F&F(1).pdf}
+	\caption{diagramma di flusso relativo all'algoritmo di generazione delle allerte nebbia e brina, prima parte.}
+	\label{fig:FFFlowChart1}
 \end{figure}
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=1\linewidth]{./Iterazione 3/OtherFiles/FC - Generatore allerte F&F(2).pdf}
-	\caption{diagramma di flusso relativo all'algoritmo di generazione delle allerte nebbia e brina, parte~2.}
-	\label{fig:FFFlowChart_2}
+	\includegraphics[height=590px]{./Iterazione 3/OtherFiles/FC - Generatore allerte F&F(2).pdf}
+	\caption{diagramma di flusso relativo all'algoritmo di generazione delle allerte nebbia e brina, seconda parte.}
+	\label{fig:FFFlowChart2}
 \end{figure}
