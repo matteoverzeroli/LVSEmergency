@@ -11,7 +11,7 @@ Nella figura \ref{fig:ComponentDiagram_iterazione2} è riportato il diagramma a 
 \clearpage
 
 \section{Class Diagram}
-Di seguito sono riportate le specifiche delle strutture dati \texttt{UserDTO} e \texttt{TeamDTO} (\Fig\ref{fig:ClassDiagramDTO_iterazione2}). Essi sono utilizzati per definire il formato dei dati scambiati tra l'applicazione client e il server. In particolare, grazie alla direttiva \texttt{@JsonProperty(access, JsonProperty.Access.WRITE\_ONLY)} disponibile in Spring, il campo \texttt{password} presente in \texttt{UserDTO} viene valorizzato dall'app client nell'inserimento di un nuovo utente ma non viene mai inviato dal server al client.  
+Di seguito sono riportate le specifiche delle strutture dati \texttt{UserDTO} e \texttt{TeamDTO} (\Fig\ref{fig:ClassDiagramDTO_iterazione2}). Essi sono utilizzati per definire il formato dei dati scambiati tra l'applicazione client e il server. In particolare, grazie alla direttiva \texttt{@JsonProperty(access, JsonProperty.Access.WRITE\_ONLY)}, il campo \texttt{password} presente in \texttt{UserDTO} viene valorizzato dall'app client all'inserimento di un nuovo utente ma non viene mai inviato dal server al client.  
 
 \begin{figure}[h!]
 	\centering
