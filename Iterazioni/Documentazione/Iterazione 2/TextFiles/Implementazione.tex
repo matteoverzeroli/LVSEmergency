@@ -15,7 +15,7 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \end{itemize}
 
 \subsection{UC1 - Login}
-Per l'autenticazione è stato utilizzato il metodo \textit{Basic Access Authentication}: si tratta di una tecnica che non necessita dell'utilizzo di cookie o di mentenere una sessione tra client e server, ma utilizza gli \textit{header} HTTP per fornire le informazioni di accesso. In particolare, \textit{username} e \textit{password} vengono codificate con \textit{base64} e vengono trasmesse nell'\textit{header} ogni volta che viene chiamata un API. 
+Per l'autenticazione è stato utilizzato il metodo \textit{Basic Access Authentication}: si tratta di una tecnica che non necessita dell'utilizzo di cookie o di mentenere una sessione tra client e server, ma utilizza gli \textit{header} HTTP per fornire le informazioni di accesso. In particolare, \textit{username} e \textit{password} vengono codificate con \textit{base64} e vengono trasmesse nell'\textit{header} ogni volta che viene chiamata un API. Il sistema poi verifica che lo \textit{username} e la \textit{password} presenti nell'\textit{header} HTTP appartengano effettivamente ad un utente presente nel database prima di elaborare la richiesta. 
 \\
 \\
 \textit{Breve descrizione:} l'utente compila il form per eseguire il login: in caso di credenziali corrette il sistema consente l'accesso ai servizi, altrimenti notifica l'utente della non correttezza delle credenziali. 
@@ -53,7 +53,7 @@ Per l'autenticazione è stato utilizzato il metodo \textit{Basic Access Authenti
 
 
 \subsection{UC2 - Logout}
-Grazie alla \textit{Base Access Authentication}, il logout dell'utente consiste nel rimandarlo alla pagina di login per richiedere username e password. Infatti, non c'è nessuna sessione tra client e server e quindi questo caso d'uso viene gestito dal client.
+Grazie alla \textit{Base Access Authentication}, il logout dell'utente consiste nel rimandarlo alla pagina di login per richiedere nuovamente \textit{username} e \textit{password}. Infatti, non c'è nessuna sessione tra client e server, quindi questo caso d'uso viene gestito lato client chiedendo all'utente di autenticarsi di nuovo.
 \\
 \\ 
 \textit{Breve descrizione:} il sistema esegue il logout dell'utente.
