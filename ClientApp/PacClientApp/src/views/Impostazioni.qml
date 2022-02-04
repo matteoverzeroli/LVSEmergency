@@ -57,7 +57,7 @@ Flickable {
 
                     Label {
                         id: surname
-                        text: qsTr("Cognome: ") + masterController.ui_userController.currentUser.username
+                        text: qsTr("Cognome: ") + masterController.ui_userController.currentUser.surname
                     }
 
                     Label {

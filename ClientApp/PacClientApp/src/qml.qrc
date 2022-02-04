@@ -19,5 +19,6 @@
         <file alias="LVSEmergencyBIGeffects.gif">assets/LVSEmergencyBIGeffects.gif</file>
         <file alias="LVSEmergencyBIG.gif">assets/LVSEmergencyBIG.gif</file>
         <file alias="marker.png">assets/marker.png</file>
+        <file alias="LVSEmergencyStatic.png">assets/LVSEmergencyStatic.png</file>
     </qresource>
 </RCC>

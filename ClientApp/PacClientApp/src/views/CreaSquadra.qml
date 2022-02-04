@@ -36,11 +36,14 @@ Flickable {
         title: "Squadra creata!"
         standardButtons: Dialog.Ok
 
+        width: parent.width - 100
+
         Column {
             spacing: 20
             anchors.fill: parent
             Label {
                 text: "La squadra è stata inserita con successo!"
+                width: parent.width
                 wrapMode: Label.Wrap
             }
         }
@@ -53,6 +56,8 @@ Flickable {
         y: (parent.height - height) / 2
         parent: Overlay.overlay
 
+        width: parent.width - 100
+
         modal: true
         title: "Attenzione!"
         standardButtons: Dialog.Ok
@@ -62,6 +67,7 @@ Flickable {
             anchors.fill: parent
             Label {
                 text: "Una squadra con questo nome è già stata creata!"
+                width: parent.width
                 wrapMode: Label.Wrap
             }
         }
@@ -159,12 +165,14 @@ Flickable {
                     modal: true
                     title: "Attenzione!"
                     standardButtons: Dialog.Ok
+                    width: parent.width - 100
 
                     Column {
                         spacing: 20
                         anchors.fill: parent
                         Label {
                             text: "Verificare di aver inserito correttamente tutti i campi e riprovare."
+                            width: parent.width
                             wrapMode: Label.Wrap
                         }
                     }

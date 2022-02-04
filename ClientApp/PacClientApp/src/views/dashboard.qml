@@ -91,68 +91,95 @@ Page {
         height: window.height
         interactive: stackView.depth === 1
 
-        ListView {
-            id: listView
-
-            focus: true
-            currentIndex: -1
+        Rectangle {
+            id: drawerRect
             anchors.fill: parent
 
-            delegate: ItemDelegate {
-                width: listView.width
-                text: model.title
-                visible: isVisible(model.user, model.admin)
-                height: visible == true ? implicitHeight : 0
-                highlighted: ListView.isCurrentItem
-                onClicked: {
-                    listView.currentIndex = index
-                    stackView.push(model.source)
-                    drawer.close()
+            Rectangle {
+                id: imageRect
+                anchors.top: drawerRect.top
+                anchors.left: drawerRect.left
+                anchors.right: drawerRect.right
+                height: imageLogo.height
+                color: "#D9D9D9"
+                Image {
+                    id: imageLogo
+                    source: "qrc:/assets/LVSEmergencyStatic.png"
+                    anchors.centerIn: parent
+                    width: parent.width
+                    fillMode: Image.PreserveAspectFit
+                }
+            }
 
-                    if (model.source === "qrc:/views/InserisciUtente.qml") {
-                        masterController.ui_teamController.getTeams()
-                    } else if (model.source === "qrc:/views/CreaSquadra.qml") {
-                        masterController.ui_areaController.getAreas()
-                    } else if (model.source === "qrc:/views/Impostazioni.qml") {
-                        masterController.ui_teamController.getTeam(
-                                    masterController.ui_userController.currentUser.idTeam)
-                    } else if (model.source === "qrc:/views/CancellaUtente.qml") {
-                        masterController.ui_userController.getUsers()
-                    } else if (model.source === "qrc:/views/AreaInfo.qml") {
-                        masterController.ui_areaController.getAprsData(
-                                    masterController.ui_teamController.currentTeam.area.idArea)
-                    } else if (model.source === "qrc:/views/Alarm.qml") {
-                        masterController.ui_areaController.getAlarmsBadWheather(
-                                    masterController.ui_teamController.currentTeam.area.idArea)
-                        masterController.ui_areaController.getAlarmsFogOrFrost(
-                                    masterController.ui_teamController.currentTeam.area.idArea)
+            ListView {
+                id: listView
+
+                focus: true
+                currentIndex: -1
+                width: parent.width
+                anchors {
+                    top: imageRect.bottom
+                    bottom: drawerRect.bottom
+                    left: drawerRect.left
+                    right: drawerRect.right
+                }
+
+                delegate: ItemDelegate {
+                    width: listView.width
+                    text: model.title
+                    visible: isVisible(model.user, model.admin)
+                    height: visible == true ? implicitHeight : 0
+                    highlighted: ListView.isCurrentItem
+                    onClicked: {
+                        listView.currentIndex = index
+                        stackView.push(model.source)
+                        drawer.close()
+
+                        if (model.source === "qrc:/views/InserisciUtente.qml") {
+                            masterController.ui_teamController.getTeams()
+                        } else if (model.source === "qrc:/views/CreaSquadra.qml") {
+                            masterController.ui_areaController.getAreas()
+                        } else if (model.source === "qrc:/views/Impostazioni.qml") {
+                            masterController.ui_teamController.getTeam(
+                                        masterController.ui_userController.currentUser.idTeam)
+                        } else if (model.source === "qrc:/views/CancellaUtente.qml") {
+                            masterController.ui_userController.getUsers()
+                        } else if (model.source === "qrc:/views/AreaInfo.qml") {
+                            masterController.ui_areaController.getAprsData(
+                                        masterController.ui_teamController.currentTeam.area.idArea)
+                        } else if (model.source === "qrc:/views/Alarm.qml") {
+                            masterController.ui_areaController.getAlarmsBadWheather(
+                                        masterController.ui_teamController.currentTeam.area.idArea)
+                            masterController.ui_areaController.getAlarmsFogOrFrost(
+                                        masterController.ui_teamController.currentTeam.area.idArea)
+                        }
+                    }
+
+                    function isVisible(userVisibility, adminVisibility) {
+
+                        if (userVisibility && (masterController.ui_userController.currentUser.role === 2
+                                               || masterController.ui_userController.currentUser.role === 1))
+                            return true
+
+                        if (adminVisibility && masterController.ui_userController.currentUser.role === 0)
+                            return true
+
+                        return false
+
                     }
                 }
 
-                function isVisible(userVisibility, adminVisibility) {
-
-                    if (userVisibility && (masterController.ui_userController.currentUser.role === 2
-                                           || masterController.ui_userController.currentUser.role === 1))
-                        return true
-
-                    if (adminVisibility && masterController.ui_userController.currentUser.role === 0)
-                        return true
-
-                    return false
-
+                model: ListModel {
+                    ListElement { title: "Inserisci Utente"; admin: true; user: false ; source: "qrc:/views/InserisciUtente.qml" }
+                    ListElement { title: "Cancella Utente"; admin: true; user: false ; source: "qrc:/views/CancellaUtente.qml" }
+                    ListElement { title: "Crea Squadra"; admin: true; user: false ; source: "qrc:/views/CreaSquadra.qml" }
+                    ListElement { title: "Allarmi"; admin: false; user: true; source: "qrc:/views/Alarm.qml" }
+                    ListElement { title: "Dati Area"; admin: false; user: true; source: "qrc:/views/AreaInfo.qml" }
+                    ListElement { title: "Informazioni"; admin: true; user: true; source: "qrc:/views/Impostazioni.qml" }
                 }
-            }
 
-            model: ListModel {
-                ListElement { title: "Inserisci Utente"; admin: true; user: false ; source: "qrc:/views/InserisciUtente.qml" }
-                ListElement { title: "Cancella Utente"; admin: true; user: false ; source: "qrc:/views/CancellaUtente.qml" }
-                ListElement { title: "Crea Squadra"; admin: true; user: false ; source: "qrc:/views/CreaSquadra.qml" }
-                ListElement { title: "Allarmi"; admin: false; user: true; source: "qrc:/views/Alarm.qml" }
-                ListElement { title: "Dati Area"; admin: false; user: true; source: "qrc:/views/AreaInfo.qml" }
-                ListElement { title: "Informazioni"; admin: true; user: true; source: "qrc:/views/Impostazioni.qml" }
+                ScrollIndicator.vertical: ScrollIndicator { }
             }
-
-            ScrollIndicator.vertical: ScrollIndicator { }
         }
     }
 

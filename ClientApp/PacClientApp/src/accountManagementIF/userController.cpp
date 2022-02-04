@@ -156,7 +156,7 @@ void UserController::userAdded()
         QScopedPointer<User> newUser(new User());
         newUser->fromJsonDocument(QJsonDocument::fromJson(response));
 
-        if (newUser->getRole() == 2) {
+        if (newUser->getRole() == 1) {
             setForemanForTeam(newUser->getTeam(), newUser->getIdUser());
         }
 

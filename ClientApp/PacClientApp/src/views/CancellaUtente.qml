@@ -31,11 +31,14 @@ Page {
         title: "Utente cancellato!"
         standardButtons: Dialog.Ok
 
+        width: parent.width - 100
+
         Column {
             spacing: 20
             anchors.fill: parent
             Label {
                 text: "L'utente è stato cancellato con successo!"
+                width: parent.width
                 wrapMode: Label.Wrap
             }
         }
@@ -51,12 +54,14 @@ Page {
         modal: true
         title: "Attenzione!"
         standardButtons: Dialog.Ok
+        width: parent.width - 100
 
         Column {
             spacing: 20
             anchors.fill: parent
             Label {
                 text: "Errore durante la cancellazione dell'utente!"
+                width: parent.width
                 wrapMode: Label.Wrap
             }
         }
