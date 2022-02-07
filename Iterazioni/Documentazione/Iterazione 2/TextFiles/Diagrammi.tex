@@ -1,5 +1,7 @@
 \section{Component View}
-Nella figura \ref{fig:ComponentDiagram_iterazione2} è riportato il diagramma a componenti relativo ai casi d'uso sviluppati nell'iterazione 2. In particolare, è possibile notare le interfacce introdotte e la struttura dei componenti lato server e client.
+Nella figura \ref{fig:ComponentDiagram_iterazione2} è riportato il diagramma a componenti relativo ai casi d'uso sviluppati nell'iterazione 2. Per l'implementazione dei microservizi REST è stato utilizzato un modello esagonale: ogni componente all'interno del server \textit{LVSEmergency} è costituito da un \textit{REST Controller}, un'\textit{ApplicationService} e una \textit{Repository}.
+Lato client il progetto è stato strutturato in modo molto simile al server: è stato sviluppato un controller per ogni interfaccia esposta, con il compito di invocare e gestire le API fornite da quella specifica interfaccia. 
+\todo{da rileggere}
 
 \begin{figure}[h!]
 	\centering
@@ -11,7 +13,7 @@ Nella figura \ref{fig:ComponentDiagram_iterazione2} è riportato il diagramma a 
 \clearpage
 
 \section{Class Diagram}
-Di seguito sono riportate le specifiche delle strutture dati \texttt{UserDTO} e \texttt{TeamDTO} (\Fig\ref{fig:ClassDiagramDTO_iterazione2}). Essi sono utilizzati per definire il formato dei dati scambiati tra l'applicazione client e il server. In particolare, grazie alla direttiva \texttt{@JsonProperty(access, JsonProperty.Access.WRITE\_ONLY)}, il campo \texttt{password} presente in \texttt{UserDTO} viene valorizzato dall'app client all'inserimento di un nuovo utente ma non viene mai inviato dal server al client.  
+Di seguito sono riportate le specifiche delle strutture dati \texttt{UserDTO} e \texttt{TeamDTO} (\Fig\ref{fig:ClassDiagramDTO_iterazione2}) inserite nel server. Esse sono utilizzate per definire il formato dei dati scambiati tra l'applicazione client e applicazione server. In particolare, grazie alla direttiva \texttt{@JsonProperty(access, JsonProperty.Access.WRITE\_ONLY)}, il campo \texttt{password} presente in \texttt{UserDTO} non viene mai inviato dal server al client, ma viene inserito dall'app client durante l'inserimento di un nuovo utente.  
 
 \begin{figure}[h!]
 	\centering

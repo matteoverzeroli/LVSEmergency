@@ -5,33 +5,33 @@ QT += quick quickcontrols2
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-        accountManagementIF/user.cpp \
-        accountManagementIF/userController.cpp \
-        areaInformationManagementIF/alarm.cpp \
-        areaInformationManagementIF/aprsdata.cpp \
-        areaInformationManagementIF/area.cpp \
-        areaInformationManagementIF/areacontroller.cpp \
+        accountManagement/user.cpp \
+        accountManagement/userController.cpp \
+        areaInformationManagement/alarm.cpp \
+        areaInformationManagement/aprsdata.cpp \
+        areaInformationManagement/area.cpp \
+        areaInformationManagement/areacontroller.cpp \
         helpers/radialbar.cpp \
         helpers/utils.cpp \
         main.cpp \
         mastercontroller.cpp \
-        teamManagementIF/team.cpp \
-        teamManagementIF/teamcontroller.cpp
+        teamManagement/team.cpp \
+        teamManagement/teamcontroller.cpp
 
 HEADERS += \
-    accountManagementIF/user.h \
-    accountManagementIF/userController.h \
-    areaInformationManagementIF/alarm.h \
-    areaInformationManagementIF/aprsdata.h \
-    areaInformationManagementIF/area.h \
-    areaInformationManagementIF/areacontroller.h \
+    accountManagement/user.h \
+    accountManagement/userController.h \
+    areaInformationManagement/alarm.h \
+    areaInformationManagement/aprsdata.h \
+    areaInformationManagement/area.h \
+    areaInformationManagement/areacontroller.h \
     helpers/entityif.h \
     helpers/radialbar.h \
     helpers/utils.h \
     navigationcontroller.h \
     mastercontroller.h \
-    teamManagementIF/team.h \
-    teamManagementIF/teamcontroller.h
+    teamManagement/team.h \
+    teamManagement/teamcontroller.h
 
 RESOURCES += \
         qml.qrc \
