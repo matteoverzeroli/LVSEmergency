@@ -4,17 +4,17 @@
 #include <QObject>
 #include <QJsonArray>
 #include <QQmlListProperty>
-#include "../accountManagementIF/user.h"
-#include "../areaInformationManagementIF/area.h"
+#include "../accountManagement/user.h"
+#include "../areaInformationManagement/area.h"
 #include "../helpers/entityif.h"
 
-namespace teamManagementIF {
+namespace teamManagement {
 class Team : public helpers::EntityIF
 {
     Q_OBJECT
     Q_PROPERTY(QString teamName READ getTeamName CONSTANT)
-    Q_PROPERTY(QQmlListProperty<accountmanagementIF::User> users READ getUsersQml CONSTANT)
-    Q_PROPERTY(areaInformationManagementIF::Area *area READ getArea CONSTANT)
+    Q_PROPERTY(QQmlListProperty<accountManagement::User> users READ getUsersQml CONSTANT)
+    Q_PROPERTY(areaInformationManagement::Area *area READ getArea CONSTANT)
 public:
     explicit Team(QJsonValue teamObject, QObject *parent = nullptr);
     explicit Team(QObject *parent = nullptr);
@@ -31,16 +31,16 @@ public:
     int getIdForeman();
     void setIdForeman(int newIdForeman);
 
-    QList<accountmanagementIF::User *> getUsers();
-    void setUsers(const QList<accountmanagementIF::User *> &newUsers);
+    QList<accountManagement::User *> getUsers();
+    void setUsers(const QList<accountManagement::User *> &newUsers);
 
-    areaInformationManagementIF::Area *getArea() const;
-    void setArea(areaInformationManagementIF::Area *newArea);
+    areaInformationManagement::Area *getArea() const;
+    void setArea(areaInformationManagement::Area *newArea);
 
     int getIdArea();
     void setIdArea(int newIdArea);
 
-    QQmlListProperty<accountmanagementIF::User> getUsersQml();
+    QQmlListProperty<accountManagement::User> getUsersQml();
 
 signals:
 
@@ -49,8 +49,8 @@ private:
     QString teamName;
     int idForeman {0};
     int idArea;
-    QList<accountmanagementIF::User *> users;
-    areaInformationManagementIF::Area *area {nullptr};
+    QList<accountManagement::User *> users;
+    areaInformationManagement::Area *area {nullptr};
 };
 
 }

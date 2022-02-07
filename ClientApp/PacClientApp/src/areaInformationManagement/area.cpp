@@ -1,6 +1,6 @@
 #include "area.h"
 
-namespace areaInformationManagementIF {
+namespace areaInformationManagement {
 Area::Area(QObject *parent)
     : helpers::EntityIF{}
 {

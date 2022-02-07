@@ -4,11 +4,11 @@ MasterController::MasterController(QObject *parent)
     : QObject{parent}
 {
     navigationController = new NavigationController(this);
-    userController = new accountmanagementIF::UserController(&newtworkManager,
+    userController = new accountManagement::UserController(&newtworkManager,
                                                                 navigationController,
                                                                 this);
-    teamController = new teamManagementIF::TeamController(&newtworkManager, this);
-    areaController = new areaInformationManagementIF::AreaController(&newtworkManager, this);
+    teamController = new teamManagement::TeamController(&newtworkManager, this);
+    areaController = new areaInformationManagement::AreaController(&newtworkManager, this);
 }
 
 NavigationController *MasterController::getNavigationController()
@@ -16,17 +16,17 @@ NavigationController *MasterController::getNavigationController()
     return navigationController;
 }
 
-accountmanagementIF::UserController *MasterController::getUserController()
+accountManagement::UserController *MasterController::getUserController()
 {
     return userController;
 }
 
-teamManagementIF::TeamController *MasterController::getTeamController()
+teamManagement::TeamController *MasterController::getTeamController()
 {
     return teamController;
 }
 
-areaInformationManagementIF::AreaController *MasterController::getAreaController()
+areaInformationManagement::AreaController *MasterController::getAreaController()
 {
     return areaController;
 }

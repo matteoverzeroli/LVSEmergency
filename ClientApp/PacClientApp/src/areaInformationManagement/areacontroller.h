@@ -9,15 +9,15 @@
 #include "aprsdata.h"
 #include "alarm.h"
 
-namespace areaInformationManagementIF {
+namespace areaInformationManagement {
 
 class AreaController : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QStringList areasAvailableList READ getAreasAvailableList NOTIFY areasAvailableListChanged)
-    Q_PROPERTY(areaInformationManagementIF::AprsData *aprsData READ getAprsData NOTIFY aprsDataChanged)
-    Q_PROPERTY(areaInformationManagementIF::Alarm *frogorfrostAlarm READ getFrogOrFrostAlarm NOTIFY frogorfrostAlarmChanged)
-    Q_PROPERTY(areaInformationManagementIF::Alarm *badwheatherAlarm READ getBadWheatherAlarm NOTIFY badWheatherAlarmChanged)
+    Q_PROPERTY(areaInformationManagement::AprsData *aprsData READ getAprsData NOTIFY aprsDataChanged)
+    Q_PROPERTY(areaInformationManagement::Alarm *frogorfrostAlarm READ getFrogOrFrostAlarm NOTIFY frogorfrostAlarmChanged)
+    Q_PROPERTY(areaInformationManagement::Alarm *badwheatherAlarm READ getBadWheatherAlarm NOTIFY badWheatherAlarmChanged)
 public:
     explicit AreaController(QNetworkAccessManager *networkManager,
                             QObject *parent = nullptr);

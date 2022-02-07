@@ -5,7 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-namespace accountmanagementIF {
+namespace accountManagement {
 
 class User : public QObject
 {

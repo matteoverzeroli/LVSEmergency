@@ -6,7 +6,7 @@
 #include <QDateTime>
 #include "../helpers/entityif.h"
 
-namespace areaInformationManagementIF {
+namespace areaInformationManagement {
 class Alarm : public helpers::EntityIF
 {
     Q_OBJECT

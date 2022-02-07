@@ -9,14 +9,14 @@
 #include "./navigationcontroller.h"
 #include "user.h"
 
-namespace accountmanagementIF {
+namespace accountManagement {
 
 class UserController : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(bool authError READ getAuthError NOTIFY authErrorChanged)
     Q_PROPERTY(User *currentUser READ getCurrentUser NOTIFY currentUserChanged)
-    Q_PROPERTY(QQmlListProperty<accountmanagementIF::User> users READ getAllUsers NOTIFY usersChanged)
+    Q_PROPERTY(QQmlListProperty<accountManagement::User> users READ getAllUsers NOTIFY usersChanged)
 public:
     explicit UserController(QNetworkAccessManager *networkManager,
                             NavigationController *navigationController, QObject *parent = nullptr);
@@ -35,14 +35,14 @@ public:
     bool getAuthError();
     User *getCurrentUser();
 
-    QQmlListProperty<accountmanagementIF::User> getAllUsers();
+    QQmlListProperty<accountManagement::User> getAllUsers();
 
 signals:
     void authErrorChanged(bool );
-    void currentUserChanged(accountmanagementIF::User *);
+    void currentUserChanged(accountManagement::User *);
     void userAddedWithSuccess();
     void errorOnAddingNewUser();
-    void usersChanged(QQmlListProperty<accountmanagementIF::User>);
+    void usersChanged(QQmlListProperty<accountManagement::User>);
     void userDeletedWithSuccess();
     void errorWhileDeletingUser();
 

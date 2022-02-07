@@ -3,11 +3,11 @@
 
 #include <QObject>
 #include <QtTest/QtTest>
-#include "../src/accountManagementIF/user.h"
-#include "../src/teamManagementIF/team.h"
-#include "../src/areaInformationManagementIF/area.h"
-#include "../src/areaInformationManagementIF/aprsdata.h"
-#include "../src/areaInformationManagementIF/alarm.h"
+#include "../src/accountManagement/user.h"
+#include "../src/teamManagement/team.h"
+#include "../src/areaInformationManagement/area.h"
+#include "../src/areaInformationManagement/aprsdata.h"
+#include "../src/areaInformationManagement/alarm.h"
 
 class TestEntityIF : public QObject
 {

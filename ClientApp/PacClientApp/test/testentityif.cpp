@@ -10,7 +10,7 @@ void TestEntityIF::testUserFromJson()
                          "\"idTeam\": 3, \"role\": \"FOREMAN\", \"state\": \"ACTIVE\","
                          "\"cf\": \"SLVDVD97A00A000A\" }";
 
-    accountmanagementIF::User *user = new accountmanagementIF::User();
+    accountManagement::User *user = new accountManagement::User();
     user->fromJsonObject(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 
     QVERIFY(user->getIdUser() == 11);
@@ -38,14 +38,14 @@ void TestEntityIF::testTeamFromJson()
                          "\"idTeam\":1,\"role\":\"ADMINISTRATOR\",\"state\":\"ACTIVE\",\"cf\":\"DNARSS80A01C800V\"}"
                          "],\"area\":{\"idArea\":1,\"areaName\":\"Bergamo\",\"lat\":45.69499969482422,\"lng\":9.670000076293945,\"istatCode\":\"016024\"}}";
 
-    teamManagementIF::Team *team = new teamManagementIF::Team();
+    teamManagement::Team *team = new teamManagement::Team();
     team->fromJsonObject(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 
     QVERIFY(team->getTeamName() ==  "BGTeam");
     QVERIFY(team->getIdTeam() == 1);
     QVERIFY(team->getIdForeman() == 4);
 
-    areaInformationManagementIF::Area *area = team->getArea();
+    areaInformationManagement::Area *area = team->getArea();
 
     QVERIFY(area->getAreaName() == "Bergamo");
     QVERIFY(area->getIstatCode() == "016024");
@@ -53,7 +53,7 @@ void TestEntityIF::testTeamFromJson()
     QVERIFY(area->getLat() == 45.69499969482422);
     QVERIFY(area->getLng() == 9.670000076293945);
 
-    QList<accountmanagementIF::User *> users = team->getUsers();
+    QList<accountManagement::User *> users = team->getUsers();
 
     QVERIFY(users.at(0)->getUsername() == "admin");
     QVERIFY(users.at(0)->getName() == "Mario");
@@ -69,7 +69,7 @@ void TestEntityIF::testAreaFromJson()
     QString jsonString = "{\"idArea\":3,\"areaName\":\"Costa di Mezzate\",\"lat\":45.66666793823242,"
                          "\"lng\":9.800000190734863,\"istatCode\":\"016084\"}";
 
-    areaInformationManagementIF::Area *area = new areaInformationManagementIF::Area();
+    areaInformationManagement::Area *area = new areaInformationManagement::Area();
     area->fromJsonObject(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 
     QVERIFY(area->getAreaName() == "Costa di Mezzate");
@@ -85,7 +85,7 @@ void TestEntityIF::testAprsDataFromJson()
                          "\"pressure\":1024.2,\"humidity\":95,\"windDirection\":180.0,\"windSpeed\":0.4,"
                          "\"windGust\":1.3,\"rainOneHour\":0.0,\"rainDay\":0.0,\"rainMidNight\":0.0,\"luminosity\":null}";
 
-    areaInformationManagementIF::AprsData *aprs = new areaInformationManagementIF::AprsData();
+    areaInformationManagement::AprsData *aprs = new areaInformationManagement::AprsData();
     aprs->fromJsonObject(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 
     QVERIFY(aprs->getName() == "cw6134");
@@ -106,7 +106,7 @@ void TestEntityIF::testAlarmFromJson()
     QString jsonString = "{\"idAlarm\":4,\"time\":\"26-01-2022 18:12:24\",\"type\":"
                          "\"FROST\",\"color\":\"GREEN\",\"idArea\":1,\"description\":\"no description\"}";
 
-    areaInformationManagementIF::Alarm *alarm = new areaInformationManagementIF::Alarm();
+    areaInformationManagement::Alarm *alarm = new areaInformationManagement::Alarm();
     alarm->fromJsonObject(QJsonDocument::fromJson(jsonString.toUtf8()).object());
 
     QVERIFY(alarm->getIdArea() == 1);

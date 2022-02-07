@@ -29,13 +29,13 @@ int main(int argc, char *argv[])
     // faccio conoscere al QML le classi che può utilizzare registrando il loro tipo
     qmlRegisterUncreatableType<MasterController>("PacApp", 1, 0, "MasterController", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<NavigationController>("PacApp", 1, 0, "NavigationController", "This class cannot be created by QML.");
-    qmlRegisterUncreatableType<accountmanagementIF::UserController>("PacApp", 1, 0, "UserController", "This class cannot be created by QML.");
-    qmlRegisterUncreatableType<accountmanagementIF::User>("PacApp", 1, 0, "User", "This class cannot be created by QML.");
-    qmlRegisterUncreatableType<teamManagementIF::TeamController>("PacApp", 1, 0, "TeamController", "This class cannot be created by QML.");
-    qmlRegisterUncreatableType<teamManagementIF::Team>("PacApp", 1, 0, "Team", "This class cannot be created by QML.");
-    qmlRegisterUncreatableType<areaInformationManagementIF::Area>("PacApp", 1, 0, "Area", "This class cannot be created by QML.");
-    qmlRegisterUncreatableType<areaInformationManagementIF::AprsData>("PacApp", 1, 0, "AprsData", "This class cannot be created by QML.");
-    qmlRegisterUncreatableType<areaInformationManagementIF::Alarm>("PacApp", 1, 0, "Alarm", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<accountManagement::UserController>("PacApp", 1, 0, "UserController", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<accountManagement::User>("PacApp", 1, 0, "User", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<teamManagement::TeamController>("PacApp", 1, 0, "TeamController", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<teamManagement::Team>("PacApp", 1, 0, "Team", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<areaInformationManagement::Area>("PacApp", 1, 0, "Area", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<areaInformationManagement::AprsData>("PacApp", 1, 0, "AprsData", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<areaInformationManagement::Alarm>("PacApp", 1, 0, "Alarm", "This class cannot be created by QML.");
     qmlRegisterType<helpers::RadialBar>("CustomControls", 1, 0, "RadialBar");
 
     engine.rootContext()->setContextProperty("masterController", &masterController);

@@ -2,7 +2,7 @@
 
 #include <QSettings>
 
-namespace accountmanagementIF {
+namespace accountManagement {
 
 User::User(QObject *parent)
     : QObject{parent}

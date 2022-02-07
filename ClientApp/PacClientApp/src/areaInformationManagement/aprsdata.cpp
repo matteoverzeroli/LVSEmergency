@@ -1,6 +1,6 @@
 #include "aprsdata.h"
 
-namespace areaInformationManagementIF {
+namespace areaInformationManagement {
 AprsData::AprsData(QObject *parent)
     : helpers::EntityIF{}
 {

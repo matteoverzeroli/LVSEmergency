@@ -8,7 +8,7 @@
 #include "./helpers/utils.h"
 
 
-namespace accountmanagementIF {
+namespace accountManagement {
 UserController::UserController(QNetworkAccessManager *networkManager,
                                NavigationController *navigationController, QObject *parent)
     : QObject{parent},
@@ -290,7 +290,7 @@ User *UserController::getCurrentUser()
 
 QQmlListProperty<User> UserController::getAllUsers()
 {
-    return QQmlListProperty<accountmanagementIF::User>(this, &allUsers);
+    return QQmlListProperty<accountManagement::User>(this, &allUsers);
 }
 
 void UserController::resetUser()

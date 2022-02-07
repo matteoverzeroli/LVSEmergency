@@ -6,7 +6,7 @@
 
 #include "../helpers/entityif.h"
 
-namespace areaInformationManagementIF {
+namespace areaInformationManagement {
 class Area : public helpers::EntityIF
 {
     Q_OBJECT

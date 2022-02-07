@@ -7,7 +7,7 @@
 
 #include "team.h"
 
-namespace teamManagementIF {
+namespace teamManagement {
 class TeamController : public QObject
 {
     Q_OBJECT

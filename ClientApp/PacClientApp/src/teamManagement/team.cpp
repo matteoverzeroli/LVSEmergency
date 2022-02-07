@@ -1,6 +1,6 @@
 #include "team.h"
 
-namespace teamManagementIF {
+namespace teamManagement {
 
 Team::Team(QObject *parent)
     : helpers::EntityIF{}
@@ -31,14 +31,14 @@ void Team::fromJsonObject(QJsonObject jsonObject)
     idForeman = jsonObject.value("idForeman").toInt();
 
     QJsonValue areaObject = jsonObject.value("area");
-    area = new areaInformationManagementIF::Area(this);
+    area = new areaInformationManagement::Area(this);
     area->fromJsonObject(areaObject.toObject());
 
     QJsonValue usersObject = jsonObject.value("users");
     QJsonArray usersArray = usersObject.toArray();
     foreach (const QJsonValue & userValue, usersArray) {
-        accountmanagementIF::User *user =
-                new accountmanagementIF::User(userValue.toObject(), this);
+        accountManagement::User *user =
+                new accountManagement::User(userValue.toObject(), this);
         users.append(user);
     }
 }
@@ -73,22 +73,22 @@ void Team::setIdForeman(int newIdForeman)
     idForeman = newIdForeman;
 }
 
-QList<accountmanagementIF::User *> Team::getUsers()
+QList<accountManagement::User *> Team::getUsers()
 {
     return users;
 }
 
-void Team::setUsers(const QList<accountmanagementIF::User *> &newUsers)
+void Team::setUsers(const QList<accountManagement::User *> &newUsers)
 {
     users = newUsers;
 }
 
-areaInformationManagementIF::Area *Team::getArea() const
+areaInformationManagement::Area *Team::getArea() const
 {
     return area;
 }
 
-void Team::setArea(areaInformationManagementIF::Area *newArea)
+void Team::setArea(areaInformationManagement::Area *newArea)
 {
     area = newArea;
 }
@@ -103,9 +103,9 @@ void Team::setIdArea(int newIdArea)
     idArea = newIdArea;
 }
 
-QQmlListProperty<accountmanagementIF::User> Team::getUsersQml()
+QQmlListProperty<accountManagement::User> Team::getUsersQml()
 {
-    return QQmlListProperty<accountmanagementIF::User>(this, &users);
+    return QQmlListProperty<accountManagement::User>(this, &users);
 }
 
 

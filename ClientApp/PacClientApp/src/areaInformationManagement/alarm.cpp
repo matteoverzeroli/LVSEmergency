@@ -1,6 +1,6 @@
 #include "alarm.h"
 
-namespace areaInformationManagementIF {
+namespace areaInformationManagement {
 Alarm::Alarm(QObject *parent)
     : helpers::EntityIF{}
 {

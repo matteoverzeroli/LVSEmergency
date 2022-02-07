@@ -2,7 +2,7 @@
 
 #include "./helpers/utils.h"
 
-namespace teamManagementIF {
+namespace teamManagement {
 
 TeamController::TeamController(QNetworkAccessManager *networkManager, QObject *parent)
     : QObject{parent},

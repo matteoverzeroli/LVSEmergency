@@ -4,7 +4,7 @@
 
 #include "./helpers/utils.h"
 
-namespace areaInformationManagementIF {
+namespace areaInformationManagement {
 AreaController::AreaController(QNetworkAccessManager *networkManager, QObject *parent)
     : QObject{parent},
       networkManager(networkManager)
