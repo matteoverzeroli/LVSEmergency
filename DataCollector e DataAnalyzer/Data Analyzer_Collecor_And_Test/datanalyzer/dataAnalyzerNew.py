@@ -1,13 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Jan 27 14:14:49 2022
-
-@author: Lorenzo Leoni
-"""
-
 import numpy as np
 import pandas as pd
-#import matplotlib.pyplot as plt
 import pmdarima as pm
 import mysql.connector
 import datetime
@@ -15,28 +7,30 @@ import time as tm
 from datetime import datetime as dt
 from threading import Thread as th
 
-#------------------------------------------------------------------------------
 class BadWeatherAllertsCreator(th):
-    def __init__(self, station_code, areaID, conn2, cursor2, index):
+    def __init__(self, station_code, areaID, conn2, cursor2, index, final_old_time_list, old_delta_list):
         th.__init__(self)
         self.station_code = station_code
         self.areaID = areaID
         self.conn2 = conn2
         self.cursor2 = cursor2
         self.index = index
+        self.final_old_time_list = final_old_time_list
         self.old_final_time = final_old_time_list[self.index]
+        self.old_delta_list = old_delta_list
+
         self.recent_time = dt.strptime("2021-04-06 15:00:00", '%Y-%m-%d %H:%M:%S')
         self.old_delta = old_delta_list[self.index]
     
     def run(self):
         # accesso al DB per ottenere la data dell'ultima acquisizione 
-        self.cursor2.execute("SELECT max(time) FROM test.aprsdata WHERE name = %(code)s;", {'code':self.station_code})
+        self.cursor2.execute("SELECT max(time) FROM aprsdata WHERE name = %(code)s;", {'code':self.station_code})
         temporary = self.cursor2.fetchall()
         self.recent_time = list(temporary[0])[0]
         
         # interruzione del thread se dovesse essere già stata elaborata la serie storica 
         # contenente l'ultima acquisizione nel DB
-        if flag == False or self.recent_time == self.old_final_time:
+        if self.recent_time == self.old_final_time:
             print("No new row")
             self.conn2.close()
             self.cursor2.close()
@@ -44,7 +38,7 @@ class BadWeatherAllertsCreator(th):
         
         # analisi ed elaborazione delle serie storica relativa alla pressione atmosferica delle ultime 24 ore
         pressure_DB = pd.DataFrame(columns=['time','pressure'])
-        self.cursor2.execute("SELECT time, pressure FROM test.aprsdata WHERE name = %(code)s", {'code':self.station_code})
+        self.cursor2.execute("SELECT time, pressure FROM aprsdata WHERE name = %(code)s", {'code':self.station_code})
         info = self.cursor2.fetchall()
         for i in range(len(info)):
             pressure_DB.loc[i] = list(info[i])
@@ -72,8 +66,8 @@ class BadWeatherAllertsCreator(th):
             self.__allertsCreator("C4", delta)
             
         # aggiornamenti degli ultimi delta e tf, commit, chiusura della connessione e terminazione del thread
-        final_old_time_list[self.index] = self.recent_time
-        old_delta_list[self.index] = delta
+        self.final_old_time_list[self.index] = self.recent_time
+        self.old_delta_list[self.index] = delta
         self.conn2.commit()
         self.conn2.close()
         self.cursor2.close()
@@ -91,30 +85,32 @@ class BadWeatherAllertsCreator(th):
         elif case == "C4":
             coulor = "NONE"
             description = "Pressione in diminuzione, delta = " + str(round(delta,2))
-        self.cursor2.execute("INSERT INTO test.alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
+        self.cursor2.execute("INSERT INTO alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
                               (dt.now().strftime('%Y-%m-%d %H:%M:%S'), "BW", coulor, int(self.areaID), description))
         
-#------------------------------------------------------------------------------
+
 class FogFrostAllertsCreator (th):
-    def __init__(self, station_code, areaID, conn1, cursor1, index):
+    def __init__(self, station_code, areaID, conn1, cursor1, index, final_old_time_list, old_delta_list):
         th.__init__(self)
         self.station_code = station_code
         self.areaID = areaID
         self.conn1 = conn1
         self.cursor1 = cursor1
         self.index = index
+        self.final_old_time_list = final_old_time_list
+        self.old_delta_list = old_delta_list
         self.old_final_time = final_old_time_list[self.index]
         self.recent_time = dt.strptime("2021-04-06 15:00:00", '%Y-%m-%d %H:%M:%S')
     
     def run(self):
         # accesso al DB per ottenere la data dell'ultima acquisizione
-        self.cursor1.execute("SELECT max(time) FROM test.aprsdata WHERE name = %(code)s;", {'code':self.station_code})
+        self.cursor1.execute("SELECT max(time) FROM aprsdata WHERE name = %(code)s;", {'code':self.station_code})
         temporary = self.cursor1.fetchall()
         self.recent_time = list(temporary[0])[0]
         
         # interruzione del thread se dovesse essere già stata elaborata la serie storica 
         # contenente l'ultima acquisizione nel DB
-        if flag == False or self.recent_time == self.old_final_time:
+        if self.recent_time == self.old_final_time:
             print("No new row")
             self.conn1.close()
             self.cursor1.close()
@@ -176,7 +172,7 @@ class FogFrostAllertsCreator (th):
             self.__allertsCreator()
         
         # aggiornamenti dell'ultimo tf, commit, chiusura della connessione e terminazione del thread
-        final_old_time_list[self.index] = self.recent_time
+        self.final_old_time_list[self.index] = self.recent_time
         self.conn1.commit()
         self.conn1.close()
         self.cursor1.close()
@@ -185,10 +181,10 @@ class FogFrostAllertsCreator (th):
         # analisi ed elaborazione delle serie storica del parametro temperatura o umidità relativa 
         # delle ultime 3 ore a scopo predittivo
         if parameter == "temperature":
-            self.cursor1.execute("SELECT time, temperature FROM test.aprsdata WHERE name = \
+            self.cursor1.execute("SELECT time, temperature FROM aprsdata WHERE name = \
                        %(station)s;", {'station':self.station_code})
         else:
-            self.cursor1.execute("SELECT time, humidity FROM test.aprsdata WHERE \
+            self.cursor1.execute("SELECT time, humidity FROM aprsdata WHERE \
                            name = %(station)s;", {'station':self.station_code})
         info = self.cursor1.fetchall()
         thread_DB = pd.DataFrame(columns=["time", parameter])
@@ -237,33 +233,30 @@ class FogFrostAllertsCreator (th):
         return ((a*T)/(b+T)) + np.log(UR/100)
     
     def __allertsCreator(self, t=None, typology=None):
-        #coulor = None
-        #delta = None
-        #trad = None
         if t is not None:
             if t == "tf":
                 coulor = "RED"
                 delta = "attuale"
             elif t == "t1":
                 coulor = "ORANGE"
-                delta = "10 minuti"
+                delta = "tra 10 minuti"
             elif t == "t2":
                 coulor = "GREEN"
-                delta = "20 minuti"
+                delta = "tra 20 minuti"
             elif t == "t3":
                 coulor = "WHITE"
-                delta = "30 minuti"
+                delta = "tra 30 minuti"
             if typology == "FROST":
                 trad = "brina"
             elif typology == "FOG":
                 trad = "nebbia"
-            description = "Rischio " + trad + " tra " + delta
-            self.cursor1.execute("INSERT INTO test.alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
+            description = "Rischio " + trad + " " + delta
+            self.cursor1.execute("INSERT INTO alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
                               (dt.now().strftime('%Y-%m-%d %H:%M:%S'), typology, coulor, int(self.areaID), description))
         else:
             description = "Nessun rischio nè attuale nè previsto"
             typology = "FOG"
-            self.cursor1.execute("INSERT INTO test.alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
+            self.cursor1.execute("INSERT INTO alarm (time, type, color, idArea, description) VALUES (%s, %s, %s, %s, %s);",\
                               (dt.now().strftime('%Y-%m-%d %H:%M:%S'), typology, "NONE", int(self.areaID), description))
                 
     def __debug(self, t, typology, summaryT, summaryTd):
@@ -287,80 +280,82 @@ class FogFrostAllertsCreator (th):
         print("***")
         print(" ")
         
-#------------------------------------------------------------------------------   
-# definizione dei parametri per aprire la connessione con il DB
-config = {
-  'host':'progettopacdb.mysql.database.azure.com',
-  'user':'dsalvetti',
-  'password':'Progettopac2021!',
-  'database':'test',
-  'client_flags': [mysql.connector.ClientFlag.SSL],
-  'ssl_ca': 'C:\\Users\\loren\\Desktop\\Progetto PAC\\DataCollector e DataAnalyzer\\DigiCertGlobalRootG2.crt.pem'
-}
+def algorithm(database, isTest):
+     # definizione dei parametri per aprire la connessione con il DB
+    config = {
+      'host':'progettopacdb.mysql.database.azure.com',
+      'user':'dsalvetti',
+      'password':'Progettopac2021!',
+      'database':database
+    }
 
-# inizializzazione delle variabili di supporto all'esecuzione dei thread
-stop_time = "2022-02-28 00:00:00"
-stop_time = dt.strptime(stop_time, '%Y-%m-%d %H:%M:%S')
-final_old_time_list = [None]*100
-old_delta_list = [0]*100
-flag = True
+    # inizializzazione delle variabili di supporto all'esecuzione dei thread
 
-while stop_time > dt.now():
-    # apertura della connessione con il DB e definizione del sistema di riconnessione automatico
-    connected = False
-    while connected == False:
-        try:
-            conn = mysql.connector.connect(**config)
-            print("***")
-            print("Connection established")
-        except mysql.connector.Error:
-            print("An error is occured at " + dt.now().strftime('%Y-%m-%d %H:%M:%S'))
-            print("--> Retrying between 10 seconds")
-            print(" ")
-            tm.sleep(15)
-        else:
-            cursor = conn.cursor()
-            connected = True
-            
-    # accesso ai dati relativi alle zone
-    cursor.execute("SELECT * FROM test.area;")
-    rows = cursor.fetchall()
-    area_DB = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
-    for i in range(len(rows)):
-        area_DB.loc[i] = list(rows[i])
+    final_old_time_list = [None]*100
+    old_delta_list = [0]*100
     
-    # creazione dei thread per la generazione delle allerte nebbia, brina e maltempo, uno per ogni zona
-    fogFrostAllertsCreators = []
-    badWeatherAllertsCreators = []
-    for i in range(len(rows)):
-        if area_DB.at[i, "nameAprStation"] is not None:
-            conn1 = mysql.connector.connect(**config)
-            cursor1 = conn1.cursor()
-            conn2 = mysql.connector.connect(**config)
-            cursor2 = conn2.cursor()
-            t = FogFrostAllertsCreator(area_DB.at[i, "nameAprStation"], area_DB.at[i, "idArea"], conn1, cursor1, i)
-            w = BadWeatherAllertsCreator(area_DB.at[i, "nameAprStation"], area_DB.at[i, "idArea"], conn2, cursor2, i)
-            fogFrostAllertsCreators.append(t)
-            badWeatherAllertsCreators.append(w)
+    while True:
+        # apertura della connessione con il DB e definizione del sistema di riconnessione automatico
+        connected = False
+        while connected == False:
+            try:
+                conn = mysql.connector.connect(**config)
+                print("***")
+                print("Connection established")
+            except mysql.connector.Error as e:
+                print("An error is occured at " + dt.now().strftime('%Y-%m-%d %H:%M:%S'))
+                print("--> Retrying between 10 seconds")
+                print(" ")
+                print(e)
+                tm.sleep(15)
+            else:
+                cursor = conn.cursor()
+                connected = True
+
+        # accesso ai dati relativi alle zone
+        cursor.execute("SELECT * FROM area;")
+        rows = cursor.fetchall()
+        area_DB = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
+        for i in range(len(rows)):
+            area_DB.loc[i] = list(rows[i])
+   
+        # creazione dei thread per la generazione delle allerte nebbia, brina e maltempo, uno per ogni zona
+        fogFrostAllertsCreators = []
+        badWeatherAllertsCreators = []
+        for i in range(len(rows)):
+            if area_DB.at[i, "nameAprStation"] is not None:
+                conn1 = mysql.connector.connect(**config)
+                cursor1 = conn1.cursor()
+                conn2 = mysql.connector.connect(**config)
+                cursor2 = conn2.cursor()
+                t = FogFrostAllertsCreator(area_DB.at[i, "nameAprStation"], area_DB.at[i, "idArea"], conn1, cursor1, i, final_old_time_list, old_delta_list)
+                w = BadWeatherAllertsCreator(area_DB.at[i, "nameAprStation"], area_DB.at[i, "idArea"], conn2, cursor2, i, final_old_time_list, old_delta_list)
+                fogFrostAllertsCreators.append(t)
+                badWeatherAllertsCreators.append(w)
     
-    # avvio dei thread         
-    for i in fogFrostAllertsCreators:
-        i.start()
-    for i in badWeatherAllertsCreators:
-        i.start()
+        # avvio dei thread         
+        for i in fogFrostAllertsCreators:
+            i.start()
+        for i in badWeatherAllertsCreators:
+            i.start()
     
-    # join dei thread precedentemete avviati
-    for i in fogFrostAllertsCreators:
-        i.join()
-    for i in badWeatherAllertsCreators:
-        i.join()
+        # join dei thread precedentemete avviati
+        for i in fogFrostAllertsCreators:
+            i.join()
+        for i in badWeatherAllertsCreators:
+            i.join()
     
-    # chiusura della connessione con il DB
-    cursor.close()
-    conn.close()
-    print("Done.")
-    print("***")
-    print(" ")
-    tm.sleep(60*5)
-    
-#------------------------------------------------------------------------------
+        # chiusura della connessione con il DB
+        cursor.close()
+        conn.close()
+        print("Done.")
+        print("***")
+        print(" ")
+
+        if isTest:
+            break
+
+        tm.sleep(60*5)
+
+if __name__ == '__main__':
+    algorithm("testalg", False)
