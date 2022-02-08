@@ -4,7 +4,7 @@ L'architettura del sistema è stata formalizzata attraverso due deployment diagr
 
 \begin{itemize}
 	\item l'applicativo \textbf{LVSEmergency}, che si occupa della gestione di richieste HTTP/REST che permettono l'interazione con i client;
-	\item due componenti autonome: un \textbf{Data Collector} che si occupa di recuperare informazioni dai \textit{data server} tramite API REST e le inserisce all'interno del database, ed un \textbf{Data Analyzer} che si occupa di effettuare delle analisi sui dati acquisiti con lo scopo di identificare possibili situazioni di allarme. È bene notare che queste due applicazioni non costituiscono una vera e propria \textit{Big Data Pipeline} in quanto vengono effettuate solo la collezione e l'analisi dei dati raccolti. \todo{Davide dice: "vedere se ho scritto una stronzata"}
+	\item due componenti autonome: un \textbf{Data Collector} che si occupa di recuperare informazioni dai \textit{data server} tramite API REST e le inserisce all'interno del database, ed un \textbf{Data Analyzer} che si occupa di effettuare delle analisi sui dati acquisiti con lo scopo di identificare possibili situazioni di allarme. È bene notare che queste due applicazioni non costituiscono una vera e propria \textit{Big Data Pipeline} in quanto vengono effettuate solo la collezione e l'analisi dei dati raccolti. \todo{da controllare}
 \end{itemize}
 
 Nel \textit{data layer} troviamo invece un database all'interno del quale sono inseriti tutti i dati utilizzati dal sistema.
