@@ -358,4 +358,4 @@ def algorithm(database, isTest):
         tm.sleep(60*5)
 
 if __name__ == '__main__':
-    algorithm("testalg", False)
+    algorithm("test", False)
