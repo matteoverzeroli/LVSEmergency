@@ -304,15 +304,14 @@ def algorithm(database, isTest):
                 conn = mysql.connector.connect(**config)
                 print("***")
                 print("Connection established")
+                cursor = conn.cursor()
+                connected = True
             except mysql.connector.Error as e:
                 print("An error is occured at " + dt.now().strftime('%Y-%m-%d %H:%M:%S'))
                 print("--> Retrying between 10 seconds")
                 print(" ")
                 print(e)
                 tm.sleep(15)
-            else:
-                cursor = conn.cursor()
-                connected = True
 
         # accesso ai dati relativi alle zone
         cursor.execute("SELECT * FROM area;")
