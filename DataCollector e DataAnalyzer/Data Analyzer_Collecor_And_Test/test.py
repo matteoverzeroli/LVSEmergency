@@ -14,7 +14,8 @@ config = {
     'database':'testalg'
 }
 
-def initializeDatabase() : 
+def initialize_database() : 
+    print("***Inizializing database for test")
     conn = mysql.connector.connect(**config)
     cursor = conn.cursor()
 
@@ -28,6 +29,7 @@ def initializeDatabase() :
     cursor.execute("INSERT INTO area (idArea, areaName, lat, lng, nameAprsStation, istatCode) VALUES (%s, %s, %s, %s, %s, %s);",[3, "areatest3", 3.0, 3.0, "test3","333333"])
     cursor.execute("INSERT INTO area (idArea, areaName, lat, lng, nameAprsStation, istatCode) VALUES (%s, %s, %s, %s, %s, %s);",[4, "areatest4", 4.0, 4.0, "test4","444444"])
     cursor.execute("INSERT INTO area (idArea, areaName, lat, lng, nameAprsStation, istatCode) VALUES (%s, %s, %s, %s, %s, %s);",[5, "areatest5", 5.0, 5.0, "test5","555555"])
+    cursor.execute("INSERT INTO area (idArea, areaName, lat, lng, nameAprsStation, istatCode) VALUES (%s, %s, %s, %s, %s, %s);",[6, "areatest6", 5.0, 5.0, "test6","666666"])
 
     #reading all csv file in main directory and insert data in db
 
@@ -97,11 +99,24 @@ def get_fog_WHITE_and_bw_NONE():
 
     return rows
 
+def get_fog_GREEN_and_bw_NONE():
+    conn = mysql.connector.connect(**config)
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT type, color, idArea, description FROM alarm WHERE idArea = 5 ORDER BY type ASC")
+
+    rows = cursor.fetchall()
+
+    conn.close()
+    cursor.close()
+
+    return rows
+
 
 class TestAlgorithmn(unittest.TestCase):
     def test_1_db_initialization(self):
         try:
-            initializeDatabase()
+            initialize_database()
         except:
             self.fail("Exception in initializing db")
 
@@ -136,6 +151,13 @@ class TestAlgorithmn(unittest.TestCase):
         result = get_fog_WHITE_and_bw_NONE()
         
         expected = [('BW', 'NONE', 4, 'Pressione in diminuzione, delta = -0.75'), ('FOG', 'WHITE', 4, 'Rischio nebbia tra 30 minuti')]
+
+        self.assertEqual(result, expected)
+
+    def test_7_fog_GREEN_and_bw_NONE(self):
+        result = get_fog_GREEN_and_bw_NONE()
+        
+        expected = [('BW', 'NONE', 5, 'Pressione in diminuzione, delta = -0.75'), ('FOG', 'GREEN', 5, 'Rischio nebbia tra 20 minuti')]
 
         self.assertEqual(result, expected)
 
