@@ -85,16 +85,16 @@ while True:
     while connected == False:
         try:
             conn = mysql.connector.connect(**config)
+            cursor = conn.cursor()
+            connected = True
             print("***")
             print("Connection established")
+
         except mysql.connector.Error:
             print("An error is occured at " + dt.now().strftime('%Y-%m-%d %H:%M:%S'))
             print("--> Retrying between 10 seconds")
             print(" ")
             tm.sleep(10)
-        else:
-            cursor = conn.cursor()
-            connected = True
 
     # accesso ai dati relativi alle zone
     cursor.execute("SELECT * FROM area;")
