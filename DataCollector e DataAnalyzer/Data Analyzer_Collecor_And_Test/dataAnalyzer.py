@@ -291,8 +291,10 @@ def algorithm(database, isTest):
 
     # inizializzazione delle variabili di supporto all'esecuzione dei thread
 
-    final_old_time_list = [None]*100
-    old_delta_list = [0]*100
+    n_area_max = 100 #maximum number of areas
+
+    final_old_time_list = [None]*n_area_max
+    old_delta_list = [0]*n_area_max
     
     while True:
         # apertura della connessione con il DB e definizione del sistema di riconnessione automatico
@@ -322,6 +324,7 @@ def algorithm(database, isTest):
         # creazione dei thread per la generazione delle allerte nebbia, brina e maltempo, uno per ogni zona
         fogFrostAllertsCreators = []
         badWeatherAllertsCreators = []
+
         for i in range(len(rows)):
             if area_DB.at[i, "nameAprStation"] is not None:
                 conn1 = mysql.connector.connect(**config)

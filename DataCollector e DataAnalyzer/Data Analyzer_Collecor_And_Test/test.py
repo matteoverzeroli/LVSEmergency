@@ -1,6 +1,6 @@
 import unittest
 
-from datanalyzer.dataAnalyzerNew import algorithm
+from dataAnalyzer import algorithm
 import mysql.connector
 from datetime import datetime as dt
 import csv
