@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jan 25 21:05:18 2022
-
-@author: Lorenzo Leoni
-"""
 import mysql.connector
 import pandas as pd
 import requests as rq
@@ -12,7 +6,6 @@ import datetime
 from threading import Thread as th
 from datetime import datetime as dt
 
-#------------------------------------------------------------------------------
 class MyThread (th):
     def __init__(self, name, station_code, API_key, conn1, cursor1):
         th.__init__(self)
@@ -47,7 +40,7 @@ class MyThread (th):
         rain_mn = float(data["entries"][0]["rain_mn"])
         
         # accesso al DB per ottenere la data dell'ultima acquisizione
-        self.cursor1.execute("SELECT max(time) FROM test.aprsdata WHERE name = %(code)s;", {'code':self.station_code})
+        self.cursor1.execute("SELECT max(time) FROM aprsdata WHERE name = %(code)s;", {'code':self.station_code})
         temporary = self.cursor1.fetchall()
         temporary = list(temporary[0])[0]
         if temporary is not None:
@@ -59,7 +52,7 @@ class MyThread (th):
         
         # inserimento nel DB dei dati meteorologici più recenti
         if self.time_old is None or time != self.time_old:
-            self.cursor1.execute("INSERT INTO test.aprsdata (name, time, temperature, pressure, humidity, windDirection, windSpeed, windGust, \
+            self.cursor1.execute("INSERT INTO aprsdata (name, time, temperature, pressure, humidity, windDirection, windSpeed, windGust, \
                            rainOneHour, rainDay, rainMidNight) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);",\
                                   (self.station_code, time, temp, pressure, humidity, wind_direction, wind_speed, wind_gust, rain_1h, rain_24h, rain_mn))
             self.conn1.commit()
@@ -74,26 +67,19 @@ class MyThread (th):
         self.conn1.close()
         self.cursor1.close()
 
-#------------------------------------------------------------------------------
 # definizione dei parametri per aprire la connessione con il DB
 config = {
   'host':'progettopacdb.mysql.database.azure.com',
   'user':'dsalvetti',
   'password':'Progettopac2021!',
-  'database':'test',
-  'client_flags': [mysql.connector.ClientFlag.SSL],
-  'ssl_ca': 'C:\\Users\\loren\\Desktop\\Progetto PAC\\DataCollector e DataAnalyzer\\DigiCertGlobalRootG2.crt.pem'
+  'database':'test'
 }
 
 # definizione delle API key
 API_key = ["165780.vwUJxymaP4yIjUx", "167256.2UfZjqsO8842Bk3l", "167471.rw8Fn5BbbYAYdMw"]
 API_key_num = 0
 
-# definizione del giorno e dell'ora di fine esecuzione
-stop_time = "2022-02-28 00:00:00"
-stop_time = dt.strptime(stop_time, '%Y-%m-%d %H:%M:%S')
-
-while stop_time > dt.now():
+while True:
     # apertura della connessione con il DB e definizione del sistema di riconnessione automatico
     connected = False
     while connected == False:
@@ -111,7 +97,7 @@ while stop_time > dt.now():
             connected = True
 
     # accesso ai dati relativi alle zone
-    cursor.execute("SELECT * FROM test.area;")
+    cursor.execute("SELECT * FROM area;")
     rows = cursor.fetchall()
     area_DB = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
     for i in range(len(rows)):
@@ -156,4 +142,3 @@ while stop_time > dt.now():
     print(" ")
     tm.sleep(60*9)
     
-#------------------------------------------------------------------------------
