@@ -1,4 +1,4 @@
-Il \textit{Data Analyzer} si occupa dell'analisi dei dati raccolti dal \textit{Data Collector} al fine di generale gli allarmi che saranno poi visibili agli utenti tramite l'applicazione client. Come per il \textit{Data Collector}, si è deciso di implementare questo componente come un applicativo Python che verrà in seguito distribuito su un Raspberry Pi4 per la sua esecuzione periodica. Si è scelto di utilizzare questo linguaggio di programmazione poiché per esso sono disponibili numerose librerie per effettuare analisi dei dati, moduli e package che verranno sfruttati per la generazione delle allerte. In particolare, si è scelto di implementare queste ultime per segnalare i rischi nebbia o brina e l'imminente arrivo di una forte perturbazione. Nella figura \ref{fig:DAFlowChart} è rappresentato il diagramma di flusso relativo al Data Analyzer. All'avvio dell'applicazione vengono inizializzate alcune strutture dati di supporto all'esecuzione ciclica degli algoritmi per l'analisi dei dati, algoritmi che sono descritti dettagliatamente in seguito. Successivamente, viene eseguito un tentativo di connessione con il DB seguendo una strategia uguale a quella utilizzata per il \textit{Data Collector}. Se la connessione viene stabilita, allora vengono recuperati dal DB e memorizzati i codici identificativi delle stazioni meteorologiche; essi saranno utilizzati successivamente per accedere ai dati da fornire in input agli algoritmi per la generazione degli allarmi. Dopodiché, viene avviato un thread per ogni zona, il quale si occuperà della generazione delle allerte maltempo tramite l'analisi dei dati relativi alla pressione atmosferica. Altresì vengono avviati i thread che si occupano di analizzare i dati di temperatura e umidità relativa al fine di creare le allerte nebbia e brina. Infine, si attende la terminazione di tutti i thread precedentemente avviati e, a join concluso, viene chiusa la connessione con il DB. Da notare che la periodicità del ciclo è di 5 minuti. 
+Il \textit{Data Analyzer} si occupa dell'analisi dei dati raccolti dal \textit{Data Collector} al fine di generale gli allarmi che saranno poi visibili agli utenti tramite l'applicazione client. Come per il \textit{Data Collector}, si è deciso di implementare questo componente come un applicativo Python che verrà in seguito distribuito su un Raspberry Pi4 per la sua esecuzione periodica. Si è scelto di utilizzare questo linguaggio di programmazione poiché per esso sono disponibili numerose librerie per effettuare analisi dei dati, moduli e package che verranno sfruttati per la generazione delle allerte. In particolare, si è scelto di implementare queste ultime per segnalare i rischi nebbia o brina e l'imminente arrivo di una forte perturbazione. Nella figura \ref{fig:DAFlowChart} è rappresentato il diagramma di flusso relativo al Data Analyzer. All'avvio dell'applicazione vengono inizializzate alcune strutture dati di supporto all'esecuzione ciclica degli algoritmi per l'analisi dei dati, algoritmi che sono descritti dettagliatamente in seguito. Successivamente, viene eseguito un tentativo di connessione con il DB seguendo una strategia uguale a quella utilizzata per il \textit{Data Collector}. Se la connessione viene stabilita, allora vengono recuperati dal DB e memorizzati i codici identificativi delle stazioni meteorologiche; essi saranno utilizzati successivamente per accedere ai dati da fornire in input agli algoritmi per la generazione degli allarmi. Dopodiché, viene avviato un thread per ogni zona, il quale si occuperà della generazione delle allerte maltempo tramite l'analisi dei dati relativi alla pressione atmosferica. Altresì vengono avviati i thread che si occupano di analizzare i dati di temperatura e umidità relativa al fine di creare le allerte nebbia e brina. Infine, si attende la terminazione di tutti i thread precedentemente avviati e, a join concluso, viene chiusa la connessione con il DB. Da notare che la periodicità del ciclo è di 5 minuti.
 
 \begin{figure}[h!]
 	\centering
@@ -89,3 +89,57 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 	\caption{Diagramma di flusso relativo all'algoritmo di generazione delle allerte nebbia e brina, seconda parte.}
 	\label{fig:FFFlowChart2}
 \end{figure}
+
+\clearpage
+
+\SetKwComment{Comment}{/* }{ */}
+\RestyleAlgo{ruled}
+\begin{algorithm}
+	\caption{Data Analyzer}
+	$config \gets$ parametri per stabilire la connessione con il DB\;
+	$n\_area\_max \gets 100$\;
+	$final\_old\_time\_list \gets$ array$\left[1, n\_area\_max\right]$ \Comment*[r]{Inizializzazione a \textit{null}}
+	$old\_delta\_list \gets$ array$\left[1, n\_area\_max\right]$ \Comment*[r]{Inizializzazione a \num{0}}
+	\While{\textit{true}}{
+		$connected \gets false$\;
+		\While{$connected = false$}{
+			$conn \gets$ crea la connessione\;
+			$cursor \gets$ crea il cursore\;
+			\eIf{\textit{non si è verificato un errore}}{
+				$connected \gets true$\;
+			}{
+				attendi 15 secondi\;
+			}
+		}
+	$cursor$.executeQuery(SELECT * FROM area)\;
+	$rows \gets cursor$.fetchAll()\;
+	$num\_areas \gets$ length($rows$)\;
+	$area\_DS \gets$ crea un dataset avente le colonne \{`idArea', `areaName', `lat', `lng', `nameAprStation', `istatCode'\}\;
+	\For{$i = 1$ \KwTo $num\_areas$}{                       
+		$area\_DS\left[i\right] \gets$ copy($rows\left[i\right]$)\;
+		}
+	$fogFrostAllertsCreators \gets$ arraylist$\left[\right]$\ \Comment*[r]{Creazione di una lista vuota}
+	$badWeatherAllertsCreators \gets$ arraylist$\left[ \right]$ \Comment*[r]{Creazione di una lista vuota}
+	\For{$i = 1$ \KwTo $num\_areas$}{
+		$conn1 \gets$ crea la connessione per l'\textit{i}-esimo F\&F thread\;
+		$cursor1 \gets$ crea il cursore per l'\textit{i}-esimo F\&F thread\;
+		$conn2 \gets$ crea la connessione per l'\textit{i}-esimo BW thread\;
+		$cursor2 \gets$ crea il cursore per l'\textit{i}-esimo BW thread\;
+		$t \gets$ \underline{FogFrostAllertsCreator}($area\_DS$ [$i$, `nameAprStation'], $area\_DS$[$i$, `idArea'], $conn1$, $cursor1$, $i$, $final\_old\_time\_list$)\;
+		$w \gets$ \underline{BadWeatherAllertsCreator}($area\_DS$ [$i$, `nameAprStation'], $area\_DS$[$i$, `idArea'], $conn2$, $cursor2$, $i$, $final\_old\_time\_list$, $old\_delta\_list$)\;
+		$fogFrostAllertsCreators$.append($t$)\;
+		$badWeatherAllertsCreators$.append($w$)\;
+		}
+	\For{$i = 1$ \KwTo $num\_areas$}{
+		$fogFrostAllertsCreators\left[i\right]$.run()\;
+		$badWeatherAllertsCreators\left[i\right]$.run()\;
+		}
+	\For{$i = 1$ \KwTo $num\_areas$}{
+		$fogFrostAllertsCreators\left[i\right]$.join()\;
+		$badWeatherAllertsCreators\left[i\right]$.join()\;
+		}
+	chiudi la connessione $conn$\;
+	chiudi il cursore $cursor$\;
+	attendi \SI{5}{\minute}\;
+	}
+\end{algorithm}

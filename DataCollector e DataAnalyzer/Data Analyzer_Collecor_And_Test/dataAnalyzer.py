@@ -90,7 +90,7 @@ class BadWeatherAllertsCreator(th):
         
 
 class FogFrostAllertsCreator (th):
-    def __init__(self, station_code, areaID, conn1, cursor1, index, final_old_time_list, old_delta_list):
+    def __init__(self, station_code, areaID, conn1, cursor1, index, final_old_time_list):
         th.__init__(self)
         self.station_code = station_code
         self.areaID = areaID
@@ -98,7 +98,6 @@ class FogFrostAllertsCreator (th):
         self.cursor1 = cursor1
         self.index = index
         self.final_old_time_list = final_old_time_list
-        self.old_delta_list = old_delta_list
         self.old_final_time = final_old_time_list[self.index]
         self.recent_time = dt.strptime("2021-04-06 15:00:00", '%Y-%m-%d %H:%M:%S')
     
@@ -316,22 +315,23 @@ def algorithm(database, isTest):
         # accesso ai dati relativi alle zone
         cursor.execute("SELECT * FROM area;")
         rows = cursor.fetchall()
-        area_DB = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
-        for i in range(len(rows)):
-            area_DB.loc[i] = list(rows[i])
+        area_DS = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
+        len_DS = len(rows)
+        for i in range(len_DS):
+            area_DS.loc[i] = list(rows[i])
    
         # creazione dei thread per la generazione delle allerte nebbia, brina e maltempo, uno per ogni zona
         fogFrostAllertsCreators = []
         badWeatherAllertsCreators = []
 
-        for i in range(len(rows)):
-            if area_DB.at[i, "nameAprStation"] is not None:
+        for i in range(len_DS):
+            if area_DS.at[i, "nameAprStation"] is not None:
                 conn1 = mysql.connector.connect(**config)
                 cursor1 = conn1.cursor()
                 conn2 = mysql.connector.connect(**config)
                 cursor2 = conn2.cursor()
-                t = FogFrostAllertsCreator(area_DB.at[i, "nameAprStation"], area_DB.at[i, "idArea"], conn1, cursor1, i, final_old_time_list, old_delta_list)
-                w = BadWeatherAllertsCreator(area_DB.at[i, "nameAprStation"], area_DB.at[i, "idArea"], conn2, cursor2, i, final_old_time_list, old_delta_list)
+                t = FogFrostAllertsCreator(area_DS.at[i, "nameAprStation"], area_DS.at[i, "idArea"], conn1, cursor1, i, final_old_time_list)
+                w = BadWeatherAllertsCreator(area_DS.at[i, "nameAprStation"], area_DS.at[i, "idArea"], conn2, cursor2, i, final_old_time_list, old_delta_list)
                 fogFrostAllertsCreators.append(t)
                 badWeatherAllertsCreators.append(w)
     
