@@ -10,16 +10,49 @@ L'applicativo si compone di quattro macro componenti:
 
 In questo modo, l'utente può accedere ed utilizzate l'applicazione ed i servizi offerti in qualunque momento. 
 \\
-In figura x viene mostrata la schermata di login dell'applicazione. L'utente deve inserire username e password che gli sono stati assegnati dal coordinatore. 
-Dopo aver inserito le credenziali, gli verrà mostrata la dashboard (figura x) in cui è possibile osservare alcune informazioni sul proprio account ed una mappa che mostra la posizione dell'area di appartenenza.
-Nel menù laterale è possibile scegliere quali servizi utilizzare (figura x): si possono visualizzare informazioni meteorologiche (figura x), allarmi (figura x) o informazioni sul proprio account e sul proprio team, compresi alcuni dati sui membri del team (figura x).
+\\
+In figura \ref{fig:qtApp}a viene mostrata la schermata di login dell'applicazione. Per accedere alle funzionalità, l'utente deve inserire lo username e la password che gli sono stati fornite dal coordinatore. 
+Dopo aver inserito le credenziali, l'utente accede alla dashboard (figura \ref{fig:qtApp}b) in cui è possibile osservare alcune informazioni sul proprio account ed una mappa che mostra la posizione dell'area di appartenenza.
+Nel menù laterale è possibile scegliere quali funzionalità utilizzare (figura \ref{fig:qtApp}c): si possono visualizzare informazioni meteorologiche (figura \ref{fig:qtApp}e), allarmi (figura \ref{fig:qtApp}d) o informazioni sul proprio account e sul proprio team, compresi alcuni dati sui membri del team (figura \ref{fig:qtApp}f).
 
-Un amministratore del sistema potrà invece scegliere dei servizi diversi da quelli di un utente normale (figura x). Infatti, tale figura ha il compito di inserire nuovi volontari inserendone i dati (figura x), creare nuove squadre (figura z) e cancellare degli utenti (figura z).
-
+Il coordinatore potrà invece scegliere dei servizi diversi da quelli di un utente normale (figura \ref{fig:qtApp2}a). Infatti, tale figura ha il compito di inserire nuovi volontari inserendone i dati (figura \ref{fig:qtApp2}b), creare nuove squadre e cancellare degli utenti (figura \ref{fig:qtApp2}c).
 \todo{Da rileggere}
 
+\begin{figure}[h!]
+	\centering
+	\subfloat[\centering Schermata di Login.]{{\includegraphics[width=4cm]{./Conclusione/ImageFiles/Login} }}%
+	\qquad
+	\subfloat[\centering Dashboard.]{{\includegraphics[width=4cm]{./Conclusione/ImageFiles/dashboard} }}%
+	\qquad
+	\subfloat[\centering Pannello laterale.]{{\includegraphics[width=4cm]{./Conclusione/ImageFiles/LateraleUtente} }}%
+	\qquad
+	\subfloat[\centering Allarmi.]{{\includegraphics[width=4cm]{./Conclusione/ImageFiles/allarmi} }}%
+	\qquad
+	\subfloat[\centering Dati meteorologici.]{{\includegraphics[width=4cm]{./Conclusione/ImageFiles/dati} }}%
+	\qquad
+	\subfloat[\centering Informazioni utente.]{{\includegraphics[width=4cm]{./Conclusione/ImageFiles/info1} }}%
+	\caption{Funzionalità accessibili da volontari e caposquadra.}%
+	\label{fig:qtApp}
+\end{figure}
+
+
+\begin{figure}[h!]
+	\centering
+	\subfloat[\centering Pannello laterale del coordinatore.]{{\includegraphics[width=4cm]{./Conclusione/ImageFiles/LateraleAdmin} }}%
+	\qquad
+	\subfloat[\centering Inserisci utente.]{{\includegraphics[width=4cm]{./Conclusione/ImageFiles/inserisciUtente} }}%
+	\qquad
+	\subfloat[\centering Cancella utente.]{{\includegraphics[width=4cm]{./Conclusione/ImageFiles/cancellaUtente} }}%
+	\caption{Funzionalità accessibili dai coordinatori.}%
+	\label{fig:qtApp2}
+\end{figure}
+
+
+\clearpage
+
+
 \section{Sviluppi futuri}
-Non tutti i casi d'uso definiti sono stati implementati. Di seguito è riportata una tabella riassuntiva di quali casi d'uso sono stati implementati e quali no:
+Non tutti i casi d'uso definiti sono stati implementati. Di seguito è riportata una tabella riassuntiva di quali casi d'uso sono stati implementati e quali no.
 
 \begin{center}
 	\begin{tabular}{|c|c|c|}
