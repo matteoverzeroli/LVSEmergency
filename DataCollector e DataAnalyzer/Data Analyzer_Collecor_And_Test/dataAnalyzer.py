@@ -289,12 +289,6 @@ def algorithm(database, isTest):
     }
 
     # inizializzazione delle variabili di supporto all'esecuzione dei thread
-
-    n_area_max = 100 #maximum number of areas
-
-    final_old_time_list = [None]*n_area_max
-    old_delta_list = [0]*n_area_max
-    
     while True:
         # apertura della connessione con il DB e definizione del sistema di riconnessione automatico
         connected = False
@@ -315,6 +309,12 @@ def algorithm(database, isTest):
         # accesso ai dati relativi alle zone
         cursor.execute("SELECT * FROM area;")
         rows = cursor.fetchall()
+
+        n_areas = len(rows) #maximum number of areas
+
+        final_old_time_list = [None]*n_areas
+        old_delta_list = [0]*n_areas
+
         area_DS = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
         len_DS = len(rows)
         for i in range(len_DS):
