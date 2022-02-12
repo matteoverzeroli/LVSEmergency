@@ -1,4 +1,4 @@
-Il \textit{Data Analyzer} si occupa dell'analisi dei dati raccolti dal \textit{Data Collector} al fine di generale gli allarmi che saranno poi visibili agli utenti tramite l'applicazione client. Come per il \textit{Data Collector}, si è deciso di implementare questo componente come un applicativo Python che verrà in seguito distribuito su un Raspberry Pi 4 per la sua esecuzione periodica. Si è scelto di utilizzare questo linguaggio di programmazione poiché sono disponibili numerose librerie per effettuare analisi dei dati, moduli e package che verranno sfruttati per la generazione delle allerte. In particolare, si è scelto di implementare queste ultime per segnalare i rischi nebbia o brina e l'imminente arrivo di una forte perturbazione. Nella figura \ref{fig:DAFlowChart} è rappresentato il diagramma di flusso relativo al Data Analyzer. All'avvio dell'applicazione vengono inizializzate alcune strutture dati di supporto all'esecuzione ciclica degli algoritmi per l'analisi dei dati, algoritmi che sono descritti dettagliatamente in seguito. Successivamente, viene eseguito un tentativo di connessione con il DB seguendo una strategia uguale a quella utilizzata per il \textit{Data Collector}. Se la connessione viene stabilita, allora vengono recuperati dal DB e memorizzati i codici identificativi delle stazioni meteorologiche; essi saranno utilizzati successivamente per accedere ai dati da fornire in input agli algoritmi per la generazione degli allarmi. Dopodiché, viene avviato un thread per ogni zona, il quale si occuperà della generazione delle allerte maltempo tramite l'analisi dei dati relativi alla pressione atmosferica. Altresì vengono avviati i thread che si occupano di analizzare i dati di temperatura e umidità relativa al fine di creare le allerte nebbia e brina. Infine, si attende la terminazione di tutti i thread precedentemente avviati e, a join concluso, viene chiusa la connessione con il DB. Da notare che la periodicità del ciclo è di 5 minuti.
+Il \textit{Data Analyzer} si occupa dell'analisi dei dati raccolti dal \textit{Data Collector} al fine di generale gli allarmi che saranno poi visibili agli utenti tramite l'applicazione client. Come per il \textit{Data Collector}, si è deciso di implementare questo componente come un applicativo Python che verrà in seguito distribuito su un Raspberry Pi4 per la sua esecuzione periodica. Si è scelto di utilizzare questo linguaggio di programmazione poiché sono disponibili numerose librerie per effettuare analisi dei dati, moduli e package che verranno sfruttati per la generazione delle allerte. In particolare, si è scelto di implementare queste ultime per segnalare i rischi nebbia o brina e l'imminente arrivo di una forte perturbazione. Nella figura \ref{fig:DAFlowChart} è rappresentato il diagramma di flusso relativo al Data Analyzer. All'avvio dell'applicazione vengono inizializzate alcune strutture dati di supporto all'esecuzione ciclica degli algoritmi per l'analisi dei dati, algoritmi che sono descritti dettagliatamente in seguito. Successivamente, viene eseguito un tentativo di connessione con il DB seguendo una strategia uguale a quella utilizzata per il \textit{Data Collector}. Se la connessione viene stabilita, allora vengono recuperati dal DB e memorizzati i codici identificativi delle stazioni meteorologiche; essi saranno utilizzati successivamente per accedere ai dati da fornire in input agli algoritmi per la generazione degli allarmi. Dopodiché, viene avviato un thread per ogni zona, il quale si occuperà della generazione delle allerte maltempo tramite l'analisi dei dati relativi alla pressione atmosferica. Altresì vengono avviati i thread che si occupano di analizzare i dati di temperatura e umidità relativa al fine di creare le allerte nebbia e brina. Infine, si attende la terminazione di tutti i thread precedentemente avviati e, a join concluso, viene chiusa la connessione con il DB. Da notare che la periodicità del ciclo è di 5 minuti.
 
 \begin{figure}[h!]
 	\centering
@@ -163,7 +163,7 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 			$recent\_time \gets$ inizializza con una data e un orario passati\;
 		}
 		\Fn{join()}{
-			metodo eriditato dalla superclasse \textit{Thread}\;
+			metodo ereditato dalla superclasse \textit{Thread}\;
 		}
 	}
 \end{algorithm}
@@ -221,6 +221,48 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 			chiudi la connessione $conn$\;
 			chiudi il cursore $cursor$\;
 		}	
+	}
+\end{algorithm}
+
+\begin{algorithm}
+	\SetKwProg{Fn}{Def}{ is}{end}
+	\SetKwProg{Class}{Class}{:}{end}
+	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
+	\caption{generatore di allerte nebbia e brina, parte 1}
+	\Class{fogFrostAllertsCreator as Thread}{
+		\Fn{init(station\_code, areaID, conn, cursor, index, old\_final\_time\_list}{
+			\textbf{this}.$station\_code \gets station\_code$\;
+			\textbf{this}.$areaID \gets areaID$\;
+			\textbf{this}.$conn \gets conn$\;
+			\textbf{this}.$cursor \gets cursor$\;
+			\textbf{this}.$index \gets index$\;
+			\textbf{this}.$old\_final\_time\_list \gets old\_final\_time\_list$\;
+			$recent\_time \gets$ inizializza con una data e un orario passati\;
+		}
+		\Fn{join()}{
+			metodo ereditato dalla superclasse \textit{Thread}\;
+		}
+	}
+\end{algorithm}
+
+\begin{algorithm}
+	\SetKwProg{Fn}{Def}{ is}{end}
+	\SetKwProg{Class}{Class}{:}{end}
+	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
+	\caption{generatore di allerte nebbia e brina, parte 2}
+	\Class{fogFrostAllertsCreator as Thread}{
+		\Fn{run()}{
+			$cursor$.executeQuery(SELECT max(time) FROM aprsdata WHERE name = station\_code)\;
+			$recent\_time \gets$ $cursor$.fetchAll()\;
+			\If{$recent\_time = old\_final\_time\_list\left[i\right]$}{
+				chiudi la connessione $conn$\;
+				chiudi il cursore $cursor$\;
+				\textbf{return}\;
+			}
+		}
+		$summaryT \gets$ crea un dataset per la temperatura avente le colonne \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
+		$summaryUR \gets$ crea un dataset per l'umidità relativa avente le colonne \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
+		$summaryTd \gets$ crea un dataset per la temperatura di rugiada avente le colonne \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
 	}
 \end{algorithm}
 
