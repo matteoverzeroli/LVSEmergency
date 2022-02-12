@@ -1,3 +1,37 @@
+\section{Sviluppi futuri}
+Non tutti i casi d'uso definiti sono stati implementati. Di seguito è riportata una tabella riassuntiva di quali casi d'uso sono stati implementati e quali no.
+
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		\textbf{Codice} & \textbf{Caso d'uso} & \textbf{Implementato} \\ \hline
+		\multicolumn{3}{|c|}{Alta Priorità} \\ \hline
+		\textbf{UC1} & Login & Sì\\ \hline
+		\textbf{UC2} & Logout & Sì \\ \hline
+		\textbf{UC3} & Visualizzazione informazioni account & Sì \\ \hline
+		\textbf{UC4} & Visualizzazione informazioni squadra & Sì \\ \hline
+		\textbf{UC15} & Inserimento utente & Sì \\ \hline
+		\textbf{UC16} & Cancellazione utente & Sì\\ \hline
+		\textbf{UC17} & Gestione squadre (creazione) & Sì \\ \hline
+		\textbf{UC18} & Visualizzazione informazioni zona & Sì \\ \hline
+		\multicolumn{3}{|c|}{Media Priorità} \\ \hline
+		\textbf{UC6} & Segnalazione operatività & Sì\\ \hline
+		\textbf{UC7} & Visualizzazione intervento di emergenza & No \\ \hline
+		\textbf{UC8} & Visualizzazione intervento programmato & No \\ \hline
+		\textbf{UC9} & Inserimento informazioni intervento & No \\ \hline
+		\textbf{UC11} & Gestione intervento di emergenza & No \\ \hline
+		\textbf{UC12} & Gestione intervento programmato & No \\ \hline
+		\textbf{UC13} & Gestione report intervento di emergenza & No \\ \hline
+		\textbf{UC14} & Gestione report intervento programmato & No \\ \hline
+		\textbf{UC20} & Gestione informazioni relative alla zona & No \\ \hline
+		\multicolumn{3}{|c|}{Bassa Priorità} \\ \hline
+		\textbf{UC5} & Gestione reperibilità & No\\ \hline
+		\textbf{UC10} & Visualizzazione posizione real-time & No\\ \hline
+		\textbf{UC19} & Notifiche allarmi zona & No\\ \hline
+	\end{tabular}
+\end{center}
+
+
 \section{Approfondimento - Qt}
 Qt è un framework per lo sviluppo di applicazioni cross-platform: con un unico codice è possibile creare applicazioni in grado di girare su diversi sistemi operativi, come Windows, Macos, Android e iOs. Il linguaggio su cui si basa è il C++ ma è possibile utilizzare anche altri linguaggi, come Python e Java. La potenzialità del framework Qt è la sua architettura modulare con un elevato livello di astrazione rispetto la piattaforma sottostante. Il modulo principale, \textit{QtCore}, include l'implementazione di svariate strutture dati, inclusi tipi generici e classi apposite per la manipolazione delle stringhe di testo. Per la creazione di interfacce grafiche, uno dei componenti principali è il \textit{Qt Widget}, che viene utilizzato principalmente per lo sviluppo in ambito Desktop. Per applicazioni embedded, invece, viene utilizzato il modulo \textit{QtQuick} che garantisce una maggiore separazione tra le entità coinvolte nell'implementazione dell'interfaccia grafica e quelle che riguardano la \textit{business logic} dell'applicazione. 
 \\

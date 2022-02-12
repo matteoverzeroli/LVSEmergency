@@ -33,7 +33,7 @@ Di seguito vengono riportati i casi d'uso raggruppati in base all'attore. Gli at
 	come volontario, voglio poter visualizzare le informazioni relative ad un intervento programmato a cui sono stato assegnato.
 	
 	\item \textbf{UC9 - Inserimento informazioni intervento}:
-	come volontario, voglio poter arricchire la documentazione relativa all'intervento, programmato oppure di emergenza, a cui sono stato assegnato aggiungendo foto e osservazioni.
+	come volontario, voglio poter arricchire la documentazione relativa all'intervento, programmato oppure di emergenza, a cui sono stato assegnato, aggiungendo foto e osservazioni.
 	
 	\item \textbf{UC10 - Visualizzazione posizione real-time}:
 	come volontario, voglio poter visualizzare su una mappa la posizione in tempo reale dei colleghi operativi appartenenti alla mia squadra durante un intervento.
@@ -91,7 +91,8 @@ Il caposquadra include tutti i casi d'uso del volontario più i seguenti:
 \clearpage
 \subsection{Diagramma dei casi d'uso}
 In figura \ref{fig:UseCaseDiagram} è stato riportato il diagramma dei casi d'uso. In questo diagramma sono stati inseriti i casi d'uso descritti in precedenza mettendoli in correlazione con il corrispettivo attore. È importante notare che la figura del \textit{caposquadra} è una specializzazione del \textit{volontario} e di conseguenza eredita tutti i suoi casi d'uso, oltre ad implementarne altri personalizzati. 
-I componenti in grigio sono invece gli attori secondari e vengono utilizzati per implementare alcuni casi d'uso particolari. 
+I componenti in grigio sono invece gli attori secondari, i quali sono esterni al sistema e servono per implementare alcune funzionalità particolari.
+\todo{Davide dice: "Verificare che sia corretta la frase qua sopra"} 
 \begin{landscape}
 	\begin{figure}[b]
 		\centering
@@ -101,10 +102,12 @@ I componenti in grigio sono invece gli attori secondari e vengono utilizzati per
 	\end{figure}
 \end{landscape}
 
+\subsection{Priorità dei requisiti}
 \subsubsection{Coda ad alta priorità}
 I casi d'uso con priorità più alta sono quelli necessari alla popolazione del database, alla gestione dell'account utente ed alla visualizzazione delle informazioni sulla zona.
 
-\begin{center}
+\begin{table}[h!]
+	\centering
 	\begin{tabular}{|c|c|}
 		\hline
 		\textbf{Codice} & \textbf{Caso d'uso} \\ \hline
@@ -114,15 +117,18 @@ I casi d'uso con priorità più alta sono quelli necessari alla popolazione del 
 		\textbf{UC4} & Visualizzazione informazioni squadra \\ \hline
 		\textbf{UC15} & Inserimento utente \\ \hline
 		\textbf{UC16} & Cancellazione utente\\ \hline
-		\textbf{UC17} & Gestione squadre (creazione) \\ \hline
+		\textbf{UC17} & Gestione squadre \\ \hline
 		\textbf{UC18} & Visualizzazione informazioni zona \\ \hline
+		
 	\end{tabular}
-\end{center}
+	\caption{\label{tab:codaHighPriority}Coda ad alta priorità.}
+\end{table}
 
 \subsubsection{Coda a media priorità}
 I casi d'uso con priorità media sono quelli relativi alla gestione degli interventi.
 
-	\begin{center}
+	\begin{table}[h!]
+		\centering
 		\begin{tabular}{|c|c|}
 			\hline
 			\textbf{Codice} & \textbf{Caso d'uso} \\ \hline
@@ -136,11 +142,13 @@ I casi d'uso con priorità media sono quelli relativi alla gestione degli interv
 			\textbf{UC14} & Gestione report intervento programmato \\ \hline
 			\textbf{UC20} & Gestione informazioni relative alla zona \\ \hline
 		\end{tabular}
-	\end{center}
+		\caption{\label{tab:codaMediumPriority}Coda a media priorità.}
+	\end{table}
 
 \subsubsection{Coda a bassa priorità}
-I casi d'uso con bassa priorità sono quelli relativi a funzionalità aggiuntive.
-	\begin{center}
+I casi d'uso con bassa priorità sono quelli relativi a funzionalità aggiuntive non fondamentali.
+	\begin{table}[h!]
+		\centering
 		\begin{tabular}{|c|c|}
 			\hline
 			\textbf{Codice} & \textbf{Caso d'uso} \\ \hline
@@ -149,5 +157,6 @@ I casi d'uso con bassa priorità sono quelli relativi a funzionalità aggiuntive
 			\textbf{UC19} & Notifiche allarmi zona\\ \hline
 
 		\end{tabular}
-	\end{center}
+		\caption{\label{tab:codaLowPriority}Coda a bassa priorità.}
+	\end{table}
 

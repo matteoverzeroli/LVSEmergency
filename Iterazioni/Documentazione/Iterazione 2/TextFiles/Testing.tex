@@ -59,7 +59,7 @@ Il risultato del test con JUnit ha confermato il corretto funzionamento della fu
 \end{figure}
 
 \subsubsection{Client app}
-Lato client è stata testata la corretta creazione delle classi \texttt{User}, \texttt{Team} e \texttt{Area} a partire da una stringa Json. Per fare ciò, è stato utilizzato il framework \textit{Qt Test}. Di seguito viene riportato il codice del test.
+Lato client è stata testata la corretta creazione delle classi \texttt{User}, \texttt{Team} e \texttt{Area} a partire da una stringa JSON. Per fare ciò, è stato utilizzato il framework \textit{Qt Test}. Per effettuare il parsing è stata utilizzata la libreria \textit{QJsonDocument}, fornita da Qt: si tratta di una classe che è in grado di analizzare un documento JSON con funzionalità di lettura e scrittura. Di seguito viene riportato il codice del test.
  
 \lstinputlisting[language=C++]{./Iterazione 2/OtherFiles/testentityif.cpp}
 
@@ -72,7 +72,7 @@ Il risultato del test ha confermato il corretto funzionamento delle funzioni.
 	\label{fig:RisultatiTestQTestIT2}
 \end{figure}
 
-\subsection{Documentazione API}
+\section{Documentazione API}
 
 In questa sezione viene mostrata la documentazione relativa ad alcune API implementate nell'iterazione 2. \`E possibile visualizzare una collezione (creata con Postman) di tutte le API realizzate e testate sulla repository GitHub. In particolare, si riportano di seguito le più significative:
 \begin{itemize}
