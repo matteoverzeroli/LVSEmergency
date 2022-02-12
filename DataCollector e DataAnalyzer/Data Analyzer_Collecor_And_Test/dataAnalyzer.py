@@ -8,19 +8,16 @@ from datetime import datetime as dt
 from threading import Thread as th
 
 class BadWeatherAllertsCreator(th):
-    def __init__(self, station_code, areaID, conn2, cursor2, index, final_old_time_list, old_delta_list):
+    def __init__(self, station_code, areaID, conn2, cursor2, index, old_final_time_list, old_delta_list):
         th.__init__(self)
         self.station_code = station_code
         self.areaID = areaID
         self.conn2 = conn2
         self.cursor2 = cursor2
         self.index = index
-        self.final_old_time_list = final_old_time_list
-        self.old_final_time = final_old_time_list[self.index]
+        self.old_final_time_list = old_final_time_list
         self.old_delta_list = old_delta_list
-
         self.recent_time = dt.strptime("2021-04-06 15:00:00", '%Y-%m-%d %H:%M:%S')
-        self.old_delta = old_delta_list[self.index]
     
     def run(self):
         # accesso al DB per ottenere la data dell'ultima acquisizione 
@@ -30,27 +27,27 @@ class BadWeatherAllertsCreator(th):
         
         # interruzione del thread se dovesse essere già stata elaborata la serie storica 
         # contenente l'ultima acquisizione nel DB
-        if self.recent_time == self.old_final_time:
+        if self.recent_time == self.old_final_time_list[self.index]:
             print("No new row")
             self.conn2.close()
             self.cursor2.close()
             return
         
         # analisi ed elaborazione delle serie storica relativa alla pressione atmosferica delle ultime 24 ore
-        pressure_DB = pd.DataFrame(columns=['time','pressure'])
+        pressure_DS = pd.DataFrame(columns=['time','pressure'])
         self.cursor2.execute("SELECT time, pressure FROM aprsdata WHERE name = %(code)s", {'code':self.station_code})
         info = self.cursor2.fetchall()
         for i in range(len(info)):
-            pressure_DB.loc[i] = list(info[i])
+            pressure_DS.loc[i] = list(info[i])
         min_24h = self.recent_time - datetime.timedelta(hours=24)
         min_3h = self.recent_time - datetime.timedelta(hours=3)
-        pressure_DB = pressure_DB[pressure_DB.time > min_24h]
-        y_24h = list(pressure_DB['pressure'])
+        pressure_DS = pressure_DS[pressure_DS.time > min_24h]
+        y_24h = list(pressure_DS['pressure'])
         p_mean = sum(y_24h)/len(y_24h)
-        for i in list(pressure_DB.index):
-            pressure_DB.at[i,'pressure'] = pressure_DB.at[i,'pressure'] - p_mean
-        pressure_DB = pressure_DB[pressure_DB.time > min_3h]
-        y_3h = list(pressure_DB['pressure'])
+        for i in list(pressure_DS.index):
+            pressure_DS.at[i,'pressure'] = pressure_DS.at[i,'pressure'] - p_mean
+        pressure_DS = pressure_DS[pressure_DS.time > min_3h]
+        y_3h = list(pressure_DS['pressure'])
         p_low = (y_3h[1] + y_3h[2])/2
         p_up = (y_3h[-2] + y_3h[-3])/2
         delta = p_up - p_low
@@ -58,7 +55,7 @@ class BadWeatherAllertsCreator(th):
         # generazione delle allerte relative al maltempo
         if(delta >= 0):
             self.__allertsCreator("C1", delta)
-        elif delta > self.old_delta:
+        elif delta > self.old_delta_list[self.index]:
             self.__allertsCreator("C2", delta)
         elif delta <= -5:
             self.__allertsCreator("C3", delta)
@@ -66,7 +63,7 @@ class BadWeatherAllertsCreator(th):
             self.__allertsCreator("C4", delta)
             
         # aggiornamenti degli ultimi delta e tf, commit, chiusura della connessione e terminazione del thread
-        self.final_old_time_list[self.index] = self.recent_time
+        self.old_final_time_list[self.index] = self.recent_time
         self.old_delta_list[self.index] = delta
         self.conn2.commit()
         self.conn2.close()
@@ -90,15 +87,14 @@ class BadWeatherAllertsCreator(th):
         
 
 class FogFrostAllertsCreator (th):
-    def __init__(self, station_code, areaID, conn1, cursor1, index, final_old_time_list):
+    def __init__(self, station_code, areaID, conn1, cursor1, index, old_final_time_list):
         th.__init__(self)
         self.station_code = station_code
         self.areaID = areaID
         self.conn1 = conn1
         self.cursor1 = cursor1
         self.index = index
-        self.final_old_time_list = final_old_time_list
-        self.old_final_time = final_old_time_list[self.index]
+        self.old_final_time = old_final_time_list[self.index]
         self.recent_time = dt.strptime("2021-04-06 15:00:00", '%Y-%m-%d %H:%M:%S')
     
     def run(self):
@@ -109,7 +105,7 @@ class FogFrostAllertsCreator (th):
         
         # interruzione del thread se dovesse essere già stata elaborata la serie storica 
         # contenente l'ultima acquisizione nel DB
-        if self.recent_time == self.old_final_time:
+        if self.recent_time == self.old_final_time_list[self.index]:
             print("No new row")
             self.conn1.close()
             self.cursor1.close()
@@ -171,7 +167,7 @@ class FogFrostAllertsCreator (th):
             self.__allertsCreator()
         
         # aggiornamenti dell'ultimo tf, commit, chiusura della connessione e terminazione del thread
-        self.final_old_time_list[self.index] = self.recent_time
+        self.old_final_time_list[self.index] = self.recent_time
         self.conn1.commit()
         self.conn1.close()
         self.cursor1.close()
@@ -310,28 +306,27 @@ def algorithm(database, isTest):
         cursor.execute("SELECT * FROM area;")
         rows = cursor.fetchall()
 
-        n_areas = len(rows) #maximum number of areas
-
-        final_old_time_list = [None]*n_areas
+        n_areas = len(rows) # maximum number of areas
+        old_final_time_list = [None]*n_areas
         old_delta_list = [0]*n_areas
 
         area_DS = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
-        len_DS = len(rows)
-        for i in range(len_DS):
+        num_areas = len(rows)
+        for i in range(num_areas):
             area_DS.loc[i] = list(rows[i])
    
         # creazione dei thread per la generazione delle allerte nebbia, brina e maltempo, uno per ogni zona
         fogFrostAllertsCreators = []
         badWeatherAllertsCreators = []
 
-        for i in range(len_DS):
+        for i in range(num_areas):
             if area_DS.at[i, "nameAprStation"] is not None:
                 conn1 = mysql.connector.connect(**config)
                 cursor1 = conn1.cursor()
                 conn2 = mysql.connector.connect(**config)
                 cursor2 = conn2.cursor()
-                t = FogFrostAllertsCreator(area_DS.at[i, "nameAprStation"], area_DS.at[i, "idArea"], conn1, cursor1, i, final_old_time_list)
-                w = BadWeatherAllertsCreator(area_DS.at[i, "nameAprStation"], area_DS.at[i, "idArea"], conn2, cursor2, i, final_old_time_list, old_delta_list)
+                t = FogFrostAllertsCreator(area_DS.at[i, "nameAprStation"], area_DS.at[i, "idArea"], conn1, cursor1, i, old_final_time_list)
+                w = BadWeatherAllertsCreator(area_DS.at[i, "nameAprStation"], area_DS.at[i, "idArea"], conn2, cursor2, i, old_final_time_list, old_delta_list)
                 fogFrostAllertsCreators.append(t)
                 badWeatherAllertsCreators.append(w)
     
