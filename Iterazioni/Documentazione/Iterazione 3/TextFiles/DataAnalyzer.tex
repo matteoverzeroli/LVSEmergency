@@ -269,6 +269,14 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 \clearpage
 
 \subsection{Test Data Analyzer}
+Sono stati eseguiti anche dei test di unità sull'algoritmo. Nella figura \ref{fig:test_result_alg} sono riportano i risultati effettuati grazie al modulo di Python \texttt{unittest}. Si è testato la generazione dei seguenti allarmi:
+\begin{itemize}
+	\item allarme \textit{RED} per maltempo e allarme \textit{RED} per nebbia;
+	\item allarme \textit{NONE} per maltempo e allarme \textit{RED} per brina;
+	\item allarme \textit{NONE} per maltempo e allarme \textit{NONE} per nebbia;
+	\item allarme \textit{NONE} per maltempo e allarme \textit{WHITE} per nebbia;
+	\item allarme \textit{NONE} per maltempo e allarme \textit{GREEN} per nebbia.
+\end{itemize}
 
 \begin{figure}[h!]
 	\centering
@@ -277,19 +285,23 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 	\label{fig:test_result_alg}
 \end{figure}
 
+Di seguito è riportato il codice python relativo alla classe che implementa i test. Inizialmente, viene popolato un database di test con i dati caricati da dei file \textit{csv}. All'interno dei file è specificato il nome di una stazione APRS fittizia e i relativi dati di test di temperatura, umidità, pressione e data di acquisizione. Ogni test è associato a una diversa area.  Se le operazioni di caricamento termina correttamente, viene lanciata l'esecuzione dell'algoritmo. Se non si verificano eccezione, vengono poi controllati gli allarmi inseriti dall'algoritmo: se corrispondono agli allarmi attesi, il test è superato.
+
 \UseRawInputEncoding
 \lstinputlisting[language=python]{./Iterazione 3/OtherFiles/test_algorithm_script.py}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.2\linewidth]{./Iterazione 3/ImageFiles/Nebbia Ospitaletto Google}
-	\caption{Meteo attuale fornito da Google a Ospitaletto (BS) domenica 06/02/22 alle ore 9:20.}
-	\label{fig:test_previsione}
-\end{figure}
+Inoltre, si riporta un esempio di allerta nebbia di tipo \textit{RED} generata dall'algoritmo il 6 febbraio 2022 (\Fig\ref{fig:test_previsione_alg}) sulla stazione meteorologica situata nei pressi della località di Ospitaletto (BS). Si è potuto verificare che questa allerta rispecchiasse veramente la situazione meteo attuale. Infatti, le previsioni meteorologiche attuali fornite da Google indicavano la presenza di nebbia (\Fig\ref{fig:test_previsione_google}).
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.3\linewidth]{./Iterazione 3/ImageFiles/testAppRedFog}
 	\caption{Allarme nebbia attuale a Ospitaletto (BS) domenica 06/02/22 alle ore 9:20.}
-	\label{fig:test_previsione}
+	\label{fig:test_previsione_alg}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.2\linewidth]{./Iterazione 3/ImageFiles/Nebbia Ospitaletto Google}
+	\caption{Meteo attuale fornito da Google a Ospitaletto (BS) domenica 06/02/22 alle ore 9:20.}
+	\label{fig:test_previsione_google}
 \end{figure}
