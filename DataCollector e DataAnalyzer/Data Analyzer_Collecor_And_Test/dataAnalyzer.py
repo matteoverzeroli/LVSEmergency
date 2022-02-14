@@ -182,12 +182,12 @@ class FogFrostAllertsCreator (th):
             self.cursor1.execute("SELECT time, humidity FROM aprsdata WHERE \
                            name = %(station)s;", {'station':self.station_code})
         info = self.cursor1.fetchall()
-        thread_DB = pd.DataFrame(columns=["time", parameter])
+        parameter_DS = pd.DataFrame(columns=["time", parameter])
         for i in range(len(info)):
-            thread_DB.loc[i] = list(info[i])
+            parameter_DS.loc[i] = list(info[i])
         min_time = self.recent_time - datetime.timedelta(hours=24)
-        thread_DB = thread_DB[thread_DB.time > min_time]
-        y = thread_DB[parameter]
+        parameter_DS = parameter_DS[parameter_DS.time > min_time]
+        y = parameter_DS[parameter]
         model = pm.auto_arima(y, start_p=1, start_q=1,
                               test='adf',
                               max_p=3, max_q=3,
@@ -203,7 +203,7 @@ class FogFrostAllertsCreator (th):
         fc, confint = model.predict(n_periods=3, return_conf_int=True)
         
         # aggiornamento dei dataframe
-        dataToUpdate.at['tf', 'value'] = thread_DB.iat[len(thread_DB)-1,1]
+        dataToUpdate.at['tf', 'value'] = parameter_DS.iat[len(parameter_DS)-1,1]
         dataToUpdate.at['t1', 'value'] = fc[0]
         dataToUpdate.at['t2', 'value'] = fc[1]
         dataToUpdate.at['t3', 'value'] = fc[2]
