@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AreaController {
 
-	private AreaService areaService;
+	private AreaInformationManagementIF areaService;
 
 	@Autowired
 	public AreaController(AreaService userService) {

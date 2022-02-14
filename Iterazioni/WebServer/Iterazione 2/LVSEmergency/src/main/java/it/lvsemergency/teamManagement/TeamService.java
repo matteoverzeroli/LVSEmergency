@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class TeamService {
+public class TeamService implements TeamManagementIF{
 
 	@Autowired
 	private TeamRepository teamRepository;
@@ -18,10 +18,12 @@ public class TeamService {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Override
 	public List<Team> getTeams() {
 		return teamRepository.findAll();
 	}
 
+	@Override
 	public void addTeam(TeamDTO teamDto) {
 		List<Team> teamInRepo = teamRepository.findByTeamName(teamDto.getTeamName());
 
@@ -33,6 +35,7 @@ public class TeamService {
 		teamRepository.save(newTeam);
 	}
 
+	@Override
 	public Team getTeam(Integer idTeam) {
 		Optional<Team> team = teamRepository.findById(idTeam);
 
@@ -42,6 +45,7 @@ public class TeamService {
 		return team.get();
 	}
 
+	@Override
 	public void deleteTeam(Integer idTeam) {
 		Optional<Team> teamToDelete = teamRepository.findById(idTeam);
 
@@ -51,6 +55,7 @@ public class TeamService {
 		teamRepository.delete(teamToDelete.get());
 	}
 
+	@Override
 	public void setForemanTeam(Integer idTeam, Integer idForeman) {
 
 		Optional<Team> team = teamRepository.findById(idTeam);

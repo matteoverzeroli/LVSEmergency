@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements AccountManagementIF, UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -33,7 +33,8 @@ public class UserService implements UserDetailsService {
 		return user.map(UserDetailsImpl::new).get();
 	}
 
-	public UserDTO userInformationResponse(UserDetailsImpl userInfo) {
+	@Override
+	public UserDTO login(UserDetailsImpl userInfo) {
 		Optional<User> user = userRepository.findByUsername(userInfo.getUsername());
 
 		user.orElseThrow(() -> new UsernameNotFoundException(userInfo.getUsername() + " not found."));
@@ -41,11 +42,13 @@ public class UserService implements UserDetailsService {
 		return user.map(UserDTO::new).get();
 	}
 
+	@Override
 	public List<UserDTO> getUsers() {
 		return userRepository.findAll(Sort.by(Sort.Direction.ASC, "idUser")).stream()
 				.map(user -> modelMapper.map(user, UserDTO.class)).collect(Collectors.toList());
 	}
 
+	@Override
 	public UserDTO getUser(Integer idUser) {
 		Optional<User> user = userRepository.findById(idUser);
 
@@ -55,6 +58,7 @@ public class UserService implements UserDetailsService {
 		return modelMapper.map(user.get(), UserDTO.class);
 	}
 
+	@Override
 	public UserDTO addUser(UserDTO userDto) {
 		Optional<User> user = userRepository.findByUsername(userDto.getUsername());
 
@@ -67,6 +71,7 @@ public class UserService implements UserDetailsService {
 		return modelMapper.map(newUser, UserDTO.class);
 	}
 
+	@Override
 	public UserDTO modifyUser(UserDTO userDto) {
 		Optional<User> userToModify = userRepository.findByUsername(userDto.getUsername());
 
@@ -80,6 +85,7 @@ public class UserService implements UserDetailsService {
 		return modelMapper.map(userRepository.save(user), UserDTO.class);
 	}
 
+	@Override
 	public void deleteUser(Integer idUser) {
 		Optional<User> userToDelete = userRepository.findById(idUser);
 

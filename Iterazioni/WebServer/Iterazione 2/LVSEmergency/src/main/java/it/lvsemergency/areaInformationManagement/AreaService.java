@@ -10,15 +10,17 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 @Service
-public class AreaService {
+public class AreaService implements AreaInformationManagementIF{
 	
 	@Autowired
 	private AreaRepository areaRepository;
 	
+	@Override
 	public List<Area> getAreas() {
 		return areaRepository.findAll();
 	}
 	
+	@Override
 	public Area getArea(Integer idArea) {
 		Optional<Area> area = areaRepository.findById(idArea);
 		

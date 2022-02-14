@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus;
 @RestController
 public class TeamController {
 
-	private TeamService teamService;
+	private TeamManagementIF teamService;
 
 	@Autowired
 	public TeamController(TeamService userService) {

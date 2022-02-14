@@ -18,7 +18,7 @@ import org.springframework.http.HttpStatus;
 @RestController
 public class UserController {
 
-	private UserService userService;
+	private AccountManagementIF userService;
 
 	@Autowired
 	public UserController(UserService userService) {
@@ -28,7 +28,7 @@ public class UserController {
 	@GetMapping(path = "/login")
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public UserDTO login() {
-		return userService.userInformationResponse(
+		return userService.login(
 				(UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 	}
 
