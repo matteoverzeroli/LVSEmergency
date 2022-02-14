@@ -105,20 +105,20 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 	$old\_delta\_list \gets$ array$\left[1, n\_areas\right]$ \Comment*[r]{Inizializzazione a \num{0}}
 	\textbf{/* Ciclo per l'esecuzione periodica dei generatori di allerte */}\;
 	\While{\textit{true}}{
-	stabilisci la connessione con il DB utilizzando i parametri contenuti in $config$\;
-	$rows \gets$ accedi tramite una query ai dati contenuti nel DB relativi alle aree\;
-	$num\_areas \gets$ length($rows$) \Comment*[r]{Numero di aree presenti nel DB}
-	$area\_DS \gets$ crea un dataset avente le colonne \{`idArea', `areaName', `lat', `lng', `nameAprStation', `istatCode'\}\;
-	\For{$i = 1$ \KwTo $num\_areas$}{                       
-		$area\_DS\left[i\right] \gets$ copy($rows\left[i\right]$)\;
+		stabilisci la connessione con il DB utilizzando i parametri contenuti in $config$\;
+		$rows \gets$ accedi tramite una query ai dati contenuti nel DB relativi alle aree\;
+		$num\_areas \gets$ length($rows$) \Comment*[r]{Numero di aree presenti nel DB}
+		$area\_DS \gets$ crea un dataset avente le colonne \{`idArea', `areaName', `lat', `lng', `nameAprStation', `istatCode'\}\;
+		\For{$i = 1$ \KwTo $num\_areas$}{                       
+			$area\_DS\left[i\right] \gets$ copy($rows\left[i\right]$)\;
 		}
-	\textbf{/* Avvio dei generatori di allerte */}\;
-	\For{$i = 1$ \KwTo $num\_areas$}{
-		\textbf{badWeatherAllertsCreator}($area\_DS$ [$i$ ; `nameAprStation'], $area\_DS$[$i$ ; `idArea'], $i$, $old\_final\_time\_list$, $old\_delta\_list$)\;
-		\textbf{fogFrostAllertsCreator}($area\_DS$ [$i$ ; `nameAprStation'], $area\_DS$[$i$ ; `idArea'], $i$, $old\_final\_time\_list$)\;
+		\textbf{/* Avvio dei generatori di allerte */}\;
+		\For{$i = 1$ \KwTo $num\_areas$}{
+			\underline{badWeatherAllertsCreator}($area\_DS$ [$i$ ; `nameAprStation'], $area\_DS$[$i$ ; `idArea'], $i$, $old\_final\_time\_list$, $old\_delta\_list$)\;
+			\underline{fogFrostAllertsCreator}($area\_DS$ [$i$ ; `nameAprStation'], $area\_DS$[$i$ ; `idArea'], $i$, $old\_final\_time\_list$)\;
 		}
-	interrompi la connessione con il DB\;
-	attendi \SI{5}{\minute}\;
+		interrompi la connessione con il DB\;
+		attendi \SI{5}{\minute}\;
 	}
 \end{algorithm}
 
@@ -128,15 +128,9 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
 	\caption{generatore di allerte maltempo}
 	\Fn{badWeatherAllertsCreator(station\_code, areaID, index, old\_final\_time\_list, old\_delta\_list)}{
-		\textbf{/* Inizializzazione delle variabili */}\;
-		\textbf{this}.$station\_code \gets station\_code$\;
-		\textbf{this}.$areaID \gets areaID$\;
-		\textbf{this}.$index \gets index$\;
-		\textbf{this}.$old\_final\_time\_list \gets old\_final\_time\_list$\;
-		\textbf{this}.$old\_delta\_list \gets old\_delta\_list$\;
 		$recent\_time \gets$ accedi tramite una query alla data e all'orario dell'acquisizione più recente presente nel DB con riferimento a $station\_code$\;
 		\textbf{/* Interruzione della funzione se non ci fosse una nuova acquisizione */}\;
-		\If{$recent\_time = old\_final\_time\_list\left[i\right]$}{
+		\If{$recent\_time = old\_final\_time\_list\left[index\right]$}{
 			\textbf{return}\;
 		}
 		\textbf{/* Elaborazione della serie storica relativa alla pressione atmosferica */}\;
@@ -183,21 +177,30 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
 	\caption{generatore di allerte nebbia e brina, parte 1}
 	\Fn{fogFrostAllertsCreator(station\_code, areaID, index, old\_final\_time\_list)}{
-		\textbf{/* Inizializzazione delle variabili */}\;
-		\textbf{this}.$station\_code \gets station\_code$\;
-		\textbf{this}.$areaID \gets areaID$\;
-		\textbf{this}.$index \gets index$\;
-		\textbf{this}.$old\_final\_time\_list \gets old\_final\_time\_list$\;
 		$recent\_time \gets$ accedi tramite una query alla data e all'orario dell'acquisizione più recente presente nel DB con riferimento a $station\_code$\;
 		\textbf{/* Interruzione della funzione se non ci fosse una nuova acquisizione */}\;
-		\If{$recent\_time = old\_final\_time\_list\left[i\right]$}{
+		\If{$recent\_time = old\_final\_time\_list\left[index\right]$}{
 			\textbf{return}\;
 		}
+		\textbf{/* Predizione dei valori di temperatura e umidità relativa */}\;
 		$summaryT \gets$ crea un dataset per la temperatura avente le colonne \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
 		$summaryUR \gets$ crea un dataset per l'umidità relativa avente le colonne \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
 		$summaryTd \gets$ crea un dataset per la temperatura di rugiada avente le colonne  \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
-		\textbf{tempURForcaster(`temperature', \textit{summaryT})}\;
-		\textbf{tempURForcaster(`umidity', \textit{summaryUR})}\;
+		$num\_columns \gets 3$\;
+		$num\_rows \gets 4$\;
+		\underline{tempURForcaster}(`temperature',$station\_code$, $summaryT$)\;
+		\underline{tempURForcaster}(`umidity', $station\_code$, $summaryUR$)\;
+		\textbf{/* Calcolo dei valori attuale e previsti della temperatura di rugiada */}\;
+		\For{$j=1$ \KwTo $num\_columns$}{
+			\For{$i=1$ \KwTo $num\_rows$}{
+				$summaryTd$[$i$ ; $j$] $\gets$ computeTd($summaryT$[$i$ ; $j$], $summaryUR$[$i$ ; $j$]) \Comment*[r]{Vedasi l'approssimazione di Magnus-Tetens}
+			}
+		}
+		\For{$i=1$ \KwTo $num\_rows$}{
+			$summaryTd$[$i$ ; `I\_up'] $\gets$ $summaryTd$[$i$ ; `value'] + \num{0.45} \Comment*[r]{Determinazione del limite superiore dell'intervallo di validità}
+		}
+		\textbf{/* Generazione delle allerte nebbia e brina */}\;
+		TO DO\;
 	}
 \end{algorithm}
 
@@ -205,7 +208,30 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 	\SetKwProg{Fn}{Function}{ is}{end}
 	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
 	\caption{generatore di allerte nebbia e brina, parte 2}
-	\Fn{tempURForcaster(parameter, dataToUpdate)}{
+	\Fn{tempURForcaster(parameter, station\_code, dataToUpdate)}{
+		\eIf{$parameter$ = `temperature'}{
+			$info \gets$ accedi tramite una query ai dati di temperatura contenuti nel DB delle ultime \num{24} ore con riferimento a $station\_code$\;
+		}{
+			$info \gets$ accedi tramite una query ai dati di umidità relativa contenuti nel DB delle ultime \num{24} ore con riferimento a $station\_code$\;
+		}
+		$parameter\_DS \gets$ crea un dataset avente le colonne \{`time', $parameter$\}\;
+		$num\_obs \gets$ length($parameter\_DS$)\;
+		\For{$i=1$ \KwTo $num\_obs$}{
+			$parameter\_DS\left[i\right] \gets$ copy($info\left[i\right]$)\;
+		}
+		\textbf{/* Analisi dei dati */}\;
+		$model \gets$ fitARIMA($parameter\_DS$[all ; $parameter$], $start\_complexity$ = [\num{1}, \num{1}, \num{1}]) \Comment*[r]{Stima del modello ARIMA}
+		$k \gets$ \num{3} \Comment*[r]{Passo della predizione}
+		$fc \gets$ predict($model$, $k$) \Comment*[r]{Predizione a $k$ passi}
+		\textbf{/* Aggiornamento del dataset */}\;
+		$dataToUpdate$[`tf' ; `value'] $\gets$ $parameter\_DS$[end ; $parameter$]\;
+		$dataToUpdate$[`tf' ; `I\_low'] $\gets$ $dataToUpdate$[`tf' ; `value']\;
+		$dataToUpdate$[`tf' ; `I\_up'] $\gets$ $dataToUpdate$[`tf' ; `value']\;
+		\For{$i=2$ \KwTo $k+1$}{
+			$dataToUpdate$[$index$ ; `value'] $\gets$ $parameter\_DS$[end ; $parameter$]\;
+			$dataToUpdate$[$index$ ; `I\_low'] $\gets$ $fc$[$i-1$]\;
+			$dataToUpdate$[$index$ ; `I\_up'] $\gets$ $fc$[$i-1$]\;
+		}
 		\textbf{return}\;
 	}
 \end{algorithm}
