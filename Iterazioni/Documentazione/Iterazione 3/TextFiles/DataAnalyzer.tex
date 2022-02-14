@@ -92,177 +92,121 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 
 \clearpage
 
-\paragraph{Analisi algoritmo}
+\paragraph{Analisi algoritmo}...
 
 \SetKwComment{Comment}{/* }{ */}
 \RestyleAlgo{ruled}
 \begin{algorithm}
 	\caption{Data Analyzer}
+	\textbf{/* Inizializzazione delle variabili e delle strutture dati di supporto */}\;
 	$config \gets$ parametri per stabilire la connessione con il DB\;
 	$n\_areas \gets 100$ \Comment*[r]{Numero massimo di aree}
 	$old\_final\_time\_list \gets$ array$\left[1, n\_areas\right]$ \Comment*[r]{Inizializzazione a \textit{null}}
 	$old\_delta\_list \gets$ array$\left[1, n\_areas\right]$ \Comment*[r]{Inizializzazione a \num{0}}
+	\textbf{/* Ciclo per l'esecuzione periodica dei generatori di allerte */}\;
 	\While{\textit{true}}{
-		$connected \gets false$\;
-		\While{$connected = false$}{
-			$conn \gets$ crea la connessione\;
-			$cursor \gets$ crea il cursore\;
-			\eIf{\textit{non si è verificato un errore}}{
-				$connected \gets true$\;
-			}{
-				attendi 15 secondi\;
-			}
-		}
-	$cursor$.executeQuery(SELECT * FROM area)\;
-	$rows \gets cursor$.fetchAll()\;
+	stabilisci la connessione con il DB utilizzando i parametri contenuti in $config$\;
+	$rows \gets$ accedi tramite una query ai dati contenuti nel DB relativi alle aree\;
 	$num\_areas \gets$ length($rows$) \Comment*[r]{Numero di aree presenti nel DB}
 	$area\_DS \gets$ crea un dataset avente le colonne \{`idArea', `areaName', `lat', `lng', `nameAprStation', `istatCode'\}\;
 	\For{$i = 1$ \KwTo $num\_areas$}{                       
 		$area\_DS\left[i\right] \gets$ copy($rows\left[i\right]$)\;
 		}
-	$fogFrostAllertsCreators \gets$ arraylist$\left[\right]$\ \Comment*[r]{Creazione di una lista vuota}
-	$badWeatherAllertsCreators \gets$ arraylist$\left[ \right]$ \Comment*[r]{Creazione di una lista vuota}
+	\textbf{/* Avvio dei generatori di allerte */}\;
 	\For{$i = 1$ \KwTo $num\_areas$}{
-		$conn1 \gets$ crea la connessione per l'\textit{i}-esimo F\&F thread\;
-		$cursor1 \gets$ crea il cursore per l'\textit{i}-esimo F\&F thread\;
-		$conn2 \gets$ crea la connessione per l'\textit{i}-esimo BW thread\;
-		$cursor2 \gets$ crea il cursore per l'\textit{i}-esimo BW thread\;
-		$t \gets$ \textbf{FogFrostAllertsCreator.init}($area\_DS$ [$i$ ; `nameAprStation'], $area\_DS$[$i$ ; `idArea'], $conn1$, $cursor1$, $i$, $old\_final\_time\_list$)\;
-		$w \gets$ \textbf{BadWeatherAllertsCreator.init}($area\_DS$ [$i$ ; `nameAprStation'], $area\_DS$[$i$ ; `idArea'], $conn2$, $cursor2$, $i$, $old\_final\_time\_list$, $old\_delta\_list$)\;
-		$fogFrostAllertsCreators$.append($t$)\;
-		$badWeatherAllertsCreators$.append($w$)\;
+		\textbf{badWeatherAllertsCreator}($area\_DS$ [$i$ ; `nameAprStation'], $area\_DS$[$i$ ; `idArea'], $i$, $old\_final\_time\_list$, $old\_delta\_list$)\;
+		\textbf{fogFrostAllertsCreator}($area\_DS$ [$i$ ; `nameAprStation'], $area\_DS$[$i$ ; `idArea'], $i$, $old\_final\_time\_list$)\;
 		}
-	\For{$i = 1$ \KwTo $num\_areas$}{
-		\textbf{\textit{fogFrostAllertsCreators}[\textit{i}].run()}\;
-		\textbf{\textit{badWeatherAllertsCreators}[\textit{i}].run()}\;
-		}
-	\For{$i = 1$ \KwTo $num\_areas$}{
-		\textbf{\textit{fogFrostAllertsCreators}[\textit{i}].join()}\;
-		\textbf{\textit{badWeatherAllertsCreators}[\textit{i}].join()}\;
-		}
-	chiudi la connessione $conn$\;
-	chiudi il cursore $cursor$\;
+	interrompi la connessione con il DB\;
 	attendi \SI{5}{\minute}\;
 	}
 \end{algorithm}
 
 \begin{algorithm}
-	\SetKwProg{Fn}{Def}{ is}{end}
+	\SetKwProg{Fn}{Function}{ is}{end}
 	\SetKwProg{Class}{Class}{:}{end}
 	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
-	\caption{generatore di allerte maltempo, parte 1}
-	\Class{badWeatherAllertsCreator as Thread}{
-		\Fn{init(station\_code, areaID, conn, cursor, index, old\_final\_time\_list, old\_delta\_list)}{
-			\textbf{this}.$station\_code \gets station\_code$\;
-			\textbf{this}.$areaID \gets areaID$\;
-			\textbf{this}.$conn \gets conn$\;
-			\textbf{this}.$cursor \gets cursor$\;
-			\textbf{this}.$index \gets index$\;
-			\textbf{this}.$old\_final\_time\_list \gets old\_final\_time\_list$\;
-			\textbf{this}.$old\_delta\_list \gets old\_delta\_list$\;
-			$recent\_time \gets$ inizializza con una data e un orario passati\;
+	\caption{generatore di allerte maltempo}
+	\Fn{badWeatherAllertsCreator(station\_code, areaID, index, old\_final\_time\_list, old\_delta\_list)}{
+		\textbf{/* Inizializzazione delle variabili */}\;
+		\textbf{this}.$station\_code \gets station\_code$\;
+		\textbf{this}.$areaID \gets areaID$\;
+		\textbf{this}.$index \gets index$\;
+		\textbf{this}.$old\_final\_time\_list \gets old\_final\_time\_list$\;
+		\textbf{this}.$old\_delta\_list \gets old\_delta\_list$\;
+		$recent\_time \gets$ accedi tramite una query alla data e all'orario dell'acquisizione più recente presente nel DB con riferimento a $station\_code$\;
+		\textbf{/* Interruzione della funzione se non ci fosse una nuova acquisizione */}\;
+		\If{$recent\_time = old\_final\_time\_list\left[i\right]$}{
+			\textbf{return}\;
 		}
-		\Fn{join()}{
-			metodo ereditato dalla superclasse \textit{Thread}\;
+		\textbf{/* Elaborazione della serie storica relativa alla pressione atmosferica */}\;
+		$info \gets$ accedi tramite una query ai dati di pressione atmosferica contenuti nel DB delle ultime \num{24} ore con riferimento a $station\_code$\;
+		$num\_obs \gets$ length($info$)\;
+		$pressure\_DS \gets$ crea un dataset avente le colonne \{`time', `pressure'\}\;
+		\For{$i = 1$ \KwTo $num\_obs$}{
+			$pressure\_DS\left[i\right] \gets$ copy($info\left[i\right]$)\;
 		}
+		$p\_mean \gets$ mean($pressure\_DS$[all ; `pressure'])\;
+		\For{$i = 1$ \KwTo $num\_obs$}{
+			$pressure\_DS$[$i$; `pressure'] $\gets pressure\_DS$[$i$ ; `pressure'] - $p\_mean$ \Comment*[r]{Destagionalizzazione} 
+		}
+		selezione in $pressure\_DS$ delle osservazioni relative soltanto alle ultime \num{3} ore\;
+		$p\_low \gets$ mean($pressure\_DS$[\num{1}:\num{2} ; `pressure'])\;
+		$p\_up \gets$ mean($pressure\_DS$[end-\num{1}:end ; `pressure'])\;
+		$delta \gets p\_up - p\_low$\;
+		\textbf{/* Generazione delle allerte relative al maltempo */}\;
+		\uIf{$delta \ge 0$}{
+			crea un'allerta NONE, pressione in aumento\;
+			inserisci tramite una query l'allerta nel DB\;
+		}
+		\uElseIf{$delta > old\_delta\_list\left[index\right]$}{
+			crea un'allerta NONE, `maltempo in allontanamento'\;
+			inserisci tramite una query l'allerta nel DB\;
+		}
+		\uElseIf{$delta < \SI{5}{\hecto\pascal}$}{
+			crea un'allerta RED, `maltempo in avvicinamento\textbackslash picco negativo superato'\;
+			inserisci tramite una query l'allerta nel DB\;
+		}
+		\Else{
+			crea un'allerta NONE, `pressione in diminuzione'\;
+			inserisci tramite una query l'allerta nel DB\;
+		}
+		\textbf{/* Aggiornamento delle strutture dati di supporto */}\;
+		$old\_final\_time\_list \left[index\right] \gets recent\_time$\;
+		$old\_delta\_list\left[index\right] \gets delta$\;
+		\textbf{return}\;
 	}
 \end{algorithm}
 
 \begin{algorithm}
-	\SetKwProg{Fn}{Def}{ is}{end}
-	\SetKwProg{Class}{Class}{:}{end}
-	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
-	\caption{generatore di allerte maltempo, parte 2}
-	\Class{badWeatherAllertsCreator as Thread}{
-		\Fn{run()}{
-			$cursor$.executeQuery(SELECT max(time) FROM aprsdata WHERE name = station\_code)\;
-			$recent\_time \gets$ $cursor$.fetchAll()\;
-			\If{$recent\_time = old\_final\_time\_list\left[i\right]$}{
-				chiudi la connessione $conn$\;
-				chiudi il cursore $cursor$\;
-				\textbf{return}\;
-			}
-			$cursor$.executeQuery(SELECT time, pressure FROM aprsdata WHERE name = station\_code)\;
-			$info \gets cursor$.fetchAll()\;
-			$num\_obs \gets$ length($info$)\;
-			$pressure\_DS \gets$ crea un dataset avente le colonne \{`time', `pressure'\}\;
-			\For{$i = 1$ \KwTo $num\_obs$}{
-				$pressure\_DS\left[i\right] \gets$ copy($info\left[i\right]$)\;
-			}
-			selezione in $pressure\_DS$ delle osservazioni relative soltanto alle ultime \num{24} ore\;
-			$num\_obs\_24h \gets$ length($pressure\_DS$)\;
-			$p\_mean \gets$ mean($pressure\_DS$[all ; `pressure'])\;
-			\For{$i = 1$ \KwTo $num\_obs\_24h$}{
-				$pressure\_DS$[$i$; `pressure'] $\gets pressure\_DS$[$i$ ; `pressure'] - $p\_mean$\; 
-			}
-			selezione in $pressure\_DS$ delle osservazioni relative soltanto alle ultime \num{3} ore\;
-			$p\_low \gets$ mean($pressure\_DS$[\num{1}:\num{2} ; `pressure'])\;
-			$p\_up \gets$ mean($pressure\_DS$[end-\num{1}:end ; `pressure'])\;
-			$delta \gets p\_up - p\_low$\;
-			\uIf{$delta \ge 0$}{
-				crea un'allerta NONE, pressione in aumento\;
-				inserisci l'allerta nel DB tramite $cursor$.executeQuery()\;
-			}
-			\uElseIf{$delta > old\_delta\_list\left[index\right]$}{
-				crea un'allerta NONE, `maltempo in allontanamento'\;
-				inserisci l'allerta nel DB tramite $cursor$.executeQuery()\;
-			}
-			\uElseIf{$delta < \SI{5}{\hecto\pascal}$}{
-				crea un'allerta RED, `maltempo in avvicinamento\textbackslash picco negativo superato'\;
-				inserisci l'allerta nel DB tramite $cursor$.executeQuery()\;
-			}
-			\Else{
-				crea un'allerta NONE, `pressione in diminuzione'\;
-				inserisci l'allerta nel DB tramite $cursor$.executeQuery()\;
-			}
-			$old\_final\_time\_list \left[index\right] \gets recent\_time$\;
-			$old\_delta\_list\left[index\right] \gets delta$\;
-			fai il commit delle modifiche al DB\;
-			chiudi la connessione $conn$\;
-			chiudi il cursore $cursor$\;
-		}	
-	}
-\end{algorithm}
-
-\begin{algorithm}
-	\SetKwProg{Fn}{Def}{ is}{end}
-	\SetKwProg{Class}{Class}{:}{end}
+	\SetKwProg{Fn}{Function}{ is}{end}
 	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
 	\caption{generatore di allerte nebbia e brina, parte 1}
-	\Class{fogFrostAllertsCreator as Thread}{
-		\Fn{init(station\_code, areaID, conn, cursor, index, old\_final\_time\_list}{
-			\textbf{this}.$station\_code \gets station\_code$\;
-			\textbf{this}.$areaID \gets areaID$\;
-			\textbf{this}.$conn \gets conn$\;
-			\textbf{this}.$cursor \gets cursor$\;
-			\textbf{this}.$index \gets index$\;
-			\textbf{this}.$old\_final\_time\_list \gets old\_final\_time\_list$\;
-			$recent\_time \gets$ inizializza con una data e un orario passati\;
-		}
-		\Fn{join()}{
-			metodo ereditato dalla superclasse \textit{Thread}\;
-		}
-	}
-\end{algorithm}
-
-\begin{algorithm}
-	\SetKwProg{Fn}{Def}{ is}{end}
-	\SetKwProg{Class}{Class}{:}{end}
-	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
-	\caption{generatore di allerte nebbia e brina, parte 2}
-	\Class{fogFrostAllertsCreator as Thread}{
-		\Fn{run()}{
-			$cursor$.executeQuery(SELECT max(time) FROM aprsdata WHERE name = station\_code)\;
-			$recent\_time \gets$ $cursor$.fetchAll()\;
-			\If{$recent\_time = old\_final\_time\_list\left[i\right]$}{
-				chiudi la connessione $conn$\;
-				chiudi il cursore $cursor$\;
-				\textbf{return}\;
-			}
+	\Fn{fogFrostAllertsCreator(station\_code, areaID, index, old\_final\_time\_list)}{
+		\textbf{/* Inizializzazione delle variabili */}\;
+		\textbf{this}.$station\_code \gets station\_code$\;
+		\textbf{this}.$areaID \gets areaID$\;
+		\textbf{this}.$index \gets index$\;
+		\textbf{this}.$old\_final\_time\_list \gets old\_final\_time\_list$\;
+		$recent\_time \gets$ accedi tramite una query alla data e all'orario dell'acquisizione più recente presente nel DB con riferimento a $station\_code$\;
+		\textbf{/* Interruzione della funzione se non ci fosse una nuova acquisizione */}\;
+		\If{$recent\_time = old\_final\_time\_list\left[i\right]$}{
+			\textbf{return}\;
 		}
 		$summaryT \gets$ crea un dataset per la temperatura avente le colonne \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
 		$summaryUR \gets$ crea un dataset per l'umidità relativa avente le colonne \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
-		$summaryTd \gets$ crea un dataset per la temperatura di rugiada avente le colonne \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
+		$summaryTd \gets$ crea un dataset per la temperatura di rugiada avente le colonne  \{`I\_low', `value', `I\_up'\} e le righe \{`tf', `t1', `t2', `t3'\}\;
+		\textbf{tempURForcaster(`temperature', \textit{summaryT})}\;
+		\textbf{tempURForcaster(`umidity', \textit{summaryUR})}\;
+	}
+\end{algorithm}
+
+\begin{algorithm}
+	\SetKwProg{Fn}{Function}{ is}{end}
+	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
+	\caption{generatore di allerte nebbia e brina, parte 2}
+	\Fn{tempURForcaster(parameter, dataToUpdate)}{
+		\textbf{return}\;
 	}
 \end{algorithm}
 
