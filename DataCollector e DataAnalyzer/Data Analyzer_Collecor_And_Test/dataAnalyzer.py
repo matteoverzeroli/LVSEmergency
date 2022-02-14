@@ -94,7 +94,7 @@ class FogFrostAllertsCreator (th):
         self.conn1 = conn1
         self.cursor1 = cursor1
         self.index = index
-        self.old_final_time = old_final_time_list[self.index]
+        self.old_final_time_list = old_final_time_list
         self.recent_time = dt.strptime("2021-04-06 15:00:00", '%Y-%m-%d %H:%M:%S')
     
     def run(self):
@@ -122,9 +122,9 @@ class FogFrostAllertsCreator (th):
         for j in list(summaryTd.columns):
             for i in list(summaryTd.index):
                 summaryTd.at[i,j] = self.__computeTd(summaryT.at[i,j], summaryUR.at[i,j])
+
         for i in list(summaryTd.index):
             summaryTd.at[i,'I_low'] = summaryTd.at[i,'value']
-        for i in list(summaryTd.index):
             summaryTd.at[i,'I_up'] = summaryTd.at[i,'value'] + 0.45
         
         # debugging
@@ -207,10 +207,12 @@ class FogFrostAllertsCreator (th):
         dataToUpdate.at['t1', 'value'] = fc[0]
         dataToUpdate.at['t2', 'value'] = fc[1]
         dataToUpdate.at['t3', 'value'] = fc[2]
+
         dataToUpdate.at['tf', 'I_low'] = dataToUpdate.at['tf', 'value']
         dataToUpdate.at['t1', 'I_low'] = confint[0,0]
         dataToUpdate.at['t2', 'I_low'] = confint[1,0]
         dataToUpdate.at['t3', 'I_low'] = confint[2,0]
+
         dataToUpdate.at['tf', 'I_up'] = dataToUpdate.at['tf', 'value']
         dataToUpdate.at['t1', 'I_up'] = confint[0,1]
         dataToUpdate.at['t2', 'I_up'] = confint[1,1]
@@ -284,6 +286,10 @@ def algorithm(database, isTest):
       'database':database
     }
 
+    n_areas = 100 # maximum number of areas
+    old_final_time_list = [None]*n_areas
+    old_delta_list = [0]*n_areas
+
     # inizializzazione delle variabili di supporto all'esecuzione dei thread
     while True:
         # apertura della connessione con il DB e definizione del sistema di riconnessione automatico
@@ -305,10 +311,6 @@ def algorithm(database, isTest):
         # accesso ai dati relativi alle zone
         cursor.execute("SELECT * FROM area;")
         rows = cursor.fetchall()
-
-        n_areas = len(rows) # maximum number of areas
-        old_final_time_list = [None]*n_areas
-        old_delta_list = [0]*n_areas
 
         area_DS = pd.DataFrame(columns=["idArea","areaName","lat","lng","nameAprStation","istatCode"])
         num_areas = len(rows)
