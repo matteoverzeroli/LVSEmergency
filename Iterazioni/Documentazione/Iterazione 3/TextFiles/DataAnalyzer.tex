@@ -154,15 +154,15 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 			inserisci tramite una query l'allerta nel DB\;
 		}
 		\uElseIf{$delta > old\_delta\_list\left[index\right]$}{
-			crea un'allerta NONE, `maltempo in allontanamento'\;
+			crea un'allerta NONE, maltempo in allontanamento\;
 			inserisci tramite una query l'allerta nel DB\;
 		}
 		\uElseIf{$delta < \SI{5}{\hecto\pascal}$}{
-			crea un'allerta RED, `maltempo in avvicinamento\textbackslash picco negativo superato'\;
+			crea un'allerta RED, maltempo in avvicinamento\textbackslash picco negativo superato\;
 			inserisci tramite una query l'allerta nel DB\;
 		}
 		\Else{
-			crea un'allerta NONE, `pressione in diminuzione'\;
+			crea un'allerta NONE, pressione in diminuzione\;
 			inserisci tramite una query l'allerta nel DB\;
 		}
 		\textbf{/* Aggiornamento delle strutture dati di supporto */}\;
@@ -200,7 +200,9 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 			$summaryTd$[$i$ ; `I\_up'] $\gets$ $summaryTd$[$i$ ; `value'] + \num{0.45} \Comment*[r]{Determinazione del limite superiore dell'intervallo di validità}
 		}
 		\textbf{/* Generazione delle allerte nebbia e brina */}\;
-		TO DO\;
+		\underline{allertsCreator}($summaryT$, $summaryTd$)\;
+		$old\_final\_time\_list \left[index\right] \gets recent\_time$\;
+		\textbf{return}\;
 	}
 \end{algorithm}
 
@@ -231,6 +233,55 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 			$dataToUpdate$[$index$ ; `value'] $\gets$ $parameter\_DS$[end ; $parameter$]\;
 			$dataToUpdate$[$index$ ; `I\_low'] $\gets$ $fc$[$i-1$]\;
 			$dataToUpdate$[$index$ ; `I\_up'] $\gets$ $fc$[$i-1$]\;
+		}
+		\textbf{return}\;
+	}
+\end{algorithm}
+
+\begin{algorithm}
+	\SetKwProg{Fn}{Function}{ is}{end}
+	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
+	\caption{generatore di allerte nebbia e brina, parte 3}
+	\Fn{allertsCreator(summaryT, summaryTd)}{
+		\uIf{$summaryT$[`tf' ; `value'] $\ge summaryTd$[`tf' ; `I\_low'] and $summaryT$[`tf' ; `value'] $\le summaryTd$[`tf' ; `I\_up']}{
+			\eIf{$summaryT$[`tf' ; `value'] $>0$}{
+				crea un rischio nebbia attuale, allerta RED\;
+				inserisci tramite una query l'allerta nel DB\;	
+			}{
+				crea un rischio brina attuale, allerta RED\;
+				inserisci tramite una query l'allerta nel DB\;	
+			}
+		}
+		\uElseIf{$summaryT$[`t1' ; `value'] $\ge summaryTd$[`t1' ; `I\_low'] and $summaryT$[`t1' ; `value'] $\le summaryTd$[`t1' ; `I\_up']}{
+			\eIf{$summaryT$[`t1' ; `value'] $>0$}{
+				crea un rischio nebbia tra \SI{10}{\minute}, allerta ORANGE\;
+				inserisci tramite una query l'allerta nel DB\;
+			}{
+				crea un rischio brina tra \SI{10}{\minute}, allerta ORANGE\;
+				inserisci tramite una query l'allerta nel DB\;
+			}	
+		}
+		\uElseIf{$summaryT$[`t2' ; `value'] $\ge summaryTd$[`t2' ; `I\_low'] and $summaryT$[`t2' ; `value'] $\le summaryTd$[`t2' ; `I\_up']}{
+			\eIf{$summaryT$[`t2' ; `value'] $>0$}{
+				crea un rischio nebbia tra \SI{20}{\minute}, allerta GREEN\;
+				inserisci tramite una query l'allerta nel DB\;
+			}{
+				crea un rischio brina tra \SI{20}{\minute}, allerta GREEN\;
+				inserisci tramite una query l'allerta nel DB\;
+			}
+		}
+		\uElseIf{$summaryT$[`t3' ; `value'] $\ge summaryTd$[`t3' ; `I\_low'] and $summaryT$[`t3' ; `value'] $\le summaryTd$[`t3' ; `I\_up']}{
+			\eIf{$summaryT$[`t3' ; `value'] $>0$}{
+				crea un rischio nebbia tra \SI{30}{\minute}, allerta WHITE\;
+				inserisci tramite una query l'allerta nel DB\;
+			}{
+				crea un rischio brina tra \SI{30}{\minute}, allerta WHITE\;
+				inserisci tramite una query l'allerta nel DB\;
+			}	
+		}
+		\Else{
+			crea un'allerta NONE, nessun rischio nè attuale nè previsto\;
+			inserisci tramite una query l'allerta nel DB\;
 		}
 		\textbf{return}\;
 	}
