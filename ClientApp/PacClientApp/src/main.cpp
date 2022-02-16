@@ -36,6 +36,7 @@ int main(int argc, char *argv[])
     qmlRegisterUncreatableType<areaInformationManagement::Area>("PacApp", 1, 0, "Area", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<areaInformationManagement::AprsData>("PacApp", 1, 0, "AprsData", "This class cannot be created by QML.");
     qmlRegisterUncreatableType<areaInformationManagement::Alarm>("PacApp", 1, 0, "Alarm", "This class cannot be created by QML.");
+    qmlRegisterUncreatableType<accountManagement::Position>("PacApp", 1, 0, "Position", "This class cannot be created by QML.");
     qmlRegisterType<helpers::RadialBar>("CustomControls", 1, 0, "RadialBar");
 
     engine.rootContext()->setContextProperty("masterController", &masterController);

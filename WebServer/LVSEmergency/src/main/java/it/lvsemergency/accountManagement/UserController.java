@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import it.lvsemergency.accountManagement.position.Position;
+import it.lvsemergency.accountManagement.position.PositionDTO;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
 
@@ -57,6 +61,11 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public UserDTO addUser(@Valid @RequestBody UserDTO userDto) {
 		return userService.addUser(userDto);
+	}
+	
+	@GetMapping(path = "/users/{idUser}/position")
+	public PositionDTO getUserPosition(@PathVariable Integer idUser) {
+		return userService.getUserPosition(idUser);
 	}
 
 }

@@ -108,5 +108,14 @@ QQmlListProperty<accountManagement::User> Team::getUsersQml()
     return QQmlListProperty<accountManagement::User>(this, &users);
 }
 
+QStringList Team::getUsersId()
+{
+    QStringList usersId;
+    foreach(accountManagement::User * user, users) {
+        usersId << QString::number(user->getIdUser());
+    }
+
+    return usersId;
+}
 
 }

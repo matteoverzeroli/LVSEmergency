@@ -5,6 +5,7 @@ QT += quick quickcontrols2
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        accountManagement/position.cpp \
         accountManagement/user.cpp \
         accountManagement/userController.cpp \
         areaInformationManagement/alarm.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
         teamManagement/teamcontroller.cpp
 
 HEADERS += \
+    accountManagement/position.h \
     accountManagement/user.h \
     accountManagement/userController.h \
     areaInformationManagement/alarm.h \

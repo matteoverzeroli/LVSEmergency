@@ -2,6 +2,9 @@ package it.lvsemergency.accountManagement;
 
 import java.util.List;
 
+import it.lvsemergency.accountManagement.position.Position;
+import it.lvsemergency.accountManagement.position.PositionDTO;
+
 public interface AccountManagementIF {
 
 	/**
@@ -50,4 +53,13 @@ public interface AccountManagementIF {
 	 * @param idUser id dell'utente da cancellare.
 	 */
 	public void deleteUser(Integer idUser);
+
+	/**
+	 * Restituisce l'ultima posizione dell'utente, solo se 
+	 * lo stato dell'utente è "ATTIVO".
+	 * 
+	 * @param idUser id dell'utente di cui si vuole conoscere la posizione.
+	 * @return PositionDTO posizione dell'utente.
+	 */
+	public PositionDTO getUserPosition(Integer idUser);
 }

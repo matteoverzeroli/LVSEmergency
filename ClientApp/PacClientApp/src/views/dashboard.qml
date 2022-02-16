@@ -15,10 +15,17 @@ Page {
         function onCurrentTeamChanged() {
             if (masterController.ui_teamController.currentTeam.area.latitude !== null
                     && masterController.ui_teamController.currentTeam.area.longitude !== null) {
+
+                // update the position on the map
                 map.center = QtPositioning.coordinate(
                             masterController.ui_teamController.currentTeam.area.latitude,
                             masterController.ui_teamController.currentTeam.area.longitude)
                 console.log("Updated the coordinate")
+
+                // ask for the users positions
+                masterController.ui_userController.getUsersPosition(
+                            masterController.ui_teamController.currentTeam.usersId);
+
             }
 
         }
@@ -175,6 +182,7 @@ Page {
                     ListElement { title: "Crea Squadra"; admin: true; user: false ; source: "qrc:/views/CreaSquadra.qml" }
                     ListElement { title: "Allarmi"; admin: false; user: true; source: "qrc:/views/Alarm.qml" }
                     ListElement { title: "Dati Area"; admin: false; user: true; source: "qrc:/views/AreaInfo.qml" }
+                    ListElement { title: "Mappa"; admin: false; user: true; source: "qrc:/views/Mappa.qml" }
                     ListElement { title: "Informazioni"; admin: true; user: true; source: "qrc:/views/Impostazioni.qml" }
                 }
 
@@ -351,6 +359,27 @@ Page {
                                 sourceItem: Image {
                                     id: image
                                     source: "qrc:/assets/marker.png"
+                                }
+                            }
+
+                            MapItemView {
+                                model: masterController.ui_userController.colleguePositions
+                                delegate: MapQuickItem {
+                                    coordinate: QtPositioning.coordinate(
+                                                    model.latitude,
+                                                    model.longitude)
+
+                                    anchorPoint.x: imagePos.width * 0.5
+                                    anchorPoint.y: imagePos.height
+
+                                    sourceItem: Image {
+                                        id: imagePos;
+                                        source: "qrc:/assets/marker_blue.png"
+                                        height: 32
+                                        width: 25
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+
                                 }
                             }
                         }

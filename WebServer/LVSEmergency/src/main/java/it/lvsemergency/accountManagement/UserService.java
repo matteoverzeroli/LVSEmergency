@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,12 +15,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import it.lvsemergency.accountManagement.position.Position;
+import it.lvsemergency.accountManagement.position.PositionDTO;
+import it.lvsemergency.accountManagement.position.PositionRepository;
+
 @Service
 public class UserService implements AccountManagementIF, UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private PositionRepository positionRepository;
+	
 	@Autowired
 	private ModelMapper modelMapper;
 
@@ -128,6 +136,37 @@ public class UserService implements AccountManagementIF, UserDetailsService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user to delete");
 
 		userRepository.delete(userToDelete.get());
+	}
+	
+	
+	/**
+	 * Restituisce l'ultima posizione dell'utente, solo se 
+	 * lo stato dell'utente è "ATTIVO".
+	 * 
+	 * @param idUser id dell'utente di cui si vuole conoscere la posizione.
+	 * @return PositionDTO posizione dell'utente.
+	 */
+	@Override
+	public PositionDTO getUserPosition(Integer idUser) {
+		Optional<User> user = userRepository.findById(idUser);
+		
+		if (!user.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found!");
+		
+		if (user.get().getState() == OperativityRole.INACTIVE)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User is not active!");
+		
+		Sort sort = Sort.by(Sort.Direction.DESC, "time");
+		Optional<Position> pos = positionRepository.findPositionByIdUser(idUser, sort, PageRequest.of(0, 1));
+		
+		if (!pos.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No position found!");
+
+		PositionDTO positionDto = new PositionDTO(pos.get());		
+		positionDto.setName(user.get().getName());
+		positionDto.setSurname(user.get().getSurname());
+		
+		return positionDto;
 	}
 
 }

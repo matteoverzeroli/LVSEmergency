@@ -77,6 +77,13 @@ create table alarm (idAlarm integer primary key auto_increment,
                     idArea integer not null,
                     description varchar(100) default 'no description',
                     foreign key (idArea) references area(idArea));
+                    
+create table position (idPosition integer primary key auto_increment,
+					idUser integer not null,
+					time datetime not null,
+                    lat double not null,
+					lng double not null,
+                    foreign key (idUser) references user(idUser) on delete cascade);
 
 ALTER TABLE team
 ADD CONSTRAINT team_fk_1 FOREIGN KEY (idArea) 

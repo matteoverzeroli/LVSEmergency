@@ -8,6 +8,7 @@
 
 #include "./navigationcontroller.h"
 #include "user.h"
+#include "position.h"
 
 namespace accountManagement {
 
@@ -17,6 +18,8 @@ class UserController : public QObject
     Q_PROPERTY(bool authError READ getAuthError NOTIFY authErrorChanged)
     Q_PROPERTY(User *currentUser READ getCurrentUser NOTIFY currentUserChanged)
     Q_PROPERTY(QQmlListProperty<accountManagement::User> users READ getAllUsers NOTIFY usersChanged)
+    Q_PROPERTY(QQmlListProperty<accountManagement::Position> colleguePositions
+               READ getColleguePosition NOTIFY colleguePositionChanged)
 public:
     explicit UserController(QNetworkAccessManager *networkManager,
                             NavigationController *navigationController, QObject *parent = nullptr);
@@ -29,6 +32,8 @@ public:
                              QString cellNumber, QString email, int role, int idTeam, QString sex);
     Q_INVOKABLE void getUsers();
     Q_INVOKABLE void deleteUser(int idUser);
+    Q_INVOKABLE void getUsersPosition(QStringList listUsers);
+    Q_INVOKABLE void getUserPosition(int idUser);
     Q_INVOKABLE void resetUser();
     void setForemanForTeam(int idTeam, int idForeman);
 
@@ -36,6 +41,7 @@ public:
     User *getCurrentUser();
 
     QQmlListProperty<accountManagement::User> getAllUsers();
+    QQmlListProperty<accountManagement::Position> getColleguePosition();
 
 signals:
     void authErrorChanged(bool );
@@ -45,22 +51,26 @@ signals:
     void usersChanged(QQmlListProperty<accountManagement::User>);
     void userDeletedWithSuccess();
     void errorWhileDeletingUser();
+    void colleguePositionChanged();
+    void newUserPositionReceived(double latitude, double longitude);
 
 private slots:
     void responseReceived();
     void errorReceived(QNetworkReply::NetworkError code);
     void sslErrors(const QList<QSslError> &errors);
-
     void userModified();
     void userAdded();
     void allUsersReceived();
     void userDeleted();
     void newForemanSet();
+    void userPositionReceived();
+
 private:
     QNetworkAccessManager *networkManager {nullptr};
     NavigationController *navigationController {nullptr};
     User *currentUser {nullptr};
     QList<User *> allUsers;
+    QList<Position *> colleguesPosition;
 
     bool authenticationError {false};
 };

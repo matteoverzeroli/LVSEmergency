@@ -12,6 +12,7 @@
         <file alias="AreaInfo.qml">views/AreaInfo.qml</file>
         <file alias="Alarm.qml">views/Alarm.qml</file>
         <file alias="SplashView.qml">views/SplashView.qml</file>
+        <file alias="Mappa.qml">views/Mappa.qml</file>
     </qresource>
     <qresource prefix="/assets">
         <file alias="RoundPane.qml">assets/RoundPane.qml</file>
@@ -20,5 +21,7 @@
         <file alias="LVSEmergencyBIG.gif">assets/LVSEmergencyBIG.gif</file>
         <file alias="marker.png">assets/marker.png</file>
         <file alias="LVSEmergencyStatic.png">assets/LVSEmergencyStatic.png</file>
+        <file alias="marker_blue.png">assets/marker_blue.png</file>
+        <file alias="marker_red.png">assets/marker_red.png</file>
     </qresource>
 </RCC>
