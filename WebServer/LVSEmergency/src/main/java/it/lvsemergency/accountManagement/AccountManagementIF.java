@@ -62,4 +62,11 @@ public interface AccountManagementIF {
 	 * @return PositionDTO posizione dell'utente.
 	 */
 	public PositionDTO getUserPosition(Integer idUser);
+	
+	/**
+	 * Inserisce nel db l'ultima posizione dell'utente ricevuta dal client. 
+	 * 
+	 * @param position Posizione dell'utente.
+	 */
+	public void setUserPosition(Position position);
 }

@@ -68,4 +68,10 @@ public class UserController {
 		return userService.getUserPosition(idUser);
 	}
 
+	@PostMapping(path = "/users/{idUser}/position")
+	@ResponseStatus(HttpStatus.ACCEPTED)
+	public void setUserPosition(@Valid @RequestBody Position position) {
+		userService.setUserPosition(position);
+	}
+
 }

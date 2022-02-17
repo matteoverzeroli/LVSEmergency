@@ -77,7 +77,7 @@ Page {
                 height: column.height + 20
 
                 Material.foreground: "white"
-                Material.background: "#F2CB05"
+                Material.background: "#F29F05"
                 Material.elevation: 6
                 radius: 6
 
@@ -106,7 +106,7 @@ Page {
                     Row {
                         spacing: 8
                         Label {
-                            text: qsTr("Nome:")
+                            text: qsTr("Cognome:")
                             font.bold: true
                         }
 

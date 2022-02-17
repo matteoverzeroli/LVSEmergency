@@ -169,4 +169,18 @@ public class UserService implements AccountManagementIF, UserDetailsService {
 		return positionDto;
 	}
 
+	/**
+	 * Inserisce nel db l'ultima posizione dell'utente ricevuta dal client. 
+	 * 
+	 * @param position Posizione dell'utente.
+	 */
+	@Override
+	public void setUserPosition(Position position) {
+		Optional<User> userToModify = userRepository.findById(position.getIdUser());
+
+		if (!userToModify.isPresent())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found!");
+		
+		positionRepository.save(position);
+	}
 }
