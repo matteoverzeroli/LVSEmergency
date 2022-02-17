@@ -123,9 +123,9 @@ class FogFrostAlertsCreator (th):
         for j in list(summaryTd.columns):
             for i in list(summaryTd.index):
                 summaryTd.at[i,j] = self.__computeTd(summaryT.at[i,j], summaryUR.at[i,j])
+
         for i in list(summaryTd.index):
             summaryTd.at[i,'I_low'] = summaryTd.at[i,'value']
-        for i in list(summaryTd.index):
             summaryTd.at[i,'I_up'] = summaryTd.at[i,'value'] + 0.45
         
         # debugging
@@ -210,10 +210,12 @@ class FogFrostAlertsCreator (th):
         dataToUpdate.at['t1', 'value'] = fc[0]
         dataToUpdate.at['t2', 'value'] = fc[1]
         dataToUpdate.at['t3', 'value'] = fc[2]
+
         dataToUpdate.at['tf', 'I_low'] = dataToUpdate.at['tf', 'value']
         dataToUpdate.at['t1', 'I_low'] = confint[0,0]
         dataToUpdate.at['t2', 'I_low'] = confint[1,0]
         dataToUpdate.at['t3', 'I_low'] = confint[2,0]
+
         dataToUpdate.at['tf', 'I_up'] = dataToUpdate.at['tf', 'value']
         dataToUpdate.at['t1', 'I_up'] = confint[0,1]
         dataToUpdate.at['t2', 'I_up'] = confint[1,1]
@@ -368,7 +370,7 @@ def algorithm(database, isTest):
         if isTest:
             break
 
-        tm.sleep(5)
+        tm.sleep(60*5)
 
 if __name__ == '__main__':
     algorithm("test", False)
