@@ -2,6 +2,8 @@ package it.lvsemergency.teamManagement;
 
 import java.util.List;
 
+import it.lvsemergency.accountManagement.position.PositionDTO;
+
 public interface TeamManagementIF {
 
 	/**
@@ -40,4 +42,6 @@ public interface TeamManagementIF {
 	 * @param idForeman id del caposquadra da assegnare al team. 
 	 */
 	public void setForemanTeam(Integer idTeam, Integer idForeman);
+
+	public List<PositionDTO> getRTPosition(Integer idTeam);
 }

@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import it.lvsemergency.accountManagement.position.PositionDTO;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.http.HttpStatus;
 
@@ -61,6 +64,11 @@ public class TeamController {
 	public String setForemanTeam(Integer idTeam, Integer idForeman) {
 		teamService.setForemanTeam(idTeam, idForeman);
 		return "Foreman " + idForeman + " assigned to " + idTeam + " correctly !";
+	}
+	
+	@GetMapping(path = "/teams/{idTeam}/getRTPosition")
+	public List<PositionDTO> getRTPosition(@PathVariable Integer idTeam) {
+		return teamService.getRTPosition(idTeam);
 	}
 
 }
