@@ -267,57 +267,6 @@ void UserController::newForemanSet()
     reply->deleteLater();
 }
 
-/*!
- * \brief Funzione che esegue la chiamata API per ricevere la posizione di ogni utente.
- */
-void UserController::getUsersPosition(QStringList listUsers)
-{
-    qDebug() << "List user received:" << listUsers.size();
-
-    colleguesPosition.clear();
-    foreach (QString stringId, listUsers) {
-        getUserPosition(stringId.toInt());
-    }
-}
-
-/*!
- * \brief Funzione per invocare l'API  che riceve la posizione di un utente, se operativo.
- */
-void UserController::getUserPosition(int idUser)
-{
-    QNetworkRequest request;
-    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/users/"
-                        +QString::number(idUser) + "/position"));
-    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
-
-    QNetworkReply *reply = networkManager->get(request);
-    connect(reply, &QNetworkReply::finished, this, &UserController::userPositionReceived);
-}
-
-/*!
- * \briefSlot che riceve la risposta dell'API della posizione dell'utente.
- */
-void UserController::userPositionReceived()
-{
-    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
-    QByteArray response = reply->readAll();
-
-    if (reply->error() == QNetworkReply::NoError) {
-        qDebug() << "Everything is ok." << response;
-
-        Position * position = new Position(this);
-        position->fromJsonObject(QJsonDocument::fromJson(response).object());
-
-        colleguesPosition.append(position);
-        emit colleguePositionChanged();
-        emit newUserPositionReceived(position->getLat(), position->getLng());
-    } else {
-        qDebug() << "Error:" << response;
-    }
-
-    reply->deleteLater();
-}
-
 void UserController::errorReceived(QNetworkReply::NetworkError code)
 {
     qDebug() << "Some error occoured:" << code;
@@ -342,11 +291,6 @@ User *UserController::getCurrentUser()
 QQmlListProperty<User> UserController::getAllUsers()
 {
     return QQmlListProperty<accountManagement::User>(this, &allUsers);
-}
-
-QQmlListProperty<Position> UserController::getColleguePosition()
-{
-    return QQmlListProperty<accountManagement::Position>(this, &colleguesPosition);
 }
 
 void UserController::resetUser()

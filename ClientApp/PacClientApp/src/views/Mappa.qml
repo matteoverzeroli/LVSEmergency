@@ -10,19 +10,18 @@ import "../assets"
 Page {
 
     Connections {
-        target: masterController.ui_userController
+        target: masterController.ui_teamController
 
     }
 
-    //    Timer {
-    //        interval: 10000; running: true; repeat: true
-    //        onTriggered: {
-    //            // ask for the users positions
-    //            masterController.ui_userController.getUsersPosition(
-    //                        masterController.ui_teamController.currentTeam.usersId);
+    Timer {
+        interval: 10000; running: true; repeat: true
+        onTriggered: {
+            masterController.ui_teamController.getRTPosition(
+                        masterController.ui_teamController.currentTeam.idTeam);
 
-    //        }
-    //    }
+        }
+    }
 
     Label {
         id: info
@@ -64,6 +63,8 @@ Page {
 
             property string selectedName: ""
             property string selectedSurname: ""
+            property bool dragged: false
+
 
             RoundPane {
                 id: pane
@@ -142,7 +143,7 @@ Page {
             }
 
             MapItemView {
-                model: masterController.ui_userController.colleguePositions
+                model: masterController.ui_teamController.colleguePositions
                 delegate: MapQuickItem {
                     coordinate: QtPositioning.coordinate(
                                     model.latitude,
@@ -179,9 +180,12 @@ Page {
                     }
 
                     Component.onCompleted: {
-                        map.center = QtPositioning.coordinate(
-                                    model.latitude,
-                                    model.longitude)
+                        if (map.dragged === false) {
+                            map.center = QtPositioning.coordinate(
+                                        model.latitude,
+                                        model.longitude)
+                            map.dragged = true
+                        }
                     }
                 }
             }

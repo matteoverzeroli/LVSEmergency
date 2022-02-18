@@ -31,6 +31,8 @@ QString Utils::getWebServerPrefix()
 {
     if (0)
         return QString("https://progetto-pac-lvsemergency-2021-pacserverweb.azuremicroservices.io");
+    else if (0)
+        return QString("http://192.168.1.206:8080");
     else
         return QString("http://localhost:8080");
 }

@@ -16,6 +16,7 @@ class Team : public helpers::EntityIF
     Q_PROPERTY(QQmlListProperty<accountManagement::User> users READ getUsersQml CONSTANT)
     Q_PROPERTY(areaInformationManagement::Area *area READ getArea CONSTANT)
     Q_PROPERTY(QStringList usersId READ getUsersId CONSTANT)
+    Q_PROPERTY(int idTeam READ getIdTeam CONSTANT)
 public:
     explicit Team(QJsonValue teamObject, QObject *parent = nullptr);
     explicit Team(QObject *parent = nullptr);

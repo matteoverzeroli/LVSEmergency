@@ -23,8 +23,8 @@ Page {
                 console.log("Updated the coordinate")
 
                 // ask for the users positions
-                masterController.ui_userController.getUsersPosition(
-                            masterController.ui_teamController.currentTeam.usersId);
+                masterController.ui_teamController.getRTPosition(
+                            masterController.ui_teamController.currentTeam.idTeam);
 
             }
 
@@ -359,27 +359,6 @@ Page {
                                 sourceItem: Image {
                                     id: image
                                     source: "qrc:/assets/marker.png"
-                                }
-                            }
-
-                            MapItemView {
-                                model: masterController.ui_userController.colleguePositions
-                                delegate: MapQuickItem {
-                                    coordinate: QtPositioning.coordinate(
-                                                    model.latitude,
-                                                    model.longitude)
-
-                                    anchorPoint.x: imagePos.width * 0.5
-                                    anchorPoint.y: imagePos.height
-
-                                    sourceItem: Image {
-                                        id: imagePos;
-                                        source: "qrc:/assets/marker_blue.png"
-                                        height: 32
-                                        width: 25
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-
                                 }
                             }
                         }
