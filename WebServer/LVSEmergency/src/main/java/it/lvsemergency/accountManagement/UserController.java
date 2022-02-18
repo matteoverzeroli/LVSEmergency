@@ -70,8 +70,9 @@ public class UserController {
 
 	@PostMapping(path = "/users/{idUser}/position")
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public void setUserPosition(@Valid @RequestBody Position position) {
-		userService.setUserPosition(position);
+	public String setUserPosition(@Valid @RequestBody Position position, @PathVariable Integer idUser) {
+		userService.setUserPosition(position, idUser);
+		return "Position set correctly!";
 	}
 
 }
