@@ -119,10 +119,11 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 		$recent\_time \gets$ data ultima acquisizione della stazione $station\_code$\;
 		\textbf{/* Interruzione della funzione se non ci fosse una nuova acquisizione */}\;
 		\If{$recent\_time = old\_final\_time\_list\left[index\right]$}{
-			\textbf{return}\;
+			\textbf{exit}\;
 		}
 		\textbf{/* Elaborazione della serie storica relativa alla pressione atmosferica */}\;
-		$pressure\_DS\left[ \right]\gets$ recupera i dati di pressione atmosferica delle ultime \num{24} ore della stazione $station\_code$\;
+		$pressure\_DS\gets$ recupera i dati di pressione atmosferica delle ultime \num{24} ore della stazione $station\_code$\;
+		\If{$parameter\_DS$ is empty}{\textbf{exit}\;}
 		$p\_mean \gets$ mean($pressure\_DS$[all ; `pressure'])\;
 		\For{$i = 1$ \KwTo lenght($pressure\_DS$)}{
 			$pressure\_DS$[$i$] $\gets pressure\_DS$[$i$] - $p\_mean$ \Comment*[r]{Destagionalizzazione} 
@@ -163,25 +164,20 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 		$recent\_time \gets$ data ultima acquisizione della stazione $station\_code$\;
 		\textbf{/* Interruzione della funzione se non ci fosse una nuova acquisizione */}\;
 		\If{$recent\_time = old\_final\_time\_list\left[index\right]$}{
-			\textbf{return}\;
+			\textbf{exit}\;
 		}
 		\textbf{/* Predizione dei valori di temperatura e umidità relativa */}\;
 		$summaryT \gets$ crea una tabella per la temperatura con colonne \{`I\_low', `value', `I\_up'\} e righe \{`tf', `t1', `t2', `t3'\}\;
 		$summaryUR \gets$ crea una tabella per l'umidità relativa con colonne \{`I\_low', `value', `I\_up'\} e righe \{`tf', `t1', `t2', `t3'\}\;
 		$summaryTd \gets$ crea una tabella per la temperatura di rugiada con colonne  \{`I\_low', `value', `I\_up'\} e righe \{`tf', `t1', `t2', `t3'\}\;
-		$num\_columns \gets 3$\;
-		$num\_rows \gets 4$\;
 		\underline{tempURForcaster}(`temperature',$station\_code$, $summaryT$)\;
 		\underline{tempURForcaster}(`umidity', $station\_code$, $summaryUR$)\;
 		\textbf{/* Calcolo dei valori attuali e previsti della temperatura di rugiada */}\;
-		\textcolor{red}{ATTENZIONE DA RIVEDERE CODICE}
-		\For{$j=1$ \KwTo $num\_columns$}{
-			\For{$i=1$ \KwTo $num\_rows$}{
-				$summaryTd$[$i$ ; $j$] $\gets$ calcolo temperatura di rugiada con l'approssimazione di Magnus-Tetens;
-			}
-		}
-		\For{$i=1$ \KwTo $num\_rows$}{
-			$summaryTd$[$i$ ; `I\_up'] $\gets$ $summaryTd$[$i$ ; `value'] + \num{0.45} \Comment*[r]{Determinazione del limite superiore dell'intervallo di validità}
+
+		\For{$i$ \KwTo $summaryTd.rows$}{
+			$summaryTd$[$i$ ; `value'] $\gets$ calcolo temperatura di rugiada usando $summaryT$[$i$,`value'] e $summaryUR$[$i$,`value']\;
+			$summaryTd$[$i$ ; `I\_up'] $\gets$ $summaryTd$[$i$ ; `value'] + \num{0.45}\;
+			$summaryTd$[$i$ ; `I\_low'] $\gets$ $summaryTd$[$i$ ; `value']\;
 		}
 		\textbf{/* Generazione delle allerte nebbia e brina */}\;
 		\underline{alertsCreator}($summaryT$, $summaryTd$)\;
@@ -199,6 +195,9 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 		}{
 			$parameter\_DS \gets$ recupera dati di umidità delle ultime \num{24} della stazione $station\_code$\;
 		}
+		
+		\If{$parameter\_DS$ is empty}{\textbf{exit}\;}
+		
 		\textbf{/* Analisi dei dati */}\;
 		$model \gets$ fitARIMA($parameter\_DS$[all ; $parameter$], $start\_complexity$ = [\num{1}, \num{1}, \num{1}], $stop\_complexity$ = [\num{3}, \num{3}, \num{3}]) \Comment*[r]{Stima del modello ARIMA}
 		$k \gets$ \num{3} \Comment*[r]{Passo della predizione}
