@@ -5,6 +5,7 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QQmlListProperty>
+#include <QGeoPositionInfoSource>
 
 #include "./navigationcontroller.h"
 #include "user.h"
@@ -32,6 +33,7 @@ public:
     Q_INVOKABLE void deleteUser(int idUser);
     Q_INVOKABLE void resetUser();
     void setForemanForTeam(int idTeam, int idForeman);
+    void setUserPosition(Position *pos);
 
     bool getAuthError();
     User *getCurrentUser();
@@ -56,12 +58,15 @@ private slots:
     void allUsersReceived();
     void userDeleted();
     void newForemanSet();
+    void positionReceived();
+    void positionUpdated();
 
 private:
     QNetworkAccessManager *networkManager {nullptr};
     NavigationController *navigationController {nullptr};
     User *currentUser {nullptr};
     QList<User *> allUsers;
+    QGeoPositionInfoSource *source {nullptr};
 
 
     bool authenticationError {false};

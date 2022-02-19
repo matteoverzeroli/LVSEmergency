@@ -10,8 +10,12 @@ Position::Position(QObject *parent)
 }
 
 QJsonDocument Position::toJsonDocument()
-{
-    return QJsonDocument::fromJson("");
+{    
+    QJsonObject positionObject;
+    positionObject.insert("lat", lat);
+    positionObject.insert("lng", lng);
+
+    return QJsonDocument(positionObject);
 }
 
 void Position::fromJsonObject(QJsonObject positionObject)

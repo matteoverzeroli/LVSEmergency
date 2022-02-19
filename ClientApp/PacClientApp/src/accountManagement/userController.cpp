@@ -16,6 +16,16 @@ UserController::UserController(QNetworkAccessManager *networkManager,
       navigationController(navigationController)
 {
 
+    source = QGeoPositionInfoSource::createDefaultSource(0);
+    if (source) {
+        qDebug() << "We have a valid geoPosition source.";
+        source->setUpdateInterval(10000);
+        connect(source, &QGeoPositionInfoSource::positionUpdated, this, &UserController::positionReceived);
+        connect(source, QOverload<QGeoPositionInfoSource::Error>::of(&QGeoPositionInfoSource::error),
+                [=](QGeoPositionInfoSource::Error positioningError){
+            qDebug() << "Positioning error: " << positioningError;
+        });
+    }
 }
 
 UserController::~UserController()
@@ -61,6 +71,11 @@ void UserController::responseReceived()
         emit currentUserChanged(currentUser);
 
         navigationController->needDashboardView();
+
+        if (source) {
+            source->startUpdates();
+        }
+
     } else {
 
         authenticationError = true;
@@ -262,6 +277,57 @@ void UserController::newForemanSet()
         qDebug() << "Everything is ok.";
     } else {
         qDebug() << "error setting the foreman.";
+    }
+
+    reply->deleteLater();
+}
+
+/*!
+ * \brief  Slot che viene chiamato quando è disponibile un update della posizione.
+ */
+void UserController::positionReceived()
+{
+    qDebug() << "Position update received: " << source->lastKnownPosition();
+
+    QGeoPositionInfo positionInfo = source->lastKnownPosition();
+    if (currentUser != nullptr) {
+        if (currentUser->getState() == 1) {
+            QSharedPointer<Position> pos(new Position());
+            pos->setLat(positionInfo.coordinate().latitude());
+            pos->setLng(positionInfo.coordinate().longitude());
+
+            setUserPosition(pos.data());
+        }
+    }
+}
+
+/*!
+ * \brief Funzione per invocare l'API che imposta la posizione dell'utente.
+ */
+void UserController::setUserPosition(Position *pos)
+{
+    QNetworkRequest request;
+    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/users/"
+                        + QString::number(currentUser->getIdUser()) + "/position"));
+    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+    request.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
+
+    QNetworkReply *reply = networkManager->post(request, pos->toJsonDocument().toJson());
+    connect(reply, &QNetworkReply::finished, this, &UserController::positionUpdated);
+}
+
+/*!
+ * \brief  Slot che viene chiamato per verificare la risposta alla chiamata per
+ * l'update della posizione.
+ */
+void UserController::positionUpdated()
+{
+    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+
+    if (reply->error() == QNetworkReply::NoError) {
+        qDebug() << "Position updated correctly.";
+    } else {
+        qDebug() << "Error updating the position to the server.";
     }
 
     reply->deleteLater();

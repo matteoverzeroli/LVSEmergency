@@ -24,4 +24,8 @@
         <file alias="marker_blue.png">assets/marker_blue.png</file>
         <file alias="marker_red.png">assets/marker_red.png</file>
     </qresource>
+    <qresource prefix="/fonts">
+        <file alias="OpenSans-Bold.ttf">fonts/OpenSans-Bold.ttf</file>
+        <file alias="OpenSans-Regular.ttf">fonts/OpenSans-Regular.ttf</file>
+    </qresource>
 </RCC>

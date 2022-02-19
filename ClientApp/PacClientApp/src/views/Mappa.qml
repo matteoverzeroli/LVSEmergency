@@ -31,8 +31,6 @@ Page {
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
         text: "Ecco dove si trovano i tuoi compagni operativi:"
-
-        font.pointSize: 12
     }
 
     RoundPane {
@@ -171,6 +169,7 @@ Page {
 
                             onClicked: {
                                 pane.opacity = 100
+                                timerHide.interval = 5000
                                 timerHide.running = true
 
                                 map.selectedName = model.name
