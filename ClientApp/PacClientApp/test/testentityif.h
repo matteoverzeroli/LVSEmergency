@@ -8,6 +8,7 @@
 #include "../src/areaInformationManagement/area.h"
 #include "../src/areaInformationManagement/aprsdata.h"
 #include "../src/areaInformationManagement/alarm.h"
+#include "../src/accountManagement/position.h"
 
 class TestEntityIF : public QObject
 {
@@ -19,6 +20,7 @@ private slots:
     void testAreaFromJson();
     void testAprsDataFromJson();
     void testAlarmFromJson();
+    void testPositionFromJson();
 };
 
 #endif // TESTENTITYIF_H

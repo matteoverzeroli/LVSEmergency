@@ -5,6 +5,7 @@ QT += quick quickcontrols2 testlib
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ../src/accountManagement/position.cpp \
     ../src/accountManagement/user.cpp \
     ../src/areaInformationManagement/alarm.cpp \
     ../src/areaInformationManagement/aprsdata.cpp \
@@ -13,6 +14,7 @@ SOURCES += \
     testentityif.cpp
 
 HEADERS += \
+    ../src/accountManagement/position.h \
     ../src/accountManagement/user.h \
     ../src/areaInformationManagement/alarm.h \
     ../src/areaInformationManagement/aprsdata.h \
