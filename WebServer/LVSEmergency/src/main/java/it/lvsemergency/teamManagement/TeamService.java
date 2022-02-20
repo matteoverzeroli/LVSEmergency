@@ -9,17 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import it.lvsemergency.accountManagement.position.PositionDTO;
-import it.lvsemergency.accountManagement.position.PositionRepository;
-
 @Service
 public class TeamService implements TeamManagementIF{
 
 	@Autowired
 	private TeamRepository teamRepository;
-	
-	@Autowired
-	private PositionRepository positionRepository;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -100,10 +94,5 @@ public class TeamService implements TeamManagementIF{
 		newTeam.setIdForeman(idForeman);
 		
 		teamRepository.save(newTeam);
-	}
-
-	@Override
-	public List<PositionDTO> getRTPosition(Integer idTeam) {
-		return positionRepository.test(idTeam);
 	}
 }
