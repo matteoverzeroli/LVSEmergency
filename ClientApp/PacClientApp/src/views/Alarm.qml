@@ -118,7 +118,6 @@ Item {
                     text: "Ecco gli allarmi presenti a " +
                           masterController.ui_teamController.currentTeam.area.areaName + ":"
 
-                    font.pointSize: 12
                 }
 
                 RoundPane {
@@ -143,7 +142,6 @@ Item {
                             width: parent.width
 
                             horizontalAlignment: Qt.AlignLeft
-                            font.pointSize: 10
                         }
 
                         Label {
@@ -160,7 +158,6 @@ Item {
                         Label {
                             text: masterController.ui_areaController.frogorfrostAlarm.description
                             wrapMode: Label.Wrap
-                            font.pointSize: 12
                             width: parent.width
                         }
                     }
@@ -188,7 +185,6 @@ Item {
                             width: parent.width
 
                             horizontalAlignment: Qt.AlignLeft
-                            font.pointSize: 10
                         }
 
                         Label {
@@ -205,7 +201,6 @@ Item {
                         Label {
                             text: masterController.ui_areaController.badwheatherAlarm.description
                             wrapMode: Label.Wrap
-                            font.pointSize: 12
                             width: parent.width
                         }
                     }

@@ -23,8 +23,8 @@ Page {
                 console.log("Updated the coordinate")
 
                 // ask for the users positions
-                masterController.ui_teamController.getRTPosition(
-                            masterController.ui_teamController.currentTeam.idTeam);
+                masterController.ui_userController.getUsersPosition(
+                            masterController.ui_teamController.currentTeam.usersId);
 
             }
 
@@ -227,8 +227,6 @@ Page {
                         wrapMode: Label.Wrap
                         horizontalAlignment: Qt.AlignHCenter
                         text: "Ecco alcune informazioni su di te:"
-
-                        font.pointSize: 12
                     }
 
                     RoundPane {

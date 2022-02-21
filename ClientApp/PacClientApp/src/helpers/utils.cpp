@@ -29,12 +29,18 @@ QByteArray Utils::getAuthString()
  */
 QString Utils::getWebServerPrefix()
 {
+    QSettings settings;
+    settings.beginGroup("IPAddress");
+    QString prefix = settings.value("ip").toString();
+    settings.endGroup();
+
+    if (prefix.isEmpty())
+        prefix = "localhost";
+
     if (0)
         return QString("https://progetto-pac-lvsemergency-2021-pacserverweb.azuremicroservices.io");
-    else if (0)
-        return QString("http://192.168.1.206:8080");
-    else
-        return QString("http://localhost:8080");
+    else if (1)
+        return QString("http://" + prefix + ":8080");
 }
 
 }

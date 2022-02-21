@@ -175,11 +175,13 @@ public class UserService implements AccountManagementIF, UserDetailsService {
 	 * @param position Posizione dell'utente.
 	 */
 	@Override
-	public void setUserPosition(Position position) {
-		Optional<User> userToModify = userRepository.findById(position.getIdUser());
+	public void setUserPosition(Position position, Integer idUser) {
+		Optional<User> userToModify = userRepository.findById(idUser);
 
 		if (!userToModify.isPresent())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found!");
+		
+		position.setIdUser(idUser);
 		
 		positionRepository.save(position);
 	}

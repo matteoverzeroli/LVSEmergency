@@ -92,7 +92,7 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 
 \clearpage
 
-\paragraph{Analisi algoritmo}
+\paragraph{Algoritmo}
 
 \SetKwComment{Comment}{/* }{ */}
 \RestyleAlgo{ruled}
@@ -119,10 +119,11 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 		$recent\_time \gets$ data ultima acquisizione della stazione $station\_code$\;
 		\textbf{/* Interruzione della funzione se non ci fosse una nuova acquisizione */}\;
 		\If{$recent\_time = old\_final\_time\_list\left[index\right]$}{
-			\textbf{return}\;
+			\textbf{exit}\;
 		}
 		\textbf{/* Elaborazione della serie storica relativa alla pressione atmosferica */}\;
-		$pressure\_DS\left[ \right]\gets$ recupera i dati di pressione atmosferica delle ultime \num{24} ore della stazione $station\_code$\;
+		$pressure\_DS\gets$ recupera i dati di pressione atmosferica delle ultime \num{24} ore della stazione $station\_code$\;
+		\If{$parameter\_DS$ is empty}{\textbf{exit}\;}
 		$p\_mean \gets$ mean($pressure\_DS$[all ; `pressure'])\;
 		\For{$i = 1$ \KwTo lenght($pressure\_DS$)}{
 			$pressure\_DS$[$i$] $\gets pressure\_DS$[$i$] - $p\_mean$ \Comment*[r]{Destagionalizzazione} 
@@ -163,25 +164,20 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 		$recent\_time \gets$ data ultima acquisizione della stazione $station\_code$\;
 		\textbf{/* Interruzione della funzione se non ci fosse una nuova acquisizione */}\;
 		\If{$recent\_time = old\_final\_time\_list\left[index\right]$}{
-			\textbf{return}\;
+			\textbf{exit}\;
 		}
 		\textbf{/* Predizione dei valori di temperatura e umidità relativa */}\;
 		$summaryT \gets$ crea una tabella per la temperatura con colonne \{`I\_low', `value', `I\_up'\} e righe \{`tf', `t1', `t2', `t3'\}\;
 		$summaryUR \gets$ crea una tabella per l'umidità relativa con colonne \{`I\_low', `value', `I\_up'\} e righe \{`tf', `t1', `t2', `t3'\}\;
 		$summaryTd \gets$ crea una tabella per la temperatura di rugiada con colonne  \{`I\_low', `value', `I\_up'\} e righe \{`tf', `t1', `t2', `t3'\}\;
-		$num\_columns \gets 3$\;
-		$num\_rows \gets 4$\;
 		\underline{tempURForcaster}(`temperature',$station\_code$, $summaryT$)\;
 		\underline{tempURForcaster}(`umidity', $station\_code$, $summaryUR$)\;
 		\textbf{/* Calcolo dei valori attuali e previsti della temperatura di rugiada */}\;
-		\textcolor{red}{ATTENZIONE DA RIVEDERE CODICE}
-		\For{$j=1$ \KwTo $num\_columns$}{
-			\For{$i=1$ \KwTo $num\_rows$}{
-				$summaryTd$[$i$ ; $j$] $\gets$ calcolo temperatura di rugiada con l'approssimazione di Magnus-Tetens;
-			}
-		}
-		\For{$i=1$ \KwTo $num\_rows$}{
-			$summaryTd$[$i$ ; `I\_up'] $\gets$ $summaryTd$[$i$ ; `value'] + \num{0.45} \Comment*[r]{Determinazione del limite superiore dell'intervallo di validità}
+
+		\For{$i$ \KwTo $summaryTd.rows$}{
+			$summaryTd$[$i$ ; `value'] $\gets$ calcolo temperatura di rugiada usando $summaryT$[$i$,`value'] e $summaryUR$[$i$,`value']\;
+			$summaryTd$[$i$ ; `I\_up'] $\gets$ $summaryTd$[$i$ ; `value'] + \num{0.45}\;
+			$summaryTd$[$i$ ; `I\_low'] $\gets$ $summaryTd$[$i$ ; `value']\;
 		}
 		\textbf{/* Generazione delle allerte nebbia e brina */}\;
 		\underline{alertsCreator}($summaryT$, $summaryTd$)\;
@@ -199,6 +195,9 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 		}{
 			$parameter\_DS \gets$ recupera dati di umidità delle ultime \num{24} della stazione $station\_code$\;
 		}
+		
+		\If{$parameter\_DS$ is empty}{\textbf{exit}\;}
+		
 		\textbf{/* Analisi dei dati */}\;
 		$model \gets$ fitARIMA($parameter\_DS$[all ; $parameter$], $start\_complexity$ = [\num{1}, \num{1}, \num{1}], $stop\_complexity$ = [\num{3}, \num{3}, \num{3}]) \Comment*[r]{Stima del modello ARIMA}
 		$k \gets$ \num{3} \Comment*[r]{Passo della predizione}
@@ -264,6 +263,16 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 \end{algorithm}
 
 \clearpage
+
+\paragraph{Analisi computazionale}
+Procediamo ora con l'analisi della complessità temporale dell'algoritmo. L'algoritmo è composto da più funzioni. È importante notare che il parametro attorno a cui vogliamo studiare la complessità temporale è il numero di aree che viene passato come parametro alla funzione principale. Iniziamo l'analisi dalle funzioni più interne:
+
+\begin{itemize}
+	\item \textbf{badWheatherAlertsCreator}: questa funzione verifica se è in arrivo maltempo analizzando la pressione. È presente un ciclo for tramite cui viene effettuata la destagionalizzazione. Il ciclo for va da 1 a length(pressure\_DS). Tale parametro contiene i valori di pressione delle ultime 24 ore di una particolare stazione e, poichè un nuovo valore di pressione viene inserito nel database ogni 10 minuti, tale parametro è costante e di conseguenza anche la complessità del ciclo. Le restanti operazioni sono sequenze di if-else che, anche nel caso peggiore, hanno una complessità temporale costante.
+	\item \textbf{tempURForcaster}: con questa funzione vengono eseguite la stima del modello ARIMA e la predizione a k passi. In questo caso è importante notare che il numero di parametri su cui vengono eseguite queste due operazioni è sempre lo stesso perchè vengono presi i dati delle ultime 24 ore, ed inoltre la stima del modello ARIMA ha una complessità limitata. C'è poi un ciclo for che va da 1 a k dove k è pari a 3. Di conseguenza, anche il costo di questa funzione è costante. 
+	\item \textbf{alertsCreator}: questa funzione serve per inserire le allerte nebbia o brina nel database. Non sono presenti cicli, ma solo una sequenza di if-then-else che nel caso peggiore ha compunque una complessità costante.
+	\item \textbf{generateAlarms}: è la funzione principale dell'algoritmo. All'interno della funzione è presente un unico ciclo che viene eseguito un numero di volte pari al numero di aree, \textit{num\_areas}. All'interno di questo ciclo vengono chiamate le funzioni analizzate in precedenza, le quali sono tutte costanti nel parametro \textit{num\_areas}. Di conseguenza, il costo computazionale di questa funzione è O(num\_areas) e dipende esclusivamente dal numero di aree di cui deve essere analizzata la presenza di allarmi.
+\end{itemize}
 
 \subsection{Test Data Analyzer}
 Sono stati eseguiti anche dei test di unità sull'algoritmo. Nella figura \ref{fig:test_result_alg} sono riportano i risultati effettuati grazie al modulo di Python \texttt{unittest}. Si è testato la generazione dei seguenti allarmi:

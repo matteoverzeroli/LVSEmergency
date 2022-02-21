@@ -10,15 +10,15 @@ import "../assets"
 Page {
 
     Connections {
-        target: masterController.ui_teamController
+        target: masterController.ui_userController
 
     }
 
     Timer {
         interval: 10000; running: true; repeat: true
         onTriggered: {
-            masterController.ui_teamController.getRTPosition(
-                        masterController.ui_teamController.currentTeam.idTeam);
+            masterController.ui_userController.getUsersPosition(
+                        masterController.ui_teamController.currentTeam.usersId);
 
         }
     }
@@ -26,13 +26,12 @@ Page {
     Label {
         id: info
         width: parent.width
-        height: 32
+        anchors.top: parent.top
+        anchors.margins: 10
         wrapMode: Label.Wrap
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
         text: "Ecco dove si trovano i tuoi compagni operativi:"
-
-        font.pointSize: 12
     }
 
     RoundPane {
@@ -129,21 +128,8 @@ Page {
                 }
             }
 
-
-            PositionSource {
-                id: src
-                updateInterval: 10000
-                active: true
-                preferredPositioningMethods: PositionSource.NonSatellitePositioningMethods
-
-                onPositionChanged: {
-                    var coord = src.position.coordinate;
-                    console.log("Coordinate:", coord.longitude, coord.latitude);
-                }
-            }
-
             MapItemView {
-                model: masterController.ui_teamController.colleguePositions
+                model: masterController.ui_userController.colleguePositions
                 delegate: MapQuickItem {
                     coordinate: QtPositioning.coordinate(
                                     model.latitude,
@@ -171,6 +157,7 @@ Page {
 
                             onClicked: {
                                 pane.opacity = 100
+                                timerHide.interval = 5000
                                 timerHide.running = true
 
                                 map.selectedName = model.name

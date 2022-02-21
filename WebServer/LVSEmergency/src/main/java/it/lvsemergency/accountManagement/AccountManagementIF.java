@@ -67,6 +67,7 @@ public interface AccountManagementIF {
 	 * Inserisce nel db l'ultima posizione dell'utente ricevuta dal client. 
 	 * 
 	 * @param position Posizione dell'utente.
+	 * @param idUser 
 	 */
-	public void setUserPosition(Position position);
+	public void setUserPosition(Position position, Integer idUser);
 }

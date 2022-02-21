@@ -82,7 +82,6 @@ Page {
         horizontalAlignment: Qt.AlignHCenter
         text: "Fai swipe verso sinistra per eliminare un utente."
 
-        font.pointSize: 12
     }
 
     ListView {

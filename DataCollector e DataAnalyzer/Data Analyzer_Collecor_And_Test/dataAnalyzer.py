@@ -32,20 +32,29 @@ class BadWeatherAlertsCreator(th):
                 print("No new row")
                 self.conn2.close()
                 self.cursor2.close()
-                return
+                exit(0)
         
         # analysis and processing of atmospheric pressure time series regarding last 24 hours
         pressure_DS = pd.DataFrame(columns=['time','pressure'])
         self.cursor2.execute("SELECT time, pressure FROM aprsdata WHERE\
-                             time >= date_sub(now(), INTERVAL 1 DAY) and name = %(code)s", {'code':self.station_code})
+                             time >= date_sub('2022/01/30', INTERVAL 1 DAY) and name = %(code)s", {'code':self.station_code})
         info = self.cursor2.fetchall()
+
+        if len(info) == 0:
+            print("No data within 24h: pressure " + "of " + self.station_code + "\n")
+            exit(0)
+
         for i in range(len(info)):
             pressure_DS.loc[i] = list(info[i])
+
         min_3h = self.recent_time - datetime.timedelta(hours=3)
         y_24h = list(pressure_DS['pressure'])
+
         p_mean = sum(y_24h)/len(y_24h)
+
         for i in list(pressure_DS.index):
             pressure_DS.at[i,'pressure'] = pressure_DS.at[i,'pressure'] - p_mean
+
         pressure_DS = pressure_DS[pressure_DS.time > min_3h]
         y_3h = list(pressure_DS['pressure'])
         p_low = (y_3h[1] + y_3h[2])/2
@@ -110,7 +119,7 @@ class FogFrostAlertsCreator (th):
                 print("No new row")
                 self.conn1.close()
                 self.cursor1.close()
-                return
+                exit(0)
         
         # creation of tables for meteorological parameters and forcasters starting
         summaryT = pd.DataFrame(index=["tf","t1","t2","t3"], columns=["I_low", "value", "I_up"])
@@ -120,14 +129,11 @@ class FogFrostAlertsCreator (th):
         self.__tempURForecaster("humidity", summaryUR)
         
         # determination of dew point's values and rispective acceptance ranges
-        for j in list(summaryTd.columns):
-            for i in list(summaryTd.index):
-                summaryTd.at[i,j] = self.__computeTd(summaryT.at[i,j], summaryUR.at[i,j])
-
         for i in list(summaryTd.index):
+            summaryTd.at[i,'value'] = self.__computeTd(summaryT.at[i,'value'], summaryUR.at[i,'value'])
             summaryTd.at[i,'I_low'] = summaryTd.at[i,'value']
             summaryTd.at[i,'I_up'] = summaryTd.at[i,'value'] + 0.45
-        
+
         # debugging
         print(self.station_code)
         print(self.recent_time.strftime('%Y-%m-%d %H:%M:%S'))
@@ -181,16 +187,35 @@ class FogFrostAlertsCreator (th):
             self.cursor1.execute("SELECT time, temperature FROM aprsdata WHERE\
                                  time >= date_sub(now(), INTERVAL 1 DAY)\
                                      and name = %(station)s;", {'station':self.station_code})
+            """
+            For tests use this code:
+
+                self.cursor1.execute("SELECT time, temperature FROM aprsdata WHERE\
+                                    time >= date_sub('2022/01/30', INTERVAL 1 DAY)\
+                                        and name = %(station)s;", {'station':self.station_code})
+            """  
         else:
             self.cursor1.execute("SELECT time, humidity FROM aprsdata WHERE\
                                  time >= date_sub(now(), INTERVAL 1 DAY)\
                                      and name = %(station)s;", {'station':self.station_code})
+            """
+            For tests use this code:
+
+                self.cursor1.execute("SELECT time, humidity FROM aprsdata WHERE\
+                                    time >= date_sub('2022/01/30', INTERVAL 1 DAY)\
+                                        and name = %(station)s;", {'station':self.station_code})
+            """  
         info = self.cursor1.fetchall()
+
+        if len(info) == 0:
+            print("No data within 24h: " + parameter + " of " + self.station_code + "\n")
+            exit(0)
+
         parameter_DS = pd.DataFrame(columns=["time", parameter])
         for i in range(len(info)):
             parameter_DS.loc[i] = list(info[i])
         y = parameter_DS[parameter]
-        print(y)
+
         model = pm.auto_arima(y, start_p=1, start_q=1,
                               test='adf',
                               max_p=3, max_q=3,

@@ -26,7 +26,7 @@ create table if not exists area (idArea integer primary key auto_increment,
                                 nameAprsStation varchar(10) unique,
                                 istatCode char(6) unique not null);
                                 
-create table aprsdata (name varchar(10),
+create table if not exists aprsdata (name varchar(10),
 						 time datetime not null,
                          temperature float default null,
                          pressure float default null,
@@ -40,7 +40,7 @@ create table aprsdata (name varchar(10),
                          luminosity float default null,
                          primary key (name, time));
                          
-create table earthquake (eventId varchar(15) primary key,
+create table if not exists earthquake (eventId varchar(15) primary key,
 						time datetime not null,
                         lat double not null,
                         lng double not null,
@@ -52,7 +52,7 @@ create table earthquake (eventId varchar(15) primary key,
                         idArea integer not null,
 						foreign key (idArea) references area(IdArea));
                         
-create table pcreport (reportId integer primary key auto_increment,
+create table if not exists pcreport (reportId integer primary key auto_increment,
 					  time datetime not null,
                       risk varchar(15) not null,
                       info varchar(50) not null,
@@ -70,7 +70,7 @@ create table pcreport (reportId integer primary key auto_increment,
                       link varchar(200) not null,
                       datePublication datetime not null);
 
-create table alarm (idAlarm integer primary key auto_increment,
+create table if not exists alarm (idAlarm integer primary key auto_increment,
 					time timestamp not null default now(),
                     type varchar(15) not null,
                     color varchar(15) not null,
@@ -78,9 +78,9 @@ create table alarm (idAlarm integer primary key auto_increment,
                     description varchar(100) default 'no description',
                     foreign key (idArea) references area(idArea));
                     
-create table position (idPosition integer primary key auto_increment,
+create table if not exists position (idPosition integer primary key auto_increment,
 					idUser integer not null,
-					time datetime not null,
+					time timestamp not null default now(),
                     lat double not null,
 					lng double not null,
                     foreign key (idUser) references user(idUser) on delete cascade);

@@ -3,6 +3,7 @@
 #include <QQuickStyle>
 #include <QQmlContext>
 #include <QIcon>
+#include <QFontDatabase>
 
 #include "mastercontroller.h"
 #include "./helpers/radialbar.h"
@@ -20,6 +21,14 @@ int main(int argc, char *argv[])
 
     QQuickStyle::setStyle("Material");
     QIcon::setThemeName("gallery");
+
+    int loadedFontID = QFontDatabase::addApplicationFont ( ":/fonts/OpenSans-Regular.ttf" );
+
+    qDebug() << "loadedFontID:" << loadedFontID;
+    QString family = QFontDatabase::applicationFontFamilies(loadedFontID).at(0);
+    qDebug() << "String Name:" << family;
+    QFont monospace(family);
+    app.setFont(monospace);
 
 
     MasterController masterController;

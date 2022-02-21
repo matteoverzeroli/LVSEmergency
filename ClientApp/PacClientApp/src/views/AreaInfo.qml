@@ -88,7 +88,6 @@ Item {
                     text: "Ecco i dati di " +
                           masterController.ui_teamController.currentTeam.area.areaName+":"
 
-                    font.pointSize: 12
                 }
 
                 RoundPane {

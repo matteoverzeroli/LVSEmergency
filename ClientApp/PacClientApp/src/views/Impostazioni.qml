@@ -36,8 +36,6 @@ Flickable {
                 wrapMode: Label.Wrap
                 horizontalAlignment: Qt.AlignHCenter
                 text: "Ecco alcune informazioni su di te:"
-
-                font.pointSize: 12
             }
 
             RoundPane {
@@ -115,8 +113,6 @@ Flickable {
 
                     return "Ecco alcune informazioni sulla tua squadra:"
                 }
-
-                font.pointSize: 12
             }
 
             RoundPane {
@@ -163,8 +159,6 @@ Flickable {
                 wrapMode: Label.Wrap
                 horizontalAlignment: Qt.AlignHCenter
                 text: checkNoMemberNull()
-
-                font.pointSize: 12
 
                 function checkNoMemberNull() {
                     if (masterController.ui_teamController.currentTeam.users.length === 1)
