@@ -21,6 +21,21 @@ Nell'iterazione 3 si sono testate tutte le API Rest implementate, utlizzando Pos
 		\caption{Risultati test API su Postman.}
 		\label{fig:RisultatiTestAPIIT3}
 	\end{figure}
+
+\clearpage
+
+	\item UserController:
+	\begin{itemize}
+		\item Visualizzazione dell'ultima posizione disponibile di un utente attivo;
+		\item Visualizzazione dell'ultima posizione disponibile di un utente inattivo;
+		\item Inserimento della posizione di un utente;
+	\end{itemize}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/TestUserController}
+		\caption{Risultati test API su Postman.}
+		\label{fig:RisultatiTestAPIIT3_2}
+	\end{figure}
 \end{itemize}
 
 \clearpage
@@ -79,6 +94,8 @@ In questa sezione viene mostrata la documentazione relativa ad alcune API implem
 	\item API per la visualizzazione degli ultimi dati meteorologici raccolti dalla stazione APRS associata all'area, il cui id è specificato nel path della richiesta;
 	\item API per la visualizzazione del più recente allarme di nebbia o brina generato nell'area di interesse;
 	\item API per la visualizzazione del più recente allarme di maltempo generato nell'area di interesse;
+	\item API per la visualizzazione dell'ultima posizione disponibile di un utente attivo;
+	\item API per l'inserimento della posizione di un utente;
 \end{itemize}
 
 \begin{figure}[h!]
@@ -103,6 +120,25 @@ In questa sezione viene mostrata la documentazione relativa ad alcune API implem
 	\lstinputlisting[language=json]{./Iterazione 3/OtherFiles/GetBadWeatherAlarmResponse.json}
 	\caption{Documentazione API Get bad weather alarm.}
 	\label{fig:GetBadWeatherAlarm}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/GetUserPositionRequest}
+	\lstinputlisting[language=json]{./Iterazione 3/OtherFiles/GetUserPositionResponse.json}
+	\caption{Documentazione API Get user position.}
+	\label{fig:GetUserPosition}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/SetUserPositionRequest}
+	Body:
+	\lstinputlisting[language=json]{./Iterazione 3/OtherFiles/SetUserPositionBody.json}
+	Response:
+	Position set correctly!
+	\caption{Documentazione API Set user position.}
+	\label{fig:SetUserPosition}
 \end{figure}
 
 \clearpage
