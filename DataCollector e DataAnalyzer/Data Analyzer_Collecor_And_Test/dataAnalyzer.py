@@ -116,8 +116,8 @@ class FogFrostAlertsCreator (th):
         summaryT = pd.DataFrame(index=["tf","t1","t2","t3"], columns=["I_low", "value", "I_up"])
         summaryUR = pd.DataFrame(index=["tf","t1","t2","t3"], columns=["I_low", "value", "I_up"])
         summaryTd = pd.DataFrame(index=["tf","t1","t2","t3"], columns=["I_low", "value", "I_up"])
-        self.__tempURForcaster("temperature", summaryT)
-        self.__tempURForcaster("humidity", summaryUR)
+        self.__tempURForecaster("temperature", summaryT)
+        self.__tempURForecaster("humidity", summaryUR)
         
         # determination of dew point's values and rispective acceptance ranges
         for j in list(summaryTd.columns):
@@ -174,7 +174,7 @@ class FogFrostAlertsCreator (th):
         self.conn1.close()
         self.cursor1.close()
         
-    def __tempURForcaster(self, parameter, dataToUpdate):
+    def __tempURForecaster(self, parameter, dataToUpdate):
         # analysis and processing of temperature or relative umidity's time series regarding
         # last 24 hours for predictive purpose
         if parameter == "temperature":
