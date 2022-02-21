@@ -10,10 +10,17 @@ class Utils : public QObject
 {
     Q_OBJECT
 public:
-    static QByteArray getAuthString();
-    static QString getWebServerPrefix();
+    QByteArray getAuthString();
+    QString getWebServerPrefix();
 
-signals:
+    static Utils& getInstance() {
+        static Utils instance;
+        return instance;
+    }
+
+private:
+    Utils(){}
+
 
 };
 

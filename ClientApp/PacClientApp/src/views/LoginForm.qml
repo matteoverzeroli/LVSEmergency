@@ -5,6 +5,23 @@ import "../assets"
 
 Item {
 
+
+    MouseArea {
+        anchors {
+            top: parent.top
+            right:parent.right
+        }
+
+        height: 30
+        width: 30
+
+
+
+        onClicked: {
+            ip.visible = true
+        }
+    }
+
     RoundPane {
         anchors.centerIn: parent
 
@@ -104,6 +121,29 @@ Item {
                     masterController.ui_userController.login(userNameField.text, passwordField.text)
                     console.log("Login clicked!")
                 }
+            }
+        }
+    }
+
+    Row {
+        id: ip
+        visible: false
+        width: parent.width
+        anchors.top: parent.top
+        TextField {
+            id: ipField
+            placeholderText: qsTr("Indirizzo IP")
+            width: parent.width * 2 / 3
+        }
+
+        Button {
+
+            text: "Ok"
+
+            onClicked: {
+                masterController.setIpAddress(ipField.text)
+                ip.visible = false
+                width: parent.width * 1 / 3
             }
         }
     }

@@ -23,8 +23,8 @@ Page {
                 console.log("Updated the coordinate")
 
                 // ask for the users positions
-                masterController.ui_teamController.getRTPosition(
-                            masterController.ui_teamController.currentTeam.idTeam);
+                masterController.ui_userController.getUsersPosition(
+                            masterController.ui_teamController.currentTeam.usersId);
 
             }
 
