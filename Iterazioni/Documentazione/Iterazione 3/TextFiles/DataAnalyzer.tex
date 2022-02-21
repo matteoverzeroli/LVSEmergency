@@ -93,6 +93,7 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 \clearpage
 
 \paragraph{Algoritmo}
+Di seguito sono riportati gli pseudocodici dell'algoritmo e delle funzioni alla base della generazione degli allarmi implementato nell'iterazione 3, descritto tramite i diagramma di flusso precedentemente presentati.
 
 \SetKwComment{Comment}{/* }{ */}
 \RestyleAlgo{ruled}
@@ -107,7 +108,6 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 		}
 	}
 \label{alg:1}
-
 \end{algorithm}
 
 \begin{algorithm}
@@ -183,6 +183,7 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 		\underline{alertsCreator}($summaryT$, $summaryTd$)\;
 		$old\_final\_time\_list \left[index\right] \gets recent\_time$\;
 	}
+\label{alg:3}
 \end{algorithm}
 
 \begin{algorithm}
@@ -211,6 +212,7 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 			$dataToUpdate[$i$,'I\_up'] \gets$ confint[i, '$ic\_up$']\;
 		}
 	}
+\label{alg:4}
 \end{algorithm}
 
 \begin{algorithm}
@@ -260,19 +262,29 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 			inserisci tramite una query l'allerta nel DB\;
 		}
 	}
+\label{alg:5}
 \end{algorithm}
 
 \clearpage
 
 \paragraph{Analisi computazionale}
-Procediamo ora con l'analisi della complessità temporale dell'algoritmo. L'algoritmo è composto da più funzioni. È importante notare che il parametro attorno a cui vogliamo studiare la complessità temporale è il numero di aree che viene passato come parametro alla funzione principale. Iniziamo l'analisi dalle funzioni più interne:
+Procediamo ora con l'analisi della complessità temporale dell'algoritmo. 
+
+Nello psudocodice \Alg\ref{alg:1} è riportata la struttura base dell'algoritmo. Infatti, per ogni area vengono chiamate le funzioni \textit{badWeatherAlertsCreator} e \textit{fogFrostAlertsCreator} che si occupano della generazione delle allerte. Queste due funzioni avranno un costo costante per ogni area analizzata. Analizziamo più in dettaglio il costo computazionale delle funzioni:
 
 \begin{itemize}
-	\item \textbf{badWheatherAlertsCreator}: questa funzione verifica se è in arrivo maltempo analizzando la pressione. È presente un ciclo for tramite cui viene effettuata la destagionalizzazione. Il ciclo for va da 1 a length(pressure\_DS). Tale parametro contiene i valori di pressione delle ultime 24 ore di una particolare stazione e, poichè un nuovo valore di pressione viene inserito nel database ogni 10 minuti, tale parametro è costante e di conseguenza anche la complessità del ciclo. Le restanti operazioni sono sequenze di if-else che, anche nel caso peggiore, hanno una complessità temporale costante.
-	\item \textbf{tempURForcaster}: con questa funzione vengono eseguite la stima del modello ARIMA e la predizione a k passi. In questo caso è importante notare che il numero di parametri su cui vengono eseguite queste due operazioni è sempre lo stesso perchè vengono presi i dati delle ultime 24 ore, ed inoltre la stima del modello ARIMA ha una complessità limitata. C'è poi un ciclo for che va da 1 a k dove k è pari a 3. Di conseguenza, anche il costo di questa funzione è costante. 
-	\item \textbf{alertsCreator}: questa funzione serve per inserire le allerte nebbia o brina nel database. Non sono presenti cicli, ma solo una sequenza di if-then-else che nel caso peggiore ha compunque una complessità costante.
-	\item \textbf{generateAlarms}: è la funzione principale dell'algoritmo. All'interno della funzione è presente un unico ciclo che viene eseguito un numero di volte pari al numero di aree, \textit{num\_areas}. All'interno di questo ciclo vengono chiamate le funzioni analizzate in precedenza, le quali sono tutte costanti nel parametro \textit{num\_areas}. Di conseguenza, il costo computazionale di questa funzione è O(num\_areas) e dipende esclusivamente dal numero di aree di cui deve essere analizzata la presenza di allarmi.
+	\item \textbf{badWheatherAlertsCreator} (\Alg\ref{alg:2}): questa funzione genera un allarme se è in arrivo una perturbazione, analizzando la pressione atmosferica rilevata dalla stazione associata ad un area. Inizialmente, vengono effettuati dei controlli sui dati disponibili, analizzando con dei semplici costrutti \textit{if}, di costo costante in quanto basati su operazioni elementari di confronto, se i dati disponibili sono già stati analizzati oppure se non sono presenti dei dati nelle ultime 24 ore. Assumiamo che tipicamente questi controlli non determinino la terminazione della funzione, ossia che nel caso peggiore la computazione continui. Successivamente, è presente un ciclo for tramite cui viene effettuata la destagionalizzazione. Il ciclo for va da 1 a \textit{length(pressure\_DS)}. Tale parametro rappresenta il numero di valori di pressione delle ultime 24 ore di una particolare stazione e, poichè un nuovo valore di pressione viene inserito nel database ogni 10 minuti, tale parametro è mediamente costante e di conseguenza anche la complessità del ciclo risulta essere costante per ogni area. I restanti passaggi sono sequenze di operazioni elementari e costrutti \textit{if- then-else} che hanno una complessità temporale costante, poichè mutuamente esclusivi e composti da operazioni che possono essere considerate costanti in qualunque alternativa scelta.
+	
+	\item \textbf{fogFrostAlertsCreator} (\Alg\ref{alg:3}): questa funzione si occupa della generazione di allerte nebbia e brina, analizzando la temperatura e l'umidità relativa acquisita. Come nella funzione precedentemente descritta, se supponiamo di avere dati sufficienti a disposizione, la funzione esegue operazioni elementari di costo costante e, dal momento in cui viene chiamata una volta per ogni area, non contribuisce ad un aumento della complessità generale. In particolare si noti che la funzione utilizza i dati elaborati da tre sotto funzioni. Vengono effettuate due chiamate della funzione \textit{tempURForecaster} e una chiamata della funziona \textit{alertsCreator}. Le due funzioni sono descritte di seguito. Esse risultano avere complessità costante per ogni area analizzata.
+	
+	\item \textbf{tempURForcaster} (\Alg\ref{alg:4}): è la funzione principale dell'algoritmo, in cui vengono eseguite la stima del modello ARIMA e la predizione a k passi. Inizialmente, vengono recuperati o i dati di temperatura o di umidità della stazione scelta. Successivamente, come nelle funzioni precedenti, viene verificata la disponibilità di dati. Supponendo che tipicamente i dati siano presenti, e quindi riferendoci al caso peggiore, la computazione prosegue stimando il modello ARIMA e la predizione a tre passi della temperatura e umidità. \`E importante notare che il numero di parametri su cui vengono eseguite queste due operazioni è sempre lo stesso, perchè vengono presi i dati delle ultime 24 ore che si assumono essere costanti per ogni area e la predizione a tre passi può essere considerata costante per ogni modello stimato. Inoltre, la complessita del modello ARIMA stimato è stata limitata. Quindi queste operazioni possono essere considerate costanti per ogni area analizzata. Infine, il ciclo \textit{for} finale eseguirà sempre 3 iterazioni. Di conseguenza, anche il costo di questa funzione è costante. 
+
+	\item \textbf{alertsCreator} (\Alg\ref{alg:5}): questa funzione serve per inserire le allerte nebbia o brina nel database. Non sono presenti cicli, ma solo una sequenza di \textit{if-then-else} mutualmente esclusivi. Per ogni iterazione dell'algoritmo è possibile solamente eseguire una delle operazioni dei rami \textit{if-then-else}, il cui costo computazionale può essere considerata uguale e costante.
 \end{itemize}
+
+Come si è potuto osservare, il costo totale dell'algortimo può essere considerato \textit{O(n\_areas)}, dove \textit{n\_areas} corrisponde al numero di aree inserite nel database e analizzate. Infatti, si è dimostrato come le due funzioni \textit{badWeatherAlertsCreator} e \textit{fogFrostAlertsCreator} abbiamo un costo costante per ogni area analizzata.
+
+\clearpage
 
 \subsection{Test Data Analyzer}
 Sono stati eseguiti anche dei test di unità sull'algoritmo. Nella figura \ref{fig:test_result_alg} sono riportano i risultati effettuati grazie al modulo di Python \texttt{unittest}. Si è testato la generazione dei seguenti allarmi:
