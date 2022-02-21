@@ -22,8 +22,8 @@ TeamController::~TeamController()
 void TeamController::getTeams()
 {
     QNetworkRequest request;
-    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/teams"));
-    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+    request.setUrl(QUrl(helpers::Utils::getInstance().getWebServerPrefix() + "/teams"));
+    request.setRawHeader("Authorization", helpers::Utils::getInstance().getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
     connect(reply, &QNetworkReply::finished, this, &TeamController::allTeamsReceived);
@@ -61,8 +61,8 @@ void TeamController::allTeamsReceived()
 void TeamController::getTeam(int idTeam)
 {
     QNetworkRequest request;
-    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/teams/" + QString::number(idTeam)));
-    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+    request.setUrl(QUrl(helpers::Utils::getInstance().getWebServerPrefix() + "/teams/" + QString::number(idTeam)));
+    request.setRawHeader("Authorization", helpers::Utils::getInstance().getAuthString());
 
     QNetworkReply *reply = networkManager->get(request);
     connect(reply, &QNetworkReply::finished, this, &TeamController::teamReceived);
@@ -104,8 +104,8 @@ void TeamController::addTeam(QString teamName, int idArea)
     newTeam->setIdArea(idArea);
 
     QNetworkRequest request;
-    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/teams"));
-    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
+    request.setUrl(QUrl(helpers::Utils::getInstance().getWebServerPrefix() + "/teams"));
+    request.setRawHeader("Authorization", helpers::Utils::getInstance().getAuthString());
     request.setHeader(QNetworkRequest::ContentTypeHeader, QString("application/json"));
 
     QNetworkReply *reply = networkManager->post(request, newTeam->toJsonDocument().toJson());
@@ -127,46 +127,6 @@ void TeamController::teamAdded()
 
         qDebug() << "Error:" << reply->error();
         emit errorWhileAddingTeam();
-    }
-
-    reply->deleteLater();
-}
-
-/*!
- * \brief Funzione per invocare l'API che ritorna la posizione RT dei membri di un team.
- */
-void TeamController::getRTPosition(int idTeam)
-{
-    QNetworkRequest request;
-    request.setUrl(QUrl(helpers::Utils::getWebServerPrefix() + "/teams/" +
-                        QString::number(idTeam) + "/getRTPosition"));
-    request.setRawHeader("Authorization", helpers::Utils::getAuthString());
-
-    QNetworkReply *reply = networkManager->get(request);
-    connect(reply, &QNetworkReply::finished, this, &TeamController::positionsReceived);
-}
-
-/*!
- * \brief Slot che riceve la risposta contenente la posizione dei membri del team.
- */
-void TeamController::positionsReceived()
-{
-    QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
-    QByteArray response = reply->readAll();
-
-    if (reply->error() == QNetworkReply::NoError) {
-        colleguesPosition.clear();
-
-        QJsonArray positionsArray = QJsonDocument::fromJson(response).array();
-        foreach (const QJsonValue &positionValue, positionsArray) {
-            accountManagement::Position * position = new accountManagement::Position(this);
-            position->fromJsonObject(positionValue.toObject());
-            colleguesPosition.append(position);
-        }
-
-        emit colleguePositionChanged();
-    } else {
-        qInfo() << "Error:" << response;
     }
 
     reply->deleteLater();
@@ -207,11 +167,6 @@ QStringList TeamController::getTeamsAvailableWithoutForeman()
 Team *TeamController::getCurrentTeam()
 {
     return currentTeam;
-}
-
-QQmlListProperty<accountManagement::Position> TeamController::getColleguePosition()
-{
-    return QQmlListProperty<accountManagement::Position>(this, &colleguesPosition);
 }
 
 void TeamController::resetTeam()

@@ -30,6 +30,8 @@ public:
     teamManagement::TeamController *getTeamController();
     areaInformationManagement::AreaController *getAreaController();
 
+    Q_INVOKABLE void setIpAddress(QString address);
+
 signals:
 
 private:

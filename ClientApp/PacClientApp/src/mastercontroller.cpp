@@ -30,3 +30,11 @@ areaInformationManagement::AreaController *MasterController::getAreaController()
 {
     return areaController;
 }
+
+void MasterController::setIpAddress(QString address)
+{
+    QSettings settings;
+    settings.beginGroup("IPAddress");
+    settings.setValue("ip", address);
+    settings.endGroup();
+}
