@@ -1,0 +1,305 @@
+{
+	"info": {
+		"_postman_id": "1431281a-1923-40a0-a849-cf1fded75f35",
+		"name": "Test API non implementate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Protezione Civile POP",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://www.protezionecivilepop.tk/allerte?citta=016024&rischio=idraulico&allerta=verde&giorno=domani&formato=json",
+					"protocol": "https",
+					"host": [
+						"www",
+						"protezionecivilepop",
+						"tk"
+					],
+					"path": [
+						"allerte"
+					],
+					"query": [
+						{
+							"key": "citta",
+							"value": "016024"
+						},
+						{
+							"key": "rischio",
+							"value": "idraulico"
+						},
+						{
+							"key": "allerta",
+							"value": "verde"
+						},
+						{
+							"key": "giorno",
+							"value": "domani"
+						},
+						{
+							"key": "formato",
+							"value": "json"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "API Protezione Civile POP",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.protezionecivilepop.tk/allerte?citta=016024&rischio=idraulico&allerta=verde&giorno=domani&formato=json",
+							"protocol": "https",
+							"host": [
+								"www",
+								"protezionecivilepop",
+								"tk"
+							],
+							"path": [
+								"allerte"
+							],
+							"query": [
+								{
+									"key": "citta",
+									"value": "016024"
+								},
+								{
+									"key": "rischio",
+									"value": "idraulico"
+								},
+								{
+									"key": "allerta",
+									"value": "verde"
+								},
+								{
+									"key": "giorno",
+									"value": "domani"
+								},
+								{
+									"key": "formato",
+									"value": "json"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Tue, 22 Feb 2022 12:57:54 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Apache"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "max-age=172800"
+						},
+						{
+							"key": "Upgrade",
+							"value": "h2"
+						},
+						{
+							"key": "Connection",
+							"value": "Upgrade, Keep-Alive"
+						},
+						{
+							"key": "Expires",
+							"value": "Thu, 24 Feb 2022 12:57:54 GMT"
+						},
+						{
+							"key": "Vary",
+							"value": "User-Agent"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=2, max=100"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"titolo\": \"Previsioni del Dipartimento Protezione Civile - Bollettini di criticità\",\n    \"descrizione\": \"RSS generato dal servizio online \\\"Protezione Civile POP\\\"\",\n    \"url\": \"https://github.com/pcm-dpc/DPC-Bollettini-Criticita-Idrogeologica-Idraulica/blob/master/files/all/latest_all.zip\",\n    \"lingua\": \"it-IT\",\n    \"license\": \"Creative Commons BY-SA 4.0\",\n    \"previsione\": {\n        \"date\": \"Tue, 22 Feb 22 00:00:00 +0100\",\n        \"risk\": \"idraulico\",\n        \"info\": \"Assenza di criticità\",\n        \"alert\": \"BIANCA\",\n        \"city_name\": \"Bergamo\",\n        \"province_name\": \"Bergamo\",\n        \"province_code\": \"BG\",\n        \"region\": \"Lombardia\",\n        \"latitude\": 45.6833,\n        \"longitude\": 9.7167,\n        \"istat_code\": \"016024\",\n        \"civil_protection_zone_id\": \"Lomb-10\",\n        \"civil_protection_zone_info\": \"Lomb-10\",\n        \"link\": \"https://github.com/pcm-dpc/DPC-Bollettini-Criticita-Idrogeologica-Idraulica/blob/master/files/all/latest_all.zip\",\n        \"date_pubblication\": \"Mon, 21 Feb 22 15:31:00 +0100\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "API Terremoti",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://webservices.ingv.it/fdsnws/event/1/query?boundaries-rect&minlat=43.79&maxlat=45.79&minlon=9.78&maxlon=11.78&format=text",
+					"protocol": "http",
+					"host": [
+						"webservices",
+						"ingv",
+						"it"
+					],
+					"path": [
+						"fdsnws",
+						"event",
+						"1",
+						"query"
+					],
+					"query": [
+						{
+							"key": "boundaries-rect",
+							"value": null
+						},
+						{
+							"key": "minlat",
+							"value": "43.79"
+						},
+						{
+							"key": "maxlat",
+							"value": "45.79"
+						},
+						{
+							"key": "minlon",
+							"value": "9.78"
+						},
+						{
+							"key": "maxlon",
+							"value": "11.78"
+						},
+						{
+							"key": "format",
+							"value": "text"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "API Terremoti",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://webservices.ingv.it/fdsnws/event/1/query?boundaries-rect&minlat=43.79&maxlat=45.79&minlon=9.78&maxlon=11.78&format=text",
+							"protocol": "http",
+							"host": [
+								"webservices",
+								"ingv",
+								"it"
+							],
+							"path": [
+								"fdsnws",
+								"event",
+								"1",
+								"query"
+							],
+							"query": [
+								{
+									"key": "boundaries-rect",
+									"value": null
+								},
+								{
+									"key": "minlat",
+									"value": "43.79"
+								},
+								{
+									"key": "maxlat",
+									"value": "45.79"
+								},
+								{
+									"key": "minlon",
+									"value": "9.78"
+								},
+								{
+									"key": "maxlon",
+									"value": "11.78"
+								},
+								{
+									"key": "format",
+									"value": "text"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 22 Feb 2022 13:04:45 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=65"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "10"
+						},
+						{
+							"key": "X-RateLimit-Reset",
+							"value": "1"
+						},
+						{
+							"key": "X-UA-Compatible",
+							"value": "IE=Edge"
+						},
+						{
+							"key": "X-Cache-Status",
+							"value": "MISS"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "public, max-age=60"
+						}
+					],
+					"cookie": [],
+					"body": "#EventID|Time|Latitude|Longitude|Depth/Km|Author|Catalog|Contributor|ContributorID|MagType|Magnitude|MagAuthor|EventLocationName|EventType\n30020691|2022-02-22T10:29:00.190000|44.7875|10.7798|8.2|SURVEY-INGV||||ML|2.6|--|2 km N Correggio (RE)|earthquake\n"
+				}
+			]
+		}
+	]
+}

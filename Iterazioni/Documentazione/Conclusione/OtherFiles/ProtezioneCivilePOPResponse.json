@@ -1,0 +1,24 @@
+{
+  "titolo": "Previsioni del Dipartimento Protezione Civile - Bollettini di criticit\u00e0",
+  "descrizione": "RSS generato dal servizio online \"Protezione Civile POP\"",
+  "url": "https:\/\/github.com\/pcm-dpc\/DPC-Bollettini-Criticita-Idrogeologica-Idraulica\/blob\/master\/files\/all\/latest_all.zip",
+  "lingua": "it-IT",
+  "license": "Creative Commons BY-SA 4.0",
+  "previsione": {
+    "date": "Tue, 22 Feb 22 00:00:00 +0100",
+    "risk": "idraulico",
+    "info": "Assenza di criticit\u00e0",
+    "alert": "BIANCA",
+    "city_name": "Bergamo",
+    "province_name": "Bergamo",
+    "province_code": "BG",
+    "region": "Lombardia",
+    "latitude": 45.6833,
+    "longitude": 9.7167,
+    "istat_code": "016024",
+    "civil_protection_zone_id": "Lomb-10",
+    "civil_protection_zone_info": "Lomb-10",
+    "link": "https:\/\/github.com\/pcm-dpc\/DPC-Bollettini-Criticita-Idrogeologica-Idraulica\/blob\/master\/files\/all\/latest_all.zip",
+    "date_pubblication": "Mon, 21 Feb 22 15:31:00 +0100"
+  }
+}

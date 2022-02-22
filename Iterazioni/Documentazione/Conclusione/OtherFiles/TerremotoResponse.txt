@@ -1,0 +1,2 @@
+#EventID|Time|Latitude|Longitude|Depth/Km|Author|Catalog|Contributor|ContributorID|MagType|Magnitude|MagAuthor|EventLocationName|EventType
+30020691|2022-02-22T10:29:00.190000|44.7875|10.7798|8.2|SURVEY-INGV||||ML|2.6|--|2 km N Correggio (RE)|earthquake
