@@ -170,8 +170,8 @@ Di seguito sono riportati gli pseudocodici dell'algoritmo e delle funzioni alla 
 		$summaryT \gets$ crea una tabella per la temperatura con colonne \{`I\_low', `value', `I\_up'\} e righe \{`tf', `t1', `t2', `t3'\}\;
 		$summaryUR \gets$ crea una tabella per l'umidità relativa con colonne \{`I\_low', `value', `I\_up'\} e righe \{`tf', `t1', `t2', `t3'\}\;
 		$summaryTd \gets$ crea una tabella per la temperatura di rugiada con colonne  \{`I\_low', `value', `I\_up'\} e righe \{`tf', `t1', `t2', `t3'\}\;
-		\underline{tempURForcaster}(`temperature',$station\_code$, $summaryT$)\;
-		\underline{tempURForcaster}(`umidity', $station\_code$, $summaryUR$)\;
+		\underline{tempURForecaster}(`temperature',$station\_code$, $summaryT$)\;
+		\underline{tempURForecaster}(`umidity', $station\_code$, $summaryUR$)\;
 		\textbf{/* Calcolo dei valori attuali e previsti della temperatura di rugiada */}\;
 
 		\For{$i$ \KwTo $summaryTd.rows$}{
@@ -190,7 +190,7 @@ Di seguito sono riportati gli pseudocodici dell'algoritmo e delle funzioni alla 
 	\SetKwProg{Fn}{function}{ is}{end}
 	\SetKwIF{If}{ElseIf}{Else}{if}{then}{else if}{else}{end}
 	\caption{generatore di allerte nebbia e brina, parte 2}
-	\Fn{tempURForcaster(parameter, station\_code, dataToUpdate)}{
+	\Fn{tempURForecaster(parameter, station\_code, dataToUpdate)}{
 		\eIf{$parameter$ = `temperature'}{
 			$parameter\_DS \gets$ recupera dati di temperatura delle ultime \num{24} della stazione $station\_code$\;
 		}{
@@ -277,7 +277,7 @@ Nello psudocodice \Alg\ref{alg:1} è riportata la struttura base dell'algoritmo.
 	
 	\item \textbf{fogFrostAlertsCreator} (\Alg\ref{alg:3}): questa funzione si occupa della generazione di allerte nebbia e brina, analizzando la temperatura e l'umidità relativa acquisita. Come nella funzione precedentemente descritta, se supponiamo di avere dati sufficienti a disposizione, la funzione esegue operazioni elementari di costo costante e, dal momento in cui viene chiamata una volta per ogni area, non contribuisce ad un aumento della complessità generale. In particolare si noti che la funzione utilizza i dati elaborati da tre sotto funzioni. Vengono effettuate due chiamate della funzione \textit{tempURForecaster} e una chiamata della funziona \textit{alertsCreator}. Le due funzioni sono descritte di seguito. Esse risultano avere complessità costante per ogni area analizzata.
 	
-	\item \textbf{tempURForcaster} (\Alg\ref{alg:4}): è la funzione principale dell'algoritmo, in cui vengono eseguite la stima del modello ARIMA e la predizione a k passi. Inizialmente, vengono recuperati o i dati di temperatura o di umidità della stazione scelta. Successivamente, come nelle funzioni precedenti, viene verificata la disponibilità di dati. Supponendo che tipicamente i dati siano presenti, e quindi riferendoci al caso peggiore, la computazione prosegue stimando il modello ARIMA e la predizione a tre passi della temperatura e umidità. \`E importante notare che il numero di parametri su cui vengono eseguite queste due operazioni è sempre lo stesso, perchè vengono presi i dati delle ultime 24 ore che si assumono essere costanti per ogni area e la predizione a tre passi può essere considerata costante per ogni modello stimato. Inoltre, la complessita del modello ARIMA stimato è stata limitata. Quindi queste operazioni possono essere considerate costanti per ogni area analizzata. Infine, il ciclo \textit{for} finale eseguirà sempre 3 iterazioni. Di conseguenza, anche il costo di questa funzione è costante. 
+	\item \textbf{tempURForecaster} (\Alg\ref{alg:4}): è la funzione principale dell'algoritmo, in cui vengono eseguite la stima del modello ARIMA e la predizione a k passi. Inizialmente, vengono recuperati o i dati di temperatura o di umidità della stazione scelta. Successivamente, come nelle funzioni precedenti, viene verificata la disponibilità di dati. Supponendo che tipicamente i dati siano presenti, e quindi riferendoci al caso peggiore, la computazione prosegue stimando il modello ARIMA e la predizione a tre passi della temperatura e umidità. \`E importante notare che il numero di parametri su cui vengono eseguite queste due operazioni è sempre lo stesso, perchè vengono presi i dati delle ultime 24 ore che si assumono essere costanti per ogni area e la predizione a tre passi può essere considerata costante per ogni modello stimato. Inoltre, la complessita del modello ARIMA stimato è stata limitata. Quindi queste operazioni possono essere considerate costanti per ogni area analizzata. Infine, il ciclo \textit{for} finale eseguirà sempre 3 iterazioni. Di conseguenza, anche il costo di questa funzione è costante. 
 
 	\item \textbf{alertsCreator} (\Alg\ref{alg:5}): questa funzione serve per inserire le allerte nebbia o brina nel database. Non sono presenti cicli, ma solo una sequenza di \textit{if-then-else} mutualmente esclusivi. Per ogni iterazione dell'algoritmo è possibile solamente eseguire una delle operazioni dei rami \textit{if-then-else}, il cui costo computazionale può essere considerata uguale e costante.
 \end{itemize}
