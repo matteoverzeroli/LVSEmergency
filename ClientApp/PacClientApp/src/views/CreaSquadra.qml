@@ -7,7 +7,7 @@ import "../assets"
 Flickable {
     id: flickable
 
-    contentHeight: column.height
+    contentHeight: column.height + 20
 
     Connections {
         target: masterController.ui_teamController
@@ -78,13 +78,14 @@ Flickable {
         id: column
         width: parent.width - 40
         x: 20
+        y: 20
         spacing: 16
 
 
         Rectangle {
             width: parent.width
             color: "transparent"
-            height: 40
+            height: 48
 
             Row {
                 anchors.fill: parent
@@ -110,7 +111,7 @@ Flickable {
         Rectangle {
             width: parent.width
             color: "transparent"
-            height: 40
+            height: 48
 
             Row {
                 anchors.fill: parent

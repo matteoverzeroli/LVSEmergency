@@ -31,7 +31,14 @@ Page {
         wrapMode: Label.Wrap
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
-        text: "Ecco dove si trovano i tuoi compagni operativi:"
+        text: getText()
+
+        function getText() {
+            if (masterController.ui_userController.colleguePositions.length === 0)
+                return "Al momento non ci sono compagni operativi."
+
+            return "Ecco dove si trovano i tuoi compagni operativi:"
+        }
     }
 
     RoundPane {
@@ -44,7 +51,18 @@ Page {
             bottom: parent.bottom
             margins: 10
         }
-        visible: masterController.ui_teamController.currentTeam === null ? false : true
+        visible: getVisibility()
+
+        function getVisibility() {
+
+            if (masterController.ui_teamController.currentTeam === null)
+                return false
+
+            if (masterController.ui_userController.colleguePositions.length === 0)
+                return false
+
+            return true
+        }
 
         width: parent.width * 4 / 5
         height: parent.width * 4 / 5

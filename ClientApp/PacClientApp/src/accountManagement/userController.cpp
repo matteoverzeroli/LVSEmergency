@@ -325,7 +325,6 @@ void UserController::userPositionReceived()
 
         colleguesPosition.append(position);
         emit colleguePositionChanged();
-        emit newUserPositionReceived(position->getLat(), position->getLng());
     } else {
         qDebug() << "Error:" << response;
     }

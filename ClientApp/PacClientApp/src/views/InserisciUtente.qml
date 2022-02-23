@@ -77,7 +77,7 @@ Flickable {
 
         Rectangle {
             width: parent.width
-            height: 40
+            height: 48
             color: "transparent"
 
             Row {
@@ -105,7 +105,7 @@ Flickable {
 
         Rectangle {
             width: parent.width
-            height: 40
+            height: 48
             color: "transparent"
 
             Row {
@@ -132,7 +132,7 @@ Flickable {
 
         Rectangle {
             width: parent.width
-            height: 40
+            height: 48
             color: "transparent"
 
             Row {
@@ -219,7 +219,7 @@ Flickable {
 
         Rectangle {
             width: parent.width
-            height: 40
+            height: 48
             color: "transparent"
 
             Row {
@@ -246,7 +246,7 @@ Flickable {
 
         Rectangle {
             width: parent.width
-            height: 40
+            height: 48
             color: "transparent"
             Row {
                 anchors.fill: parent
@@ -269,7 +269,7 @@ Flickable {
 
         Rectangle {
             width: parent.width
-            height: 40
+            height: 48
             color: "transparent"
             Row {
                 anchors.fill: parent
@@ -295,7 +295,7 @@ Flickable {
 
         Rectangle {
             width: parent.width
-            height: 40
+            height: 48
             color: "transparent"
             Row {
                 anchors.fill: parent
@@ -321,7 +321,7 @@ Flickable {
 
         Rectangle {
             width: parent.width
-            height: 40
+            height: 48
             color: "transparent"
             Row {
                 anchors.fill: parent
@@ -391,7 +391,7 @@ Flickable {
         Rectangle {
             width: parent.width
             color: "transparent"
-            height: 40
+            height: 48
             Row {
                 anchors.fill: parent
                 Label {

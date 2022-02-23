@@ -54,7 +54,6 @@ signals:
     void userDeletedWithSuccess();
     void errorWhileDeletingUser();
     void colleguePositionChanged();
-    void newUserPositionReceived(double latitude, double longitude);
 
 
 private slots:
