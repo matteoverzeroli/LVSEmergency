@@ -266,14 +266,10 @@ TSWLatexianTemp*
 # standalone packages
 *.sta
 
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/New folder.pyproj
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/New folder.pyproj.user
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/New folder.sln
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/.vs/New folder/v16/.suo
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/.vs/New folder/v16/TestStore/0/000.testlog
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/.vs/New folder/v16/TestStore/0/testlog.manifest
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/__pycache__/test.cpython-39.pyc
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/env/
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/.vs/
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/__pycache__/dataAnalyzerNew.cpython-39.pyc
-DataCollector e DataAnalyzer/Data Analyzer_Collecor_And_Test/__pycache__/dataAnalyzer.cpython-39.pyc
+Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/.vs/
+Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/__pycache__/
+Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/env/
+Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/New folder.pyproj
+Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/New folder.pyproj.user
+Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/New folder.sln
+
