@@ -52,4 +52,16 @@ public interface AccountManagementIF {
 	 * "Operativo" o "Non Operativo".
 	 */
 	public void setOperativity();
+	
+	/**
+	 * Funzione che restituisce la posizione di un utente
+	 */
+	
+	public void getUserPosition();
+	
+	/**
+	 * Funzione che permette di inserire la posizione di un utente
+	 */
+	
+	public void setUserPosition();
 }

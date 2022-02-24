@@ -25,12 +25,7 @@ public interface OperationManagementIF {
 	 * dai volontari e dai caposquadra che partecipano all'intervento.
 	 */
 	public void insertEmergencyOperationInformationForReport();
-	
-	/**
-	 * Visualizza la posizione RT degli utenti della squadra durante l'intervento.
-	 */
-	public void visualizeRTPosition();
-	
+		
 	/**
 	 * Crea un intervento programmato.
 	 */

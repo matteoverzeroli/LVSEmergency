@@ -28,10 +28,6 @@
 
 ## Generated if empty string is given at "Please type another file name for output:"
 #*.pdf
-Alerts criteria.pdf
-Requisiti.pdf
-Iterazione 0.pdf
-documentazione.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl

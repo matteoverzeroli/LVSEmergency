@@ -3,7 +3,7 @@
 L'architettura del sistema è stata formalizzata attraverso due \textit{deployment diagram} differenti: il primo, riportato in figura \ref{fig:DeplymnetDiagramNonFormale}, rappresenta il sistema tramite una notazione a stile libero, mentre il secondo, riportato in figura \ref{fig:DeplymnetDiagramFormale}, rappresenta il sistema tramite lo stile UML. In particolare, in entrambi i diagrammi è possibile identificare un pattern architetturale \textit{three-tier}. Il \textit{presentation layer} è costituito dalle applicazioni lato client che vengono utilizzate dagli utenti e che hanno solamente il compito di recuperare le informazioni dal sistema e visualizzarle. Nell'\textit{application layer}, invece, ci sono due sistemi distinti:
 
 \begin{itemize}
-	\item l'applicativo \textbf{LVSEmergency}, che si occupa della gestione di richieste HTTP/REST, le quali permettono l'interazione con il client;
+	\item l'applicativo \textbf{LVSEmergency}, che si occupa della gestione di richieste HTTP/REST, le quali permettono l'interazione con il client. Il server sarà progettato secondo lo stile esagonale a microservizi;
 	\item due componenti autonome: un \textbf{Data Collector} che si occupa di recuperare informazioni dai \textit{data server} tramite API REST e di inserirle all'interno del database, che costituisce il \textit{data layer}, ed un \textbf{Data Analyzer} che si occupa di effettuare delle analisi sui dati acquisiti con lo scopo di identificare possibili situazioni di allarme. È bene notare che queste due applicazioni non costituiscono una vera e propria \textit{Big Data Pipeline} ma ne rappresentano una versione semplificata, in quanto vengono effettuate solo la collezione e l'analisi dei dati raccolti.
 \end{itemize}
 
