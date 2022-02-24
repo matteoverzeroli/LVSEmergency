@@ -1,6 +1,6 @@
 \section{Component Diagram}
-Nella figura \ref{fig:ComponentDiagram_iterazione2} è riportato il diagramma a componenti relativo ai casi d'uso sviluppati nell'iterazione 2. Per l'implementazione dei microservizi REST è stato utilizzato un modello esagonale: ogni componente all'interno del server \textit{LVSEmergency} è costituito da un \textit{REST Controller}, un \textit{Service} e una \textit{Repository}.
-Lato client il progetto è stato strutturato in modo molto simile al server seguendo un modello esagonale a microservizi: è stato sviluppato un controller per ogni interfaccia richiesta, con il compito di invocare e gestire le API fornite da quella specifica interfaccia. 
+Nella figura \ref{fig:ComponentDiagram_iterazione2} è riportato il diagramma a componenti relativo ai casi d'uso sviluppati nell'iterazione 2. Per l'implementazione dei microservizi REST è stato utilizzato il modello esagonale: ogni componente all'interno del server \textit{LVSEmergency} è costituito da un \textit{REST Controller}, un \textit{Service} e una \textit{Repository}.
+Lato client il progetto è stato strutturato in modo molto simile al server seguendo un modello esagonale a microservizi\todo{Toglierei modello esagonale a microservizi per il client}: è stato sviluppato un controller per ogni interfaccia richiesta, con il compito di invocare e gestire le API fornite da quella specifica interfaccia. 
 
 \begin{figure}[h!]
 	\centering
@@ -12,7 +12,7 @@ Lato client il progetto è stato strutturato in modo molto simile al server segu
 \clearpage
 
 \section{Class Diagram}
-Di seguito sono riportate le specifiche delle strutture dati \texttt{UserDTO} e \texttt{TeamDTO} (\Fig\ref{fig:ClassDiagramDTO_iterazione2}) inserite nel server. Esse sono utilizzate per definire il formato dei dati scambiati tra l'applicazione client e applicazione server. In particolare, grazie alla direttiva \texttt{@JsonProperty(access, JsonProperty.Access.WRITE\_ONLY)}, il campo \texttt{password} presente in \texttt{UserDTO} non viene mai inviato dal server al client, ma viene valorizzato dall'app client solamente durante l'inserimento di un nuovo utente.  
+Di seguito sono riportate le specifiche delle strutture dati \texttt{UserDTO} e \texttt{TeamDTO} (\Fig\ref{fig:ClassDiagramDTO_iterazione2}) inserite nel server. Esse sono utilizzate per definire il formato dei dati scambiati tra l'applicazione client e applicazione server. In particolare, grazie alla direttiva \texttt{@JsonProperty(access, JsonProperty.Access.WRITE\_ONLY)} fornita da Spring, il campo \texttt{password} presente in \texttt{UserDTO} non viene mai inviato dal server al client, ma viene valorizzato dall'app client solamente durante l'inserimento di un nuovo utente.  
 
 \begin{figure}[h!]
 	\centering

@@ -15,7 +15,7 @@ Nella seconda iterazione sono stati implementati i seguenti casi d'uso:
 \end{itemize}
 
 \subsection{UC1 - Login}
-Per l'autenticazione è stato utilizzato il metodo \textit{Basic Access Authentication}: si tratta di una tecnica che non necessita dell'utilizzo di cookie o di mentenere una sessione tra client e server, ma utilizza gli \textit{header} HTTP per fornire le informazioni di accesso. In particolare, \textit{username} e \textit{password} vengono codificate con \textit{base64} e vengono trasmesse nell'\textit{header} ogni volta che viene chiamata un API. Il sistema poi verifica che lo \textit{username} e la \textit{password} presenti nell'\textit{header} HTTP appartengano effettivamente ad un utente presente nel database prima di elaborare la richiesta. 
+Per l'autenticazione è stato utilizzato il metodo \textit{Basic Access Authentication}: si tratta di una tecnica che non necessita dell'utilizzo di cookie o di mentenere una sessione tra client e server, ma utilizza gli \textit{header} HTTP per fornire le informazioni di accesso. In particolare, \textit{username} e \textit{password} vengono codificate con \textit{base64} e vengono trasmesse nell'\textit{header} ogni volta che viene chiamata una API. Il sistema poi verifica che lo \textit{username} e la \textit{password} presenti nell'\textit{header} HTTP appartengano effettivamente ad un utente presente nel database prima di elaborare la richiesta. 
 \\
 \\
 \textit{Breve descrizione:} l'utente compila il form per eseguire il login: in caso di credenziali corrette il sistema consente l'accesso ai servizi, altrimenti notifica l'utente della non correttezza delle credenziali. 
@@ -36,7 +36,7 @@ Per l'autenticazione è stato utilizzato il metodo \textit{Basic Access Authenti
 	\item l'utente inserisce le informazioni di accesso.
 	\item il sistema controlla le informazioni fornite.
 	\item le informazioni sono corrette. [E1: le informazioni sono sbagliate].
-	\item l'utente viene loggato nel sistema.
+	\item l'utente accede alla \textit{dashboard}.
 \end{enumerate}
 
 
@@ -131,7 +131,7 @@ Grazie alla \textit{Base Access Authentication}, il logout dell'utente consiste 
 \textit{Attori coinvolti:} volontario, caposquadra, sistema.
 \\
 \\
-\textit{Precondizione:} l'utente è loggato nel sistema.
+\textit{Precondizione:} l'utente è loggato nel sistema. L'utente è nella "Dashboard".
 \\
 \\
 \textit{Postcondizione:} il sistema salva lo stato di operatività dell'utente.
