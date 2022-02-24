@@ -28,13 +28,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-//          .antMatchers(HttpMethod.GET, "/login").hasRole(UserRole.ADMINISTRATOR.toString(), 
-//        		  										 UserRole.FOREMAN.toString(),
-//        		  										 UserRole.VOLUNTEER.toString())
-//          .antMatchers(HttpMethod.GET, "/users").hasRole(UserRole.ADMINISTRATOR.toString())
-//          .antMatchers(HttpMethod.POST, "/users").hasRole(UserRole.ADMINISTRATOR.toString())
-//          .antMatchers(HttpMethod.DELETE, "/users").hasRole(UserRole.ADMINISTRATOR.toString())
-//		  .antMatchers(HttpMethod.PUT, "/users").hasAnyRole()
 				.anyRequest().authenticated().and().csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().httpBasic();
 	}
