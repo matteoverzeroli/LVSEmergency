@@ -35,7 +35,7 @@ public interface AccountManagementIF {
 	/**
 	 * Funzione per l'inserimento delle disponibilità dell'utente.
 	 */
-	public void inertAvailability();
+	public void insertAvailability();
 	
 	/**
 	 * Funzione per modificare le disponibilità dell'utente.
