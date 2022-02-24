@@ -2,17 +2,17 @@
 Grazie alle scelte tecnologiche con cui sono stati implementati i diversi componenti, il prodotto software può essere utilizzato ovunque e sulla maggior parte dei sistemi operativi, sia desktop (Windows, MacOS, Linux), sia mobile (Android o iOS), rispettando il requisito non funzionale della portabilità richiesto dal cliente.
 L'applicativo si compone di quattro macro componenti:
 \begin{itemize}
-	\item \textbf{Web Server Spring}: questa componente è in esecuzione su una istanza di Azure Spring Clound e di conseguenza è sempre accessibile dall'applicazione client;
+	\item \textbf{Web Server Spring}: questa componente è in esecuzione su una istanza di Azure Spring Cloud e di conseguenza è sempre accessibile dall'applicazione client;
 	\item \textbf{Database MySQL}: anch'esso in esecuzione su una istanza di Azure MySQL;
 	\item \textbf{Data Collector e Data Analyzer}: queste due applicazioni sono in esecuzione su un Rapsberry Pi 4;
 	\item \textbf{Applicazione Client}: grazie al framework Qt, tale applicazione può essere compilata ed eseguita su gran parte dei sistemi operativi. Infatti, l'unica cosa che deve fare l'utente è installare l'APK sul proprio telefono, oppure installare l'applicazione sul proprio computer e lanciarla all'occorrenza. In questo modo, l'utente può accedere ed utilizzate l'applicazione ed i servizi offerti in qualunque momento. 
 \end{itemize}
 
-In figura \ref{fig:qtApp}a viene mostrata la schermata di login dell'applicazione. Per accedere alle funzionalità, l'utente deve inserire lo username e la password che gli sono stati fornite dal coordinatore. 
+In figura \ref{fig:qtApp}a viene mostrata la schermata di login dell'applicazione. Per accedere alle funzionalità, l'utente deve inserire lo username e la password che gli sono stati forniti dal coordinatore. 
 Dopo aver inserito le credenziali, l'utente accede alla dashboard (figura \ref{fig:qtApp}b) in cui è possibile osservare alcune informazioni sul proprio account ed una mappa che mostra la posizione dell'area di appartenenza.
-Nel menù laterale è possibile scegliere quali funzionalità utilizzare (figura \ref{fig:qtApp}c): si possono visualizzare informazioni meteorologiche (figura \ref{fig:qtApp}e), allarmi (figura \ref{fig:qtApp}d) o informazioni sul proprio account e sul proprio team, compresi alcuni dati sui membri del team (figura \ref{fig:qtApp}f).
+Nel menù laterale è possibile scegliere a quali funzionalità accedere (figura \ref{fig:qtApp}c): si possono visualizzare informazioni meteorologiche (figura \ref{fig:qtApp}e), allarmi (figura \ref{fig:qtApp}d) o informazioni sul proprio account e sul proprio team, compresi alcuni dati sui membri del team (figura \ref{fig:qtApp}f).
 
-Il coordinatore potrà invece scegliere dei servizi diversi da quelli di un utente normale (figura \ref{fig:qtApp2}a). Infatti, tale figura ha il compito di inserire nuovi volontari inserendone i dati (figura \ref{fig:qtApp2}b), creare nuove squadre e cancellare degli utenti (figura \ref{fig:qtApp2}c).
+Il coordinatore potrà invece scegliere dei servizi diversi da quelli di un utente normale (figura \ref{fig:qtApp2}a). Infatti, tale figura ha il compito di inserire nuovi volontari (figura \ref{fig:qtApp2}b), creare nuove squadre e cancellare degli utenti (figura \ref{fig:qtApp2}c).
 \todo{Da rileggere}
 
 \begin{figure}[h!]

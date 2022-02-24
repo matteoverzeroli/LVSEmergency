@@ -8,7 +8,7 @@ Nell'iterazione 3 si sono testate tutte le API Rest implementate, utlizzando Pos
 \begin{itemize}
 	\item AreaController:
 	\begin{itemize}
-		\item Visualizzazione degli ultimi dati meteo scaricati di un'area, il cui id è specificato nel oath della richiesta;
+		\item Visualizzazione degli ultimi dati meteo scaricati di un'area, il cui id è specificato nel path della richiesta;
 		\item Visualizzazione del più recente allarme relativo a nebbia o brina associato all'area il cui id è specificato nel path della richiesta;
 		\item Visualizzazione del più recente allarme relativo a maltempo associato all'area il cui id è specificato nel path della richiesta;
 	\end{itemize}
@@ -83,6 +83,46 @@ Il risultato dei test ha confermato il corretto funzionamento delle nuove funzio
 	\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/testcpp2}
 	\caption{Risultato test con Qt Test.}
 	\label{fig:RisultatiTestQtIT3.2}
+\end{figure}
+
+\subsection{Test Data Analyzer}
+Sono stati eseguiti anche dei test di unità sull'algoritmo. Nella figura \ref{fig:test_result_alg} sono riportati i risultati effettuati grazie al modulo di Python \texttt{unittest}. Si è testato la generazione dei seguenti allarmi:
+\begin{itemize}
+	\item allarme \textit{RED} per maltempo e allarme \textit{RED} per nebbia;
+	\item allarme \textit{NONE} per maltempo e allarme \textit{RED} per brina;
+	\item allarme \textit{NONE} per maltempo e allarme \textit{NONE} per nebbia;
+	\item allarme \textit{NONE} per maltempo e allarme \textit{WHITE} per nebbia;
+	\item allarme \textit{NONE} per maltempo e allarme \textit{GREEN} per nebbia.
+\end{itemize}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=1\linewidth]{./Iterazione 3/ImageFiles/TestResultAlgorithm}
+	\caption{Risultati test algoritmo (interfaccia di Visual Studio).}
+	\label{fig:test_result_alg}
+\end{figure}
+
+Di seguito è riportato il codice python relativo alla classe che implementa i test. Inizialmente, viene popolato un database di test con i dati caricati da dei file \textit{csv}. All'interno dei file è specificato il nome di una stazione APRS fittizia e i relativi dati di test di temperatura, umidità, pressione e data di acquisizione. Ogni test è associato a una diversa area.  Se le operazioni di caricamento termina correttamente, viene lanciata l'esecuzione dell'algoritmo. Se non si verificano eccezione, vengono poi controllati gli allarmi inseriti dall'algoritmo: se corrispondono agli allarmi attesi, il test è superato.
+
+\begingroup
+\UseRawInputEncoding
+\lstinputlisting[language=python]{./Iterazione 3/OtherFiles/test_algorithm_script.py}
+\endgroup
+
+Inoltre, si riporta un esempio di allerta nebbia di tipo \textit{RED} generata dall'algoritmo il 6 febbraio 2022 (\Fig\ref{fig:test_previsione_alg}) sulla stazione meteorologica situata nei pressi della località di Ospitaletto (BS). Si è potuto verificare che questa allerta rispecchiasse veramente la situazione meteo attuale. Infatti, le previsioni meteorologiche attuali fornite da Google indicavano la presenza di nebbia (\Fig\ref{fig:test_previsione_google}).
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.3\linewidth]{./Iterazione 3/ImageFiles/testAppRedFog}
+	\caption{Allarme nebbia attuale a Ospitaletto (BS) domenica 06/02/22 alle ore 9:20.}
+	\label{fig:test_previsione_alg}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.2\linewidth]{./Iterazione 3/ImageFiles/Nebbia Ospitaletto Google}
+	\caption{Meteo attuale fornito da Google a Ospitaletto (BS) domenica 06/02/22 alle ore 9:20.}
+	\label{fig:test_previsione_google}
 \end{figure}
 
 \clearpage

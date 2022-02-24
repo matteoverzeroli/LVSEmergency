@@ -22,7 +22,7 @@ Di seguito è riportata la specifica della struttura dati \texttt{PositionDTO}(\
 \clearpage
 
 \section{Interface and Package Diagram}
-Le API per ricevere i dati meteorologici e gli allarmi sono state implementate nel package \textit{AreaInformationManagement} (\Fig\ref{fig:InterfaceDiagram_iterazione3}) e sono gestite dal controller \texttt{AreaController}. I package \textit{alarm} e \textit{data} sono stati riportati per completezza: al loro interno sono state inserite le classi che gestiscono rispettivamente gli allarmi e i dati provenienti dalle stazioni APRS. Invece, le API che si occupano dell'ottenimento dell'ultima posizione disponibile di un utente attivo e dell'invio della nuova posizione di un utente sono state implementate nel package \textit{AccountManagment}
+Le API per ricevere i dati meteorologici e gli allarmi sono state implementate nel package \textit{AreaInformationManagement} (\Fig\ref{fig:InterfaceDiagram_iterazione3}) e sono gestite dal controller \texttt{AreaController}. I package \textit{alarm} e \textit{data} sono stati riportati per completezza: al loro interno sono state inserite le classi che gestiscono rispettivamente gli allarmi e i dati provenienti dalle stazioni APRS. Invece, le API che si occupano dell'ottenimento dell'ultima posizione disponibile di un utente attivo e dell'invio della nuova posizione di un utente sono state implementate nel package \textit{AccountManagment}: all'interno di quest'ultimo è stato inserito il package \textit{position} che contiene le classi che gestiscono la posizione.
 
 \begin{figure}[h!]
 	\centering
