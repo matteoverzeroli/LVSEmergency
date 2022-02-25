@@ -36,8 +36,17 @@ class BadWeatherAlertsCreator(th):
         
         # analysis and processing of atmospheric pressure time series regarding last 24 hours
         pressure_DS = pd.DataFrame(columns=['time','pressure'])
+        """
+        For tests use this code:
+
         self.cursor2.execute("SELECT time, pressure FROM aprsdata WHERE\
                              time >= date_sub('2022/01/30', INTERVAL 1 DAY) and name = %(code)s", {'code':self.station_code})
+        """
+
+        self.cursor2.execute("SELECT time, pressure FROM aprsdata WHERE\
+                             time >= date_sub(now(), INTERVAL 1 DAY) and name = %(code)s", {'code':self.station_code})
+
+
         info = self.cursor2.fetchall()
 
         if len(info) == 0:
