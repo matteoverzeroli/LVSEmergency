@@ -1,4 +1,4 @@
-package it.lvsemergency.areaInformationManagment.data;
+package it.lvsemergency.areaInformationManagement.data;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -8,10 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import it.lvsemergency.areaInformationManagement.data.AprsData;
-import it.lvsemergency.areaInformationManagement.data.AprsDataId;
-import it.lvsemergency.areaInformationManagement.data.AprsDataRepository;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)

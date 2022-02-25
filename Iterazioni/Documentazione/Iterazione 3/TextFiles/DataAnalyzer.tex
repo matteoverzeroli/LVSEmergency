@@ -1,9 +1,9 @@
-Il \textit{Data Analyzer} si occupa dell'analisi dei dati raccolti dal \textit{Data Collector} al fine di generare gli allarmi che saranno poi visibili agli utenti tramite l'applicazione client. Come per il \textit{Data Collector}, si è deciso di implementare questo componente come un applicativo Python che verrà in seguito distribuito su un Raspberry Pi 4 per la sua esecuzione periodica. Si è scelto di utilizzare questo linguaggio di programmazione poiché sono disponibili numerose librerie per effettuare analisi dei dati, moduli e package che verranno sfruttati per la generazione delle allerte. In particolare, si è scelto di implementare queste ultime per segnalare i rischi nebbia o brina e l'imminente arrivo di una forte perturbazione. Nella figura \ref{fig:DAFlowChart} è rappresentato il diagramma di flusso relativo al Data Analyzer. All'avvio dell'applicazione vengono inizializzate alcune strutture dati di supporto all'esecuzione ciclica degli algoritmi per l'analisi dei dati, algoritmi che sono descritti dettagliatamente in seguito. Successivamente, viene eseguito un tentativo di connessione con il DB seguendo una strategia uguale a quella utilizzata per il \textit{Data Collector}. Se la connessione viene stabilita, allora vengono recuperati dal DB e memorizzati i codici identificativi delle stazioni meteorologiche; essi saranno utilizzati successivamente per accedere ai dati da fornire in input agli algoritmi per la generazione degli allarmi. Dopodiché, viene avviato un thread per ogni zona, il quale si occuperà della generazione delle allerte maltempo tramite l'analisi dei dati relativi alla pressione atmosferica. Inoltre, vengono avviati anche i thread che si occupano di analizzare i dati di temperatura e umidità relativa al fine di creare le allerte nebbia e brina. Infine, si attende la terminazione di tutti i thread precedentemente avviati e, a join concluso, viene chiusa la connessione con il DB. Da notare che la periodicità del ciclo è di 5 minuti.
+Il \textit{Data Analyzer} si occupa dell'analisi dei dati raccolti dal \textit{Data Collector} al fine di generare gli allarmi che saranno poi visibili agli utenti tramite l'applicazione client. Come per il \textit{Data Collector}, si è deciso di implementare questo componente come un applicativo Python che verrà in seguito distribuito su un Raspberry Pi 4 per la sua esecuzione periodica. Si è scelto di utilizzare questo linguaggio di programmazione poiché sono disponibili numerose librerie per effettuare analisi dei dati e che verranno sfruttate per la generazione delle allerte. In particolare, si è scelto di implementare le allerte per segnalare i rischi di nebbia o brina e l'imminente arrivo di una forte perturbazione. Nella figura \ref{fig:DAFlowChart} è rappresentato il diagramma di flusso relativo al Data Analyzer. All'avvio dell'applicazione vengono inizializzate alcune strutture dati necessarie all'esecuzione degli algoritmi per l'analisi dei dati, algoritmi che sono descritti dettagliatamente in seguito. Successivamente, viene eseguito un tentativo di connessione con il DB seguendo una strategia uguale a quella utilizzata per il \textit{Data Collector}. Se la connessione viene stabilita con successo, vengono recuperati dal DB  i codici identificativi delle stazioni meteorologiche; essi saranno utilizzati successivamente per accedere ai dati da fornire in input agli algoritmi per la generazione degli allarmi. Dopodiché, viene avviato un thread per ogni zona, il quale si occuperà della generazione delle allerte maltempo tramite l'analisi dei dati relativi alla pressione atmosferica. Inoltre, vengono avviati anche i thread che si occupano di analizzare i dati di temperatura e umidità relativa al fine di creare le allerte nebbia e brina. Infine, si attende la terminazione di tutti i thread precedentemente avviati e, a join concluso, viene chiusa la connessione con il DB. Da notare che la periodicità del ciclo è di 5 minuti.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[height=590px]{./Iterazione 3/OtherFiles/FC - Data analyzer}
-	\caption{diagramma di flusso relativo all'esecuzione del componente Data Analyzer.}
+	\caption{Diagramma di flusso relativo all'esecuzione del componente Data Analyzer.}
 	\label{fig:DAFlowChart}
 \end{figure}
 
@@ -23,33 +23,32 @@ La pressione atmosferica, inoltre, è soggetta a un andamento periodico nel cors
 	\item secondo minimo alle ore 16;
 	\item secondo massimo alle ore 22.
 \end{itemize}
-Pertanto, è importante innanzitutto destagionalizzare la serie storica affinché possano essere studiate le variazioni relative esclusivamente a un cambiamento delle condizioni meteorologiche.
+Pertanto, è importante innanzitutto destagionalizzare la serie storica delle misure di pressione affinché possano essere studiate le variazioni relative esclusivamente a un cambiamento delle condizioni meteorologiche.
 
-\subparagraph{Descrizione dell'algoritmo} Il primo passo consiste nell'accedere al DB per ottenere la data e l'ora dell'acquisizione più recente di pressione atmosferica, ossia $t_{f}$, con riferimento alla stazione APRS.FI a cui  è associata la zona d'interesse su cui il thread sta operando. Se $t_{f}$ risulta essere uguale a $t_{f,OLD}$, ossia all'istante temporale rispetto al quale è stata generata l'allerta più recente, allora significa che il Data Collector non ha inserito nel DB una nuova rilevazione durante i \SI{5}{\minute} di attesa, quindi l'algoritmo termina perché sarebbe inutile creare un'allerta basata su dei dati che non sono ancora stati aggiornati. Una volta verificata la diversità tra $t_{f}$ e $t_{f,OLD}$, si accede alla serie storica della pressione atmosferica delle ultime 24 ore e la si destagionalizza; $p_{atm}$ è caratterizzata infatti da un andamento giornaliero che dev'essere eliminato affinché possano essere osservate le variazioni associate esclusivamente a un cambiamento delle condizioni meteorologiche. Per rimuovere questa componente di non-stazionarietà è sufficiente sottrarre a ogni campione la media in orizzontale. Dopodiché, vengono definiti i seguenti intervalli:
+\subparagraph{Descrizione dell'algoritmo} Il primo passo consiste nell'accedere al DB per ottenere la data e l'ora dell'acquisizione più recente di pressione atmosferica, denominata $t_{f}$, con riferimento alla stazione APRS.FI a cui  è associata la zona d'interesse su cui il thread sta operando. Se $t_{f}$ risulta essere uguale a $t_{f,OLD}$, ossia all'istante temporale rispetto al quale è stata generata l'allerta più recente, allora significa che il \textit{Data Collector} non ha inserito nel DB una nuova rilevazione durante i \SI{5}{\minute} di attesa, quindi l'algoritmo termina perché sarebbe inutile creare un'allerta basata su dei dati che non sono ancora stati aggiornati. Una volta verificata la differenza tra $t_{f}$ e $t_{f,OLD}$, si accede alla serie storica della pressione atmosferica delle ultime 24 ore e la si destagionalizza; $p_{atm}$ è caratterizzata infatti da un andamento giornaliero che dev'essere eliminato affinché possano essere osservate le variazioni associate esclusivamente a un cambiamento delle condizioni meteorologiche. Per rimuovere questa componente di non-stazionarietà è sufficiente sottrarre a ogni campione la media in orizzontale. Tuttavia, se è presente alcun dato della pressione atmosferica nelle ultime 24 ore, il thread termina.
+
+Dopodiché, vengono definite le seguenti variabili:
+
 \begin{itemize}
-	\item I$_1$ = \{sottoinsieme dei dati di $p_{atm}(t)$ contenente gli istanti temporali relativi alle prime 2~rilevazioni di \todo{di cosa? Questa frase non è completa} a partire dall'istante 3 ore precedente a $t_f$\}
-	\item I$_2$ = \{sottoinsieme dei dati di $p_{atm}(t)$ contenente gli istanti temporali relativi alle ultime 2~rilevazioni\}.
-\end{itemize}
-Questi ultimi vengono a loro volta utilizzati per calcolare i seguenti parametri, valori necessari per implementare l'approccio \textit{specifico}\todo{Perchè in corsivo?}, ossia il più affidabile, per prevedere l'andamento delle condizioni meteorologiche:
-\begin{itemize}
-	\item $\bar{p}_{low} = \frac{1}{2} \cdot \sum_{i = 1}^{I_1} p_{atm}(i)$;
-	\item $\bar{p}_{up} = \frac{1}{2} \cdot \sum_{i = 1}^{I_2} p_{atm}(i)$.
+	\item $\bar{p}_{low}$, che rappresenta la media tra le prime due misurazioni di pressione delle ultime tre ore;
+	\item $\bar{p}_{up}$, che rappresenta la media tra le ultime due misurazioni di pressione delle ultime tre ore;
 	\item $\Delta = \bar{p}_{up} - \bar{p}_{low}$	
 \end{itemize}
-Si sarebbe potuto calcolare la variazione "pura" sottraendo al valore di pressione atmosferica più recente quello 3 ore precedente, ma si è preferito calcolare le medie $\bar{p}_{low}$ e $\bar{p}_{up}$ per limitare i disturbi dovuti a errori di misura dei sensori barometrici installati sulle stazioni APRS.FI. Da notare che $\Delta$ descrive la variazione \textit{media} di $p_{atm}$ nelle ultime 3 ore. In base al valore assunto da quest'ultimo parametro vengono create le seguenti allerte:
+
+Si è scelto di calcolare le medie delle misure di pressione $\bar{p}_{low}$ e $\bar{p}_{up}$ per limitare i disturbi dovuti a errori di misura dei sensori barometrici installati sulle stazioni APRS.FI. Da notare che $\Delta$ descrive la variazione \textit{media} di $p_{atm}$ nelle ultime 3 ore. In base al valore assunto da quest'ultimo parametro vengono create le seguenti allerte:
 \begin{itemize}
 	\item se $\Delta \ge 0$, allora viene generata un'allerta di tipo \textit{NONE}: la pressione atmosferica è in aumento, quindi non è previsto l'arrivo di una perturbazione;
-	\item altrimenti se $\Delta > \Delta_{OLD}$, allora viene creata un'allerta di tipo \textit{NONE}: il maltempo si sta allontanando oppure un picco negativo di $p_{atm}$ è stato superato poiché la variazione è più piccola rispetto alla rilevazione precedente;
-	\item altrimenti se $\Delta < \SI{5}{\hecto\pascal}$, allora viene generata un'allerta di tipo \textit{RED}: una violenta perturbazione è in avvicinamento ed è imminente;
-	\item altrimenti viene creata un'allerta di tipo \textit{NONE}: la pressione è in diminuzione, tuttavia la variazione nelle ultime 3 ore non è tale da destare allarmismi. Una perturbazione potrebbe essere in avvicinamento, tuttavia, se fosse violenta, non sopraggiungerebbe in tempi brevi.
+	\item altrimenti se $\Delta > \Delta_{OLD}$ (dove $\Delta_{OLD}$ rappresenta la differenza di pressione calcolata nell'iterazione precedente), allora viene creata un'allerta di tipo \textit{NONE}: il maltempo si sta allontanando oppure un picco negativo di $p_{atm}$ è stato superato poiché la variazione è più piccola rispetto alla rilevazione precedente;
+	\item altrimenti se $\Delta < -\SI{5}{\hecto\pascal}$, allora viene generata un'allerta di tipo \textit{RED}: una violenta perturbazione è in avvicinamento ed è imminente;
+	\item altrimenti viene creata un'allerta di tipo \textit{NONE}: la pressione è in diminuzione, tuttavia la variazione nelle ultime 3 ore non è tale da permettere di prevedere una perturbazione in tempi brevi.
 \end{itemize}
 Dopo aver inserito l'allerta nel DB tramite una query, i parametri $t_{f,OLD}$ e $\Delta_{OLD}$ vengono aggiornati rispettivamente con $t_f$ e $\Delta$ in modo tale che i nuovi valori possano essere utilizzati come termini di confronto nell'iterazione successiva dell'algoritmo. 
-\par Da sottolineare, infine, il fatto che non sia stato utilizzato un modello statistico a memoria breve per prevedere l'andamento della pressione atmosferica nei minuti successivi in quanto una sua variazione, anche notevole, non preannuncia l'arrivo del maltempo in tempi stretti (meno di 1 ora), perciò le informazioni ottenibili studiando i dati delle ultime 3 ore sono sufficientemente esaustivi per fare previsione. 
+\par Da sottolineare, infine, il fatto che non sia stato utilizzato un modello statistico per prevedere l'andamento della pressione atmosferica nei minuti successivi in quanto una sua variazione, anche notevole, non preannuncia l'arrivo del maltempo in tempi stretti (meno di 1 ora), perciò le informazioni ottenibili studiando i dati delle ultime 3 ore sono sufficientemente esaustivi per fare previsione. 
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[height=590px]{./Iterazione 3/OtherFiles/FC - Generatore allerte BW.pdf}
-	\caption{diagramma di flusso relativo all'algoritmo di generazione delle allerte maltempo.}
+	\caption{Diagramma di flusso relativo all'algoritmo di generazione delle allerte maltempo.}
 	\label{fig:BFFlowChart}
 \end{figure}
 
@@ -64,13 +63,13 @@ Dopo aver inserito l'allerta nel DB tramite una query, i parametri $t_{f,OLD}$ e
 \[UR\mbox{ (umidità relativa): } 0,01 < UR < 1,00\]
 La nebbia si forma quando T = T$_d$, mentre la brina quando T = T$_d$ con T$_d < 0$
 
-\subparagraph{Descrizione dell'algoritmo} Per generare le allerte nebbia e brina si deve calcolare la temperatura di rugiada T$_d$ (o \textit{dew point}), la quale a sua volta è funzione della temperatura T e dell'umidità relativa UR. Pertanto, dopo aver verificato la diversità tra $t_f$ e $t_{f,OLD}$, il primo passo dell'algoritmo (figura \ref{fig:FFFlowChart1}), viene eseguita una query per accedere ai dati di temperatura delle ultime 24 ore rilevati dalla stazione APRS.FI associata alla zona di competenza del thread. Questo parametro atmosferico dev'essere studiato tramite un modello statistico affinché possa essere previsto il suo comportamento nel breve termine; la scelta è ricaduta sull'ARIMA, un modello ARMA che rende stazionaria, se già non lo fosse, la serie storica tramite differenziazioni. Per identificare il modello, ossia per stimare il valore dei suoi parametri a massima verosimiglianza (o MLE), e per svolgere l'analisi di complessità, una procedura basata sulla minimizzazione dell'informazione di Akaike (o AIC), è stata utilizzata la funzione \textit{auto\_arima} del package \textit{pmdarima} disponibile per il linguaggio Python. Da notare che a ogni iterazione viene stimato un nuovo modello utilizzando anche l'acquisizione più recente presente nel DB. Una volta conclusa l'operazione di stima del modello ARIMA, esso viene impiegato per svolgere una predizione a 3 passi della temperatura, ossia a:
+\subparagraph{Descrizione dell'algoritmo} Per generare le allerte nebbia e brina si deve calcolare la temperatura di rugiada T$_d$ (o \textit{dew point}), la quale dipende della temperatura T e dell'umidità relativa UR. Dopo aver verificato che i dati non siano già stati analizzati ($t_f \neq t_{f,OLD}$), il primo passo dell'algoritmo (\Fig\ref{fig:FFFlowChart1}) consiste nell'eseguire una query per accedere ai dati di temperatura delle ultime 24 ore rilevati dalla stazione APRS.FI associata alla zona di riferimento del thread. Per effettuare una previsione della temperatura si è scelto l'utilizzo di un modello ARIMA, che permette anche di rendere stazionaria, se già non lo fosse, la serie storica tramite differenziazioni. Per identificare il modello, ossia per stimare il valore dei suoi parametri a massima verosimiglianza (o MLE) e per svolgere l'analisi di complessità (una procedura basata sulla minimizzazione dell'indicatore AIC) è stata utilizzata la funzione \textit{auto\_arima} del modulo \textit{pmdarima} disponibile per in Python. A ogni iterazione dell'algoritmo viene stimato un nuovo modello utilizzando anche l'acquisizione più recente presente nel DB. Una volta conclusa l'operazione di stima del modello ARIMA, esso viene utilizzato per svolgere una predizione a 3 passi della temperatura, ossia a:
 \begin{itemize}
 	\item $t_1 = t_f + k$; 
 	\item $t_2 = t_f + 2 \cdot k$;
 	\item $t_3 = t_f + 3 \cdot k$; 
 \end{itemize}
-con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni consecutive da parte della stazione meteorologica (circa \SI{10}{\minute}) e $t_f$ la data e l'ora dell'acquisizione più recente presente nel DB. Lo stesso studio a scopo predittivo viene fatto anche per l'umidità relativa. Una volta note le previsioni di T e UR, esse vengono combinate per fare la predizione a 3 passi della temperatura di rugiada T$_d$. Dopodiché, vengono calcolati gli intervalli di validità I, IC$_1$, IC$_2$ e IC$_3$ entro i quali la temperatura deve rientrare affinché venga generata un'allerta. Essi sono necessari non solo perché non si otterrà mai un'uguaglianza tra T(\textit{t}) e T$_d$(\textit{t}) a causa degli errori di predizione, ma anche perché la condensazione dell'acqua contenuta nell'aria può avvenire a una temperatura superiore a quella di rugiada; T$_d$, infatti, non tiene conto nè della temperatura del suolo, il quale potrebbe essere più freddo della colonna d'aria che lo sovrasta, nè della presenza di sostanze chimiche capaci di alterare il dew point. Gli intervalli sono asimmetrici poiché T non può essere più piccola di T$_d$; se così fosse l'umidità relativa supererebbe il \SI{100}{\percent}, un evento fisicamente impossibile. Per i criteri di generazione delle allerte si invita a visualizzare la figura \ref{fig:FFFlowChart2}: si noti che l'allerta brina viene creata quando la temperatura, attuale $T(t_f)$ o prevista $\hat{T}(t_1|t_f)$, $\hat{T}(t_2|t_f)$ e $\hat{T}(t_3|t_f)$: 
+con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni consecutive da parte della stazione meteorologica (circa \SI{10}{\minute}) e $t_f$ la data e l'ora dell'acquisizione più recente presente nel DB. Lo stesso studio a scopo predittivo viene fatto anche per l'umidità relativa. Una volta note le previsioni di T e UR, esse vengono combinate per effettuare la predizione a 3 passi della temperatura di rugiada T$_d$. Dopodiché, vengono calcolati gli intervalli di validità I, IC$_1$, IC$_2$ e IC$_3$ entro i quali la temperatura deve rientrare affinché venga generata un'allerta. Essi sono necessari non solo perché non si otterrà mai un'uguaglianza precisa tra T(\textit{t}) e T$_d$(\textit{t}) a causa degli errori di predizione, ma anche perché la condensazione dell'acqua contenuta nell'aria può avvenire a una temperatura superiore a quella di rugiada; infatti, T$_d$ non tiene conto nè della temperatura del suolo, il quale potrebbe essere più freddo della colonna d'aria che lo sovrasta, nè della presenza di sostanze chimiche capaci di alterare il dew point. Gli intervalli sono asimmetrici poiché T non può essere più piccola di T$_d$; se così fosse l'umidità relativa supererebbe il \SI{100}{\percent}, un evento fisicamente impossibile. Per i criteri di generazione delle allerte si faccia riferimento alla figura \ref{fig:FFFlowChart2}. Si noti che l'allerta brina viene creata quando la temperatura, attuale $T(t_f)$ o prevista $\hat{T}(t_1|t_f)$, $\hat{T}(t_2|t_f)$ e $\hat{T}(t_3|t_f)$: 
 \begin{itemize}
 	\item rientra nel proprio intervallo di validità (es. $\hat{T}(t_1|t_f) \in$ IC$_1$ $= [\hat{T_d}(t_1|t_f);\hat{T_d}(t_1|t_f) + \SI{0.45}{\degreeCelsius}]$);
 	\item è non-positiva (es. $\hat{T}(t_1|t_f) \le 0$).
@@ -92,8 +91,8 @@ con \textit{k} che rappresenta il tempo che intercorre tra due rilevazioni conse
 
 \clearpage
 
-\paragraph{Algoritmo}
-Di seguito sono riportati gli pseudocodici dell'algoritmo e delle funzioni alla base della generazione degli allarmi implementati nell'iterazione 3, descritti tramite i diagrammi di flusso precedentemente presentati.
+\subsection{Algoritmo}
+Di seguito sono riportati gli pseudocodici dell'algoritmo e delle funzioni alla base della generazione degli allarmi implementati nell'iterazione 3 e già descritti tramite i diagrammi di flusso presentati precedentemente.
 
 \SetKwComment{Comment}{/* }{ */}
 \RestyleAlgo{ruled}
@@ -124,11 +123,11 @@ Di seguito sono riportati gli pseudocodici dell'algoritmo e delle funzioni alla 
 		\textbf{/* Elaborazione della serie storica relativa alla pressione atmosferica */}\;
 		$pressure\_DS\gets$ recupera i dati di pressione atmosferica delle ultime \num{24} ore della stazione $station\_code$\;
 		\If{$parameter\_DS$ is empty}{\textbf{exit}\;}
-		$p\_mean \gets$ mean($pressure\_DS$[all ; `pressure'])\;
+		$p\_mean \gets$ mean($pressure\_DS$)\;
 		\For{$i = 1$ \KwTo lenght($pressure\_DS$)}{
 			$pressure\_DS$[$i$] $\gets pressure\_DS$[$i$] - $p\_mean$ \Comment*[r]{Destagionalizzazione} 
 		}
-		$pressure\_DS \gets$ seleziona pressione ultime \num{3} ore\;
+		$pressure\_DS \gets$ seleziona pressione ultime \num{3} ore di $pressure\_DS$\;
 		$p\_low \gets$ mean($pressure\_DS$[\num{1}:\num{2}])\;
 		$p\_up \gets$ mean($pressure\_DS$[end-\num{1}:end])\;
 		$delta \gets p\_up - p\_low$\;
@@ -139,7 +138,7 @@ Di seguito sono riportati gli pseudocodici dell'algoritmo e delle funzioni alla 
 		}
 		\uElseIf{$delta > old\_delta\_list\left[index\right]$}{
 			crea un'allerta NONE, maltempo in allontanamento\;
-			inserisci tramite una query l'allerta nel DB\;
+			inserisci l'allerta nel DB\;
 		}
 		\uElseIf{$delta < -\SI{5}{\hecto\pascal}$}{
 			crea un'allerta RED, maltempo in avvicinamento\textbackslash picco negativo superato\;
@@ -267,7 +266,7 @@ Di seguito sono riportati gli pseudocodici dell'algoritmo e delle funzioni alla 
 
 \clearpage
 
-\paragraph{Analisi computazionale}
+\paragraph{Analisi complessità}
 Procediamo ora con l'analisi della complessità temporale dell'algoritmo. 
 
 Nello psudocodice \Alg\ref{alg:1} è riportato l'entry point dell'algoritmo. Infatti, per ogni area vengono chiamate le funzioni \textit{badWeatherAlertsCreator} e \textit{fogFrostAlertsCreator} che si occupano della generazione delle allerte. Queste due funzioni avranno un costo costante per ogni area analizzata. Analizziamo più in dettaglio il costo computazionale delle funzioni:

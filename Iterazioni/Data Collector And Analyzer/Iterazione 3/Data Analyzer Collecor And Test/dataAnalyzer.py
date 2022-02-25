@@ -66,8 +66,10 @@ class BadWeatherAlertsCreator(th):
 
         pressure_DS = pressure_DS[pressure_DS.time > min_3h]
         y_3h = list(pressure_DS['pressure'])
+
         p_low = (y_3h[1] + y_3h[2])/2
         p_up = (y_3h[-2] + y_3h[-3])/2
+
         delta = p_up - p_low
         
         # bad weather alerts creation
