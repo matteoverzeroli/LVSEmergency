@@ -266,10 +266,10 @@ TSWLatexianTemp*
 # standalone packages
 *.sta
 
-Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/.vs/
-Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/__pycache__/
-Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/env/
-Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/New folder.pyproj
-Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/New folder.pyproj.user
-Iterazioni/Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/New folder.sln
+Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/.vs/
+Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/__pycache__/
+Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/env/
+Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/New folder.pyproj
+Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/New folder.pyproj.user
+Data Collector And Analyzer/Iterazione 3/Data Analyzer Collecor And Test/New folder.sln
 
