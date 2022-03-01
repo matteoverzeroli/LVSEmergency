@@ -32,23 +32,9 @@
 							"            \"sex\": \"M\",\r",
 							"            \"email\": \"mario@rossi.it\",\r",
 							"            \"idTeam\": 1,\r",
-							"            \"role\": \"ADMINISTRATOR\",\r",
+							"            \"role\": \"VOLUNTEER\",\r",
 							"            \"state\": \"ACTIVE\",\r",
 							"            \"cf\": \"MRARSS80A01C800V\"\r",
-							"        },\r",
-							"        {\r",
-							"            \"idUser\": 2,\r",
-							"            \"username\": \"admin1\",\r",
-							"            \"name\": \"Daniela\",\r",
-							"            \"surname\": \"Rossi\",\r",
-							"            \"address\": \"Via Nazionale 8\",\r",
-							"            \"cellNumber\": \"325186255\",\r",
-							"            \"sex\": \"F\",\r",
-							"            \"email\": \"daniela@rossi.it\",\r",
-							"            \"idTeam\": 1,\r",
-							"            \"role\": \"ADMINISTRATOR\",\r",
-							"            \"state\": \"ACTIVE\",\r",
-							"            \"cf\": \"DNARSS80A01C800V\"\r",
 							"        },\r",
 							"        {\r",
 							"            \"idUser\": 4,\r",
@@ -271,6 +257,129 @@
 			]
 		},
 		{
+			"name": "Set id foraman",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Codice di stato: 202; Caposquadra assegnato correttamente\", () => {\r",
+							"    pm.response.to.have.status(202);\r",
+							"    pm.expect(\"Foreman 6 assigned to 3 correctly !\").to.eql(pm.response.text());\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/teams/setforeman?idTeam=3&idForeman=6",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"teams",
+						"setforeman"
+					],
+					"query": [
+						{
+							"key": "idTeam",
+							"value": "3"
+						},
+						{
+							"key": "idForeman",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Set id foraman",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/teams/setforeman?idTeam=3&idForeman=6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"teams",
+								"setforeman"
+							],
+							"query": [
+								{
+									"key": "idTeam",
+									"value": "3"
+								},
+								{
+									"key": "idForeman",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"status": "Accepted",
+					"code": 202,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain;charset=UTF-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "35"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 29 Jan 2022 13:07:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "Foreman 6 assigned to 3 correctly !"
+				}
+			]
+		},
+		{
 			"name": "Delete a team",
 			"event": [
 				{
@@ -484,129 +593,6 @@
 					],
 					"cookie": [],
 					"body": "Team created successfully!"
-				}
-			]
-		},
-		{
-			"name": "Set id foraman",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Codice di stato: 202; Caposquadra assegnato correttamente\", () => {\r",
-							"    pm.response.to.have.status(202);\r",
-							"    pm.expect(\"Foreman 6 assigned to 3 correctly !\").to.eql(pm.response.text());\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/teams/setforeman?idTeam=3&idForeman=6",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"teams",
-						"setforeman"
-					],
-					"query": [
-						{
-							"key": "idTeam",
-							"value": "3"
-						},
-						{
-							"key": "idForeman",
-							"value": "6"
-						}
-					]
-				}
-			},
-			"response": [
-				{
-					"name": "Set id foraman",
-					"originalRequest": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/teams/setforeman?idTeam=3&idForeman=6",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"teams",
-								"setforeman"
-							],
-							"query": [
-								{
-									"key": "idTeam",
-									"value": "3"
-								},
-								{
-									"key": "idForeman",
-									"value": "6"
-								}
-							]
-						}
-					},
-					"status": "Accepted",
-					"code": 202,
-					"_postman_previewlanguage": "plain",
-					"header": [
-						{
-							"key": "X-Content-Type-Options",
-							"value": "nosniff"
-						},
-						{
-							"key": "X-XSS-Protection",
-							"value": "1; mode=block"
-						},
-						{
-							"key": "Cache-Control",
-							"value": "no-cache, no-store, max-age=0, must-revalidate"
-						},
-						{
-							"key": "Pragma",
-							"value": "no-cache"
-						},
-						{
-							"key": "Expires",
-							"value": "0"
-						},
-						{
-							"key": "X-Frame-Options",
-							"value": "DENY"
-						},
-						{
-							"key": "Content-Type",
-							"value": "text/plain;charset=UTF-8"
-						},
-						{
-							"key": "Content-Length",
-							"value": "35"
-						},
-						{
-							"key": "Date",
-							"value": "Sat, 29 Jan 2022 13:07:53 GMT"
-						},
-						{
-							"key": "Keep-Alive",
-							"value": "timeout=60"
-						},
-						{
-							"key": "Connection",
-							"value": "keep-alive"
-						}
-					],
-					"cookie": [],
-					"body": "Foreman 6 assigned to 3 correctly !"
 				}
 			]
 		}
