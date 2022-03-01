@@ -177,7 +177,13 @@ void UserController::userAdded()
 
         emit userAddedWithSuccess();
     } else {
-        emit errorOnAddingNewUser();
+        QJsonDocument errorDoc = QJsonDocument::fromJson(response);
+        QJsonObject errorObject = errorDoc.object();
+        QString message = errorObject["message"].toString();
+        if (message.contains("User already exists"))
+            emit errorOnAddingNewUser("Lo Username inserito è già in uso!");
+        else
+            emit errorOnAddingNewUser(message);
     }
 
     reply->deleteLater();

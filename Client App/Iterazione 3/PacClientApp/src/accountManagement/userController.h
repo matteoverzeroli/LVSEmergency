@@ -49,7 +49,7 @@ signals:
     void authErrorChanged(bool );
     void currentUserChanged(accountManagement::User *);
     void userAddedWithSuccess();
-    void errorOnAddingNewUser();
+    void errorOnAddingNewUser(QString message);
     void usersChanged(QQmlListProperty<accountManagement::User>);
     void userDeletedWithSuccess();
     void errorWhileDeletingUser();

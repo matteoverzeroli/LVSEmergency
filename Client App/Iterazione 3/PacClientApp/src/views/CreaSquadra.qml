@@ -104,6 +104,7 @@ Flickable {
                     width: parent.width / 2
                     placeholderText: qsTr("Nome del team")
                     horizontalAlignment: Qt.AlignHCenter
+                    validator: RegExpValidator{ regExp: /^[a-zA-Z0-9\. ]{1,20}$/}
                 }
             }
         }

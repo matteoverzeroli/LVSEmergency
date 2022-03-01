@@ -20,8 +20,9 @@ Flickable {
             volunteerRadio.checked = true
         }
 
-        function onErrorOnAddingNewUser() {
+        function onErrorOnAddingNewUser(error) {
             busyIndicator.running = false
+            labelError.text = error
             userErrorDialog.open()
         }
     }
@@ -41,6 +42,7 @@ Flickable {
             spacing: 20
             anchors.fill: parent
             Label {
+                width: parent.width
                 text: "L'utente è stato inserito con successo!"
                 wrapMode: Label.Wrap
             }
@@ -57,11 +59,14 @@ Flickable {
         modal: true
         title: "Attenzione!"
         standardButtons: Dialog.Ok
+        width: parent.width - 100
 
         Column {
             spacing: 20
             anchors.fill: parent
             Label {
+                id: labelError
+                width: parent.width
                 text: "Lo Username inserito è già in uso!"
                 wrapMode: Label.Wrap
             }
@@ -99,6 +104,7 @@ Flickable {
                     placeholderText: qsTr("Username")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
+                    validator: RegExpValidator{ regExp: /^[a-zA-Z0-9\. ]{1,50}$/}
                 }
             }
         }
@@ -126,6 +132,7 @@ Flickable {
                     placeholderText: qsTr("Nome")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
+                    validator: RegExpValidator{ regExp: /^[a-zA-Z0-9 ]{1,50}$/}
                 }
             }
         }
@@ -153,6 +160,7 @@ Flickable {
                     placeholderText: qsTr("Cognome")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
+                    validator: RegExpValidator{ regExp: /^[a-zA-Z0-9 ]{1,50}$/}
                 }
             }
         }
@@ -185,6 +193,7 @@ Flickable {
                         echoMode: checkShowPassword.checked ? TextField.Normal : TextField.Password
                         verticalAlignment: Qt.AlignVCenter
                         horizontalAlignment: Qt.AlignHCenter
+
                     }
                 }
 
@@ -240,6 +249,7 @@ Flickable {
                     placeholderText: qsTr("Codice Fiscale")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
+                    validator: RegExpValidator{ regExp: /^[A-Z0-9]{16}$/}
                 }
             }
         }
@@ -289,6 +299,7 @@ Flickable {
                     placeholderText: qsTr("Indirizzo")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
+                    validator: RegExpValidator{ regExp: /^[a-zA-Z0-9 \.]{1,50}$/}
                 }
             }
         }
@@ -315,6 +326,7 @@ Flickable {
                     placeholderText: qsTr("Cellulare")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
+                    validator: RegExpValidator{ regExp: /^[0-9]{10}$/}
                 }
             }
         }
@@ -341,6 +353,7 @@ Flickable {
                     placeholderText: qsTr("Email")
                     verticalAlignment: Qt.AlignVCenter
                     horizontalAlignment: Qt.AlignHCenter
+                    validator: RegExpValidator{ regExp: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/}
                 }
             }
         }
@@ -461,10 +474,13 @@ Flickable {
                     title: "Attenzione!"
                     standardButtons: Dialog.Ok
 
+                    width: parent.width - 100
+
                     Column {
                         spacing: 20
                         anchors.fill: parent
                         Label {
+                            width: parent.width
                             text: "Verificare di aver inserito correttamente tutti i campi e riprovare."
                             wrapMode: Label.Wrap
                         }
