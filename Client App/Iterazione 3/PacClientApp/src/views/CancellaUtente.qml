@@ -131,11 +131,15 @@ Page {
                 anchors.right: parent.right
 
                 SwipeDelegate.onClicked: {
-                    masterController.ui_userController.deleteUser(model.idUser)
+                    console.log("Clicked the delete.")
                 }
 
                 background: Rectangle {
                     color: deleteLabel.SwipeDelegate.pressed ? Qt.darker("tomato", 1.1) : "tomato"
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: masterController.ui_userController.deleteUser(model.idUser)
+                    }
                 }
             }
         }

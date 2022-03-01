@@ -246,6 +246,8 @@ void UserController::deleteUser(int idUser)
 void UserController::userDeleted()
 {
     QNetworkReply *reply = dynamic_cast<QNetworkReply*>(sender());
+    QByteArray response = reply->readAll();
+    qDebug() << "Error deleting user" << response;
 
     if (reply->error() == QNetworkReply::NoError) {
         emit userDeletedWithSuccess();
