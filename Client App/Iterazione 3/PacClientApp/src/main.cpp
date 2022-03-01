@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
     QIcon::setThemeName("gallery");
 
+
     int loadedFontID = QFontDatabase::addApplicationFont ( ":/fonts/OpenSans-Regular.ttf" );
 
     qDebug() << "loadedFontID:" << loadedFontID;

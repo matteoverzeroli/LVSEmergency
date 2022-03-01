@@ -23,6 +23,7 @@
         <file alias="LVSEmergencyStatic.png">assets/LVSEmergencyStatic.png</file>
         <file alias="marker_blue.png">assets/marker_blue.png</file>
         <file alias="marker_red.png">assets/marker_red.png</file>
+        <file alias="LVSEmergency.ico">assets/LVSEmergency.ico</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="OpenSans-Bold.ttf">fonts/OpenSans-Bold.ttf</file>

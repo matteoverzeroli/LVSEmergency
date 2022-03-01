@@ -94,7 +94,7 @@ public class UserService implements AccountManagementIF, UserDetailsService {
 	public UserDTO addUser(UserDTO userDto) {
 		Optional<User> user = userRepository.findByUsername(userDto.getUsername());
 
-		if (!user.isEmpty())
+		if (user.isPresent())
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists");
 		
 		User newUser = modelMapper.map(userDto, User.class);

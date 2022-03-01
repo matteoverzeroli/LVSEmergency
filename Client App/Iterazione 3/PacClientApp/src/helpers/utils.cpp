@@ -37,8 +37,8 @@ QString Utils::getWebServerPrefix()
     if (prefix.isEmpty())
         prefix = "localhost";
 
-    if (0)
-        return QString("https://progetto-pac-lvsemergency-2021-pacserverweb.azuremicroservices.io");
+    if (1)
+        return QString("https://lvsemergency-lvsemergency-webserver.azuremicroservices.io");
     else if (1)
         return QString("http://" + prefix + ":8080");
 }

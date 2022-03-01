@@ -77,6 +77,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 android: include(C:/Users/Davide/AppData/Local/Android/Sdk/android_openssl/openssl.pri)
 
+win32:RC_ICONS += C:/Users/Davide/Documents/Progetto-PAC/ClientApp/Iterazione3/PacClientApp/src/assets/LVSEmergency.ico
+
 DISTFILES += \
     android/AndroidManifest.xml \
     android/build.gradle \
