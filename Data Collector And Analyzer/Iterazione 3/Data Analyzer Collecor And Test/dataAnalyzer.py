@@ -29,7 +29,7 @@ class BadWeatherAlertsCreator(th):
         # with the last  acquisition in DB
         if self.old_final_time_list[self.index] is not None:
             if self.recent_time == self.old_final_time_list[self.index]:
-                print("No new row")
+                print("No new row pressure of station " + self.station_code + "\n")
                 self.conn2.close()
                 self.cursor2.close()
                 exit(0)
@@ -127,7 +127,7 @@ class FogFrostAlertsCreator (th):
         # with the last  acquisition in DB
         if self.old_final_time_list[self.index] is not None:
             if self.recent_time == self.old_final_time_list[self.index]:
-                print("No new row")
+                print("No new row temperature/humidity of station " + self.station_code + "\n")
                 self.conn1.close()
                 self.cursor1.close()
                 exit(0)
